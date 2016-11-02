@@ -1,4 +1,4 @@
-package OwnOntologyPopularizer
+package ownOntologyPopularizer
 
 import scala.io.Source
 
