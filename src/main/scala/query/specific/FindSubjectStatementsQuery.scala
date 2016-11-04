@@ -1,9 +1,10 @@
-package query
+package query.specific
 
 /**
   * Created by Espen on 02.11.2016.
   */
-import FindSubjectStatementsQuery.getQuery
+import query.specific.FindSubjectStatementsQuery.getQuery
+import query.{FindProperty, FindSubject, Query}
 class FindSubjectStatementsQuery(val entity: String) extends Query(getQuery(entity)) with FindSubject with FindProperty{
 
 

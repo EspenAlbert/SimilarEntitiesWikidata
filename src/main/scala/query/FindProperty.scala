@@ -1,12 +1,13 @@
 package query
 
+import scala.collection.mutable.ArrayBuffer
+
 /**
   * Created by Espen on 02.11.2016.
   */
-trait FindProperty extends Query{
-  def getProperties(): List[String] = {
-    val resList : String = resultStream.toString()
-    return null
+trait FindProperty extends FindSomething{
+  def getProperties(): ArrayBuffer[String] = {
+    return findVariable('p')
   }
 
 }

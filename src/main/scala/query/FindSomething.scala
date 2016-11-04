@@ -40,7 +40,7 @@ trait FindSomething extends Query{
 
     return for(
       (value,i) <- values.zipWithIndex
-      if i % headers.length == index) yield value
+      if i % headers.length == index) yield value.trim()
 
   }
 }
