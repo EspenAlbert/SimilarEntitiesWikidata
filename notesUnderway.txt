@@ -1,0 +1,4 @@
+P1963 = Properties for this type
+human
+properties for this type
+sex or gender,date of birth, date of death

@@ -1,8 +1,8 @@
 package query.specific
 
-import query.{FindObject, FindProperty, Query}
 import query.specific.FindObjectStatementsQuery.getQuery
-class FindObjectStatementsQuery(val entity: String) extends Query(getQuery(entity)) with FindObject with FindProperty{
+import query.{FindObject, FindProperty, MultipleGraphQuery}
+class FindObjectStatementsQuery(val entity: String) extends MultipleGraphQuery(getQuery(entity)) with FindObject with FindProperty{
 
 
 }

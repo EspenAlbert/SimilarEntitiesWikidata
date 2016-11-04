@@ -2,15 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="61c6d86c-a94e-43fe-9f19-468998b2f01a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/query/FindObject.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/query/specific/FindSubjectStatementsQuery.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/query/TestFindObjectStatementsQuery.scala" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/query/jenaQuerier/FindSubjectStatementsQuery.scala" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/similarentitieswikidata.iml" afterPath="$PROJECT_DIR$/.idea/modules/similarentitieswikidata.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/priorityQueueExample/IntComparator.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/priorityQueueExample/TestPriorityQueue.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/query/FindSingleValue.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/query/MultipleGraphQuery.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/query/NamedGraphQuery.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/query/specific/FindAllDistinctPropertiesQuery.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/query/specific/ontologyQueries/FindIDForPropertyLabelQuery.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/rdf/CreateRdfFile.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/query/TestFindAllDistinctPropertiesQuery.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/query/TestNamedGraphQuery.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDF.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/FindProperty.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/FindProperty.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/FindSomething.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/FindSomething.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/query/TestFindSubjectStatementsQuery.scala" afterPath="$PROJECT_DIR$/src/test/scala/query/TestFindSubjectStatementsQuery.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/MapPropertyDatatypeToClass.scala" afterPath="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/MapPropertyDatatypeToClass.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/Query.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/Query.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/specific/FindObjectStatementsQuery.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/specific/FindObjectStatementsQuery.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/specific/FindSubjectStatementsQuery.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/specific/FindSubjectStatementsQuery.scala" />
     </list>
     <ignored path="SimilarEntitiesWikidata.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -48,33 +56,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="TestFindSubjectStatementsQuery.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestFindSubjectStatementsQuery.scala">
+      <file leaf-file-name="NamedGraphQuery.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/query/NamedGraphQuery.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+            <state relative-caret-position="102">
+              <caret line="6" column="30" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FindObjectStatementsQuery.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/query/specific/FindObjectStatementsQuery.scala">
+      <file leaf-file-name="FindIDForPropertyLabelQuery.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/query/specific/ontologyQueries/FindIDForPropertyLabelQuery.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="4" column="92" selection-start-line="4" selection-start-column="92" selection-end-line="4" selection-end-column="92" />
-              <folding>
-                <element signature="e#24#70#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="340">
+              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestFindObjectStatementsQuery.scala" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestFindObjectStatementsQuery.scala">
+      <file leaf-file-name="FindSingleValue.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/query/FindSingleValue.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+            <state relative-caret-position="170">
+              <caret line="10" column="3" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestFindAllDistinctPropertiesQuery.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestFindAllDistinctPropertiesQuery.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="21" column="34" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
               <folding>
                 <element signature="e#15#44#0" expanded="true" />
               </folding>
@@ -82,8 +98,18 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FindObject.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/query/FindObject.scala">
+      <file leaf-file-name="MapPropertyDatatypeToClass.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/MapPropertyDatatypeToClass.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="7" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CreateRdfFile.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/CreateRdfFile.scala">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
               <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
@@ -92,68 +118,44 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FindSubject.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/query/FindSubject.scala">
+      <file leaf-file-name="SimpleRDF.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="9" selection-start-line="12" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+            <state relative-caret-position="119">
+              <caret line="7" column="47" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FindSubjectStatementsQuery.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/query/specific/FindSubjectStatementsQuery.scala">
+      <file leaf-file-name="TestSimpleRDF.scala" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDF.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="7" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
+            <state relative-caret-position="391">
+              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
               <folding>
-                <element signature="e#69#126#0" expanded="true" />
+                <element signature="e#13#42#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FindSomething.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/query/FindSomething.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestQueryLocalServer.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestQueryLocalServer.scala">
+      <file leaf-file-name="PropertyDatatypeReader.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/PropertyDatatypeReader.scala">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="340">
-              <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
-              <folding>
-                <element signature="e#15#51#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FindProperty.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/query/FindProperty.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Query.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/query/Query.scala">
+      <file leaf-file-name="TestNamedGraphQuery.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestNamedGraphQuery.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="10" column="15" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
-              <folding>
-                <element signature="e#15#51#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="238">
+              <caret line="14" column="3" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -164,6 +166,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Class" />
         <option value="Package Object" />
       </list>
     </option>
@@ -174,7 +177,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/MapPropertyDatatypeToClass.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/HelloWorld.scala" />
         <option value="$PROJECT_DIR$/project/plugins.sbt" />
         <option value="$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/INeedToBeTested.scala" />
@@ -189,7 +191,6 @@
         <option value="$PROJECT_DIR$/src/main/scala/querier/jenaQuerier/QueryLocalServer.java" />
         <option value="$PROJECT_DIR$/src/test/java/query/TestQueryLocalServer.java" />
         <option value="$PROJECT_DIR$/src/test/scala/query/TestQueryLocalServer.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/query/Query.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/query/jenaQuerier/QueryLocalServer.java" />
         <option value="$PROJECT_DIR$/src/main/scala/query/jenaQuerier/FindSomething.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/query/FindSubjectStatementsQuery.scala" />
@@ -199,10 +200,25 @@
         <option value="$PROJECT_DIR$/src/test/scala/query/TestFindSubjectStatementsQuery.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/query/jenaQuerier/FindSubjectStatementsQuery.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/query/FindObjectStatementsQuery.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/query/specific/FindSubjectStatementsQuery.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/query/specific/FindObjectStatementsQuery.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/query/FindObject.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/query/TestFindObjectStatementsQuery.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/priorityQueueExample/IntComparator.java" />
+        <option value="$PROJECT_DIR$/src/main/scala/priorityQueueExample/TestPriorityQueue.java" />
+        <option value="$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/MapPropertyDatatypeToClass.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/query/specific/FindSubjectStatementsQuery.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/query/specific/FindObjectStatementsQuery.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/query/specific/FindAllDistinctPropertiesQuery.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/query/Query.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/query/MultipleGraphQuery.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/query/NamedGraphQuery.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/query/TestNamedGraphQuery.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/query/specific/ontologyQueries/FindIDForPropertyLabel.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/query/specific/ontologyQueries/FindIDForPropertyLabelQuery.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/query/FindSingleValue.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/query/TestFindAllDistinctPropertiesQuery.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/rdf/CreateRdfFile.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDF.scala" />
       </list>
     </option>
   </component>
@@ -300,6 +316,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="rdf" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="query" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -388,7 +430,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="query" />
+              <option name="myItemId" value="rdf" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -414,79 +456,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="query" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="specific" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FindSubjectStatementsQuery.scala" />
-              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SimilarEntitiesWikidata" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SimilarEntitiesWikidata" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scala" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="query" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="specific" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="FindObjectStatementsQuery.scala" />
-              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SimilarEntitiesWikidata" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SimilarEntitiesWikidata" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scala" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="query" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="jenaQuerier" />
+              <option name="myItemId" value="OwnOntologyPopularizer" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -504,20 +474,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SimilarEntitiesWikidata" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SimilarEntitiesWikidata" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="input" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
       <pane id="PackagesPane" />
@@ -530,12 +486,14 @@
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="last_opened_file_path" value="C:/Dropbox/Prog/Intellij/AIIntro" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="query" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="rdf" />
       <recent name="query" />
       <recent name="querier.jenaQuerier" />
     </key>
@@ -544,53 +502,8 @@
       <recent name="C:\Users\Espen\Google Drive\Prog\Scala\SimilarEntitiesWikidata\src\main\scala\query" />
     </key>
   </component>
-  <component name="RunManager" selected="ScalaTest.TestFindObjectStatementsQuery.Object statements should have properties always starting with P, and for obama have 410">
-    <configuration default="false" name="TestQueryLocalServer.Create multiple graph query should work" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="similarentitieswikidata" />
-      <setting name="path" value="query.TestQueryLocalServer" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="Create multiple graph query should work" />
-      <setting name="testKind" value="Test name" />
-      <setting name="showProgressMessages" value="true" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="TestFindSubjectStatementsQuery.Subject statements for obama should be 410" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="similarentitieswikidata" />
-      <setting name="path" value="query.TestFindSubjectStatementsQuery" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="Subject statements for obama should be 410" />
-      <setting name="testKind" value="Test name" />
-      <setting name="showProgressMessages" value="true" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="TestFindSubjectStatementsQuery.Subjects statements should have properties always starting with P, and for obama have 410" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="similarentitieswikidata" />
-      <setting name="path" value="query.TestFindSubjectStatementsQuery" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="Subjects statements should have properties always starting with P, and for obama have 410" />
-      <setting name="testKind" value="Test name" />
-      <setting name="showProgressMessages" value="true" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="TestFindObjectStatementsQuery.Object statements for obama should be 135" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+  <component name="RunManager" selected="ScalaTest.TestSimpleRDF.A file should be created properly">
+    <configuration default="false" name="TestFindObjectStatementsQuery" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="similarentitieswikidata" />
       <setting name="path" value="query.TestFindObjectStatementsQuery" />
@@ -599,22 +512,67 @@
       <setting name="params" value="" />
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="Object statements for obama should be 135" />
-      <setting name="testKind" value="Test name" />
+      <setting name="testName" value="" />
+      <setting name="testKind" value="Class" />
       <setting name="showProgressMessages" value="true" />
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="TestFindObjectStatementsQuery.Object statements should have properties always starting with P, and for obama have 410" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+    <configuration default="false" name="TestNamedGraphQuery.query formulated to named graph" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="similarentitieswikidata" />
-      <setting name="path" value="query.TestFindObjectStatementsQuery" />
+      <setting name="path" value="query.TestNamedGraphQuery" />
       <setting name="package" value="" />
       <setting name="vmparams" value="" />
       <setting name="params" value="" />
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="Object statements should have properties always starting with P, and for obama have 410" />
+      <setting name="testName" value="query formulated to named graph" />
+      <setting name="testKind" value="Test name" />
+      <setting name="showProgressMessages" value="true" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestFindAllDistinctPropertiesQuery.All datatypes must be able to find an ID" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="similarentitieswikidata" />
+      <setting name="path" value="query.TestFindAllDistinctPropertiesQuery" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="All datatypes must be able to find an ID" />
+      <setting name="testKind" value="Test name" />
+      <setting name="showProgressMessages" value="true" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestSimpleRDF.A statement must be printed correctly for n3 format" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="similarentitieswikidata" />
+      <setting name="path" value="rdf.TestSimpleRDF" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="A statement must be printed correctly for n3 format" />
+      <setting name="testKind" value="Test name" />
+      <setting name="showProgressMessages" value="true" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestSimpleRDF.A file should be created properly" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="similarentitieswikidata" />
+      <setting name="path" value="rdf.TestSimpleRDF" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="A file should be created properly" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <envs />
@@ -862,19 +820,19 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="SBT Task.Compile" />
-      <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestQueryLocalServer.Create multiple graph query should work" />
-      <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestFindSubjectStatementsQuery.Subject statements for obama should be 410" />
-      <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestFindSubjectStatementsQuery.Subjects statements should have properties always starting with P, and for obama have 410" />
-      <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestFindObjectStatementsQuery.Object statements for obama should be 135" />
-      <item index="5" class="java.lang.String" itemvalue="ScalaTest.TestFindObjectStatementsQuery.Object statements should have properties always starting with P, and for obama have 410" />
+      <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestFindObjectStatementsQuery" />
+      <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestNamedGraphQuery.query formulated to named graph" />
+      <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestFindAllDistinctPropertiesQuery.All datatypes must be able to find an ID" />
+      <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDF.A statement must be printed correctly for n3 format" />
+      <item index="5" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDF.A file should be created properly" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="ScalaTest.TestFindObjectStatementsQuery.Object statements should have properties always starting with P, and for obama have 410" />
-        <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestFindObjectStatementsQuery.Object statements for obama should be 135" />
-        <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestFindSubjectStatementsQuery.Subjects statements should have properties always starting with P, and for obama have 410" />
-        <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestFindSubjectStatementsQuery.Subject statements for obama should be 410" />
-        <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestQueryLocalServer.Create multiple graph query should work" />
+        <item index="0" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDF.A file should be created properly" />
+        <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDF.A statement must be printed correctly for n3 format" />
+        <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestFindAllDistinctPropertiesQuery.All datatypes must be able to find an ID" />
+        <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestNamedGraphQuery.query formulated to named graph" />
+        <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestFindObjectStatementsQuery" />
       </list>
     </recent_temporary>
   </component>
@@ -920,43 +878,43 @@
     <option name="remove_strategy" value="false" />
   </component>
   <component name="TestHistory">
-    <history-entry file="TestFindObjectStatementsQuery_Object_statements_for_obama_should_be_135 - 2016.11.04 at 09h 08m 36s.xml">
-      <configuration name="TestFindObjectStatementsQuery.Object statements for obama should be 135" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestFindAllDistinctPropertiesQuery_All_datatypes_must_be_able_to_find_an_ID - 2016.11.04 at 11h 28m 33s.xml">
+      <configuration name="TestFindAllDistinctPropertiesQuery.All datatypes must be able to find an ID" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestFindObjectStatementsQuery_Object_statements_should_have_properties_always_starting_with_P,_and_for_obama_have_410 - 2016.11.04 at 09h 09m 19s.xml">
-      <configuration name="TestFindObjectStatementsQuery.Object statements should have properties always starting with P, and for obama have 410" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestFindAllDistinctPropertiesQuery_All_datatypes_must_be_able_to_find_an_ID - 2016.11.04 at 11h 29m 01s.xml">
+      <configuration name="TestFindAllDistinctPropertiesQuery.All datatypes must be able to find an ID" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestFindSubjectStatementsQuery - 2016.11.02 at 20h 30m 04s.xml">
-      <configuration name="TestFindSubjectStatementsQuery" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestFindAllDistinctPropertiesQuery_All_datatypes_must_be_able_to_find_an_ID - 2016.11.04 at 11h 44m 07s.xml">
+      <configuration name="TestFindAllDistinctPropertiesQuery.All datatypes must be able to find an ID" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestFindSubjectStatementsQuery - 2016.11.02 at 20h 31m 12s.xml">
-      <configuration name="TestFindSubjectStatementsQuery" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestFindObjectStatementsQuery - 2016.11.04 at 11h 05m 14s.xml">
+      <configuration name="TestFindObjectStatementsQuery" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestFindSubjectStatementsQuery_Subject_statements_for_obama_should_be_410 - 2016.11.04 at 08h 49m 39s.xml">
-      <configuration name="TestFindSubjectStatementsQuery.Subject statements for obama should be 410" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestFindObjectStatementsQuery - 2016.11.04 at 11h 05m 42s.xml">
+      <configuration name="TestFindObjectStatementsQuery" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestFindSubjectStatementsQuery_Subject_statements_for_obama_should_be_410 - 2016.11.04 at 08h 50m 20s.xml">
-      <configuration name="TestFindSubjectStatementsQuery.Subject statements for obama should be 410" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestNamedGraphQuery_query_formulated_to_named_graph - 2016.11.04 at 11h 17m 12s.xml">
+      <configuration name="TestNamedGraphQuery.query formulated to named graph" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestFindSubjectStatementsQuery_Subject_statements_for_obama_should_be_410 - 2016.11.04 at 08h 55m 02s.xml">
-      <configuration name="TestFindSubjectStatementsQuery.Subject statements for obama should be 410" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestNamedGraphQuery_query_formulated_to_named_graph - 2016.11.04 at 11h 17m 30s.xml">
+      <configuration name="TestNamedGraphQuery.query formulated to named graph" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestFindSubjectStatementsQuery_Subjects_statements_should_have_properties_always_starting_with_P,_and_for_obama_have_410 - 2016.11.04 at 08h 55m 19s.xml">
-      <configuration name="TestFindSubjectStatementsQuery.Subjects statements should have properties always starting with P, and for obama have 410" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimpleRDF_A_file_should_be_created_properly - 2016.11.04 at 11h 58m 15s.xml">
+      <configuration name="TestSimpleRDF.A file should be created properly" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestQueryLocalServer_Create_multiple_graph_query_should_work - 2016.11.04 at 08h 47m 50s.xml">
-      <configuration name="TestQueryLocalServer.Create multiple graph query should work" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimpleRDF_A_file_should_be_created_properly - 2016.11.04 at 11h 58m 36s.xml">
+      <configuration name="TestSimpleRDF.A file should be created properly" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestQueryLocalServer_Create_multiple_graph_query_should_work - 2016.11.04 at 08h 49m 03s.xml">
-      <configuration name="TestQueryLocalServer.Create multiple graph query should work" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimpleRDF_A_statement_must_be_printed_correctly_for_n3_format - 2016.11.04 at 11h 52m 33s.xml">
+      <configuration name="TestSimpleRDF.A statement must be printed correctly for n3 format" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1176" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2585288" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2585288" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3356784" sideWeight="0.49051896" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="SBT" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934132" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1015,105 +973,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/FindProperty.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="3" selection-start-line="9" selection-start-column="3" selection-end-line="9" selection-end-column="3" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/Query.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="10" column="15" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
-          <folding>
-            <element signature="e#15#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.sbt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="58" selection-start-line="7" selection-start-column="58" selection-end-line="7" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/HelloWorld.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/INeedToBeTested.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="12" selection-start-line="7" selection-start-column="12" selection-end-line="7" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/MapPropertyDatatypeToClass.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/project/plugins.sbt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/OwnOntologyPopularizer/INeedToBeTestedTest.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/PropertyDatatypeReader.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/OwnOntologyPopularizer/PropertyDatatypeReaderTest.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="49" selection-start-line="11" selection-start-column="49" selection-end-line="11" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/Query.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#15#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.sbt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/HelloWorld.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="242">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/INeedToBeTested.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
@@ -1125,6 +984,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1171,13 +1031,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/MapPropertyDatatypeToClass.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/INeedToBeTested.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -1196,14 +1049,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
           <caret line="11" column="3" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/PropertyDatatypeReader.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="5" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1235,6 +1080,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="181">
           <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1294,31 +1142,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/Query.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="10" column="15" selection-start-line="10" selection-start-column="15" selection-end-line="10" selection-end-column="15" />
-          <folding>
-            <element signature="e#15#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestQueryLocalServer.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
           <folding>
-            <element signature="e#15#51#0" expanded="true" />
+            <element signature="e#15#51#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/FindSubject.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="9" selection-start-line="12" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1326,14 +1156,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
           <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/FindSomething.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1346,26 +1168,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/specific/FindSubjectStatementsQuery.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="7" selection-start-line="12" selection-start-column="7" selection-end-line="12" selection-end-column="7" />
-          <folding>
-            <element signature="e#69#126#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/specific/FindObjectStatementsQuery.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="92" selection-start-line="4" selection-start-column="92" selection-end-line="4" selection-end-column="92" />
-          <folding>
-            <element signature="e#24#70#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/query/FindObject.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -1374,12 +1176,185 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/FindSubject.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="32" selection-start-line="7" selection-start-column="32" selection-end-line="7" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/FindSomething.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-175">
+          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/priorityQueueExample/TestPriorityQueue.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="75" selection-start-line="10" selection-start-column="56" selection-end-line="10" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/priorityQueueExample/IntComparator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="5" selection-start-line="11" selection-start-column="5" selection-end-line="11" selection-end-column="5" />
+          <folding>
+            <element signature="e#225#226#0" expanded="false" />
+            <element signature="e#255#256#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/specific/FindSubjectStatementsQuery.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="79" selection-start-line="7" selection-start-column="61" selection-end-line="7" selection-end-column="79" />
+          <folding>
+            <element signature="e#69#126#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/specific/FindAllDistinctPropertiesQuery.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="0" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/Query.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="14" selection-start-line="22" selection-start-column="14" selection-end-line="22" selection-end-column="14" />
+          <folding>
+            <element signature="e#15#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/specific/FindObjectStatementsQuery.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="69" selection-start-line="4" selection-start-column="69" selection-end-line="4" selection-end-column="69" />
+          <folding>
+            <element signature="e#24#80#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/MultipleGraphQuery.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="93" selection-start-line="11" selection-start-column="93" selection-end-line="11" selection-end-column="93" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestFindObjectStatementsQuery.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+        <state relative-caret-position="208">
+          <caret line="13" column="26" selection-start-line="13" selection-start-column="26" selection-end-line="13" selection-end-column="26" />
           <folding>
             <element signature="e#15#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestNamedGraphQuery.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="3" selection-start-line="14" selection-start-column="3" selection-end-line="14" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/NamedGraphQuery.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="30" selection-start-line="6" selection-start-column="30" selection-end-line="6" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/specific/ontologyQueries/FindIDForPropertyLabelQuery.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/FindSingleValue.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="3" selection-start-line="10" selection-start-column="3" selection-end-line="10" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/PropertyDatatypeReader.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestFindAllDistinctPropertiesQuery.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="34" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
+          <folding>
+            <element signature="e#15#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/package.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/MapPropertyDatatypeToClass.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="7" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="47" selection-start-line="7" selection-start-column="47" selection-end-line="7" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/CreateRdfFile.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="1" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDF.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding>
+            <element signature="e#13#42#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -7,7 +7,6 @@ import query.jenaQuerier.QueryLocalServer
 /**
   * Created by Espen on 02.11.2016.
   */
-import Query.multipleGraphQuery
 abstract class Query(val query: String) {
   val resultStream: ByteArrayOutputStream = new ByteArrayOutputStream
 
@@ -16,12 +15,10 @@ abstract class Query(val query: String) {
   }
 
   def execute():Unit = {
-    if(multipleGraphQuery) QueryLocalServer.query(QueryLocalServer.convertToMultipleGraphQuery(query), resultStream)
-    else QueryLocalServer.query(query, resultStream)
+    QueryLocalServer.query(query, resultStream)
   }
 
 }
 
 object Query {
-  val multipleGraphQuery = true
 }
