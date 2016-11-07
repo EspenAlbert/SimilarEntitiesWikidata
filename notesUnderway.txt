@@ -17,3 +17,5 @@ TODO: Go through each of these. Might NOT be doable, more than 200!
 
 https://github.com/scalanlp/breeze
 http://stackoverflow.com/questions/23072118/scala-pickling-how
+
+The low level functions. E.g. filter.getSparql or statement.getSparql should always end the statement : ".", but not "\n"

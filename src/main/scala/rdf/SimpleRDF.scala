@@ -3,38 +3,40 @@ package rdf
 /**
   * Created by Espen on 04.11.2016.
   */
-import globals.Namespace
-class SimpleRDF(val s: String, val p: String, val o: String) {
-  def sInSparql = convertToSparql(s)
-  def pInSparql = convertToSparql(p)
-  def oInSparql = convertToSparql(o)
+import query.variables.{DynamicQueryVariable, QueryVariable, StaticQueryVariable}
 
-  private def convertToSparql(value: String): String = {
-    val uri: String = getUriValue(value)
-    if(uri.startsWith("\"")) return uri
-    return "<" + uri + ">"
+import scala.collection.mutable.ArrayBuffer
+class SimpleRDF(val s: QueryVariable = new DynamicQueryVariable("s", false), val p: QueryVariable = new DynamicQueryVariable("p", false), val o: QueryVariable = new DynamicQueryVariable("o", false)) {
+
+
+  private def listOfElements: List[QueryVariable] = List[QueryVariable](s, p, o)
+
+  def selectPhrase(): String = {
+    return s.getSelectPhrase + " " + p.getSelectPhrase + " " + o.getSelectPhrase
   }
-  private def getUriValue(value: String) : String = {
-    if(value.startsWith("http:")) return value
-    if(value.contains(":")) {
-      val splitIndex: Int = value.indexOf(":")
-      val (prefix, id) = (value.substring(0, splitIndex), value.substring(splitIndex + 1))
-      val fullUri = Namespace.getFromRawString(prefix) + id
-      return fullUri
+
+  def wherePhrase(): String = {
+    val whereStatement = ArrayBuffer[String]()
+    for (queryVariable <- listOfElements) {
+      whereStatement.append(queryVariable.getWherePhrase)
     }
-    return "\"" + value + "\""//Most likely a datatype
+    val filterLines = ArrayBuffer[String]()
+    for (queryVariable <- listOfElements) {
+      queryVariable match {
+        case c: DynamicQueryVariable => filterLines ++= c.getFilterLines
+      }
+    }
+    return whereStatement.mkString(" ") + " ." + filterLines.mkString("\n")
   }
-  def isAllDigits(x: String) = x forall Character.isDigit
 
   def getStatementNt(): String = {
-    var subject: String = sInSparql
-    var predicate: String = pInSparql
-    var objectValue = oInSparql
-    if(predicate.endsWith("c>")) {
-      predicate =  pInSparql.dropRight(2) + ">"
+    val statement = ArrayBuffer[String]()
+    for (variable <- listOfElements) {
+      variable match {
+        case v: StaticQueryVariable => statement.append(v.getNtValue())
+        case v => throw new Exception("Cannot write nt from :" + v)
+      }
     }
-    if(isAllDigits(objectValue)) return subject + " " + predicate + " "+ objectValue
-    return subject + " " + predicate + " "+ objectValue
+    return statement.mkString(" ") + "."
   }
-
 }

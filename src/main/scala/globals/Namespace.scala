@@ -9,6 +9,7 @@ object Namespace extends Enumeration{
   val w = Value("http://www.wikidata.org/entity/")
   val rdfType = Value("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
   val spo = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology")
+  val basePropertyClassId = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#OWLClass_74eb1d1f_d088_46df_8a75_43ed50501f1d")
   def getFromRawString(value : String) : Namespace = {
     value match {
       case "w" => return w

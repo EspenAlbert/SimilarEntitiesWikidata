@@ -6,15 +6,10 @@ import jenaQuerier.QueryLocalServer
   * Created by Espen on 02.11.2016.
   */
 
-abstract class MultipleGraphQuery(query: String) extends Query(query){
+class MultipleGraphQuery(f : () => String, dataset : String) extends Query(f, dataset) {
 
-  override def execute():Unit = {
-    QueryLocalServer.query(QueryLocalServer.convertToMultipleGraphQuery(query), resultStream)
+  override def getQuery(): String = {
+    return QueryLocalServer.convertToMultipleGraphQuery(super.getQuery())
   }
-
 }
-
-object MultipleGraphQuery {
-}
-
 

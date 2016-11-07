@@ -9,7 +9,7 @@ object CreateRdfFile {
   def createRDFFile(triples: List[SimpleRDF], filename : String) = {
     val writer = new PrintWriter("output/" + filename + ".nt")
     for(statement <- triples) {
-      writer.write(statement.getStatementNt() + ".\n")
+      writer.write(statement.getStatementNt() + "\n")
     }
     writer.close()
   }

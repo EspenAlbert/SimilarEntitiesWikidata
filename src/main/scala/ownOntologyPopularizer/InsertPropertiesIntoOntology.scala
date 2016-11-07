@@ -1,8 +1,8 @@
 package ownOntologyPopularizer
 
 import globals.Namespace.{rdfType, w}
-import query.specific.FindAllDistinctPropertiesQuery
-import query.specific.ontologyQueries.FindIDForPropertyLabelQuery
+import query.specific.QueryFactory
+import query.variables.StaticQueryVariable
 import rdf.{CreateRdfFile, SimpleRDF}
 
 import scala.collection.mutable.ArrayBuffer
@@ -11,9 +11,7 @@ import scala.collection.mutable.ArrayBuffer
   */
 object InsertPropertiesIntoOntology {
   def insertProperties() = {
-    val selectProperties = new FindAllDistinctPropertiesQuery()
-    selectProperties.execute()
-    val properties = selectProperties.getProperties()
+    val properties = QueryFactory.findAllDistinctProperties
     val propertiesWithoutPrefix = for(s <- properties) yield s.drop(2)
     val propertyDatatypeMap = PropertyDatatypeReader.getPropertyDatatypeMap()
     val datatypePropertyClass = MapPropertyDatatypeToClass.datatypeToClass
@@ -23,10 +21,8 @@ object InsertPropertiesIntoOntology {
       try {
         val datatype = propertyDatatypeMap(property)
         val propertyClass = datatypePropertyClass(datatype)
-        val queryActualClassId = new FindIDForPropertyLabelQuery(propertyClass)
-        queryActualClassId.execute()
-        val actualClassId = queryActualClassId.getValue()
-        statements.append(new SimpleRDF(w + property, rdfType.toString, actualClassId))
+        val actualClassId = QueryFactory.findIDForPropertyLabelQuery(propertyClass)
+        statements.append(new SimpleRDF(new StaticQueryVariable(w + property), new StaticQueryVariable(rdfType.toString), new StaticQueryVariable(actualClassId)))
       } catch {
         case _ : Throwable => print("could not find: " + property)
       }
