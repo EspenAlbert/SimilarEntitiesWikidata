@@ -1,6 +1,6 @@
 package query
 
-import query.jenaQuerier.QueryLocalServer
+import jenaQuerier.QueryLocalServer
 
 /**
   * Created by Espen on 02.11.2016.

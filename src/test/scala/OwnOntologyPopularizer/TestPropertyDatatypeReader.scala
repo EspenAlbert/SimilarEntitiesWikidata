@@ -5,11 +5,10 @@ import org.scalatest.FunSuite
 /**
   * Created by Espen on 01.11.2016.
   */
-class PropertyDatatypeReaderTest extends FunSuite{
+class TestPropertyDatatypeReader extends FunSuite{
   test("reading datatypes should return a valid list") {
-    val pdr = new PropertyDatatypeReader()
-    val map = pdr.getPropertyDatatypeMap()
-    assert(map.get("P9") == Some("wikibase-item"))
+    val map = PropertyDatatypeReader.getPropertyDatatypeMap()
+    assert(map("P9") == "wikibase-item")
     print(map("P9"))
   }
 }

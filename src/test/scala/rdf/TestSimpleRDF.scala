@@ -18,6 +18,10 @@ class TestSimpleRDF extends FunSuite{
     val textFromFile = Source.fromFile("output/test.nt").getLines().next()
     assert(textFromFile == statement.getStatementNt() + ".")
   }
+  test("A statement should be properly converted to sparql") {
+    val statement = new SimpleRDF("w:Q76", "w:P21", "5000")
+    assert(statement.getStatementNt() == "<http://www.wikidata.org/entity/Q76> <http://www.wikidata.org/entity/P21> \"5000\"")
+  }
 
 
 }

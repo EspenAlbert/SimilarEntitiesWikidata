@@ -8,10 +8,10 @@ class FindObjectStatementsQuery(val entity: String) extends MultipleGraphQuery(g
 }
 
 object FindObjectStatementsQuery {
-  val findSubjects = "prefix w: <http://www.wikidata.org/entity/>\n" +
+  val findObjects = "prefix w: <http://www.wikidata.org/entity/>\n" +
     "select *\n" +
     "{ w:Q76 ?p ?o . }"
   def getQuery(entity: String): String = {
-    return findSubjects.replace("Q76", entity)
+    return findObjects.replace("Q76", entity)
   }
 }

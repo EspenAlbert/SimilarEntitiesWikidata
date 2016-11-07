@@ -23,7 +23,7 @@ trait FindSomething extends Query{
 
   }
 
-  def findVariable(char: Char): ArrayBuffer[String] = {
+  def findVariable(char: Char): List[String] = {
     if(resList == null) resList =resultStream.toString
     assert(resList.length > 0)
     if(headers == null) headers = findVariables(resList.split("\\|").drop(1))
@@ -38,9 +38,9 @@ trait FindSomething extends Query{
       }
     }
 
-    return for(
+    return (for(
       (value,i) <- values.zipWithIndex
-      if i % headers.length == index) yield value.trim()
+      if i % headers.length == index) yield value.trim()).toList
 
   }
 }

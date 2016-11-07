@@ -7,7 +7,6 @@ import query.{FindProperty, MultipleGraphQuery}
   */
 import query.specific.FindAllDistinctPropertiesQuery.findProperties
 class FindAllDistinctPropertiesQuery extends MultipleGraphQuery(findProperties) with FindProperty{
-
 }
 
 object FindAllDistinctPropertiesQuery {

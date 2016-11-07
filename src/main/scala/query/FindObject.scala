@@ -1,7 +1,5 @@
 package query
 
-import scala.collection.mutable.ArrayBuffer
-
 /**
   * Created by Espen on 02.11.2016.
   */
@@ -9,7 +7,7 @@ trait FindObject extends FindSomething{
 
 
 
-  def getObjects(): ArrayBuffer[String] = {
+  def getObjects(): List[String] = {
     return findVariable('o')
   }
 

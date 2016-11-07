@@ -2,3 +2,18 @@ P1963 = Properties for this type
 human
 properties for this type
 sex or gender,date of birth, date of death
+
+P1224c existing in local but not wikidata, probably have been removed. Yes, it has been deleted
+P513 birth name has been deleted...
+P1223 TranslateThis  has been deleted
+P1231 NARA catalog record ID (P1231) has been deleted
+P1226  NARA specific records type ID (P1226) deleted
+P2608  Local Relevance id (P2608) deleted
+
+
+There are some extra properties too the PXXX properties, which start with http.
+TODO: Go through each of these. Might NOT be doable, more than 200!
+
+
+https://github.com/scalanlp/breeze
+http://stackoverflow.com/questions/23072118/scala-pickling-how

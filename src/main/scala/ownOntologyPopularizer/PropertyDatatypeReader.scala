@@ -5,7 +5,7 @@ import scala.io.Source
 /**
   * Created by Espen on 01.11.2016.
   */
-class PropertyDatatypeReader {
+object PropertyDatatypeReader {
   def getPropertyDatatypeMap(): collection.mutable.Map[String, String] = {
     val propertyDatatype = new collection.mutable.HashMap[String, String]()
     val linesFromFile = Source.fromFile("input/propertiesAndDatatype.txt").getLines()

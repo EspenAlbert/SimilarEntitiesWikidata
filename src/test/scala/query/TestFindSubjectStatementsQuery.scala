@@ -3,8 +3,6 @@ package query
 import org.scalatest.FunSuite
 import query.specific.FindSubjectStatementsQuery
 
-import scala.collection.mutable.ArrayBuffer
-
 /**
   * Created by Espen on 02.11.2016.
   */
@@ -13,7 +11,7 @@ class TestFindSubjectStatementsQuery extends FunSuite{
     val obamaId = "Q76"
     val query = new FindSubjectStatementsQuery(obamaId)
     query.execute()
-    val subjects: ArrayBuffer[String] = query.getSubjects()
+    val subjects: List[String] = query.getSubjects()
     assert(subjects.length == 410)
     print(subjects)
   }
@@ -21,7 +19,7 @@ class TestFindSubjectStatementsQuery extends FunSuite{
     val obamaId = "Q76"
     val query = new FindSubjectStatementsQuery(obamaId)
     query.execute()
-    val properties: ArrayBuffer[String] = query.getProperties()
+    val properties: List[String] = query.getProperties()
     assert(!properties.exists(_.startsWith("w:Q")))
     assert(properties.length == 410)
     print(properties)

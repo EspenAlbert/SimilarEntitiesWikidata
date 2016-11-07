@@ -2,8 +2,8 @@ package query
 
 import java.io.ByteArrayOutputStream
 
+import jenaQuerier.QueryLocalServer
 import org.scalatest.FunSuite
-import query.jenaQuerier.QueryLocalServer
 
 /**
   * Created by Espen on 02.11.2016.

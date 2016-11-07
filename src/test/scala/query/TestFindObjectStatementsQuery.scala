@@ -3,8 +3,6 @@ package query
 import org.scalatest.FunSuite
 import query.specific.FindObjectStatementsQuery
 
-import scala.collection.mutable.ArrayBuffer
-
 /**
   * Created by Espen on 02.11.2016.
   */
@@ -13,7 +11,7 @@ class TestFindObjectStatementsQuery extends FunSuite{
     val obamaId = "Q76"
     val query = new FindObjectStatementsQuery(obamaId)
     query.execute()
-    val objects: ArrayBuffer[String] = query.getObjects()
+    val objects: List[String] = query.getObjects()
     assert(objects.length == 135)
     print(objects)
   }
@@ -21,7 +19,7 @@ class TestFindObjectStatementsQuery extends FunSuite{
     val obamaId = "Q76"
     val query = new FindObjectStatementsQuery(obamaId)
     query.execute()
-    val properties: ArrayBuffer[String] = query.getProperties()
+    val properties: List[String] = query.getProperties()
     assert(!properties.exists(_.startsWith("w:Q")))
     assert(properties.length == 135)
     print(properties)
