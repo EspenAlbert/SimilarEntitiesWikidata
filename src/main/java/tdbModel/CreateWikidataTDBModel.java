@@ -16,7 +16,7 @@ public class CreateWikidataTDBModel {
         store();
     }
     public static void store(){
-        String directory = "C:/dataset/tdbWikidata2";
+        String directory = "C:/dataset/tdbWikidata3";
         Dataset dataset = openTDB(directory);
         int filesPerDataSet = 400;
         int graphNumber = 1;

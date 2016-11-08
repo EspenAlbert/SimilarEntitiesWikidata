@@ -6,7 +6,7 @@ package rdf
 import query.variables.{DynamicQueryVariable, QueryVariable, StaticQueryVariable}
 
 import scala.collection.mutable.ArrayBuffer
-class SimpleRDF(val s: QueryVariable = new DynamicQueryVariable("s", false), val p: QueryVariable = new DynamicQueryVariable("p", false), val o: QueryVariable = new DynamicQueryVariable("o", false)) {
+class SimpleRDF(val s: QueryVariable = new DynamicQueryVariable("s", false), val p: QueryVariable = new DynamicQueryVariable("p", false), val o: QueryVariable = new DynamicQueryVariable("o", false), val filterLine: Boolean = false) {
 
 
   private def listOfElements: List[QueryVariable] = List[QueryVariable](s, p, o)
@@ -20,13 +20,17 @@ class SimpleRDF(val s: QueryVariable = new DynamicQueryVariable("s", false), val
     for (queryVariable <- listOfElements) {
       whereStatement.append(queryVariable.getWherePhrase)
     }
+    if(filterLine) {
+      return whereStatement.mkString(" ") + " ."
+    }
     val filterLines = ArrayBuffer[String]()
     for (queryVariable <- listOfElements) {
       queryVariable match {
         case c: DynamicQueryVariable => filterLines ++= c.getFilterLines
+        case _ => Unit
       }
     }
-    return whereStatement.mkString(" ") + " ." + filterLines.mkString("\n")
+    return whereStatement.mkString(" ") + " .\n" + filterLines.mkString("\n")
   }
 
   def getStatementNt(): String = {

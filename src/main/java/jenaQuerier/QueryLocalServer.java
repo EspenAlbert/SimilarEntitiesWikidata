@@ -28,15 +28,26 @@ public class QueryLocalServer {
         return defaultGraphQuery + unionStatement + whereClause + "}}";
     }
 
+    public static boolean ask(String queryString, String dataset) throws Exception {
+        QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/" + dataset +"/query", queryString);
+        try {
+            return qexec.execAsk();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            qexec.close();
+        }
+        throw new Exception("failed to ask:" + queryString);
+    }
     public static void query(String queryString, OutputStream outputStream) {
         query(queryString, outputStream, "ds");
     }
-
     public static void query(String queryString, OutputStream outputStream, String dataset ) {
         Query query = QueryFactory.create(queryString);
         QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/" + dataset +"/query", queryString);
         try {
             ResultSet results = qexec.execSelect();
+
             ResultSetFormatter.out(outputStream, results, query);
         } catch (Exception ex) {
             System.out.println(ex.getMessage());

@@ -19,7 +19,7 @@ class WhereFilter(statements : SimpleRDF*) {
     return selectVariables.mkString(" ") + "\n"
   }
   def getWhereClause(): String = {
-    return "\\{" + whereLines.mkString("\n") + "}"
+    return "{" + whereLines.mkString("\n") + "}"
   }
 
 

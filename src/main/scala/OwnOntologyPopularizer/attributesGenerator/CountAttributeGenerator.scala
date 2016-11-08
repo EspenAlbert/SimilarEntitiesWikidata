@@ -1,6 +1,6 @@
 package ownOntologyPopularizer.attributesGenerator
 
-import globals.PrimitiveDatatype
+import globals.{MyDatasets, PrimitiveDatatype}
 import query.specific.QueryFactory
 import query.variables.StaticQueryVariable
 import rdf.{CreateRdfFile, SimpleRDF}
@@ -12,9 +12,11 @@ import scala.collection.mutable.ArrayBuffer
   */
 object CountAttributeGenerator {
   def generateCounts() = {
+    QueryFactory.dataset = MyDatasets.SimilarProperties
     val countId = QueryFactory.findIDForPropertyLabelQuery("count")
     val properties = QueryFactory.findAllPropertiesOfCustomClass()
     val statements = new ArrayBuffer[SimpleRDF]
+    QueryFactory.dataset = MyDatasets.Wikidata
     for(property <- properties){
       val countForProperty = QueryFactory.findTotalCountWhereProperty(property)
       statements.append(new SimpleRDF(new StaticQueryVariable(property), new StaticQueryVariable(countId), new StaticQueryVariable(countForProperty.toString, PrimitiveDatatype.uint)))

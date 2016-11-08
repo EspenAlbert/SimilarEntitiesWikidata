@@ -35,12 +35,20 @@ trait FindSomething{
     assert(index != -1)
     if(values== null) getValues
     def getValues: Unit = {
-      values = new scala.collection.mutable.ArrayBuffer[String]()
+      values = new ArrayBuffer[String]()
       for (line <- resList.split("\r\n").drop(3).dropRight(1)) {
         //First three lines are headers last line is not a result
         values.append(line.split("\\|").drop(1): _*)
       }
+      val modifiedValues = new ArrayBuffer[String]()
+      for(value <- values) {
+        if(value.trim.startsWith("<")) modifiedValues.append(value.trim.drop(1).dropRight(1))
+        else if(value.trim.startsWith("\"")) modifiedValues.append(value.trim().drop(1).dropRight(1))
+        else modifiedValues.append(value.trim)
+      }
+      values = modifiedValues
     }
+
 
     return (for(
       (value,i) <- values.zipWithIndex
