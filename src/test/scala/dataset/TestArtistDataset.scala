@@ -12,6 +12,13 @@ class TestArtistDataset extends FunSuite{
     assert(map.keys.toList.length == 2363)
 //    #assert(map.values.foreach(_.length == 10))
   }
+  test("write datset to file") {
+    ArtistDatasetReader.writeDatasetConvertedToFile()
+  }
+  test("get dataset from file") {
+    val dataset = ArtistDatasetReader.getDatasetFromFile()
+    assert(dataset.keys.toList.length == 2363)
+  }
 
 
 }

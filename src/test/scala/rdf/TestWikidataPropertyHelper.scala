@@ -8,7 +8,8 @@ import org.scalatest.FunSuite
 class TestWikidataPropertyHelper extends FunSuite{
   test("The id of a property should be returned properly") {
     val property = "w:P169"
-    assert(WikidataPropertyHelper.getId(property) == 169)
+
+    assert(WikidataPropertyHelper.getId(property).get == 169)
   }
   test("If it is not a normal property, an exception is thrown") {
     val property = "rdf:type"

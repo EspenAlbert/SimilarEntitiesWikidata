@@ -1,5 +1,6 @@
 package baseline
 
+import dump.DumpObject
 import globals.{MyDatasets, Namespace}
 import query.specific.QueryFactory
 import query.variables.{DynamicQueryVariable, StaticQueryVariable}
@@ -12,6 +13,11 @@ import scala.collection.mutable
   * Created by Espen on 07.11.2016.
   */
 object PropertyIdfCalculator {
+  final val propertiesidfscoresFilename: String = "propertiesIdfScores"
+  def dumpToFile() = {
+    DumpObject.dumpJsonMap(getMap().toMap, propertiesidfscoresFilename)
+  }
+
   def getMap() : mutable.Map[String, Double] = {
     val properties = QueryFactory.findAllPropertiesOfCustomClass()
       QueryFactory.dataset = MyDatasets.SimilarProperties
@@ -25,7 +31,9 @@ object PropertyIdfCalculator {
       propertyIdfScore(prop) = idfScore
     }
     return propertyIdfScore
-
+  }
+  def getMapFromFile() : Map[String, Double] = {
+    return DumpObject.loadJsonMap(propertiesidfscoresFilename)
   }
 
 }

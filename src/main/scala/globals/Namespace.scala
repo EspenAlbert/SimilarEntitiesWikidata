@@ -11,6 +11,7 @@ object Namespace extends Enumeration{
   val spo = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology")
   val basePropertyClassId = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#OWLClass_74eb1d1f_d088_46df_8a75_43ed50501f1d")
   val maxCountForProperties = Value("17871093")
+  val maxPropertyNumber = Value("3333")
   def getFromRawString(value : String) : Namespace = {
     value match {
       case "w" => return w

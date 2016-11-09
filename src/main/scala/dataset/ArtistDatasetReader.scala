@@ -1,5 +1,6 @@
 package dataset
 
+import dump.DumpObject
 import query.specific.QueryFactory
 import query.variables.{DynamicQueryVariable, StaticQueryVariable}
 import rdf.SimpleRDF
@@ -12,7 +13,7 @@ import scala.io.Source
   * Created by Espen on 08.11.2016.
   */
 object ArtistDatasetReader {
-
+  final val filename = "tenMostSimilarArtists"
   private def findWikidataId(objectValue: String, musicbrainzIdPropertyName : String): Option[String]= {
     val dynamicVariable = new DynamicQueryVariable("s", false)
     if(failedIds.exists( _ == objectValue)) return None
@@ -37,6 +38,13 @@ object ArtistDatasetReader {
     print(failedIds)
     return tenMostSimilarForArtist
   }
+  def writeDatasetConvertedToFile() : Unit = {
+    DumpObject.dumpJsonMapStringListString(readDataset().toMap, filename)
+  }
+  def getDatasetFromFile() : Map[String, List[String]] = {
+    return DumpObject.getStringMap(filename)
+  }
+
 
   def getStringFromOption(similar: String, option: Option[String]): String = {
     option match {
