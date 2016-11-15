@@ -6,5 +6,6 @@ package globals
 object MyDatasets{
   final val Wikidata = "ds"
   final val SimilarProperties = "similarProperties"
+  final val ValueMatch = "valueMatch"
 
 }
