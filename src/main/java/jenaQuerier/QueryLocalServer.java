@@ -4,6 +4,8 @@ import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.reasoner.rulesys.OWLFBRuleReasoner;
+import org.apache.jena.reasoner.rulesys.OWLFBRuleReasonerFactory;
 import org.apache.jena.sparql.core.Var;
 import org.apache.jena.sparql.engine.binding.Binding;
 import org.apache.jena.sparql.resultset.RDFOutput;
@@ -16,18 +18,34 @@ import java.util.Iterator;
  */
 public class QueryLocalServer {
 
+    public static void main(String[] args) {
+        testReasonerCapabilities();
+    }
+    public static String convertToMutlipleGraphQueryWithoutSelect(String query) {
+        String whereClause = query.substring(query.indexOf("{"));
+        return createMultipleGraphQuery(query, whereClause);
+    }
     public static String getWhereClause(String query) {
         String select = query.substring(query.indexOf("select"));
         return select.substring(select.indexOf("\n"));
     }
     public static String convertToMultipleGraphQuery(String query) {
         String whereClause = getWhereClause(query);
+        return createMultipleGraphQuery(query, whereClause);
+    }
+
+    private static String createMultipleGraphQuery(String query, String whereClause) {
         String unionStatement = "UNION \n" +
                 " { GRAPH ?g";
         String defaultGraphQuery = query.replaceFirst("\\{", "\\{\\{");
         return defaultGraphQuery + unionStatement + whereClause + "}}";
     }
 
+    public static void testReasonerCapabilities() {
+        Model capabilities = OWLFBRuleReasonerFactory.theInstance().getCapabilities();
+//        ResultSetFormatter.out(System.out, capabilities
+        int a = 2;
+    }
     public static boolean ask(String queryString, String dataset) throws Exception {
         QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/" + dataset +"/query", queryString);
         try {

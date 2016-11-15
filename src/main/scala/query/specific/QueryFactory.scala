@@ -1,9 +1,10 @@
 package query.specific
 
-import globals.{MyDatasets, Namespace}
+import globals.{MyDatasets, SimilarPropertyOntology}
+import ownOntologyPopularizer.CustomPropertyClass.CustomPropertyClass
 import query._
-import query.filters.{SameTypeFilter, StringLanguageFilter}
-import query.variables.{CountQueryVariable, DynamicQueryVariable, ResultVariable, StaticQueryVariable}
+import query.filters.SameTypeFilter
+import query.variables._
 import rdf.SimpleRDF
 
 /**
@@ -17,9 +18,29 @@ object QueryFactory {
   val properties = new DynamicQueryVariable("p", false)
   var dataset = MyDatasets.Wikidata
 
-  def getListFromQueryAndVariables(query: Query, variables: ResultVariable*) : Seq[List[String]] = {
+  def getListFromQueryAndVariables(query: Query, variables: ResultQueryVariable*) : Seq[List[ResultVariable]] = {
     query.execute()
     return for(variable <- variables) yield query.getResults(variable)
+  }
+  def findEntities(findOthers: SimpleRDF, directLinks: DynamicQueryVariable): List[String] = {
+    val filter = new WhereFilter(findOthers)
+    val query = new MultipleGraphQuery(() => filter.getSelect() + filter.getWhereClause(), dataset)
+    return getListFromQueryAndVariables(query, directLinks)(0)
+  }
+  def findDomainCount(property: String): Int = {
+    dataset = MyDatasets.SimilarProperties
+    findIntVariableValue(new SimpleRDF(new StaticQueryVariable(property), new StaticQueryVariable(SimilarPropertyOntology.domainCount.toString), objects), objects)
+  }
+  def findRangeCount(property: String): Int = {
+    dataset = MyDatasets.SimilarProperties
+    findIntVariableValue(new SimpleRDF(new StaticQueryVariable(property), new StaticQueryVariable(SimilarPropertyOntology.rangeCount.toString), objects), objects)
+  }
+  def getStrategies(prop: String) : List[String] = {
+    val statement = new SimpleRDF(new StaticQueryVariable(prop), new StaticQueryVariable(SimilarPropertyOntology.rdfType.toString), subjects)
+    val statement2 = new SimpleRDF(subjects, new StaticQueryVariable(SimilarPropertyOntology.rdfsSubclassOf.toString), new StaticQueryVariable(SimilarPropertyOntology.spoBaseStrategy.toString))
+    val whereFilter = new WhereFilter(statement, statement2)
+    val query = new Query(() => whereFilter.getSelect() + whereFilter.getWhereClause(), MyDatasets.SimilarProperties)
+    return getListFromQueryAndVariables(query, subjects)(0)
   }
   def findStringWhere(statement: SimpleRDF, resultVariable : DynamicQueryVariable): Option[String] = {
     val filter = new WhereFilter(statement)
@@ -34,7 +55,7 @@ object QueryFactory {
   def findIntVariableValue(statement: SimpleRDF, resultVariable: DynamicQueryVariable) : Int = {
     val filter = new WhereFilter(statement)
     val query = new MultipleGraphQuery(() => filter.getSelect() + filter.getWhereClause(), dataset)
-    getListFromQueryAndVariables(query, resultVariable)(0)(0).toInt
+    return getListFromQueryAndVariables(query, resultVariable)(0)(0)
   }
   def findAllDistinctProperties : List[String] = {
     val properties = new DynamicQueryVariable("p", true)
@@ -43,7 +64,15 @@ object QueryFactory {
     val query = new MultipleGraphQuery(() => filter.getSelect() + filter.getWhereClause(), dataset)
     return getListFromQueryAndVariables(query, properties)(0)
   }
+  def findObjectsWithProperty(property: String): List[String] = {
+    val objects = new DynamicQueryVariable("o", true)
+    val statement = new SimpleRDF(o = objects, p = new StaticQueryVariable(property))
+    val filter: WhereFilter = new WhereFilter(statement)
+    val query = new MultipleGraphQuery(() => filter.getSelect() + filter.getWhereClause(), dataset)
+    return getListFromQueryAndVariables(query, objects)(0)
+  }
   def findSubjectsWithProperty(property : String) : List[String] = {
+    val subjects = new DynamicQueryVariable("s", true)
     val statement = new SimpleRDF(s = subjects, p = new StaticQueryVariable(property))
     val filter: WhereFilter = new WhereFilter(statement)
     val query = new MultipleGraphQuery(() => filter.getSelect() + filter.getWhereClause(), dataset)
@@ -75,29 +104,29 @@ object QueryFactory {
     val query = new MultipleGraphQuery(() => filter.getSelect() + filter.getWhereClause(), dataset)
     return getListFromQueryAndVariables(query, properties, objects)
   }
-  def findTotalCountWhereProperty(property : String) : Int = {
+  def findTotalCountSubjectsWhereProperty(property : String, distinct : Boolean = false) : Int = {
     val statement = new SimpleRDF(s = subjects, p = new StaticQueryVariable(property))
-    val count = new CountQueryVariable("c", false, subjects)
+    val count = new CountQueryVariable("c", distinct, subjects)
     val filter: WhereFilter = new WhereFilter(statement)
     val query = new MultipleGraphQuery(() => count.getSelectPhrase + filter.getWhereClause(), dataset)
     return getListFromQueryAndVariables(query, count)(0)(0).toInt
   }
-  def findIDForPropertyLabelQuery(propertyClassLabel : String) : String = {
-    val objects = new DynamicQueryVariable("o", false)
-    val statement = new SimpleRDF(s = subjects, o = objects)
-    objects.addQueryFilter(new StringLanguageFilter(objects, propertyClassLabel))
+  def findTotalCountObjectsWhereProperty(property: String, distinct : Boolean = false) : Int = {
+    val statement = new SimpleRDF(o = objects, p = new StaticQueryVariable(property))
+    val count = new CountQueryVariable("c", distinct, objects)
     val filter: WhereFilter = new WhereFilter(statement)
-    val query = new MultipleGraphQuery(() => filter.getSelect() + filter.getWhereClause(), dataset)
-    return getListFromQueryAndVariables(query, subjects)(0)(0)
+    val query = new MultipleGraphQuery(() => count.getSelectPhrase + filter.getWhereClause(), dataset)
+    return getListFromQueryAndVariables(query, count)(0)(0).toInt
   }
-  def findAllPropertiesOfCustomClass() : List[String] = {
-    val statement = new SimpleRDF(s = subjects, p = new StaticQueryVariable(Namespace.rdfType.toString), o = new StaticQueryVariable(Namespace.basePropertyClassId.toString))
+
+  def findAllPropertiesOfCustomClass(customPropertyClass: CustomPropertyClass) : List[String] = {
+    val statement = new SimpleRDF(s = subjects, p = new StaticQueryVariable(SimilarPropertyOntology.rdfType.toString), o = new StaticQueryVariable(customPropertyClass.toString))
     val filter: WhereFilter = new WhereFilter(statement)
     val query = new Query(() => filter.getSelect() +  filter.getWhereClause(), dataset = MyDatasets.SimilarProperties)
     return getListFromQueryAndVariables(query, subjects)(0)
   }
-  def ask(rDF: SimpleRDF, dataset :String): Boolean = {
-    val exists = AskQuery.ask(() => s"ask {${rDF.getStatementNt()} }", dataset=MyDatasets.SimilarProperties)
-    return exists
+  def ask(statements: SimpleRDF*) : Boolean = {
+    val filter = new WhereFilter(statements: _*)
+    return AskQuery.ask(() => s"ask {${filter.getWhereClause()} }", dataset)
   }
 }

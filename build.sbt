@@ -10,7 +10,7 @@ libraryDependencies += "org.apache.jena" % "apache-jena-libs" % "3.1.0"
 libraryDependencies +=  "com.lambdaworks" %% "jacks" % "2.3.3"
 libraryDependencies +=  "org.scalanlp" %% "breeze" % "0.12"
 libraryDependencies +=  "org.scalanlp" %% "breeze-natives" % "0.12"
-
+libraryDependencies +=  "com.typesafe.akka" %% "akka-stream-experimental" % "2.0.1"
 
 
 //libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.0"

@@ -2,7 +2,7 @@ package query
 
 import java.io.ByteArrayOutputStream
 
-import query.variables.ResultVariable
+import query.variables.{ResultQueryVariable, ResultVariable}
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -13,7 +13,7 @@ trait FindSomething{
   val resultStream : ByteArrayOutputStream
   var resList : String = null
   var headers : ArrayBuffer[String] = null
-  var values : ArrayBuffer[String] = null
+  var values : ArrayBuffer[ResultVariable] = null
 
   private def findHeaders(iterable: Iterable[String]) : ArrayBuffer[String] = {
     val headers = new scala.collection.mutable.ArrayBuffer[String]()
@@ -27,7 +27,7 @@ trait FindSomething{
 
   }
 
-  def getResults(variable: ResultVariable): List[String] = {
+  def getResults(variable: ResultQueryVariable): List[ResultVariable] = {
     if(resList == null) resList =resultStream.toString
     assert(resList.length > 0)
     if(headers == null) headers = findHeaders(resList.split("\\|").drop(1))
@@ -35,23 +35,20 @@ trait FindSomething{
     assert(index != -1)
     if(values== null) getValues
     def getValues: Unit = {
-      values = new ArrayBuffer[String]()
+      val rawValues = new ArrayBuffer[String]()
       for (line <- resList.split("\r\n").drop(3).dropRight(1)) {
         //First three lines are headers last line is not a result
-        values.append(line.split("\\|").drop(1): _*)
+        rawValues.append(line.split("\\|").drop(1): _*)
       }
-      val modifiedValues = new ArrayBuffer[String]()
-      for(value <- values) {
-        if(value.trim.startsWith("<")) modifiedValues.append(value.trim.drop(1).dropRight(1))
-        else if(value.trim.startsWith("\"")) modifiedValues.append(value.trim().drop(1).dropRight(1))
-        else modifiedValues.append(value.trim)
+      values = new ArrayBuffer[ResultVariable]()
+      for(value <- rawValues) {
+        values.append(new ResultVariable(value))
       }
-      values = modifiedValues
     }
 
 
     return (for(
       (value,i) <- values.zipWithIndex
-      if i % headers.length == index) yield value.trim()).toList
+      if i % headers.length == index) yield value).toList
   }
 }

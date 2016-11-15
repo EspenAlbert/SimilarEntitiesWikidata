@@ -1,0 +1,101 @@
+http://stackoverflow.com/questions/23561351/sparql-querying-multiple-ors-in-the-same-filter
+
+select *
+where {
+  ?s s:Population ?o .
+  ?o v:Population ?v .
+ } LIMIT 10
+ 
+prefix w: <http://www.wikidata.org/entity/>
+
+
+select *
+from <http://www.myExample/test1>
+from <http://www.myExample/test2>
+where {
+	?s ?p ?o 
+} LIMIT 100
+
+PREFIX  :       <.>
+SELECT (count(*) as ?count)
+{
+    { ?s ?p ?o } UNION { GRAPH ?g { ?s ?p ?o } }
+}
+138 787 395
+
+prefix w: <http://www.wikidata.org/entity/>
+select *
+{ {
+?s ?p w:Q76 . } UNION {
+w:Q76 ?p ?o . } 
+UNION 
+ { GRAPH ?g {{ ?s1 ?p1 w:Q76 . } 
+    UNION{
+w:Q76 ?p1 ?o1 . } 
+    } } filter(str(?p1) != "http://www.wikidata.org/entity/P50c")
+}
+
+prefix w: <http://www.wikidata.org/entity/>
+select *
+{ {
+w:Q76 w:P31c|w:P21c ?o} 
+UNION 
+ { GRAPH ?g {{ w:Q76 w:P31c|w:P21c ?o2 . } 
+    }}}
+	
+	
+NEXT TIME: https://jena.apache.org/documentation/query/app_api.html
+Find out how to create a model from result. What is resource, property, rdf node etc. in jena.
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix w: <http://www.wikidata.org/entity/>
+
+SELECT distinct ?s1 (properties without count attribute
+WHERE {
+  { #?s <http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#OWLDataProperty_16dc36fd_ea2f_4c8d_9c52_9b10d249a067> ?o .
+    ?s1 rdf:type <http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#OWLClass_74eb1d1f_d088_46df_8a75_43ed50501f1d>
+     } MINUS{
+  ?s1 <http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#OWLDataProperty_16dc36fd_ea2f_4c8d_9c52_9b10d249a067> ?o}
+  }
+  PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+
+
+SELECT ?s ?object
+From <http://www.espenalbert.com/rdf/wikidata/localGraph1>
+From <http://www.espenalbert.com/rdf/wikidata/localGraph2>
+From <http://www.espenalbert.com/rdf/wikidata/localGraph3>
+From <http://www.espenalbert.com/rdf/wikidata/localGraph4>
+WHERE {
+  ?s <http://www.wikidata.org/entity/P18> ?object .
+  #?s <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#S1>
+}
+LIMIT 25
+  ?s2 rdf:type ?s .
+  ?s <http://www.w3.org/2000/01/rdf-schema#subClassOf> <http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#S1>
+  
+  P1086 to check quantity
+  P1636 time 
+  time – explicit value for point in time, represented as a timestamp resembling ISO 8601, e.g. +2013-01-01T00:00:00Z. The year is always signed and padded to have between 4 and 16 digits.
+timezone – explicit value as a signed integer. Timezone information as an offset from UTC in minutes.
+before – explicit integer value for how many units after the given time it could be. The unit is given by the precision.
+after – explicit integer value for how many units before the given time it could be. The unit is given by the precision.
+precision – explicit value encoded in a shortint. The numbers have the following meaning: 0 - billion years, 1 - hundred million years, ..., 6 - millennium, 7 - century, 8 - decade, 9 - year, 10 - month, 11 - day, 12 - hour, 13 - minute, 14 - second.
+calendarmodel – explicit value given as a URI. It identifies the calendar model of the timestamp.
+
+SELECT distinct ?b#?s ?object ?object2 #
+From <http://www.espenalbert.com/rdf/wikidata/localGraph1>
+From <http://www.espenalbert.com/rdf/wikidata/localGraph2>
+From <http://www.espenalbert.com/rdf/wikidata/localGraph3>
+From <http://www.espenalbert.com/rdf/wikidata/localGraph4>
+WHERE {
+  ?s <http://www.wikidata.org/entity/P2754> ?object .
+  #?s <http://www.wikidata.org/entity/P1636> ?object2 .
+ # filter(?object != ?object2)
+  bind(datatype(?object) as ?b)
+}
+??????????????????????Select datatype for property
+
+
+monolingual text (P1448) 	
+<http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>

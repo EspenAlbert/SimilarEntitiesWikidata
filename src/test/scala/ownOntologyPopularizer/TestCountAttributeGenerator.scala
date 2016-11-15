@@ -1,4 +1,4 @@
-package OwnOntologyPopularizer
+package ownOntologyPopularizer
 
 import org.scalatest.FunSuite
 import ownOntologyPopularizer.attributesGenerator.CountAttributeGenerator

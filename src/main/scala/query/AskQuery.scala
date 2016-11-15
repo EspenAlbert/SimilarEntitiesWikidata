@@ -7,7 +7,8 @@ import jenaQuerier.QueryLocalServer
   */
 object AskQuery {
   def ask(f : () => String, dataset : String = "ds") : Boolean = {
-    return QueryLocalServer.ask(f(), dataset)
+    return QueryLocalServer.ask(QueryLocalServer.convertToMutlipleGraphQueryWithoutSelect(f()), dataset)
   }
+
 
 }

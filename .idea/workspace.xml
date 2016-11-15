@@ -2,16 +2,63 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="61c6d86c-a94e-43fe-9f19-468998b2f01a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/comparator/Comparator.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/displayer/Displayer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/feature/Feature.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/globals/FeatureType.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/ranker/Ranker.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/strategies/Strategy.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/strategies/StrategyExecutor.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/strategies/StrategyGenerator.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/globals/MyConfiguration.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/CustomPropertyClass.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/attributesGenerator/AttributeGenerator.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/query/OldQueryFactory.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/query/filters/NotEqualFilter.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/query/variables/ResultQueryVariable.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/ranker/SimilarEntity.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/strategies/AlternativeLinkStrategy.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/strategies/DirectLinkStrategy.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/strategies/HierarchyMatchStrategy.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/strategies/InANotInBStrategy.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/strategies/PropMatchStrategy.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/strategies/ValueMatchStrategy.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/main/TestSimilarityFinder.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestDomainCountAttributeGenerator.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/query/TestFindStrategiesQuery.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/rdf/TestResultVariable.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/strategy/TestStrategyGenerator.scala" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/MapPropertyDatatypeToClass.scala" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/query/TestFindIDForPropertyLabelQuery.scala" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/attributesGenerator/CountAttributeGenerator.scala" afterPath="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/attributesGenerator/CountAttributeGenerator.scala" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/scala/globals/Namespace.scala" afterPath="$PROJECT_DIR$/src/main/scala/globals/SimilarPropertyOntology.scala" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/scala/OwnOntologyPopularizer/TestCountAttributeGenerator.scala" afterPath="$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestCountAttributeGenerator.scala" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/scala/OwnOntologyPopularizer/TestFindAllPropertiesOfCustomClass.scala" afterPath="$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestFindAllPropertiesOfCustomClass.scala" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/scala/OwnOntologyPopularizer/TestInsertPropertiesIntoOntology.scala" afterPath="$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestInsertPropertiesIntoOntology.scala" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/scala/OwnOntologyPopularizer/TestPropertyDatatypeReader.scala" afterPath="$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestPropertyDatatypeReader.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/similarentitieswikidata.iml" afterPath="$PROJECT_DIR$/.idea/modules/similarentitieswikidata.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.sbt" afterPath="$PROJECT_DIR$/build.sbt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/countForP1659.nt" afterPath="$PROJECT_DIR$/output/countForP1659.nt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/countForProperties.nt" afterPath="$PROJECT_DIR$/output/countForProperties.nt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/propertyMappedToOntology.nt" afterPath="$PROJECT_DIR$/output/propertyMappedToOntology.nt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/jenaQuerier/QueryLocalServer.java" afterPath="$PROJECT_DIR$/src/main/java/jenaQuerier/QueryLocalServer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/baseline/PropertyIdfCalculator.scala" afterPath="$PROJECT_DIR$/src/main/scala/baseline/PropertyIdfCalculator.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/baseline/VectorRepresentationCreator.scala" afterPath="$PROJECT_DIR$/src/main/scala/baseline/VectorRepresentationCreator.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/displayer/Displayer.scala" afterPath="$PROJECT_DIR$/src/main/scala/displayer/Displayer.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/globals/PrimitiveDatatype.scala" afterPath="$PROJECT_DIR$/src/main/scala/globals/PrimitiveDatatype.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/main/SimilarityFinder.scala" afterPath="$PROJECT_DIR$/src/main/scala/main/SimilarityFinder.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/InsertPropertiesIntoOntology.scala" afterPath="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/InsertPropertiesIntoOntology.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/AskQuery.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/AskQuery.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/FindSomething.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/FindSomething.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/Query.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/Query.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/specific/QueryFactory.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/specific/QueryFactory.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/variables/CountQueryVariable.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/variables/CountQueryVariable.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/variables/DynamicQueryVariable.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/variables/DynamicQueryVariable.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/variables/ResultVariable.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/variables/ResultVariable.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/variables/StaticQueryVariable.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/variables/StaticQueryVariable.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/ranker/Ranker.scala" afterPath="$PROJECT_DIR$/src/main/scala/ranker/Ranker.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala" afterPath="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/strategies/Strategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/strategies/Strategy.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/strategies/StrategyGenerator.scala" afterPath="$PROJECT_DIR$/src/main/scala/strategies/StrategyGenerator.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/baseline/TestVectorRepresentationCreator.scala" afterPath="$PROJECT_DIR$/src/test/scala/baseline/TestVectorRepresentationCreator.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/query/TestAskQuery.scala" afterPath="$PROJECT_DIR$/src/test/scala/query/TestAskQuery.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/query/TestFindAllDistinctPropertiesQuery.scala" afterPath="$PROJECT_DIR$/src/test/scala/query/TestFindAllDistinctPropertiesQuery.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/query/TestFindTotalCountWhereQuery.scala" afterPath="$PROJECT_DIR$/src/test/scala/query/TestFindTotalCountWhereQuery.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/rdf/TestGraphRDF.scala" afterPath="$PROJECT_DIR$/src/test/scala/rdf/TestGraphRDF.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDF.scala" afterPath="$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDF.scala" />
     </list>
     <ignored path="SimilarEntitiesWikidata.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -49,11 +96,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="StrategyGenerator.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/StrategyGenerator.scala">
+      <file leaf-file-name="SimilarityFinder.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/main/SimilarityFinder.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+            <state relative-caret-position="459">
+              <caret line="33" column="32" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -62,18 +109,18 @@
       <file leaf-file-name="Ranker.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/ranker/Ranker.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="100" selection-start-line="8" selection-start-column="64" selection-end-line="8" selection-end-column="100" />
+            <state relative-caret-position="153">
+              <caret line="9" column="37" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Displayer.scala" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Displayer.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/displayer/Displayer.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
+            <state relative-caret-position="221">
+              <caret line="13" column="3" selection-start-line="13" selection-start-column="3" selection-end-line="13" selection-end-column="3" />
               <folding />
             </state>
           </provider>
@@ -82,8 +129,20 @@
       <file leaf-file-name="Strategy.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/Strategy.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="72" selection-start-line="9" selection-start-column="72" selection-end-line="9" selection-end-column="72" />
+            <state relative-caret-position="136">
+              <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+              <folding>
+                <element signature="e#20#44#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PropMatchStrategy.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/PropMatchStrategy.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="202">
+              <caret line="17" column="65" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="65" />
               <folding>
                 <element signature="e#20#44#0" expanded="true" />
               </folding>
@@ -91,67 +150,53 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StrategyExecutor.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/StrategyExecutor.scala">
+      <file leaf-file-name="StaticQueryVariable.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/StaticQueryVariable.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+            <state relative-caret-position="119">
+              <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Comparator.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/comparator/Comparator.scala">
+      <file leaf-file-name="QueryFactory.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/query/specific/QueryFactory.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+            <state relative-caret-position="490">
+              <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
               <folding>
-                <element signature="e#20#42#0" expanded="true" />
+                <element signature="e#24#76#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Feature.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/feature/Feature.scala">
+      <file leaf-file-name="TestBreezeLibrary.scala" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/math/TestBreezeLibrary.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="255">
-              <caret line="15" column="3" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
-              <folding>
-                <element signature="e#17#45#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="package.scala" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalanlp/breeze_2.11/srcs/breeze_2.11-0.12-sources.jar!/breeze/numerics/package.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="301" column="29" selection-start-line="301" selection-start-column="29" selection-end-line="301" selection-end-column="29" />
+            <state relative-caret-position="136">
+              <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UFunc.scala" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalanlp/breeze_2.11/srcs/breeze_2.11-0.12-sources.jar!/breeze/generic/UFunc.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="172">
-              <caret line="45" column="12" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="12" />
-              <folding>
-                <element signature="e#24#49#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FeatureType.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/globals/FeatureType.scala">
+      <file leaf-file-name="TestAskQuery.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestAskQuery.scala">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="170">
-              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestSimilarityFinder.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/main/TestSimilarityFinder.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="153">
+              <caret line="9" column="29" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -164,8 +209,8 @@
       <list>
         <option value="Interface" />
         <option value="Package Object" />
-        <option value="Scala Class" />
         <option value="Class" />
+        <option value="Scala Class" />
       </list>
     </option>
   </component>
@@ -175,57 +220,57 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/src/main/scala/strategies/PropMatch.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/strategies/Strategy.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/query/TestAskQuery.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/query/variables/StaticQueryVariable.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/query/TestFindAllDistinctEntitiesQuery.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/query/TestFindObjectStatementsQuery.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/query/TestFindSubjectStatementsQuery.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/globals/PrimitiveDatatype.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDF.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/strategies/AlternativeLinkStrategy.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/strategies/HierarchyMatchStrategy.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/query/TestFindStrategiesQuery.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/strategies/ValueMatchStrategy.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/strategies/InANotInBStrategy.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/strategy/TestStrategyGenerator.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/InsertPropertiesIntoOntology.scala" />
+        <option value="$PROJECT_DIR$/build.sbt" />
+        <option value="$PROJECT_DIR$/src/main/scala/ranker/Ranker.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/ranker/SimilarEntity.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/displayer/Displayer.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/main/TestSimilarityFinder.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/MapPropertyDatatypeToClass.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/CustomPropertyClass.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/attributesGenerator/CountAttributeGenerator.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/globals/Namespace.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/attributesGenerator/AttributeGenerator.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/attributesGenerator/DomainAndRangeAttributeGenerator.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/OwnOntologyPopularizer/TestFindAllPropertiesOfCustomClass.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/query/OldQueryFactory.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/baseline/PropertyIdfCalculator.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/OwnOntologyPopularizer/TestDomainCountAttributeGenerator.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/testOwnOntologyPopularizer/TestDomainCountAttributeGenerator.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/query/TestFindAllDistinctPropertiesQuery.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/query/TestFindSubjectsWithProperty.scala" />
-        <option value="$PROJECT_DIR$/src/main/java/tdbModel/CreateWikidataTDBModel.java" />
+        <option value="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/CustomPropertyClass.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/dump/DumpObject.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/attributesGenerator/AttributeGenerator.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/query/filters/NotEqualFilter.scala" />
         <option value="$PROJECT_DIR$/src/main/java/jenaQuerier/QueryLocalServer.java" />
         <option value="$PROJECT_DIR$/src/main/scala/query/AskQuery.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/query/TestAskQuery.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDF.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/query/WhereFilter.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/query/filters/SameTypeFilter.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/query/TestFindSubjectsOfType.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/query/TestFindIDForPropertyLabelQuery.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/query/TestFindCountWhereQuery.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/query/TestFindTotalCountWhereQuery.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/query/variables/CountQueryVariable.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/OwnOntologyPopularizer/TestCountAttributeGenerator.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/attributesGenerator/CountAttributeGenerator.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/globals/SimilarPropertyOntology.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/query/Query.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/rdf/TestResultVariable.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/query/FindSomething.scala" />
-        <option value="$PROJECT_DIR$/input/artists10similar.txt" />
-        <option value="$PROJECT_DIR$/src/main/scala/query/specific/QueryFactory.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/rdf/RDFGraph.java" />
-        <option value="$PROJECT_DIR$/src/main/scala/rdf/RawRDF.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/rdf/TestRawRDF.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/globals/Namespace.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/rdf/GraphRDF.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/rdf/WikidataPropertyHelper.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/rdf/TestGraphRDF.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/dump/TestDumpObject.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/baseline/PropertyIdfCalculator.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/baseline/TestMapCreation.scala" />
-        <option value="$PROJECT_DIR$/build.sbt" />
-        <option value="$PROJECT_DIR$/src/test/scala/rdf/TestWikidataPropertyHelper.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/math/TestBreezeLibrary.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/baseline/TestVectorRepresentationCreator.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/dump/DumpObject.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/dataset/ArtistDatasetReader.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/dataset/TestArtistDataset.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/baseline/TestBaselineOnArtistDataset.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/baseline/VectorRepresentationCreator.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/main/SimilarityFinder.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/globals/FeatureType.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/feature/Feature.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/strategies/Strategy.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/comparator/Comparator.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/query/variables/ResultVariable.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/globals/MyConfiguration.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestFindAllPropertiesOfCustomClass.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/attributesGenerator/DomainAndRangeAttributeGenerator.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestDomainCountAttributeGenerator.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/strategies/DirectLinkStrategy.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/strategies/StrategyGenerator.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/ranker/Ranker.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/displayer/Displayer.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/strategies/PropMatchStrategy.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/main/SimilarityFinder.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/query/specific/QueryFactory.scala" />
       </list>
     </option>
   </component>
@@ -260,7 +305,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -295,6 +339,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="strategy" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -371,6 +441,10 @@
               <option name="myItemId" value="scala" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="query" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -394,7 +468,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="OwnOntologyPopularizer" />
+              <option name="myItemId" value="ownOntologyPopularizer" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -421,6 +495,32 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="math" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -668,6 +768,122 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="query" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="query" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="variables" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="query" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="specific" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="query" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="filters" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="priorityQueueExample" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -694,7 +910,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="OwnOntologyPopularizer" />
+              <option name="myItemId" value="ownOntologyPopularizer" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -720,7 +936,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="OwnOntologyPopularizer" />
+              <option name="myItemId" value="ownOntologyPopularizer" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -803,32 +1019,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="feature" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SimilarEntitiesWikidata" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="SimilarEntitiesWikidata" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scala" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dump" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1051,6 +1241,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1061,17 +1252,18 @@
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="last_opened_file_path" value="C:/Dropbox/Prog/Intellij/AIIntro" />
     <property name="SearchEverywhereHistoryKey" value="ID&#9;null&#9;null" />
+    <property name="extract.method.default.visibility" value="private" />
   </component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="query" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="baseline" />
-      <recent name="math" />
-      <recent name="dump" />
       <recent name="rdf" />
-      <recent name="dataset" />
+      <recent name="query.filters" />
+      <recent name="OwnOntologyPopularizer" />
+      <recent name="OwnOntologyPopularizer.attributesGenerator" />
+      <recent name="main" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Espen\Google Drive\Prog\Scala\SimilarEntitiesWikidata\input" />
@@ -1079,77 +1271,77 @@
       <recent name="C:\Users\Espen\Google Drive\Prog\Scala\SimilarEntitiesWikidata\src\main\scala\query" />
     </key>
   </component>
-  <component name="RunManager" selected="ScalaTest.TestBaselineOnArtistDataset.Run tf-idf through similar artists dataset">
-    <configuration default="false" name="TestVectorRepresentationCreator.No errors when creating representation" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+  <component name="RunManager" selected="ScalaTest.TestBreezeLibrary.testing library">
+    <configuration default="false" name="TestDomainCountAttributeGenerator.Test range count generator" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="similarentitieswikidata" />
-      <setting name="path" value="baseline.TestVectorRepresentationCreator" />
+      <setting name="path" value="ownOntologyPopularizer.TestDomainCountAttributeGenerator" />
       <setting name="package" value="" />
       <setting name="vmparams" value="" />
       <setting name="params" value="" />
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="No errors when creating representation" />
+      <setting name="testName" value="Test range count generator" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="TestVectorRepresentationCreator.Compare obama to hillary clinton and george W bush" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+    <configuration default="false" name="TestSimilarityFinder.must be a lot of errors!!! ???" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="similarentitieswikidata" />
-      <setting name="path" value="baseline.TestVectorRepresentationCreator" />
+      <setting name="path" value="main.TestSimilarityFinder" />
       <setting name="package" value="" />
       <setting name="vmparams" value="" />
       <setting name="params" value="" />
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="Compare obama to hillary clinton and george W bush" />
+      <setting name="testName" value="must be a lot of errors!!! ???" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="TestArtistDataset.write datset to file" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+    <configuration default="false" name="TestResultVariable.a result variable should be converted to int without problem" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="similarentitieswikidata" />
-      <setting name="path" value="dataset.TestArtistDataset" />
+      <setting name="path" value="rdf.TestResultVariable" />
       <setting name="package" value="" />
       <setting name="vmparams" value="" />
       <setting name="params" value="" />
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="write datset to file" />
+      <setting name="testName" value="a result variable should be converted to int without problem" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="TestArtistDataset.get dataset from file" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+    <configuration default="false" name="TestDomainCountAttributeGenerator.All properties should have a domain count except 3 most common" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="similarentitieswikidata" />
-      <setting name="path" value="dataset.TestArtistDataset" />
+      <setting name="path" value="ownOntologyPopularizer.TestDomainCountAttributeGenerator" />
       <setting name="package" value="" />
       <setting name="vmparams" value="" />
       <setting name="params" value="" />
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="get dataset from file" />
+      <setting name="testName" value="All properties should have a domain count except 3 most common" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="TestBaselineOnArtistDataset.Run tf-idf through similar artists dataset" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+    <configuration default="false" name="TestBreezeLibrary.testing library" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="similarentitieswikidata" />
-      <setting name="path" value="baseline.TestBaselineOnArtistDataset" />
+      <setting name="path" value="math.TestBreezeLibrary" />
       <setting name="package" value="" />
       <setting name="vmparams" value="" />
       <setting name="params" value="" />
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="Run tf-idf through similar artists dataset" />
+      <setting name="testName" value="testing library" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <envs />
@@ -1397,24 +1589,24 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="SBT Task.Compile" />
-      <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestVectorRepresentationCreator.No errors when creating representation" />
-      <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestVectorRepresentationCreator.Compare obama to hillary clinton and george W bush" />
-      <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestArtistDataset.write datset to file" />
-      <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestArtistDataset.get dataset from file" />
-      <item index="5" class="java.lang.String" itemvalue="ScalaTest.TestBaselineOnArtistDataset.Run tf-idf through similar artists dataset" />
+      <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestDomainCountAttributeGenerator.Test range count generator" />
+      <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestSimilarityFinder.must be a lot of errors!!! ???" />
+      <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestResultVariable.a result variable should be converted to int without problem" />
+      <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestDomainCountAttributeGenerator.All properties should have a domain count except 3 most common" />
+      <item index="5" class="java.lang.String" itemvalue="ScalaTest.TestBreezeLibrary.testing library" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="ScalaTest.TestBaselineOnArtistDataset.Run tf-idf through similar artists dataset" />
-        <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestArtistDataset.get dataset from file" />
-        <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestArtistDataset.write datset to file" />
-        <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestVectorRepresentationCreator.Compare obama to hillary clinton and george W bush" />
-        <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestVectorRepresentationCreator.No errors when creating representation" />
+        <item index="0" class="java.lang.String" itemvalue="ScalaTest.TestBreezeLibrary.testing library" />
+        <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestSimilarityFinder.must be a lot of errors!!! ???" />
+        <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestDomainCountAttributeGenerator.All properties should have a domain count except 3 most common" />
+        <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestDomainCountAttributeGenerator.Test range count generator" />
+        <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestResultVariable.a result variable should be converted to int without problem" />
       </list>
     </recent_temporary>
   </component>
   <component name="SbtLocalSettings">
-    <option name="lastUpdateTimestamp" value="1478712753547" />
+    <option name="lastUpdateTimestamp" value="1479216143175" />
     <option name="availableProjects">
       <map>
         <entry>
@@ -1455,54 +1647,54 @@
     <option name="remove_strategy" value="false" />
   </component>
   <component name="TestHistory">
-    <history-entry file="TestArtistDataset_get_dataset_from_file - 2016.11.09 at 19h 19m 14s.xml">
-      <configuration name="TestArtistDataset.get dataset from file" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestBreezeLibrary_testing_library - 2016.11.15 at 15h 20m 08s.xml">
+      <configuration name="TestBreezeLibrary.testing library" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestArtistDataset_write_datset_to_file - 2016.11.09 at 19h 18m 39s.xml">
-      <configuration name="TestArtistDataset.write datset to file" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimilarityFinder_must_be_a_lot_of_errors!!!____ - 2016.11.14 at 20h 31m 54s.xml">
+      <configuration name="TestSimilarityFinder.must be a lot of errors!!! ???" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestBaselineOnArtistDataset_Run_tf-idf_through_similar_artists_dataset - 2016.11.09 at 19h 21m 12s.xml">
-      <configuration name="TestBaselineOnArtistDataset.Run tf-idf through similar artists dataset" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimilarityFinder_must_be_a_lot_of_errors!!!____ - 2016.11.14 at 20h 33m 17s.xml">
+      <configuration name="TestSimilarityFinder.must be a lot of errors!!! ???" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestBaselineOnArtistDataset_Run_tf-idf_through_similar_artists_dataset - 2016.11.09 at 19h 23m 16s.xml">
-      <configuration name="TestBaselineOnArtistDataset.Run tf-idf through similar artists dataset" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimilarityFinder_must_be_a_lot_of_errors!!!____ - 2016.11.14 at 20h 34m 44s.xml">
+      <configuration name="TestSimilarityFinder.must be a lot of errors!!! ???" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestBaselineOnArtistDataset_Run_tf-idf_through_similar_artists_dataset - 2016.11.09 at 19h 24m 00s.xml">
-      <configuration name="TestBaselineOnArtistDataset.Run tf-idf through similar artists dataset" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimilarityFinder_must_be_a_lot_of_errors!!!____ - 2016.11.14 at 20h 39m 03s.xml">
+      <configuration name="TestSimilarityFinder.must be a lot of errors!!! ???" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestBaselineOnArtistDataset_Run_tf-idf_through_similar_artists_dataset - 2016.11.09 at 19h 26m 53s.xml">
-      <configuration name="TestBaselineOnArtistDataset.Run tf-idf through similar artists dataset" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimilarityFinder_must_be_a_lot_of_errors!!!____ - 2016.11.14 at 20h 40m 59s.xml">
+      <configuration name="TestSimilarityFinder.must be a lot of errors!!! ???" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestVectorRepresentationCreator_Compare_obama_to_hillary_clinton_and_george_W_bush - 2016.11.09 at 18h 56m 00s.xml">
-      <configuration name="TestVectorRepresentationCreator.Compare obama to hillary clinton and george W bush" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimilarityFinder_must_be_a_lot_of_errors!!!____ - 2016.11.14 at 20h 49m 03s.xml">
+      <configuration name="TestSimilarityFinder.must be a lot of errors!!! ???" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestVectorRepresentationCreator_Compare_obama_to_hillary_clinton_and_george_W_bush - 2016.11.09 at 18h 57m 28s.xml">
-      <configuration name="TestVectorRepresentationCreator.Compare obama to hillary clinton and george W bush" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimilarityFinder_must_be_a_lot_of_errors!!!____ - 2016.11.14 at 20h 52m 05s.xml">
+      <configuration name="TestSimilarityFinder.must be a lot of errors!!! ???" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestVectorRepresentationCreator_Compare_obama_to_hillary_clinton_and_george_W_bush - 2016.11.09 at 18h 58m 49s.xml">
-      <configuration name="TestVectorRepresentationCreator.Compare obama to hillary clinton and george W bush" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimilarityFinder_must_be_a_lot_of_errors!!!____ - 2016.11.14 at 20h 58m 08s.xml">
+      <configuration name="TestSimilarityFinder.must be a lot of errors!!! ???" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestVectorRepresentationCreator_Compare_obama_to_hillary_clinton_and_george_W_bush - 2016.11.09 at 18h 59m 48s.xml">
-      <configuration name="TestVectorRepresentationCreator.Compare obama to hillary clinton and george W bush" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimilarityFinder_must_be_a_lot_of_errors!!!____ - 2016.11.14 at 21h 01m 28s.xml">
+      <configuration name="TestSimilarityFinder.must be a lot of errors!!! ???" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2064" height="1128" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33366835" sideWeight="0.49051896" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="SBT" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934132" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34271356" sideWeight="0.49051896" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="SBT" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32226562" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45326632" sideWeight="0.50548905" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37721023" sideWeight="0.50927734" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32833022" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4522613" sideWeight="0.49451098" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.38592964" sideWeight="0.49072266" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27994013" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32964823" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29191616" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33668342" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3959799" sideWeight="0.498004" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3949749" sideWeight="0.498004" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1558,58 +1750,57 @@
           <properties />
           <option name="timeStamp" value="19" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/attributesGenerator/AttributeGenerator.scala</url>
+          <line>17</line>
+          <properties />
+          <option name="timeStamp" value="29" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/main/SimilarityFinder.scala</url>
+          <line>46</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/main/SimilarityFinder.scala</url>
+          <line>37</line>
+          <properties />
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/jenaQuerier/QueryLocalServer.java</url>
+          <line>46</line>
+          <properties />
+          <option name="timeStamp" value="25" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="25" />
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <option name="time" value="52" />
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="ScalaTestRunConfiguration">
-        <watch expression="f()" language="Scala" />
-        <watch expression="QueryLocalServer.convertToMultipleGraphQuery(super.getQuery())" language="Scala" />
-      </configuration>
-    </watches-manager>
+    <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/filters/StringLanguageFilter.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/dump/DumpObject.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+        <state relative-caret-position="238">
+          <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/ValueMatchStrategy.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.0-sources.jar!/org/scalatest/Engine.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="288" column="6" selection-start-line="288" selection-start-column="6" selection-end-line="288" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/Query.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/MultipleGraphQuery.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/QueryVariable.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/filters/QueryFilter.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="15" selection-start-line="5" selection-start-column="15" selection-end-line="5" selection-end-column="15" />
@@ -1617,10 +1808,205 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/StaticQueryVariable.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/filters/StringLanguageFilter.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/filters/NotEqualFilter.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="89" selection-start-line="10" selection-start-column="89" selection-end-line="10" selection-end-column="89" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/AskQuery.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
-          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/globals/FeatureType.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="7" selection-start-line="6" selection-start-column="7" selection-end-line="6" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/feature/Feature.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="8" column="52" selection-start-line="8" selection-start-column="52" selection-end-line="8" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/ranker/SimilarEntity.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
+          <folding>
+            <element signature="e#16#40#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalactic/scalactic_2.11/srcs/scalactic_2.11-3.0.0-sources.jar!/org/scalactic/source/Position.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/GraphRDF.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.0-sources.jar!/org/scalatest/tools/Runner.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="1234" column="12" selection-start-line="1234" selection-start-column="12" selection-end-line="1234" selection-end-column="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/ResultQueryVariable.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="25" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/CountQueryVariable.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="6" selection-start-line="6" selection-start-column="6" selection-end-line="6" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/globals/PrimitiveDatatype.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/readRdf/SplitAndFixRDF.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="103" column="47" selection-start-line="103" selection-start-column="47" selection-end-line="103" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/rdf/TestResultVariable.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+          <folding>
+            <element signature="e#13#60#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/CustomPropertyClass.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="15" column="18" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/globals/MyConfiguration.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/globals/SimilarPropertyOntology.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="90" selection-start-line="15" selection-start-column="67" selection-end-line="15" selection-end-column="90" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestFindAllPropertiesOfCustomClass.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+          <folding>
+            <element signature="e#32#61#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/attributesGenerator/DomainAndRangeAttributeGenerator.scala" />
+    <entry file="file://$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/attributesGenerator/CountAttributeGenerator.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="19" column="46" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestDomainCountAttributeGenerator.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+          <folding>
+            <element signature="e#33#92#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/DirectLinkStrategy.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
+          <folding>
+            <element signature="e#19#45#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/AlternativeLinkStrategy.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="49" selection-start-line="9" selection-start-column="49" selection-end-line="9" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/attributesGenerator/AttributeGenerator.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="314">
+          <caret line="20" column="55" selection-start-line="20" selection-start-column="55" selection-end-line="20" selection-end-column="55" />
+          <folding>
+            <element signature="e#52#77#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/StrategyGenerator.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="335">
+          <caret line="33" column="14" selection-start-line="33" selection-start-column="14" selection-end-line="33" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -1633,383 +2019,185 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/input/artists10similar.txt">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/FindSomething.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="40154">
-          <caret line="2362" column="409" selection-start-line="2362" selection-start-column="409" selection-end-line="2362" selection-end-column="409" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/srcs/scala-library-2.11.8-sources.jar!/scala/collection/LinearSeqOptimized.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="952">
-          <caret line="64" column="0" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+        <state relative-caret-position="420">
+          <caret line="49" column="4" selection-start-line="49" selection-start-column="4" selection-end-line="49" selection-end-column="4" />
           <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#560#585#0" expanded="false" />
+            <element signature="e#15#51#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDF.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/ResultVariable.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="17" column="5" selection-start-line="17" selection-start-column="5" selection-end-line="17" selection-end-column="5" />
+        <state relative-caret-position="421">
+          <caret line="32" column="4" selection-start-line="32" selection-start-column="4" selection-end-line="32" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/RDFGraph.java">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/WhereFilter.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="40" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
+        <state relative-caret-position="323">
+          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/srcs/scala-library-2.11.8-sources.jar!/scala/package.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/Query.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="44" column="7" selection-start-line="44" selection-start-column="7" selection-end-line="44" selection-end-column="7" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
+        <state relative-caret-position="272">
+          <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/srcs/scala-library-2.11.8-sources.jar!/scala/collection/mutable/Set.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/MultipleGraphQuery.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="38" column="3" selection-start-line="38" selection-start-column="3" selection-end-line="38" selection-end-column="3" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
+        <state relative-caret-position="187">
+          <caret line="11" column="4" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.0-sources.jar!/org/scalatest/TestSuite.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/java/jenaQuerier/QueryLocalServer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="195" column="4" selection-start-line="195" selection-start-column="4" selection-end-line="195" selection-end-column="4" />
+        <state relative-caret-position="272">
+          <caret line="38" column="30" selection-start-line="38" selection-start-column="30" selection-end-line="38" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.akka/akka-stream-experimental_2.11/srcs/akka-stream-experimental_2.11-2.0.1-sources.jar!/akka/stream/scaladsl/Flow.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="433" column="36" selection-start-line="433" selection-start-column="36" selection-end-line="433" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.0-sources.jar!/org/scalatest/Engine.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4335">
+          <caret line="288" column="6" selection-start-line="288" selection-start-column="6" selection-end-line="288" selection-end-column="6" />
           <folding>
             <element signature="n#!!doc" expanded="false" />
+            <element signature="e#624#646#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.0-sources.jar!/org/scalatest/FunSuiteLike.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="267">
-          <caret line="179" column="57" selection-start-line="179" selection-start-column="57" selection-end-line="179" selection-end-column="57" />
-          <folding />
+        <state relative-caret-position="191">
+          <caret line="195" column="4" selection-start-line="195" selection-start-column="4" selection-end-line="195" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/RawRDF.scala">
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.0-sources.jar!/org/scalatest/TestSuite.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="31" selection-start-line="13" selection-start-column="31" selection-end-line="13" selection-end-column="31" />
-          <folding />
+        <state relative-caret-position="191">
+          <caret line="195" column="4" selection-start-line="195" selection-start-column="4" selection-end-line="195" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.0-sources.jar!/org/scalatest/OutcomeOf.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="85" column="6" selection-start-line="85" selection-start-column="6" selection-end-line="85" selection-end-column="6" />
-          <folding />
+        <state relative-caret-position="191">
+          <caret line="83" column="4" selection-start-line="83" selection-start-column="4" selection-end-line="83" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/rdf/TestRawRDF.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="44" column="21" selection-start-line="44" selection-start-column="21" selection-end-line="44" selection-end-column="21" />
-          <folding>
-            <element signature="e#13#42#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestFindIDForPropertyLabelQuery.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="12" column="45" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/specific/QueryFactory.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="36" column="0" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/WikidataPropertyHelper.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="59" selection-start-line="9" selection-start-column="59" selection-end-line="9" selection-end-column="59" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/CreateRdfFile.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="39" selection-start-line="11" selection-start-column="39" selection-end-line="11" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_102/src.zip!/java/io/File.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="70">
-          <caret line="148" column="13" selection-start-line="148" selection-start-column="13" selection-end-line="148" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output/pickles/test1.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/rdf/TestGraphRDF.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding>
-            <element signature="e#13#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/dump/TestDumpObject.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="20" selection-start-line="12" selection-start-column="20" selection-end-line="12" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/baseline/TestMapCreation.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="58" selection-start-line="8" selection-start-column="58" selection-end-line="8" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.sbt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="0" selection-start-line="12" selection-start-column="0" selection-end-line="12" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/rdf/TestWikidataPropertyHelper.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="73" selection-start-line="15" selection-start-column="73" selection-end-line="15" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/math/TestBreezeLibrary.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="17" selection-start-line="19" selection-start-column="17" selection-end-line="19" selection-end-column="17" />
-          <folding>
-            <element signature="e#14#43#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/baseline/PropertyIdfCalculator.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="35" column="28" selection-start-line="35" selection-start-column="28" selection-end-line="35" selection-end-column="28" />
-          <folding>
-            <element signature="e#18#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/baseline/TestVectorRepresentationCreator.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="178" selection-start-line="15" selection-start-column="178" selection-end-line="15" selection-end-column="178" />
-          <folding>
-            <element signature="e#18#42#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/dump/DumpObject.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-          <folding>
-            <element signature="e#14#33#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/dataset/ArtistDatasetReader.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="44" column="44" selection-start-line="44" selection-start-column="44" selection-end-line="44" selection-end-column="44" />
-          <folding>
-            <element signature="e#17#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/dataset/TestArtistDataset.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="4" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/baseline/TestBaselineOnArtistDataset.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="68" selection-start-line="12" selection-start-column="68" selection-end-line="12" selection-end-column="68" />
-          <folding>
-            <element signature="e#18#52#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/baseline/VectorRepresentationCreator.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="49" column="54" selection-start-line="49" selection-start-column="54" selection-end-line="49" selection-end-column="54" />
-          <folding>
-            <element signature="e#18#57#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/GraphRDF.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="25" column="111" selection-start-line="25" selection-start-column="111" selection-end-line="25" selection-end-column="111" />
-          <folding>
-            <element signature="e#13#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/main/SimilarityFinder.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="42" selection-start-line="10" selection-start-column="42" selection-end-line="10" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/globals/Namespace.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="39" selection-start-line="13" selection-start-column="39" selection-end-line="13" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/globals/FeatureType.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalanlp/breeze_2.11/srcs/breeze_2.11-0.12-sources.jar!/breeze/generic/UFunc.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="172">
-          <caret line="45" column="12" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="12" />
-          <folding>
-            <element signature="e#24#49#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalanlp/breeze_2.11/srcs/breeze_2.11-0.12-sources.jar!/breeze/numerics/package.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="301" column="29" selection-start-line="301" selection-start-column="29" selection-end-line="301" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/feature/Feature.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="3" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
-          <folding>
-            <element signature="e#17#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/StrategyExecutor.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/Strategy.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="72" selection-start-line="9" selection-start-column="72" selection-end-line="9" selection-end-column="72" />
-          <folding>
-            <element signature="e#20#44#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/comparator/Comparator.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding>
-            <element signature="e#20#42#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/StrategyGenerator.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="0" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/ranker/Ranker.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="100" selection-start-line="8" selection-start-column="64" selection-end-line="8" selection-end-column="100" />
+        <state relative-caret-position="102">
+          <caret line="8" column="6" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/displayer/Displayer.scala">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="3" selection-start-line="13" selection-start-column="3" selection-end-line="13" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/main/TestSimilarityFinder.scala">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
-          <caret line="9" column="35" selection-start-line="9" selection-start-column="35" selection-end-line="9" selection-end-column="35" />
+          <caret line="9" column="29" selection-start-line="9" selection-start-column="29" selection-end-line="9" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/ranker/Ranker.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="37" selection-start-line="9" selection-start-column="37" selection-end-line="9" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/Strategy.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="9" column="6" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+          <folding>
+            <element signature="e#20#44#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/main/SimilarityFinder.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="33" column="32" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/StaticQueryVariable.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="8" column="25" selection-start-line="8" selection-start-column="25" selection-end-line="8" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/PropMatchStrategy.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="202">
+          <caret line="17" column="65" selection-start-line="17" selection-start-column="56" selection-end-line="17" selection-end-column="65" />
+          <folding>
+            <element signature="e#20#44#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestAskQuery.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="14" column="31" selection-start-line="14" selection-start-column="31" selection-end-line="14" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/specific/QueryFactory.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="490">
+          <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
+          <folding>
+            <element signature="e#24#76#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/math/TestBreezeLibrary.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="9" column="4" selection-start-line="9" selection-start-column="4" selection-end-line="9" selection-end-column="4" />
           <folding />
         </state>
       </provider>

@@ -8,9 +8,12 @@ import feature.Feature
   */
 trait Strategy extends Ordered[Strategy]{
   def execute(otherEntities : List[String]) : Map[String, List[Feature]]
-  def findSimilars()
-  val weight : Double
+  def findSimilars() : List[String]
+
+  def weightCalculator(): Double
+
+  def getWeight(f : () => Double = weightCalculator) : Double
   override def compare(that: Strategy): Int = {
-    return floor(that.weight - this.weight).toInt
+    return floor(that.getWeight() - this.getWeight()).toInt
   }
 }

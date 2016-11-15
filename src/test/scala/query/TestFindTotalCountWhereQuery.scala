@@ -9,7 +9,7 @@ import query.specific.QueryFactory
 class TestFindTotalCountWhereQuery extends FunSuite{
   test("The count for property P2011 should be exactly 540") {
     val propertyId = "w:P2011"
-    val count = QueryFactory.findTotalCountWhereProperty(propertyId)
+    val count = QueryFactory.findTotalCountSubjectsWhereProperty(propertyId)
     assert(count == 540)
     print(count)
   }

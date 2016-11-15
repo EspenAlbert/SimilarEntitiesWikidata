@@ -1,7 +1,7 @@
 package baseline
 
 import breeze.linalg.{DenseVector, sum}
-import globals.Namespace
+import globals.SimilarPropertyOntology
 import rdf.{GraphRDF, WikidataPropertyHelper}
 
 /**
@@ -13,7 +13,7 @@ object VectorRepresentationCreator {
     val entityGraph = new GraphRDF(entity)
     val subjectProperties = entityGraph.getProperties(s = true)
     val propertyIdfMap = PropertyIdfCalculator.getMapFromFile()
-    val maxPropertyNumber = Namespace.maxCountForProperties.toString.toInt
+    val maxPropertyNumber = SimilarPropertyOntology.maxCountForProperties.toString.toInt
     val representation = DenseVector.zeros[Double](maxPropertyNumber * 2)
     for(prop <- subjectProperties) {
       val propertyIdOption = WikidataPropertyHelper.getId(prop)
