@@ -13,11 +13,9 @@ import scala.collection.mutable.ArrayBuffer
   */
 object CountAttributeGenerator {
   def generateCounts() = {
-    QueryFactory.dataset = MyDatasets.SimilarProperties
     val countId = SimilarPropertyOntology.spoCount.toString
     val properties = QueryFactory.findAllPropertiesOfCustomClass(CustomPropertyClass.baseProperty)
     val statements = new ArrayBuffer[SimpleRDF]
-    QueryFactory.dataset = MyDatasets.Wikidata
     for(property <- properties){
       val countForProperty = QueryFactory.findTotalCountSubjectsWhereProperty(property)
       statements.append(new SimpleRDF(new StaticQueryVariable(property), new StaticQueryVariable(countId), new StaticQueryVariable(countForProperty.toString, PrimitiveDatatype.nonNegativeInteger)))

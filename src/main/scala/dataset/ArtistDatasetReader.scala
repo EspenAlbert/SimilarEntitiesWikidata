@@ -1,9 +1,9 @@
 package dataset
 
 import dump.DumpObject
-import query.specific.QueryFactory
-import query.variables.{DynamicQueryVariable, StaticQueryVariable}
-import rdf.SimpleRDF
+import query.specific.QueryFactoryV2
+import query.variables.DynamicQueryVariable
+import rdf.SimpleRDFFactory
 
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
@@ -17,7 +17,10 @@ object ArtistDatasetReader {
   private def findWikidataId(objectValue: String, musicbrainzIdPropertyName : String): Option[String]= {
     val dynamicVariable = new DynamicQueryVariable("s", false)
     if(failedIds.exists( _ == objectValue)) return None
-    return QueryFactory.findStringWhere(new SimpleRDF(dynamicVariable, new StaticQueryVariable(musicbrainzIdPropertyName), new StaticQueryVariable(objectValue)), dynamicVariable)
+    try {
+     Some(QueryFactoryV2.findSingleValue(SimpleRDFFactory.getStatement("?s",musicbrainzIdPropertyName, objectValue))) } catch {
+      case _ => None
+    }
   }
   val failedIds = mutable.HashSet[String]()
   def readDataset() : mutable.Map[String, List[String]] = {

@@ -1,8 +1,7 @@
 package strategies
 import breeze.numerics.log
 import feature.Feature
-import globals.{MyDatasets, SimilarPropertyOntology}
-import query.specific.QueryFactory
+import globals.SimilarPropertyOntology
 import query.variables.{DynamicQueryVariable, StaticQueryVariable}
 import rdf.SimpleRDF
 
@@ -18,9 +17,9 @@ case class DirectLinkStrategy(property: String, isSubject: Boolean, entity : Str
   private var similars : List[String] = List[String]()
 
   override def findSimilars(): List[String] = {
-    QueryFactory.dataset = MyDatasets.Wikidata
-    similars =  QueryFactory.findEntities(findOthers, directLinks)
-    return similars
+//    similars =  QueryFactory.findEntities(findOthers, directLinks)
+//    return similars
+    return null //TODO
   }
 
   override def weightCalculator(): Double = log(SimilarPropertyOntology.maxCountForProperties.toString.toInt / similars.length)

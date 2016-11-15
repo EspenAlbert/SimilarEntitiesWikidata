@@ -17,7 +17,6 @@ object AttributeGenerator {
   def generateStatementsForProperty(domainOfProperties: CustomPropertyClass, customPropertyName: SimilarPropertyOntology, primitiveDatatype: PrimitiveDatatype, filename : String, queryFunction: String => Any) = {
     val properties = QueryFactory.findAllPropertiesOfCustomClass(domainOfProperties)
     val statements = new ArrayBuffer[SimpleRDF]
-    QueryFactory.dataset = MyDatasets.Wikidata
     val tooCommonProperties = Set("P31", "P17", "P131")
     for(property <- properties.filterNot((p) => tooCommonProperties.contains(p.substring(p.indexOf("P"))))){
       val valueForProperty = queryFunction(property)

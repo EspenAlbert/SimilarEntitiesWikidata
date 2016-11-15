@@ -1,11 +1,11 @@
 package baseline
 
 import dump.DumpObject
-import globals.{MyDatasets, SimilarPropertyOntology}
+import globals.SimilarPropertyOntology
 import ownOntologyPopularizer.CustomPropertyClass
-import query.specific.QueryFactory
-import query.variables.{DynamicQueryVariable, StaticQueryVariable}
-import rdf.SimpleRDF
+import query.specific.{QueryFactory, QueryFactoryV2}
+import query.variables.DynamicQueryVariable
+import rdf.SimpleRDFFactory
 
 import scala.collection.mutable
 
@@ -21,12 +21,10 @@ object PropertyIdfCalculator {
 
   def getMap() : mutable.Map[String, Double] = {
     val properties = QueryFactory.findAllPropertiesOfCustomClass(CustomPropertyClass.baseProperty)
-    QueryFactory.dataset = MyDatasets.SimilarProperties
     val countId = SimilarPropertyOntology.spoCount.toString
     val propertyIdfScore = mutable.Map[String, Double]()
     for(prop <- properties) {
-      val resultVariable: DynamicQueryVariable = new DynamicQueryVariable("o", false)
-      val countForProperty = QueryFactory.findIntVariableValue(new SimpleRDF(new StaticQueryVariable(prop), new StaticQueryVariable(countId), resultVariable), resultVariable)
+      val countForProperty = QueryFactoryV2.findSingleValue(SimpleRDFFactory.getStatement(prop, countId, "?o"))
       val idfScore = Math.log(SimilarPropertyOntology.maxCountForProperties.toString.toInt / countForProperty)
       println(s"idf score for : $prop = $idfScore ")
       propertyIdfScore(prop) = idfScore

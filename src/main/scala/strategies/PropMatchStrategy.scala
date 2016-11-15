@@ -37,7 +37,6 @@ case class PropMatchStrategy(property : String, isSubject : Boolean) extends Str
   }
 
   override def findSimilars(): List[String] = {
-    QueryFactory.dataset = MyDatasets.Wikidata
     if(isSubject) return QueryFactory.findSubjectsWithProperty(property) else return QueryFactory.findObjectsWithProperty(property)
   }
   def logarithmicWeight(countForProperty : Int) : Double = {
