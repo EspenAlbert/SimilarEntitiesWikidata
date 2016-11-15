@@ -6,7 +6,7 @@ package query.variables
 import query.filters.QueryFilter
 
 import scala.collection.mutable.ArrayBuffer
-case class DynamicQueryVariable(val name : String, val distinct: Boolean) extends QueryVariable with ResultQueryVariable{
+case class DynamicQueryVariable(val name : String, val distinct: Boolean, val ignoreMe : Boolean = false) extends QueryVariable with ResultQueryVariable{
   private val queryFilters : ArrayBuffer[QueryFilter] = new ArrayBuffer[QueryFilter]()
   def addQueryFilter(filter : QueryFilter) = {
     queryFilters.append(filter)
@@ -20,6 +20,7 @@ case class DynamicQueryVariable(val name : String, val distinct: Boolean) extend
   }
 
   override def getSelectPhrase: String = {
+    if(ignoreMe) return ""
     if(distinct) return "distinct ?" + name else return "?" + name
   }
   override def getWherePhrase: String = {

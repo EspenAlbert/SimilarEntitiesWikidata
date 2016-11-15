@@ -13,11 +13,13 @@ class SimpleRDF(val s: QueryVariable = new DynamicQueryVariable("s", false), val
 
   private val distinctPattern = "distinct ?[^\\s]*".r
 
+
   def selectPhrase(): String = {
     val select =  s.getSelectPhrase + " " + p.getSelectPhrase + " " + o.getSelectPhrase
     return distinctPattern.findFirstIn(select) match {
-      case Some(s) => s
+      case Some(s) if(!select.contains("count")) => s
       case None => select
+      case _ => select
     }
   }
 

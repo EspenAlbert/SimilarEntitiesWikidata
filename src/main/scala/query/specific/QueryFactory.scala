@@ -84,14 +84,7 @@ object QueryFactory {
     val query = new MultipleGraphQuery(() => filter.getSelect() + filter.getWhereClause(), dataset)
     return getListFromQueryAndVariables(query, subjects, properties)
   }
-  def findAllStatementsForSubjectsOfType(rdfType : String) : Seq[List[String]] = {
-    val subjects: DynamicQueryVariable = new DynamicQueryVariable("s", false)
-    val statement = new SimpleRDF(s = subjects, p = properties, o = objects)
-    subjects.addQueryFilter(new SameTypeFilter(rdfType, subjects))
-    val filter: WhereFilter = new WhereFilter(statement)
-    val query = new MultipleGraphQuery(() => filter.getSelect() + filter.getWhereClause(), dataset)
-    return getListFromQueryAndVariables(query, subjects, properties, objects)
-  }
+
   def findSubjectsOfType(rdfType : String) : List[String] = {
     val filter = new WhereFilter(SameTypeFilter.getStatement(rdfType, subjects))
     val query = new MultipleGraphQuery(() => filter.getSelect() + filter.getWhereClause(), dataset)

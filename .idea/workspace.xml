@@ -2,8 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="61c6d86c-a94e-43fe-9f19-468998b2f01a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/query/specific/QueryFactoryV2.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/query/TestQueryFactoryV2.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/WhereFilter.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/WhereFilter.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/specific/QueryFactory.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/specific/QueryFactory.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/specific/QueryFactoryV2.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/specific/QueryFactoryV2.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/variables/CountQueryVariable.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/variables/CountQueryVariable.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/variables/DynamicQueryVariable.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/variables/DynamicQueryVariable.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/variables/OptionsForResultQueryVariable.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/variables/OptionsForResultQueryVariable.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala" afterPath="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDFFactory.scala" afterPath="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDFFactory.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDFFactory.scala" afterPath="$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDFFactory.scala" />
@@ -47,8 +53,8 @@
       <file leaf-file-name="SimpleRDFFactory.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/SimpleRDFFactory.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="344">
-              <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+            <state relative-caret-position="182">
+              <caret line="59" column="23" selection-start-line="59" selection-start-column="23" selection-end-line="59" selection-end-column="23" />
               <folding>
                 <element signature="e#13#45#0" expanded="true" />
               </folding>
@@ -56,67 +62,45 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="OptionsForResultQueryVariable.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/OptionsForResultQueryVariable.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="13" column="46" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DynamicQueryVariable.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/DynamicQueryVariable.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="8" column="11" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestSimpleRDFFactory.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDFFactory.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="344">
-              <caret line="38" column="4" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="4" />
-              <folding>
-                <element signature="e#13#45#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OutcomeOf.scala" pinned="false" current-in-tab="false">
-        <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.0-sources.jar!/org/scalatest/OutcomeOf.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="90" column="61" selection-start-line="90" selection-start-column="61" selection-end-line="90" selection-end-column="61" />
-              <folding>
-                <element signature="n#!!doc" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="QueryFactoryV2.scala" pinned="false" current-in-tab="true">
+      <file leaf-file-name="QueryFactoryV2.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/query/specific/QueryFactoryV2.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="349">
-              <caret line="23" column="23" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
+            <state relative-caret-position="279">
+              <caret line="99" column="6" selection-start-line="99" selection-start-column="6" selection-end-line="99" selection-end-column="6" />
               <folding>
-                <element signature="e#24#38#0" expanded="true" />
+                <element signature="e#24#62#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ResultVariable.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/ResultVariable.scala">
+      <file leaf-file-name="CountQueryVariable.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/CountQueryVariable.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+            <state relative-caret-position="255">
+              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestQueryFactoryV2.scala" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestQueryFactoryV2.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="227">
+              <caret line="45" column="5" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
+              <folding>
+                <element signature="e#15#44#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestFindAllPropertiesOfCustomClass.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestFindAllPropertiesOfCustomClass.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="11" column="36" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -125,8 +109,8 @@
       <file leaf-file-name="SimpleRDF.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="412">
-              <caret line="53" column="93" selection-start-line="53" selection-start-column="93" selection-end-line="53" selection-end-column="93" />
+            <state relative-caret-position="357">
+              <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
               <folding>
                 <element signature="e#58#160#0" expanded="true" />
               </folding>
@@ -134,21 +118,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ResultQueryVariable.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/ResultQueryVariable.scala">
+      <file leaf-file-name="WhereFilter.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/query/WhereFilter.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CountQueryVariable.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/CountQueryVariable.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+            <state relative-caret-position="408">
+              <caret line="26" column="48" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -172,8 +146,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/InsertPropertiesIntoOntology.scala" />
-        <option value="$PROJECT_DIR$/build.sbt" />
         <option value="$PROJECT_DIR$/src/main/scala/ranker/Ranker.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/ranker/SimilarEntity.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/displayer/Displayer.scala" />
@@ -207,22 +179,24 @@
         <option value="$PROJECT_DIR$/src/main/scala/strategies/StrategyGenerator.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/strategies/PropMatchStrategy.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/main/SimilarityFinder.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/query/specific/QueryFactory.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/query/variables/DynamicQueryVariable.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/query/variables/StaticQueryVariable.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/query/variables/QueryVariable.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/query/variables/ResultQueryVariable.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/query/variables/CountQueryVariable.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/query/variables/OptionsForResultQueryVariable.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/query/filters/NotEqualFilter.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/globals/SimilarPropertyOntology.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/globals/MyDatasets.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/query/specific/DatasetInferrer.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/query/TestDatasetInferrer.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/query/specific/QueryFactoryV2.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDFFactory.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/query/variables/OptionsForResultQueryVariable.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/query/variables/DynamicQueryVariable.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDFFactory.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/query/specific/QueryFactory.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDFFactory.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/query/WhereFilter.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/query/variables/CountQueryVariable.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/query/specific/QueryFactoryV2.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/query/TestQueryFactoryV2.scala" />
       </list>
     </option>
   </component>
@@ -1211,77 +1185,77 @@
       <recent name="C:\Users\Espen\Google Drive\Prog\Scala\SimilarEntitiesWikidata\src\main\scala\query" />
     </key>
   </component>
-  <component name="RunManager" selected="ScalaTest.TestSimpleRDFFactory.Get result query variables three dynamic variables should return 3">
-    <configuration default="false" name="TestDatasetInferrer.The similar property dataset should be inferred properly" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+  <component name="RunManager" selected="ScalaTest.TestQueryFactoryV2.find total count subjects where property = occupation, distinct">
+    <configuration default="false" name="TestQueryFactoryV2.find all subjects of type panda" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="similarentitieswikidata" />
-      <setting name="path" value="query.TestDatasetInferrer" />
+      <setting name="path" value="query.TestQueryFactoryV2" />
       <setting name="package" value="" />
       <setting name="vmparams" value="" />
       <setting name="params" value="" />
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="The similar property dataset should be inferred properly" />
+      <setting name="testName" value="find all subjects of type panda" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="TestSimpleRDFFactory.Get result query variables" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+    <configuration default="false" name="TestQueryFactoryV2.find all objects and properties of obama" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="similarentitieswikidata" />
-      <setting name="path" value="rdf.TestSimpleRDFFactory" />
+      <setting name="path" value="query.TestQueryFactoryV2" />
       <setting name="package" value="" />
       <setting name="vmparams" value="" />
       <setting name="params" value="" />
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="Get result query variables" />
+      <setting name="testName" value="find all objects and properties of obama" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="TestSimpleRDFFactory.Get result query variables a count variable..." type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+    <configuration default="false" name="TestQueryFactoryV2.find total count subjects where property = occupation" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="similarentitieswikidata" />
-      <setting name="path" value="rdf.TestSimpleRDFFactory" />
+      <setting name="path" value="query.TestQueryFactoryV2" />
       <setting name="package" value="" />
       <setting name="vmparams" value="" />
       <setting name="params" value="" />
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="Get result query variables a count variable..." />
+      <setting name="testName" value="find total count subjects where property = occupation" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="TestSimpleRDFFactory.Get result query variables two dynamic variables one distinct, should return 1..." type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+    <configuration default="false" name="TestQueryFactoryV2.find total count subjects where property = occupation, distinct" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="similarentitieswikidata" />
-      <setting name="path" value="rdf.TestSimpleRDFFactory" />
+      <setting name="path" value="query.TestQueryFactoryV2" />
       <setting name="package" value="" />
       <setting name="vmparams" value="" />
       <setting name="params" value="" />
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="Get result query variables two dynamic variables one distinct, should return 1..." />
+      <setting name="testName" value="find total count subjects where property = occupation, distinct" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="TestSimpleRDFFactory.Get result query variables three dynamic variables should return 3" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+    <configuration default="false" name="TestQueryFactoryV2.find all P properties" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="similarentitieswikidata" />
-      <setting name="path" value="rdf.TestSimpleRDFFactory" />
+      <setting name="path" value="query.TestQueryFactoryV2" />
       <setting name="package" value="" />
       <setting name="vmparams" value="" />
       <setting name="params" value="" />
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="Get result query variables three dynamic variables should return 3" />
+      <setting name="testName" value="find all P properties" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <envs />
@@ -1529,19 +1503,19 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="SBT Task.Compile" />
-      <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestDatasetInferrer.The similar property dataset should be inferred properly" />
-      <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Get result query variables" />
-      <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Get result query variables a count variable..." />
-      <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Get result query variables two dynamic variables one distinct, should return 1..." />
-      <item index="5" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Get result query variables three dynamic variables should return 3" />
+      <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestQueryFactoryV2.find all subjects of type panda" />
+      <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestQueryFactoryV2.find all objects and properties of obama" />
+      <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestQueryFactoryV2.find total count subjects where property = occupation" />
+      <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestQueryFactoryV2.find total count subjects where property = occupation, distinct" />
+      <item index="5" class="java.lang.String" itemvalue="ScalaTest.TestQueryFactoryV2.find all P properties" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Get result query variables three dynamic variables should return 3" />
-        <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Get result query variables two dynamic variables one distinct, should return 1..." />
-        <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Get result query variables a count variable..." />
-        <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Get result query variables" />
-        <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestDatasetInferrer.The similar property dataset should be inferred properly" />
+        <item index="0" class="java.lang.String" itemvalue="ScalaTest.TestQueryFactoryV2.find total count subjects where property = occupation, distinct" />
+        <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestQueryFactoryV2.find all P properties" />
+        <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestQueryFactoryV2.find total count subjects where property = occupation" />
+        <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestQueryFactoryV2.find all objects and properties of obama" />
+        <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestQueryFactoryV2.find all subjects of type panda" />
       </list>
     </recent_temporary>
   </component>
@@ -1587,35 +1561,35 @@
     <option name="remove_strategy" value="false" />
   </component>
   <component name="TestHistory">
-    <history-entry file="TestSimpleRDFFactory_Get_result_query_variables - 2016.11.15 at 17h 24m 18s.xml">
-      <configuration name="TestSimpleRDFFactory.Get result query variables" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestQueryFactoryV2_find_all_P_properties - 2016.11.15 at 19h 39m 31s.xml">
+      <configuration name="TestQueryFactoryV2.find all P properties" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestSimpleRDFFactory_Get_result_query_variables_a_count_variable___ - 2016.11.15 at 17h 26m 00s.xml">
-      <configuration name="TestSimpleRDFFactory.Get result query variables a count variable..." configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestQueryFactoryV2_find_total_count_subjects_where_property_=_occupation - 2016.11.15 at 19h 16m 09s.xml">
+      <configuration name="TestQueryFactoryV2.find total count subjects where property = occupation" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestSimpleRDFFactory_Get_result_query_variables_a_count_variable___ - 2016.11.15 at 17h 26m 38s.xml">
-      <configuration name="TestSimpleRDFFactory.Get result query variables a count variable..." configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestQueryFactoryV2_find_total_count_subjects_where_property_=_occupation - 2016.11.15 at 19h 19m 17s.xml">
+      <configuration name="TestQueryFactoryV2.find total count subjects where property = occupation" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestSimpleRDFFactory_Get_result_query_variables_a_count_variable___ - 2016.11.15 at 17h 27m 41s.xml">
-      <configuration name="TestSimpleRDFFactory.Get result query variables a count variable..." configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestQueryFactoryV2_find_total_count_subjects_where_property_=_occupation - 2016.11.15 at 19h 20m 17s.xml">
+      <configuration name="TestQueryFactoryV2.find total count subjects where property = occupation" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestSimpleRDFFactory_Get_result_query_variables_a_count_variable___ - 2016.11.15 at 17h 29m 24s.xml">
-      <configuration name="TestSimpleRDFFactory.Get result query variables a count variable..." configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestQueryFactoryV2_find_total_count_subjects_where_property_=_occupation - 2016.11.15 at 19h 24m 13s.xml">
+      <configuration name="TestQueryFactoryV2.find total count subjects where property = occupation" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestSimpleRDFFactory_Get_result_query_variables_a_count_variable___ - 2016.11.15 at 17h 31m 00s.xml">
-      <configuration name="TestSimpleRDFFactory.Get result query variables a count variable..." configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestQueryFactoryV2_find_total_count_subjects_where_property_=_occupation,_distinct - 2016.11.15 at 19h 24m 37s.xml">
+      <configuration name="TestQueryFactoryV2.find total count subjects where property = occupation, distinct" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestSimpleRDFFactory_Get_result_query_variables_a_count_variable___ - 2016.11.15 at 17h 31m 52s.xml">
-      <configuration name="TestSimpleRDFFactory.Get result query variables a count variable..." configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestQueryFactoryV2_find_total_count_subjects_where_property_=_occupation,_distinct - 2016.11.15 at 19h 28m 14s.xml">
+      <configuration name="TestQueryFactoryV2.find total count subjects where property = occupation, distinct" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestSimpleRDFFactory_Get_result_query_variables_three_dynamic_variables_should_return_3 - 2016.11.15 at 17h 59m 35s.xml">
-      <configuration name="TestSimpleRDFFactory.Get result query variables three dynamic variables should return 3" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestQueryFactoryV2_find_total_count_subjects_where_property_=_occupation,_distinct - 2016.11.15 at 19h 28m 42s.xml">
+      <configuration name="TestQueryFactoryV2.find total count subjects where property = occupation, distinct" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestSimpleRDFFactory_Get_result_query_variables_two_dynamic_variables_one_distinct,_should_return_1___ - 2016.11.15 at 17h 32m 48s.xml">
-      <configuration name="TestSimpleRDFFactory.Get result query variables two dynamic variables one distinct, should return 1..." configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestQueryFactoryV2_find_total_count_subjects_where_property_=_occupation,_distinct - 2016.11.15 at 19h 38m 21s.xml">
+      <configuration name="TestQueryFactoryV2.find total count subjects where property = occupation, distinct" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestSimpleRDFFactory_Get_result_query_variables_two_dynamic_variables_one_distinct,_should_return_1___ - 2016.11.15 at 17h 58m 28s.xml">
-      <configuration name="TestSimpleRDFFactory.Get result query variables two dynamic variables one distinct, should return 1..." configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestQueryFactoryV2_find_total_count_subjects_where_property_=_occupation,_distinct - 2016.11.15 at 19h 38m 45s.xml">
+      <configuration name="TestQueryFactoryV2.find total count subjects where property = occupation, distinct" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -1628,7 +1602,7 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37721023" sideWeight="0.50927734" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32833022" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.44924623" sideWeight="0.49072266" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.44924623" sideWeight="0.49072266" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29191616" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33668342" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1711,12 +1685,28 @@
           <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/query/specific/QueryFactoryV2.scala</url>
+          <line>27</line>
+          <properties />
+          <option name="timeStamp" value="57" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/rdf/SimpleRDFFactory.scala</url>
-          <line>54</line>
-          <properties>
-            <option name="lambda-ordinal" value="-1" />
-          </properties>
-          <option name="timeStamp" value="54" />
+          <line>59</line>
+          <properties />
+          <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/query/specific/QueryFactoryV2.scala</url>
+          <line>15</line>
+          <properties />
+          <option name="timeStamp" value="60" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/main/scala/query/WhereFilter.scala</url>
+          <line>12</line>
+          <properties />
+          <option name="timeStamp" value="61" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/jenaQuerier/QueryLocalServer.java</url>
@@ -1728,57 +1718,24 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="56" />
+      <option name="time" value="62" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="ScalaTestRunConfiguration">
         <watch expression="isDynamicVariable.findFirstIn(t)" language="Scala" />
         <watch expression="&quot;&quot;&quot;\\?[^\s]*\s?.*&quot;&quot;&quot;.r.findFirstIn(t)" language="Scala" />
+        <watch expression="filter.getWhereClause()" language="Scala" />
+        <watch expression="filter.getSelect()" language="Scala" />
+        <watch expression="statements(0).selectPhrase()" language="Scala" />
       </configuration>
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/scala/readRdf/SplitAndFixRDF.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="103" column="47" selection-start-line="103" selection-start-column="47" selection-end-line="103" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/rdf/TestResultVariable.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
-          <folding>
-            <element signature="e#13#60#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/CustomPropertyClass.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="15" column="18" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/globals/MyConfiguration.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestFindAllPropertiesOfCustomClass.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="374">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding>
-            <element signature="e#32#61#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1847,14 +1804,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/Query.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/query/MultipleGraphQuery.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -1875,33 +1824,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="191">
           <caret line="433" column="36" selection-start-line="433" selection-start-column="36" selection-end-line="433" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.0-sources.jar!/org/scalatest/Engine.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4335">
-          <caret line="288" column="6" selection-start-line="288" selection-start-column="6" selection-end-line="288" selection-end-column="6" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#624#646#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.0-sources.jar!/org/scalatest/FunSuiteLike.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="195" column="4" selection-start-line="195" selection-start-column="4" selection-end-line="195" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.0-sources.jar!/org/scalatest/TestSuite.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="195" column="4" selection-start-line="195" selection-start-column="4" selection-end-line="195" selection-end-column="4" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1965,16 +1887,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/specific/QueryFactory.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="490">
-          <caret line="132" column="0" selection-start-line="132" selection-start-column="0" selection-end-line="132" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#76#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/math/TestBreezeLibrary.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
@@ -2015,14 +1927,6 @@
             <element signature="n#!!doc" expanded="false" />
             <element signature="e#541#624#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/filters/SameTypeFilter.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2076,45 +1980,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/WhereFilter.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/ResultVariable.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/DynamicQueryVariable.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="8" column="11" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/OptionsForResultQueryVariable.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="46" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="53" column="93" selection-start-line="53" selection-start-column="93" selection-end-line="53" selection-end-column="93" />
-          <folding>
-            <element signature="e#58#160#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2126,50 +1996,166 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.0-sources.jar!/org/scalatest/OutcomeOf.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="90" column="61" selection-start-line="90" selection-start-column="61" selection-end-line="90" selection-end-column="61" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/SimpleRDFFactory.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
-          <folding>
-            <element signature="e#13#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/CountQueryVariable.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/DynamicQueryVariable.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
-          <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+          <caret line="8" column="104" selection-start-line="8" selection-start-column="104" selection-end-line="8" selection-end-column="104" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/OptionsForResultQueryVariable.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestQueryLocalServer.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="10" column="44" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDFFactory.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="38" column="4" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="4" />
+        <state relative-caret-position="310">
+          <caret line="41" column="3" selection-start-line="41" selection-start-column="3" selection-end-line="41" selection-end-column="3" />
+          <folding>
+            <element signature="e#13#45#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestFindAllDistinctPropertiesQuery.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="11" column="36" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/specific/QueryFactory.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="343">
+          <caret line="88" column="80" selection-start-line="88" selection-start-column="80" selection-end-line="88" selection-end-column="80" />
+          <folding>
+            <element signature="e#24#76#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/filters/SameTypeFilter.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/CountQueryVariable.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.0-sources.jar!/org/scalatest/Engine.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="288" column="6" selection-start-line="288" selection-start-column="6" selection-end-line="288" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.0-sources.jar!/org/scalatest/FunSuiteLike.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="195" column="4" selection-start-line="195" selection-start-column="4" selection-end-line="195" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.0-sources.jar!/org/scalatest/TestSuite.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="195" column="4" selection-start-line="195" selection-start-column="4" selection-end-line="195" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.0-sources.jar!/org/scalatest/OutcomeOf.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="191">
+          <caret line="83" column="4" selection-start-line="83" selection-start-column="4" selection-end-line="83" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="22" selection-start-line="21" selection-start-column="22" selection-end-line="21" selection-end-column="22" />
+          <folding>
+            <element signature="e#58#160#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/SimpleRDFFactory.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="59" column="23" selection-start-line="59" selection-start-column="23" selection-end-line="59" selection-end-column="23" />
           <folding>
             <element signature="e#13#45#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/WhereFilter.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="26" column="48" selection-start-line="26" selection-start-column="48" selection-end-line="26" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestFindAllPropertiesOfCustomClass.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="11" column="36" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/query/specific/QueryFactoryV2.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="23" column="23" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
+        <state relative-caret-position="279">
+          <caret line="99" column="6" selection-start-line="99" selection-start-column="6" selection-end-line="99" selection-end-column="6" />
           <folding>
-            <element signature="e#24#38#0" expanded="true" />
+            <element signature="e#24#62#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/Query.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestQueryFactoryV2.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="45" column="5" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
+          <folding>
+            <element signature="e#15#44#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -6,10 +6,10 @@ package query.variables
 
 case class CountQueryVariable(val name : String, val distinct: Boolean, val countVariable : DynamicQueryVariable) extends ResultQueryVariable{
   def getSelectPhrase: String = {
-    if(distinct) return s"select (count(distinct ${countVariable.getSelectPhrase}) as ?$name) \n" else return s"select (count(${countVariable.getSelectPhrase}) as ?$name) \n"
+    if(distinct) return s" (count(${countVariable.getSelectPhrase}) as ?$name) \n" else return s" (count(${countVariable.getSelectPhrase}) as ?$name) \n"
   }
 
   def getWherePhrase: String = {
-    ""
+    countVariable.getWherePhrase
   }
 }

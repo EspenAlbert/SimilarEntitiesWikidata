@@ -23,6 +23,10 @@ class TestSimpleRDFFactory extends FunSuite{
     assert(SimpleRDFFactory.getStatement(("?s", "w:P21", "?o " + OptionsForResultQueryVariable.notEqualFilter + "_?o2")).wherePhrase() ==
       "?s <http://www.wikidata.org/entity/P21> ?o .\nfilter(?o != ?o2)")
   }
+  test("Check I am the only important variable ") {
+    assert(SimpleRDFFactory.getStatement(("?s", "w:P21", "?o " + OptionsForResultQueryVariable.ignoreMe)).selectPhrase() ==
+      "select ?o")
+  }
   test("Get result query variables ") {
     val statement = SimpleRDFFactory.getStatement(("?s", "w:P21", "?o " + OptionsForResultQueryVariable.notEqualFilter + "_?o2"))
     assert(statement.getResultVariables().length == 2)
@@ -38,6 +42,10 @@ class TestSimpleRDFFactory extends FunSuite{
   }
   test("Get result query variables three dynamic variables should return 3") {
     val statement = SimpleRDFFactory.getStatement(("?s", "?p", "?o"))
+    assert(SimpleRDFFactory.getResultVariables(statement).length == 3)
+  }
+  test("Get result query variables three dynamic variables, two of them ignoreable should return 1") {
+    val statement = SimpleRDFFactory.getStatement(("?s " + OptionsForResultQueryVariable.ignoreMe, "?p "+ OptionsForResultQueryVariable.ignoreMe, "?o"))
     assert(SimpleRDFFactory.getResultVariables(statement).length == 3)
   }
 
