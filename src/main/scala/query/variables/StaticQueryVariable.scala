@@ -6,7 +6,7 @@ import globals.PrimitiveDatatype.PrimitiveDatatype
 /**
   * Created by Espen on 07.11.2016.
   */
-class StaticQueryVariable(val name : String, val datatype: PrimitiveDatatype = null) extends QueryVariable {
+case class StaticQueryVariable(val name : String, val datatype: PrimitiveDatatype = null) extends QueryVariable {
 
   private def getUriValue(value: String) : String = {
     if(value.startsWith("http:")) return value

@@ -8,10 +8,7 @@ import query.variables.{DynamicQueryVariable, QueryVariable, StaticQueryVariable
 import scala.collection.mutable.ArrayBuffer
 class SimpleRDF(val s: QueryVariable = new DynamicQueryVariable("s", false), val p: QueryVariable = new DynamicQueryVariable("p", false), val o: QueryVariable = new DynamicQueryVariable("o", false), val filterLine: Boolean = false) {
 
-//
-//  def this(tuple3: Tuple3[String, String, String]) {
-//    this(new StaticQueryVariable(tuple3._1), new StaticQueryVariable(tuple3._2), new StaticQueryVariable(tuple3._3))
-//  }
+
   private def listOfElements: List[QueryVariable] = List[QueryVariable](s, p, o)
 
   private val distinctPattern = "distinct ?[^\\s]*".r

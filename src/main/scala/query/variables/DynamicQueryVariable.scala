@@ -6,7 +6,7 @@ package query.variables
 import query.filters.QueryFilter
 
 import scala.collection.mutable.ArrayBuffer
-class DynamicQueryVariable(val name : String, val distinct: Boolean) extends QueryVariable with ResultQueryVariable{
+case class DynamicQueryVariable(val name : String, val distinct: Boolean) extends QueryVariable with ResultQueryVariable{
   private val queryFilters : ArrayBuffer[QueryFilter] = new ArrayBuffer[QueryFilter]()
   def addQueryFilter(filter : QueryFilter) = {
     queryFilters.append(filter)
