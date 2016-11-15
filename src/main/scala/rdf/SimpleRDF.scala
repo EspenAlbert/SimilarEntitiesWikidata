@@ -3,7 +3,7 @@ package rdf
 /**
   * Created by Espen on 04.11.2016.
   */
-import query.variables.{DynamicQueryVariable, QueryVariable, StaticQueryVariable}
+import query.variables.{DynamicQueryVariable, QueryVariable, ResultQueryVariable, StaticQueryVariable}
 
 import scala.collection.mutable.ArrayBuffer
 class SimpleRDF(val s: QueryVariable = new DynamicQueryVariable("s", false), val p: QueryVariable = new DynamicQueryVariable("p", false), val o: QueryVariable = new DynamicQueryVariable("o", false), val filterLine: Boolean = false) {
@@ -48,5 +48,9 @@ class SimpleRDF(val s: QueryVariable = new DynamicQueryVariable("s", false), val
       }
     }
     return statement.mkString(" ") + "."
+  }
+  def getResultVariables(): List[ResultQueryVariable] = {
+    (for(v <- listOfElements
+    if(v.isInstanceOf[ResultQueryVariable])) yield v).asInstanceOf[List[ResultQueryVariable]]
   }
 }

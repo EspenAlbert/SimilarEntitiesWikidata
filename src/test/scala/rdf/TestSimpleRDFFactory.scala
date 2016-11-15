@@ -23,5 +23,22 @@ class TestSimpleRDFFactory extends FunSuite{
     assert(SimpleRDFFactory.getStatement(("?s", "w:P21", "?o " + OptionsForResultQueryVariable.notEqualFilter + "_?o2")).wherePhrase() ==
       "?s <http://www.wikidata.org/entity/P21> ?o .\nfilter(?o != ?o2)")
   }
+  test("Get result query variables ") {
+    val statement = SimpleRDFFactory.getStatement(("?s", "w:P21", "?o " + OptionsForResultQueryVariable.notEqualFilter + "_?o2"))
+    assert(statement.getResultVariables().length == 2)
+  }
+
+  test("Get result query variables a count variable... ") {
+    val statement = SimpleRDFFactory.getStatement(("?s", "w:P21", "?o " + OptionsForResultQueryVariable.count))
+    assert(SimpleRDFFactory.getResultVariables(statement).length == 1)
+  }
+  test("Get result query variables two dynamic variables one distinct, should return 1... ") {
+    val statement = SimpleRDFFactory.getStatement(("?s", "w:P21", "?o " + OptionsForResultQueryVariable.distinct))
+    assert(SimpleRDFFactory.getResultVariables(statement).length == 1)
+  }
+  test("Get result query variables three dynamic variables should return 3") {
+    val statement = SimpleRDFFactory.getStatement(("?s", "?p", "?o"))
+    assert(SimpleRDFFactory.getResultVariables(statement).length == 3)
+  }
 
 }

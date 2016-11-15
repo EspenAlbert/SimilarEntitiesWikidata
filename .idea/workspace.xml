@@ -2,11 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="61c6d86c-a94e-43fe-9f19-468998b2f01a" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/query/specific/DatasetInferrer.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/query/TestDatasetInferrer.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/query/specific/QueryFactoryV2.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/globals/MyDatasets.scala" afterPath="$PROJECT_DIR$/src/main/scala/globals/MyDatasets.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/globals/SimilarPropertyOntology.scala" afterPath="$PROJECT_DIR$/src/main/scala/globals/SimilarPropertyOntology.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala" afterPath="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDFFactory.scala" afterPath="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDFFactory.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDFFactory.scala" afterPath="$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDFFactory.scala" />
     </list>
     <ignored path="SimilarEntitiesWikidata.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -47,75 +47,11 @@
       <file leaf-file-name="SimpleRDFFactory.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/SimpleRDFFactory.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
+            <state relative-caret-position="344">
+              <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
               <folding>
                 <element signature="e#13#45#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestSimpleRDFFactory.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDFFactory.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="72" selection-start-line="23" selection-start-column="72" selection-end-line="23" selection-end-column="72" />
-              <folding>
-                <element signature="e#13#45#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="DatasetInferrer.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/query/specific/DatasetInferrer.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="22" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestDatasetInferrer.scala" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestDatasetInferrer.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-              <folding>
-                <element signature="e#15#67#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="SimilarPropertyOntology.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/globals/SimilarPropertyOntology.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="20" column="17" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MyDatasets.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/globals/MyDatasets.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="22" selection-start-line="8" selection-start-column="12" selection-end-line="8" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="NotEqualFilter.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/query/filters/NotEqualFilter.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" column="27" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -124,27 +60,95 @@
         <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/OptionsForResultQueryVariable.scala">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="221">
-              <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+              <caret line="13" column="46" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StringLanguageFilter.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/query/filters/StringLanguageFilter.scala">
+      <file leaf-file-name="DynamicQueryVariable.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/DynamicQueryVariable.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+            <state relative-caret-position="102">
+              <caret line="8" column="11" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SameTypeFilter.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/query/filters/SameTypeFilter.scala">
+      <file leaf-file-name="TestSimpleRDFFactory.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDFFactory.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
+            <state relative-caret-position="344">
+              <caret line="38" column="4" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="4" />
+              <folding>
+                <element signature="e#13#45#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="OutcomeOf.scala" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.0-sources.jar!/org/scalatest/OutcomeOf.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="310">
+              <caret line="90" column="61" selection-start-line="90" selection-start-column="61" selection-end-line="90" selection-end-column="61" />
+              <folding>
+                <element signature="n#!!doc" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QueryFactoryV2.scala" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/query/specific/QueryFactoryV2.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="349">
+              <caret line="23" column="23" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
+              <folding>
+                <element signature="e#24#38#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ResultVariable.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/ResultVariable.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SimpleRDF.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="412">
+              <caret line="53" column="93" selection-start-line="53" selection-start-column="93" selection-end-line="53" selection-end-column="93" />
+              <folding>
+                <element signature="e#58#160#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ResultQueryVariable.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/ResultQueryVariable.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CountQueryVariable.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/CountQueryVariable.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="102">
+              <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -168,7 +172,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/test/scala/strategy/TestStrategyGenerator.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/OwnOntologyPopularizer/InsertPropertiesIntoOntology.scala" />
         <option value="$PROJECT_DIR$/build.sbt" />
         <option value="$PROJECT_DIR$/src/main/scala/ranker/Ranker.scala" />
@@ -209,16 +212,17 @@
         <option value="$PROJECT_DIR$/src/main/scala/query/variables/StaticQueryVariable.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/query/variables/QueryVariable.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/query/variables/ResultQueryVariable.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/query/variables/CountQueryVariable.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/query/variables/OptionsForResultQueryVariable.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDFFactory.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/query/filters/NotEqualFilter.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDFFactory.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/globals/SimilarPropertyOntology.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/globals/MyDatasets.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/query/specific/DatasetInferrer.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/query/TestDatasetInferrer.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/query/specific/QueryFactoryV2.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDFFactory.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDFFactory.scala" />
       </list>
     </option>
   </component>
@@ -1195,11 +1199,11 @@
       <recent name="query" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="query.specific" />
       <recent name="query" />
       <recent name="rdf" />
       <recent name="query.variables" />
       <recent name="query.filters" />
-      <recent name="OwnOntologyPopularizer" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Espen\Google Drive\Prog\Scala\SimilarEntitiesWikidata\input" />
@@ -1207,67 +1211,7 @@
       <recent name="C:\Users\Espen\Google Drive\Prog\Scala\SimilarEntitiesWikidata\src\main\scala\query" />
     </key>
   </component>
-  <component name="RunManager" selected="ScalaTest.TestDatasetInferrer.The similar property dataset should be inferred properly">
-    <configuration default="false" name="TestSimpleRDFFactory.Check that dynamic query variable are created properly" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="similarentitieswikidata" />
-      <setting name="path" value="rdf.TestSimpleRDFFactory" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="Check that dynamic query variable are created properly" />
-      <setting name="testKind" value="Test name" />
-      <setting name="showProgressMessages" value="true" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="TestSimpleRDFFactory.Check string language filter" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="similarentitieswikidata" />
-      <setting name="path" value="rdf.TestSimpleRDFFactory" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="Check string language filter" />
-      <setting name="testKind" value="Test name" />
-      <setting name="showProgressMessages" value="true" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="TestSimpleRDFFactory.Check not equal filter" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="similarentitieswikidata" />
-      <setting name="path" value="rdf.TestSimpleRDFFactory" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="Check not equal filter" />
-      <setting name="testKind" value="Test name" />
-      <setting name="showProgressMessages" value="true" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="TestDatasetInferrer.The wikidata dataset should be inferred properly" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="similarentitieswikidata" />
-      <setting name="path" value="query.TestDatasetInferrer" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="The wikidata dataset should be inferred properly" />
-      <setting name="testKind" value="Test name" />
-      <setting name="showProgressMessages" value="true" />
-      <envs />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="ScalaTest.TestSimpleRDFFactory.Get result query variables three dynamic variables should return 3">
     <configuration default="false" name="TestDatasetInferrer.The similar property dataset should be inferred properly" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="similarentitieswikidata" />
@@ -1278,6 +1222,66 @@
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
       <setting name="testName" value="The similar property dataset should be inferred properly" />
+      <setting name="testKind" value="Test name" />
+      <setting name="showProgressMessages" value="true" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestSimpleRDFFactory.Get result query variables" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="similarentitieswikidata" />
+      <setting name="path" value="rdf.TestSimpleRDFFactory" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="Get result query variables" />
+      <setting name="testKind" value="Test name" />
+      <setting name="showProgressMessages" value="true" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestSimpleRDFFactory.Get result query variables a count variable..." type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="similarentitieswikidata" />
+      <setting name="path" value="rdf.TestSimpleRDFFactory" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="Get result query variables a count variable..." />
+      <setting name="testKind" value="Test name" />
+      <setting name="showProgressMessages" value="true" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestSimpleRDFFactory.Get result query variables two dynamic variables one distinct, should return 1..." type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="similarentitieswikidata" />
+      <setting name="path" value="rdf.TestSimpleRDFFactory" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="Get result query variables two dynamic variables one distinct, should return 1..." />
+      <setting name="testKind" value="Test name" />
+      <setting name="showProgressMessages" value="true" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestSimpleRDFFactory.Get result query variables three dynamic variables should return 3" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="similarentitieswikidata" />
+      <setting name="path" value="rdf.TestSimpleRDFFactory" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="Get result query variables three dynamic variables should return 3" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <envs />
@@ -1525,19 +1529,19 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="SBT Task.Compile" />
-      <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Check that dynamic query variable are created properly" />
-      <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Check string language filter" />
-      <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Check not equal filter" />
-      <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestDatasetInferrer.The wikidata dataset should be inferred properly" />
-      <item index="5" class="java.lang.String" itemvalue="ScalaTest.TestDatasetInferrer.The similar property dataset should be inferred properly" />
+      <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestDatasetInferrer.The similar property dataset should be inferred properly" />
+      <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Get result query variables" />
+      <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Get result query variables a count variable..." />
+      <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Get result query variables two dynamic variables one distinct, should return 1..." />
+      <item index="5" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Get result query variables three dynamic variables should return 3" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="ScalaTest.TestDatasetInferrer.The similar property dataset should be inferred properly" />
-        <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestDatasetInferrer.The wikidata dataset should be inferred properly" />
-        <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Check not equal filter" />
-        <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Check string language filter" />
-        <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Check that dynamic query variable are created properly" />
+        <item index="0" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Get result query variables three dynamic variables should return 3" />
+        <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Get result query variables two dynamic variables one distinct, should return 1..." />
+        <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Get result query variables a count variable..." />
+        <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestSimpleRDFFactory.Get result query variables" />
+        <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestDatasetInferrer.The similar property dataset should be inferred properly" />
       </list>
     </recent_temporary>
   </component>
@@ -1583,35 +1587,35 @@
     <option name="remove_strategy" value="false" />
   </component>
   <component name="TestHistory">
-    <history-entry file="TestDatasetInferrer_The_similar_property_dataset_should_be_inferred_properly - 2016.11.15 at 16h 48m 55s.xml">
-      <configuration name="TestDatasetInferrer.The similar property dataset should be inferred properly" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimpleRDFFactory_Get_result_query_variables - 2016.11.15 at 17h 24m 18s.xml">
+      <configuration name="TestSimpleRDFFactory.Get result query variables" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestDatasetInferrer_The_similar_property_dataset_should_be_inferred_properly - 2016.11.15 at 16h 49m 25s.xml">
-      <configuration name="TestDatasetInferrer.The similar property dataset should be inferred properly" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimpleRDFFactory_Get_result_query_variables_a_count_variable___ - 2016.11.15 at 17h 26m 00s.xml">
+      <configuration name="TestSimpleRDFFactory.Get result query variables a count variable..." configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestDatasetInferrer_The_wikidata_dataset_should_be_inferred_properly - 2016.11.15 at 16h 48m 16s.xml">
-      <configuration name="TestDatasetInferrer.The wikidata dataset should be inferred properly" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimpleRDFFactory_Get_result_query_variables_a_count_variable___ - 2016.11.15 at 17h 26m 38s.xml">
+      <configuration name="TestSimpleRDFFactory.Get result query variables a count variable..." configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestSimpleRDFFactory_Check_not_equal_filter - 2016.11.15 at 16h 35m 40s.xml">
-      <configuration name="TestSimpleRDFFactory.Check not equal filter" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimpleRDFFactory_Get_result_query_variables_a_count_variable___ - 2016.11.15 at 17h 27m 41s.xml">
+      <configuration name="TestSimpleRDFFactory.Get result query variables a count variable..." configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestSimpleRDFFactory_Check_not_equal_filter - 2016.11.15 at 16h 36m 44s.xml">
-      <configuration name="TestSimpleRDFFactory.Check not equal filter" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimpleRDFFactory_Get_result_query_variables_a_count_variable___ - 2016.11.15 at 17h 29m 24s.xml">
+      <configuration name="TestSimpleRDFFactory.Get result query variables a count variable..." configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestSimpleRDFFactory_Check_string_language_filter - 2016.11.15 at 16h 32m 42s.xml">
-      <configuration name="TestSimpleRDFFactory.Check string language filter" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimpleRDFFactory_Get_result_query_variables_a_count_variable___ - 2016.11.15 at 17h 31m 00s.xml">
+      <configuration name="TestSimpleRDFFactory.Get result query variables a count variable..." configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestSimpleRDFFactory_Check_string_language_filter - 2016.11.15 at 16h 33m 32s.xml">
-      <configuration name="TestSimpleRDFFactory.Check string language filter" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimpleRDFFactory_Get_result_query_variables_a_count_variable___ - 2016.11.15 at 17h 31m 52s.xml">
+      <configuration name="TestSimpleRDFFactory.Get result query variables a count variable..." configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestSimpleRDFFactory_Check_string_language_filter - 2016.11.15 at 16h 35m 37s.xml">
-      <configuration name="TestSimpleRDFFactory.Check string language filter" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimpleRDFFactory_Get_result_query_variables_three_dynamic_variables_should_return_3 - 2016.11.15 at 17h 59m 35s.xml">
+      <configuration name="TestSimpleRDFFactory.Get result query variables three dynamic variables should return 3" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestSimpleRDFFactory_Check_that_dynamic_query_variable_are_created_properly - 2016.11.15 at 16h 20m 54s.xml">
-      <configuration name="TestSimpleRDFFactory.Check that dynamic query variable are created properly" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimpleRDFFactory_Get_result_query_variables_two_dynamic_variables_one_distinct,_should_return_1___ - 2016.11.15 at 17h 32m 48s.xml">
+      <configuration name="TestSimpleRDFFactory.Get result query variables two dynamic variables one distinct, should return 1..." configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestSimpleRDFFactory_Check_that_dynamic_query_variable_are_created_properly - 2016.11.15 at 16h 21m 18s.xml">
-      <configuration name="TestSimpleRDFFactory.Check that dynamic query variable are created properly" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimpleRDFFactory_Get_result_query_variables_two_dynamic_variables_one_distinct,_should_return_1___ - 2016.11.15 at 17h 58m 28s.xml">
+      <configuration name="TestSimpleRDFFactory.Get result query variables two dynamic variables one distinct, should return 1..." configurationId="ScalaTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
@@ -1708,15 +1712,11 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/rdf/SimpleRDFFactory.scala</url>
-          <line>50</line>
-          <properties />
-          <option name="timeStamp" value="52" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="scala-line">
-          <url>file://$PROJECT_DIR$/src/main/scala/rdf/SimpleRDFFactory.scala</url>
-          <line>20</line>
-          <properties />
-          <option name="timeStamp" value="53" />
+          <line>54</line>
+          <properties>
+            <option name="lambda-ordinal" value="-1" />
+          </properties>
+          <option name="timeStamp" value="54" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/jenaQuerier/QueryLocalServer.java</url>
@@ -1728,7 +1728,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="54" />
+      <option name="time" value="56" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="ScalaTestRunConfiguration">
@@ -1738,14 +1738,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/scala/globals/PrimitiveDatatype.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="7" selection-start-line="5" selection-start-column="7" selection-end-line="5" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/readRdf/SplitAndFixRDF.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="425">
@@ -1855,22 +1847,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/ResultVariable.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="421">
-          <caret line="32" column="4" selection-start-line="32" selection-start-column="4" selection-end-line="32" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/WhereFilter.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/query/Query.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -1917,6 +1893,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="191">
           <caret line="195" column="4" selection-start-line="195" selection-start-column="4" selection-end-line="195" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1924,13 +1901,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="191">
           <caret line="195" column="4" selection-start-line="195" selection-start-column="4" selection-end-line="195" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.0-sources.jar!/org/scalatest/OutcomeOf.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="83" column="4" selection-start-line="83" selection-start-column="4" selection-end-line="83" selection-end-column="4" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2028,42 +1999,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/QueryVariable.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/ResultQueryVariable.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="39" selection-start-line="5" selection-start-column="39" selection-end-line="5" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/CountQueryVariable.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="127" selection-start-line="6" selection-start-column="127" selection-end-line="6" selection-end-column="127" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/DynamicQueryVariable.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="8" column="31" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -2095,39 +2034,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/SimpleRDFFactory.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="30" column="0" selection-start-line="30" selection-start-column="0" selection-end-line="30" selection-end-column="0" />
-          <folding>
-            <element signature="e#13#45#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/OptionsForResultQueryVariable.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/query/filters/NotEqualFilter.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="27" selection-start-line="10" selection-start-column="27" selection-end-line="10" selection-end-column="27" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDFFactory.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="72" selection-start-line="23" selection-start-column="72" selection-end-line="23" selection-end-column="72" />
-          <folding>
-            <element signature="e#13#45#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2160,7 +2071,105 @@
         <state relative-caret-position="391">
           <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
           <folding>
-            <element signature="e#15#67#0" expanded="true" />
+            <element signature="e#15#67#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/WhereFilter.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/ResultVariable.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/DynamicQueryVariable.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="8" column="11" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/OptionsForResultQueryVariable.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="46" selection-start-line="13" selection-start-column="46" selection-end-line="13" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="412">
+          <caret line="53" column="93" selection-start-line="53" selection-start-column="93" selection-end-line="53" selection-end-column="93" />
+          <folding>
+            <element signature="e#58#160#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/ResultQueryVariable.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.0-sources.jar!/org/scalatest/OutcomeOf.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="90" column="61" selection-start-line="90" selection-start-column="61" selection-end-line="90" selection-end-column="61" />
+          <folding>
+            <element signature="n#!!doc" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/SimpleRDFFactory.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="344">
+          <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+          <folding>
+            <element signature="e#13#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/variables/CountQueryVariable.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" column="11" selection-start-line="6" selection-start-column="11" selection-end-line="6" selection-end-column="11" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDFFactory.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="344">
+          <caret line="38" column="4" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="4" />
+          <folding>
+            <element signature="e#13#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/query/specific/QueryFactoryV2.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="349">
+          <caret line="23" column="23" selection-start-line="23" selection-start-column="23" selection-end-line="23" selection-end-column="23" />
+          <folding>
+            <element signature="e#24#38#0" expanded="true" />
           </folding>
         </state>
       </provider>

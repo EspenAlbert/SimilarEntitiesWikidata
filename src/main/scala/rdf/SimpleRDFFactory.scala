@@ -32,9 +32,6 @@ object SimpleRDFFactory {
     val variable = if(countExist) CountQueryVariable(name, distinct, dynamicQueryVariable) else dynamicQueryVariable
     return variable
   }
-  private def createDynamicVariable(string : String) : DynamicQueryVariable = {
-    return DynamicQueryVariable(string, false)
-  }
 
   private def createStaticVariable(t: String): QueryVariable = {
     if(!t.contains(" ")) {
@@ -53,7 +50,20 @@ object SimpleRDFFactory {
       }
     }
     return new SimpleRDF(arrayOfVariables(0), arrayOfVariables(1), arrayOfVariables(2))
-
+  }
+  def getResultVariables(statements : SimpleRDF*) :List[ResultQueryVariable] = {
+    val listOfVariables = for(s <- statements)yield s.getResultVariables()
+    val flatList = listOfVariables.flatten
+    if(flatList.exists((s) => s.isInstanceOf[CountQueryVariable])) return flatList.filter(_.isInstanceOf[CountQueryVariable]).toList
+    if(flatList.exists(isADistinctVariable(_))) return flatList.filter(isADistinctVariable(_)).toList
+    return flatList.toList
   }
 
+  def isADistinctVariable(variable : ResultQueryVariable) : Boolean = {
+    variable match {
+      case DynamicQueryVariable(p, true) => true
+      case CountQueryVariable(p, true, o) => true
+      case _ => false
+    }
+  }
 }
