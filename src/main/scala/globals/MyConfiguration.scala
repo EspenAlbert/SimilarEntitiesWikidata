@@ -7,6 +7,8 @@ import breeze.numerics.log
   */
 object MyConfiguration {
 
-  val directLinkBoost = 1000
+
+  val directLinkBoost = 5
+  val alternativeLinkNegative = -0.1
   val maximumWeightPropertyMatch = log(SimilarPropertyOntology.maxCountForProperties.toString.toInt / 100)
 }

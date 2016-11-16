@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="61c6d86c-a94e-43fe-9f19-468998b2f01a" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/globals/FeatureType.scala" afterPath="$PROJECT_DIR$/src/main/scala/globals/FeatureType.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/globals/MyConfiguration.scala" afterPath="$PROJECT_DIR$/src/main/scala/globals/MyConfiguration.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/strategies/AlternativeLinkStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/strategies/AlternativeLinkStrategy.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/strategies/MasterStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/strategies/MasterStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/main/TestSimilarityFinder.scala" afterPath="$PROJECT_DIR$/src/test/scala/main/TestSimilarityFinder.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/strategy/TestStrategyGenerator.scala" afterPath="$PROJECT_DIR$/src/test/scala/strategy/TestStrategyGenerator.scala" />
     </list>
     <ignored path="SimilarEntitiesWikidata.iws" />
@@ -43,18 +44,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="TestAttributeGenerator.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestAttributeGenerator.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="48" column="93" selection-start-line="48" selection-start-column="93" selection-end-line="48" selection-end-column="93" />
-              <folding>
-                <element signature="e#33#92#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="TestRemoveAllValuesWhereFalse.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestRemoveAllValuesWhereFalse.scala">
           <provider selected="true" editor-type-id="text-editor">
@@ -70,10 +59,22 @@
       <file leaf-file-name="TestStrategyGenerator.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/scala/strategy/TestStrategyGenerator.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="32" column="23" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
+            <state relative-caret-position="422">
+              <caret line="49" column="43" selection-start-line="49" selection-start-column="43" selection-end-line="49" selection-end-column="43" />
               <folding>
                 <element signature="e#18#47#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GraphRDF.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/GraphRDF.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="211">
+              <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
+              <folding>
+                <element signature="e#13#47#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -89,18 +90,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UnknownTypeFilter.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/query/filters/UnknownTypeFilter.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="0" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-              <folding>
-                <element signature="e#23#89#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="SimilarPropertyOntology.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/globals/SimilarPropertyOntology.scala">
           <provider selected="true" editor-type-id="text-editor">
@@ -111,23 +100,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SimpleRDFFactory.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/SimpleRDFFactory.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="32" column="65" selection-start-line="32" selection-start-column="48" selection-end-line="32" selection-end-column="65" />
-              <folding>
-                <element signature="e#13#45#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="MasterStrategy.scala" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/MasterStrategy.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="124">
-              <caret line="69" column="113" selection-start-line="69" selection-start-column="113" selection-end-line="69" selection-end-column="113" />
+            <state relative-caret-position="74">
+              <caret line="65" column="131" selection-start-line="65" selection-start-column="131" selection-end-line="65" selection-end-column="131" />
               <folding>
                 <element signature="e#19#43#0" expanded="true" />
               </folding>
@@ -135,11 +112,33 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="AlternativeLinkStrategy.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/AlternativeLinkStrategy.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="456">
+              <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+              <folding>
+                <element signature="e#19#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FeatureType.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/globals/FeatureType.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="49" selection-start-line="8" selection-start-column="49" selection-end-line="8" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="MyConfiguration.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/globals/MyConfiguration.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+            <state relative-caret-position="187">
+              <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
               <folding />
             </state>
           </provider>
@@ -148,8 +147,8 @@
       <file leaf-file-name="DirectLinkStrategy.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/DirectLinkStrategy.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="424">
-              <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
+            <state relative-caret-position="254">
+              <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="26" selection-end-column="27" />
               <folding>
                 <element signature="e#19#41#0" expanded="true" />
               </folding>
@@ -204,7 +203,6 @@
         <option value="$PROJECT_DIR$/src/test/scala/strategy/TestPropertyMatch.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/main/SimilarityFinder.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/ranker/Ranker.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/strategies/AlternativeLinkStrategy.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/strategies/HierarchyMatchStrategy.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/strategies/InANotInBStrategy.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/strategies/ValueMatchStrategy.scala" />
@@ -212,7 +210,6 @@
         <option value="$PROJECT_DIR$/src/main/scala/rdf/GraphRDF.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/strategy/TestPropertyMatchStrategy.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/strategies/PropMatchStrategy.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/globals/FeatureType.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/strategies/DirectLinkStrategy.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestDomainCountAttributeGenerator.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/attributesGenerator/RemoveAllValuesWhereFalse.scala" />
@@ -222,9 +219,11 @@
         <option value="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDFFactory.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/query/filters/UnknownTypeFilter.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestRemoveAllValuesWhereFalse.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/strategy/TestStrategyGenerator.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/main/TestSimilarityFinder.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/globals/FeatureType.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/strategies/AlternativeLinkStrategy.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/globals/MyConfiguration.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/strategy/TestStrategyGenerator.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/strategies/MasterStrategy.scala" />
       </list>
     </option>
@@ -1300,37 +1299,7 @@
       <recent name="C:\Users\Espen\Google Drive\Prog\Scala\SimilarEntitiesWikidata\src\main\scala\query" />
     </key>
   </component>
-  <component name="RunManager" selected="ScalaTest.TestSimilarityFinder.similarities for obama">
-    <configuration default="false" name="TestAttributeGenerator.Test sameType possible generator" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="similarentitieswikidata" />
-      <setting name="path" value="ownOntologyPopularizer.TestAttributeGenerator" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="Test sameType possible generator" />
-      <setting name="testKind" value="Test name" />
-      <setting name="showProgressMessages" value="true" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="TestRemoveAllValuesWhereFalse.lines is removed from sameTypePossible" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="similarentitieswikidata" />
-      <setting name="path" value="ownOntologyPopularizer.TestRemoveAllValuesWhereFalse" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="lines is removed from sameTypePossible" />
-      <setting name="testKind" value="Test name" />
-      <setting name="showProgressMessages" value="true" />
-      <envs />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="ScalaTest.TestStrategyGenerator.Alternative link strategies for obama">
     <configuration default="false" name="TestStrategyGenerator.Direct link strategy is created for the relative property" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="similarentitieswikidata" />
@@ -1371,6 +1340,36 @@
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
       <setting name="testName" value="similarities for obama" />
+      <setting name="testKind" value="Test name" />
+      <setting name="showProgressMessages" value="true" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestStrategyGenerator.Alternative link strategy is created for the relative property" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="similarentitieswikidata" />
+      <setting name="path" value="strategy.TestStrategyGenerator" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="Alternative link strategy is created for the relative property" />
+      <setting name="testKind" value="Test name" />
+      <setting name="showProgressMessages" value="true" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestStrategyGenerator.Alternative link strategies for obama" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="similarentitieswikidata" />
+      <setting name="path" value="strategy.TestStrategyGenerator" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="Alternative link strategies for obama" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <envs />
@@ -1618,19 +1617,19 @@
     </configuration>
     <list size="6">
       <item index="0" class="java.lang.String" itemvalue="SBT Task.Compile" />
-      <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestAttributeGenerator.Test sameType possible generator" />
-      <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestRemoveAllValuesWhereFalse.lines is removed from sameTypePossible" />
-      <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestStrategyGenerator.Direct link strategy is created for the relative property" />
-      <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestStrategyGenerator.Direct link strategies for obama" />
-      <item index="5" class="java.lang.String" itemvalue="ScalaTest.TestSimilarityFinder.similarities for obama" />
+      <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestStrategyGenerator.Direct link strategy is created for the relative property" />
+      <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestStrategyGenerator.Direct link strategies for obama" />
+      <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestSimilarityFinder.similarities for obama" />
+      <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestStrategyGenerator.Alternative link strategy is created for the relative property" />
+      <item index="5" class="java.lang.String" itemvalue="ScalaTest.TestStrategyGenerator.Alternative link strategies for obama" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="ScalaTest.TestSimilarityFinder.similarities for obama" />
-        <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestStrategyGenerator.Direct link strategies for obama" />
-        <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestStrategyGenerator.Direct link strategy is created for the relative property" />
-        <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestRemoveAllValuesWhereFalse.lines is removed from sameTypePossible" />
-        <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestAttributeGenerator.Test sameType possible generator" />
+        <item index="0" class="java.lang.String" itemvalue="ScalaTest.TestStrategyGenerator.Alternative link strategies for obama" />
+        <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestStrategyGenerator.Alternative link strategy is created for the relative property" />
+        <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestSimilarityFinder.similarities for obama" />
+        <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestStrategyGenerator.Direct link strategies for obama" />
+        <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestStrategyGenerator.Direct link strategy is created for the relative property" />
       </list>
     </recent_temporary>
   </component>
@@ -1676,20 +1675,26 @@
     <option name="remove_strategy" value="false" />
   </component>
   <component name="TestHistory">
-    <history-entry file="TestAttributeGenerator_Test_sameType_possible_generator - 2016.11.16 at 18h 07m 33s.xml">
-      <configuration name="TestAttributeGenerator.Test sameType possible generator" configurationId="ScalaTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestAttributeGenerator_Test_sameType_possible_generator - 2016.11.16 at 18h 17m 18s.xml">
-      <configuration name="TestAttributeGenerator.Test sameType possible generator" configurationId="ScalaTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestRemoveAllValuesWhereFalse_lines_is_removed_from_sameTypePossible - 2016.11.16 at 18h 26m 28s.xml">
-      <configuration name="TestRemoveAllValuesWhereFalse.lines is removed from sameTypePossible" configurationId="ScalaTestRunConfiguration" />
-    </history-entry>
     <history-entry file="TestSimilarityFinder_similarities_for_obama - 2016.11.16 at 18h 43m 23s.xml">
       <configuration name="TestSimilarityFinder.similarities for obama" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
     <history-entry file="TestSimilarityFinder_similarities_for_obama - 2016.11.16 at 18h 46m 35s.xml">
       <configuration name="TestSimilarityFinder.similarities for obama" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestStrategyGenerator_Alternative_link_strategies_for_obama - 2016.11.16 at 19h 11m 28s.xml">
+      <configuration name="TestStrategyGenerator.Alternative link strategies for obama" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestStrategyGenerator_Alternative_link_strategies_for_obama - 2016.11.16 at 19h 14m 20s.xml">
+      <configuration name="TestStrategyGenerator.Alternative link strategies for obama" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestStrategyGenerator_Alternative_link_strategies_for_obama - 2016.11.16 at 19h 15m 07s.xml">
+      <configuration name="TestStrategyGenerator.Alternative link strategies for obama" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestStrategyGenerator_Alternative_link_strategies_for_obama - 2016.11.16 at 19h 17m 21s.xml">
+      <configuration name="TestStrategyGenerator.Alternative link strategies for obama" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestStrategyGenerator_Alternative_link_strategy_is_created_for_the_relative_property - 2016.11.16 at 19h 08m 52s.xml">
+      <configuration name="TestStrategyGenerator.Alternative link strategy is created for the relative property" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
     <history-entry file="TestStrategyGenerator_Direct_link_strategies_for_obama - 2016.11.16 at 18h 37m 05s.xml">
       <configuration name="TestStrategyGenerator.Direct link strategies for obama" configurationId="ScalaTestRunConfiguration" />
@@ -1700,16 +1705,10 @@
     <history-entry file="TestStrategyGenerator_Direct_link_strategies_for_obama - 2016.11.16 at 18h 41m 14s.xml">
       <configuration name="TestStrategyGenerator.Direct link strategies for obama" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestStrategyGenerator_Direct_link_strategy_is_created_for_the_relative_property - 2016.11.16 at 18h 32m 21s.xml">
-      <configuration name="TestStrategyGenerator.Direct link strategy is created for the relative property" configurationId="ScalaTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestStrategyGenerator_Direct_link_strategy_is_created_for_the_relative_property - 2016.11.16 at 18h 33m 10s.xml">
-      <configuration name="TestStrategyGenerator.Direct link strategy is created for the relative property" configurationId="ScalaTestRunConfiguration" />
-    </history-entry>
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="2064" height="1128" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.34271356" sideWeight="0.49051896" order="7" side_tool="false" content_ui="tabs" />
@@ -1717,7 +1716,7 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37721023" sideWeight="0.50927734" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32833022" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33366835" sideWeight="0.49072266" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33366835" sideWeight="0.49072266" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2949102" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33668342" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -1962,16 +1961,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/AlternativeLinkStrategy.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="35" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="35" />
-          <folding>
-            <element signature="e#19#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/HierarchyMatchStrategy.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
@@ -2042,16 +2031,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/GraphRDF.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
-          <folding>
-            <element signature="e#13#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/strategy/TestPropertyMatchStrategy.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="272">
@@ -2115,14 +2094,6 @@
           <folding>
             <element signature="e#20#42#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/globals/FeatureType.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="48" selection-start-line="10" selection-start-column="48" selection-end-line="10" selection-end-column="48" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2212,16 +2183,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/DirectLinkStrategy.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="424">
-          <caret line="25" column="5" selection-start-line="25" selection-start-column="5" selection-end-line="25" selection-end-column="5" />
-          <folding>
-            <element signature="e#19#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestAttributeGenerator.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="476">
@@ -2250,16 +2211,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/strategy/TestStrategyGenerator.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" column="23" selection-start-line="32" selection-start-column="23" selection-end-line="32" selection-end-column="23" />
-          <folding>
-            <element signature="e#18#47#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/main/TestSimilarityFinder.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -2268,18 +2219,66 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/DirectLinkStrategy.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="254">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="26" selection-end-column="27" />
+          <folding>
+            <element signature="e#19#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/rdf/GraphRDF.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="22" column="6" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
+          <folding>
+            <element signature="e#13#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/globals/FeatureType.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="49" selection-start-line="8" selection-start-column="49" selection-end-line="8" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/globals/MyConfiguration.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="28" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
+        <state relative-caret-position="187">
+          <caret line="11" column="36" selection-start-line="11" selection-start-column="36" selection-end-line="11" selection-end-column="36" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/strategy/TestStrategyGenerator.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="49" column="43" selection-start-line="49" selection-start-column="43" selection-end-line="49" selection-end-column="43" />
+          <folding>
+            <element signature="e#18#47#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/AlternativeLinkStrategy.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
+          <folding>
+            <element signature="e#19#41#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/strategies/MasterStrategy.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="69" column="113" selection-start-line="69" selection-start-column="113" selection-end-line="69" selection-end-column="113" />
+        <state relative-caret-position="74">
+          <caret line="65" column="131" selection-start-line="65" selection-start-column="131" selection-end-line="65" selection-end-column="131" />
           <folding>
             <element signature="e#19#43#0" expanded="true" />
           </folding>

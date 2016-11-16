@@ -3,7 +3,7 @@ package strategy
 import org.scalatest.FunSuite
 import query.specific.QueryFactory
 import rdf.GraphRDF
-import strategies.{DirectLinkStrategy, MasterStrategy, StrategyGenerator}
+import strategies.{AlternativeLinkStrategy, DirectLinkStrategy, MasterStrategy, StrategyGenerator}
 
 /**
   * Created by Espen on 11.11.2016.
@@ -33,5 +33,22 @@ class TestStrategyGenerator extends FunSuite{
       println(s.weight)
     }
   }
-
+  test("Alternative link strategy is created for the relative property") {
+    val property = "http://www.wikidata.org/entity/P1038"
+    val strategyStrings = QueryFactory.getStrategies(property)
+    assert(strategyStrings.exists(_.contains("AlternativeLinkStrategy")))
+    //    val strategies = strategyStrings.map(MasterStrategy.matchStrategyClassNameToStrategy(_, property, ))
+    //    MasterStrategy.matchStrategyClassNameToStrategy()
+  }
+  test("Alternative link strategies for obama") {
+    val strategies = StrategyGenerator.generateStrategies(new GraphRDF("w:Q76"))
+    val alternativeLinkStrategies = strategies.filter(_.isInstanceOf[AlternativeLinkStrategy])
+    println(alternativeLinkStrategies)
+    assert(alternativeLinkStrategies.length == 10)
+    val someOtherEntities = List(new GraphRDF("http://www.wikidata.org/entity/Q4115068"), new GraphRDF("http://www.wikidata.org/entity/Q15982322"))
+    for(s <- alternativeLinkStrategies) {
+      println(s.execute(someOtherEntities))
+      println(s.weight)
+    }
+  }
 }

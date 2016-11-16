@@ -39,18 +39,19 @@ class MasterStrategy (statements : List[Tuple3[String, String, String]], entity 
 }
 //This is where all strategies are created
 object MasterStrategy {
-  def logarithmicWeight(countForProperty : Int) : Double = {
+  def logarithmicWeight(countForProperty: Int): Double = {
     return log(maxCountForProperties.toString.toInt / countForProperty)
   }
-  def matchStrategyClassNameToStrategy(strategy: String, property: String, domain : List[String], range : List[String], entity : String, rdfType : String): Option[ArrayBuffer[Strategy]] = {
+
+  def matchStrategyClassNameToStrategy(strategy: String, property: String, domain: List[String], range: List[String], entity: String, rdfType: String): Option[ArrayBuffer[Strategy]] = {
     return strategy match {
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#PropertyMatchStrategy" => {
         val strategies = ArrayBuffer[Strategy]()
-        if(range.length > 0) {
+        if (range.length > 0) {
           val weight = QueryFactory.findDomainCount(property)
           strategies.append(PropMatchStrategy(property, true, logarithmicWeight(weight), rdfType))
         }
-        if(domain.length > 0) {
+        if (domain.length > 0) {
           val weight = QueryFactory.findRangeCount(property)
           strategies.append(PropMatchStrategy(property, false, logarithmicWeight(weight), rdfType))
 
@@ -58,35 +59,45 @@ object MasterStrategy {
         return Some(strategies)
       }
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#AlternativeLinkStrategy" => {
-        //TODO
-        None
-//        Some(AlternativeLinkStrategy(property, isSubject))
+        val strategies = ArrayBuffer[Strategy]()
+        val (filteredDomain, filteredRange) = getDomainAndRangeWithCorrectType(domain, range, rdfType)
+        if (filteredDomain.length > 0) {
+          val weight = QueryFactory.findDomainCount(property)
+          strategies += AlternativeLinkStrategy(property, Set() ++ filteredDomain, true,  MyConfiguration.alternativeLinkNegative *logarithmicWeight(weight))
+        }
+        if (filteredRange.length > 0) {
+          val weight = QueryFactory.findRangeCount(property)
+          strategies += AlternativeLinkStrategy(property, Set() ++ filteredRange, true, MyConfiguration.alternativeLinkNegative *  logarithmicWeight(weight))
+        }
+        if (strategies.length == 0) return None
+        return Some(strategies)
       }
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#DirectLinkStrategy" => {
         val strategies = ArrayBuffer[Strategy]()
-        if(domain.length > 0) {
-          val filteredDomain = range.filter((s) => QueryFactory.ask(SimpleRDFFactory.getStatement((s, "w:P31", rdfType))))
-          if(filteredDomain.length > 0) {
-            strategies += DirectLinkStrategy(property, Set() ++ filteredDomain, MyConfiguration.directLinkBoost *logarithmicWeight(filteredDomain.length))
-          }
+        val (filteredDomain, filteredRange) = getDomainAndRangeWithCorrectType(domain, range, rdfType)
+        if (filteredDomain.length > 0) {
+          strategies += DirectLinkStrategy(property, Set() ++ filteredDomain, MyConfiguration.directLinkBoost * logarithmicWeight(filteredDomain.length))
         }
-        if(range.length > 0) {
-          val filteredRange = range.filter((s) => QueryFactory.ask(SimpleRDFFactory.getStatement((s, "w:P31", rdfType))))
-          if(filteredRange.length > 0) {
-            strategies += DirectLinkStrategy(property, Set() ++ filteredRange, MyConfiguration.directLinkBoost * logarithmicWeight(filteredRange.length))
-          }
+        if (filteredRange.length > 0) {
+          strategies += DirectLinkStrategy(property, Set() ++ filteredRange, MyConfiguration.directLinkBoost * logarithmicWeight(filteredRange.length))
         }
-        if(strategies.length == 0) return None
+        if (strategies.length == 0) return None
         return Some(strategies)
       }
-        None//Some(DirectLinkStrategy(property, isSubject, entity))
+        None //Some(DirectLinkStrategy(property, isSubject, entity))
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#ValueMatchStrategy" =>
-        None//Some(ValueMatchStrategy(property, isSubject, value))
+        None //Some(ValueMatchStrategy(property, isSubject, value))
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#HierarchyMatchStrategy" =>
-        None//Some(HierarchyMatchStrategy(property, isSubject))
+        None //Some(HierarchyMatchStrategy(property, isSubject))
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#InANotInBStrategy" =>
         None
       case _ => None
     }
+  }
+
+  def getDomainAndRangeWithCorrectType(domain: List[String], range: List[String], rdfType: String): (List[String], List[String]) = {
+    val filteredRange = range.filter((s) => QueryFactory.ask(SimpleRDFFactory.getStatement((s, "w:P31", rdfType))))
+    val filteredDomain = domain.filter((s) => QueryFactory.ask(SimpleRDFFactory.getStatement((s, "w:P31", rdfType))))
+    return (filteredDomain, filteredRange)
   }
 }
