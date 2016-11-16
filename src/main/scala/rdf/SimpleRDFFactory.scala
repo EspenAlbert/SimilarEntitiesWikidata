@@ -1,7 +1,7 @@
 package rdf
 
 import globals.PrimitiveDatatype
-import query.filters.{NotEqualFilter, SameTypeFilter, StringLanguageFilter}
+import query.filters.{NotEqualFilter, SameTypeFilter, StringLanguageFilter, UnknownTypeFilter}
 import query.variables._
 
 import scala.collection.mutable.ArrayBuffer
@@ -28,6 +28,9 @@ object SimpleRDFFactory {
       if(filter.startsWith(OptionsForResultQueryVariable.notEqualFilter.toString)) {
         val filterVariables = filter.split("_").drop(1) //First value is the filtername itself...
         dynamicQueryVariable.addQueryFilter(new NotEqualFilter(dynamicQueryVariable, filterVariables(0)))
+      }
+      if(filter.startsWith(OptionsForResultQueryVariable.unknownTypeFilter.toString)) {
+        dynamicQueryVariable.addQueryFilter(new UnknownTypeFilter(filter.substring(filter.indexOf("_") + 1), dynamicQueryVariable))
       }
     }
     val variable = if(countExist) CountQueryVariable(name.drop(1) + "2", distinct, dynamicQueryVariable) else dynamicQueryVariable

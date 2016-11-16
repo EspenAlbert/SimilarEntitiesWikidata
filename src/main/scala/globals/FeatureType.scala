@@ -8,6 +8,7 @@ object FeatureType extends Enumeration{
   val valueMatch = Value("Value match")
   val sameProperty = Value("Same property")
   val inANotInB = Value("In a not in b")
+  val directLinkMatch = Value("Direct link match")
 
 
 }

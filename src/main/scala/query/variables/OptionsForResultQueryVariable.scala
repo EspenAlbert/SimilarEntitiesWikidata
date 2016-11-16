@@ -10,6 +10,7 @@ object OptionsForResultQueryVariable extends Enumeration{
   val count = Value("count")
   val distinct = Value("distinct")
   val sameTypeFilter = Value("sameTypeFilter")
+  val unknownTypeFilter = Value("unknownTypeFilter")
   val sameLanguageFilter = Value("sameLanguageFilter")
   val notEqualFilter = Value("notEqualFilter")
   val ignoreMe = Value("ignore")

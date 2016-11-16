@@ -7,6 +7,7 @@ import rdf.GraphRDF
 import strategies.StrategyGenerator
 
 import scala.collection.mutable
+import scala.collection.mutable.ListBuffer
 
 /**
   * Created by Espen on 09.11.2016.
@@ -26,12 +27,17 @@ object SimilarityFinder {
       i += 1
     }
     println(otherEntities)
-    val otherEntitiesAsList = otherEntities.toList
-    val featureMap = mutable.Map[String, List[Feature]]()
+    val otherEntitiesAsGraphs = otherEntities.map((s) => new GraphRDF(s)).toList
+    val featureMap = mutable.Map[String, ListBuffer[Feature]]()
     for(s <- strategies) {
-      val newFeatures: Map[String, List[Feature]] = s.execute(otherEntitiesAsList)
+      val newFeatures: Map[String, Feature] = s.execute(otherEntitiesAsGraphs)
       println(newFeatures)
-      featureMap ++= newFeatures
+      for((s, f) <- newFeatures) {
+        featureMap.get(s) match {
+          case Some(l) => l += f
+          case None => featureMap += s -> ListBuffer(f)
+        }
+      }
       println(featureMap.keys)
     }
     println(featureMap)
@@ -45,7 +51,7 @@ object SimilarityFinder {
 //    implicit val materializer = ActorMaterializer()
 //
 //    val source = Source.fromIterator(() => (strategies.toList ::: StrategyGenerator.generateInBNotInAStrategies(otherEntities.toList)).iterator).
-//      map[Map[String, List[Feature]]]((s) => s.execute(otherEntitiesAsList)).
+//      map[Map[String, List[Feature]]]((s) => s.execute(otherEntitiesAsGraphs)).
 //      map[List[SimilarEntity]]((map) => Ranker.getSortedOrder(map)).
 //      runForeach((result) => Displayer.displayResult(result, topK, entity)).
 //      onComplete( _ => system.shutdown())

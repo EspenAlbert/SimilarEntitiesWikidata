@@ -17,6 +17,7 @@ object SimilarPropertyOntology extends Enumeration{
   val rangeCount = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#rangeCount")
   val sharableDomain: SimilarPropertyOntology = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#sharableDomain")
   val sharableRange: SimilarPropertyOntology = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#sharableRange")
+  val sameTypePossible: SimilarPropertyOntology = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#sameTypePossible")
   val valueMatchProp = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#ValueMatch")
   val maxMinStats = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#MaxMinStats")
 

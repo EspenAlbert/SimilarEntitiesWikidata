@@ -6,15 +6,15 @@ import org.scalatest.FunSuite
 import ownOntologyPopularizer.attributesGenerator.AttributeGenerator
 import query.filters.NotEqualFilter
 import query.specific.QueryFactory
-import query.variables.{DynamicQueryVariable, StaticQueryVariable}
-import rdf.SimpleRDF
+import query.variables.{DynamicQueryVariable, OptionsForResultQueryVariable, StaticQueryVariable}
+import rdf.{SimpleRDF, SimpleRDFFactory}
 
 import scala.io.Source
 
 /**
   * Created by Espen on 02.11.2016.
   */
-class TestDomainCountAttributeGenerator extends FunSuite{
+class TestAttributeGenerator extends FunSuite{
   test("All properties should have a domain count except 3 most common") {
     AttributeGenerator.generateStatementsForProperty(CustomPropertyClass.baseProperty, SimilarPropertyOntology.domainCount, PrimitiveDatatype.nonNegativeInteger, "domainCounts", QueryFactory.findTotalCountSubjectsWhereProperty(_, true))
     assert(Source.fromFile("output/domainCounts.nt").getLines().length > 752)
@@ -31,6 +31,9 @@ class TestDomainCountAttributeGenerator extends FunSuite{
     AttributeGenerator.generateStatementsForProperty(CustomPropertyClass.itemProperty, SimilarPropertyOntology.sharableDomain,
       PrimitiveDatatype.boolean, "sharableDomain", (p : String) => QueryFactory.ask(new SimpleRDF(p = new StaticQueryVariable(p), o = new DynamicQueryVariable("o", false)),
       new SimpleRDF(p = new StaticQueryVariable(p), o = secondObject)))
+//    assert(Source.fromFile("output/sharableDomain.nt").getLines().length == 752)
+
+
   }
   //P470 = true
   test("Test sharable range generator") {
@@ -39,7 +42,16 @@ class TestDomainCountAttributeGenerator extends FunSuite{
     AttributeGenerator.generateStatementsForProperty(CustomPropertyClass.itemProperty, SimilarPropertyOntology.sharableRange,
       PrimitiveDatatype.boolean, "sharableRange", (p : String) => QueryFactory.ask(new SimpleRDF(p = new StaticQueryVariable(p), s = new DynamicQueryVariable("s", false)),
       new SimpleRDF(p = new StaticQueryVariable(p), s = secondObject)))
-  } //TODO: Remove all lines where value = false
+  } //TODO: Remove all lines where value = false -> See RemoveAllValuesWhereFalse...
+  test("Test sameType possible generator") {
+    val statement = ((s : String) => SimpleRDFFactory.getStatement(("?s " + OptionsForResultQueryVariable.unknownTypeFilter + "_" + "t", s, "?o " + OptionsForResultQueryVariable.unknownTypeFilter + "_t")))
+    AttributeGenerator.generateStatementsForProperty(CustomPropertyClass.itemProperty, SimilarPropertyOntology.sameTypePossible,
+      PrimitiveDatatype.boolean, "sameTypePossible", ((s) => QueryFactory.ask(statement(s))))
+    assert(Source.fromFile("output/sameTypePossible.nt").getLines().length > 2)
+
+
+  }
+
 
 
 }
