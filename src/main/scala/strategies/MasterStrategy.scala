@@ -1,5 +1,6 @@
 package strategies
 import breeze.numerics._
+import globals.MyConfiguration
 import globals.SimilarPropertyOntology._
 import query.specific.QueryFactory
 import rdf.SimpleRDFFactory
@@ -66,13 +67,13 @@ object MasterStrategy {
         if(domain.length > 0) {
           val filteredDomain = range.filter((s) => QueryFactory.ask(SimpleRDFFactory.getStatement((s, "w:P31", rdfType))))
           if(filteredDomain.length > 0) {
-            strategies += DirectLinkStrategy(property, Set() ++ filteredDomain, logarithmicWeight(filteredDomain.length))
+            strategies += DirectLinkStrategy(property, Set() ++ filteredDomain, MyConfiguration.directLinkBoost *logarithmicWeight(filteredDomain.length))
           }
         }
         if(range.length > 0) {
           val filteredRange = range.filter((s) => QueryFactory.ask(SimpleRDFFactory.getStatement((s, "w:P31", rdfType))))
           if(filteredRange.length > 0) {
-            strategies += DirectLinkStrategy(property, Set() ++ filteredRange, logarithmicWeight(filteredRange.length))
+            strategies += DirectLinkStrategy(property, Set() ++ filteredRange, MyConfiguration.directLinkBoost * logarithmicWeight(filteredRange.length))
           }
         }
         if(strategies.length == 0) return None
