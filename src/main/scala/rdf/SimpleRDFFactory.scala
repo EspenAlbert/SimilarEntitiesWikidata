@@ -20,7 +20,9 @@ object SimpleRDFFactory {
     val name = strings.head
     val dynamicQueryVariable = DynamicQueryVariable(name.drop(1), distinct, ignoreMe)
     for(filter <- strings.drop(1)) { //First value is the name
-      if(filter.startsWith(OptionsForResultQueryVariable.sameTypeFilter.toString)) dynamicQueryVariable.addQueryFilter(new SameTypeFilter(filter.substring(filter.indexOf("_") + 1), dynamicQueryVariable))
+      if(filter.startsWith(OptionsForResultQueryVariable.sameTypeFilter.toString)) {
+        dynamicQueryVariable.addQueryFilter(new SameTypeFilter(filter.substring(filter.indexOf("_") + 1), dynamicQueryVariable))
+      }
       if(filter.startsWith(OptionsForResultQueryVariable.sameLanguageFilter.toString)) {
         val filterVariables = filter.split("_").drop(1) //First value is the filtername itself...
         dynamicQueryVariable.addQueryFilter(new StringLanguageFilter(dynamicQueryVariable, filterVariables(0), filterVariables(1)))
@@ -61,7 +63,7 @@ object SimpleRDFFactory {
     val listOfVariables = for(s <- statements)yield s.getResultVariables()
     val flatList = listOfVariables.flatten
     if(flatList.exists((s) => s.isInstanceOf[CountQueryVariable])) return flatList.filter(_.isInstanceOf[CountQueryVariable]).toList
-    if(flatList.exists(isADistinctVariable(_))) return flatList.filter(isADistinctVariable(_)).toList
+    if(flatList.exists(isADistinctVariable(_))) return flatList.filter(isADistinctVariable(_)).filterNot(isIgnorable(_)).toList
     return flatList.filterNot(isIgnorable(_)).toList
   }
   private def isIgnorable(variable: ResultQueryVariable): Boolean = variable match{

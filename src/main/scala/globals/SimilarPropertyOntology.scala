@@ -18,8 +18,12 @@ object SimilarPropertyOntology extends Enumeration{
   val sharableDomain: SimilarPropertyOntology = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#sharableDomain")
   val sharableRange: SimilarPropertyOntology = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#sharableRange")
   val sameTypePossible: SimilarPropertyOntology = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#sameTypePossible")
-  val valueMatchProp = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#ValueMatch")
+  val valueMatchClass = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#ValueMatch")
   val maxMinStats = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#MaxMinStats")
+  val valueMatchProperty = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#ValueMatchProperty")
+  val valueMatchValue = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#valueMatchValue")
+  val valueMatchCount = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#valueMatchCount")
+
 
   val basePropertyClassId = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#Property")
   val maxCountForProperties = Value("17871093")
@@ -33,4 +37,9 @@ object SimilarPropertyOntology extends Enumeration{
     }
     return null
   }
+  implicit def getStringFromOptionsForResultQueryVariable(similarPropertyOntology: SimilarPropertyOntology) : String = {
+    return similarPropertyOntology.toString
+  }
+
+
 }

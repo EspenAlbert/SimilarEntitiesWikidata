@@ -48,9 +48,29 @@ class TestAttributeGenerator extends FunSuite{
     AttributeGenerator.generateStatementsForProperty(CustomPropertyClass.itemProperty, SimilarPropertyOntology.sameTypePossible,
       PrimitiveDatatype.boolean, "sameTypePossible", ((s) => QueryFactory.ask(statement(s))))
     assert(Source.fromFile("output/sameTypePossible.nt").getLines().length > 2)
-
-
   }
+  test("The values in the domain are gatheredCorrectly for step father P43") {
+    val subjects = AttributeGenerator.getDomainValuesWithMultipleObjects("w:P43")
+    print(subjects)
+    assert(subjects.contains("http://www.wikidata.org/entity/Q1124"))
+    assert(subjects.length > 1)
+  }
+  test("The values in the range are gatheredCorrectly for step father P43") {
+    val objects = AttributeGenerator.getRangeValuesWithMultipleSubjects("w:P43")
+    print(objects)
+    assert(objects.contains("http://www.wikidata.org/entity/Q43274"))
+    assert(objects.length > 2)
+  }
+  test("The values in the range get a proper count") {
+    val objects = AttributeGenerator.generateValueCountsForProperty(false, "w:P43")
+  }
+  test("The values in the domain get a proper count") {
+    val objects = AttributeGenerator.generateValueCountsForProperty(true, "w:P43")
+  }
+  test("Create values for sharable domain ") {
+    AttributeGenerator.valueCountsForSharableDomains()
+  }
+
 
 
 

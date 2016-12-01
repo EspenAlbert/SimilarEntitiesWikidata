@@ -18,8 +18,12 @@ class TestDatasetInferrer extends FunSuite{
     assert(DatasetInferrer.getDataset(statment.wherePhrase()) == MyDatasets.SimilarProperties)
   }
   test("The value match dataset should be inferred properly") {
-    val statment = SimpleRDFFactory.getStatement(("w:Q76", SimilarPropertyOntology.valueMatchProp.toString, "w:QXX"))
+    val statment = SimpleRDFFactory.getStatement(("w:Q76", SimilarPropertyOntology.valueMatchClass.toString, "w:QXX"))
     assert(DatasetInferrer.getDataset(statment.wherePhrase()) == MyDatasets.ValueMatch)
+    val statment2 = SimpleRDFFactory.getStatement(("w:Q76", SimilarPropertyOntology.valueMatchValue.toString, "w:QXX"))
+    assert(DatasetInferrer.getDataset(statment2.wherePhrase()) == MyDatasets.ValueMatch)
+    val statment3 = SimpleRDFFactory.getStatement(("w:Q76", SimilarPropertyOntology.valueMatchCount.toString, "w:QXX"))
+    assert(DatasetInferrer.getDataset(statment3.wherePhrase()) == MyDatasets.ValueMatch)
   }
 
 

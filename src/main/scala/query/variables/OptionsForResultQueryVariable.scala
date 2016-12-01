@@ -15,5 +15,8 @@ object OptionsForResultQueryVariable extends Enumeration{
   val notEqualFilter = Value("notEqualFilter")
   val ignoreMe = Value("ignore")
 
+  implicit def getStringFromOptionsForResultQueryVariable(optionsForResultQueryVariable: OptionsForResultQueryVariable) : String = {
+    return optionsForResultQueryVariable.toString
+  }
 
 }

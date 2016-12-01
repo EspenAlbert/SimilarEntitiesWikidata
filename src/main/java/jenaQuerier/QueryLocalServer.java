@@ -9,6 +9,10 @@ import org.apache.jena.reasoner.rulesys.OWLFBRuleReasonerFactory;
 import org.apache.jena.sparql.core.Var;
 import org.apache.jena.sparql.engine.binding.Binding;
 import org.apache.jena.sparql.resultset.RDFOutput;
+import org.apache.jena.update.UpdateExecutionFactory;
+import org.apache.jena.update.UpdateFactory;
+import org.apache.jena.update.UpdateProcessor;
+import org.apache.jena.update.UpdateRequest;
 
 import java.io.OutputStream;
 import java.util.Iterator;
@@ -71,6 +75,26 @@ public class QueryLocalServer {
             System.out.println(ex.getMessage());
         } finally {
             qexec.close();
+        }
+    }
+    public static void updateLocalData(String query) {
+        UpdateRequest update = UpdateFactory.create(query);
+        UpdateProcessor remote = UpdateExecutionFactory.createRemote(update, "http://localhost:3030/valueMatch/update");
+        try {
+            remote.execute();
+            System.out.println(remote.getDatasetGraph());
+        } catch(Exception e) {
+            System.out.println(e);
+        }
+    }
+    public static void deleteLocalData() {
+        UpdateRequest update = UpdateFactory.create("delete { ?s ?p ?o } where { ?s ?p ?o}");
+        UpdateProcessor remote = UpdateExecutionFactory.createRemote(update, "http://localhost:3030/valueMatch/update");
+        try {
+            remote.execute();
+//            System.out.println(remote.getDatasetGraph());
+        } catch(Exception e) {
+//            System.out.println(e);
         }
     }
 }

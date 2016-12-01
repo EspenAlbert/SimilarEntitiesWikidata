@@ -8,6 +8,6 @@ import query.variables.DynamicQueryVariable
 class NotEqualFilter(val dynamicQueryVariable: DynamicQueryVariable, val equalName : String) extends QueryFilter{
 
   override def getSparql: String = {
-    return """filter(%s != %s)""".format(dynamicQueryVariable.getSelectPhrase, equalName)
+    return """filter(%s != %s)""".format("?" + dynamicQueryVariable.name, equalName)
   }
 }

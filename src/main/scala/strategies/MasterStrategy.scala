@@ -1,8 +1,9 @@
 package strategies
 import breeze.numerics._
-import globals.MyConfiguration
+import globals.{MyConfiguration, SimilarPropertyOntology}
 import globals.SimilarPropertyOntology._
-import query.specific.QueryFactory
+import query.specific.{QueryFactory, QueryFactoryV2}
+import query.variables.OptionsForResultQueryVariable
 import rdf.SimpleRDFFactory
 
 import scala.collection.mutable.ArrayBuffer
@@ -43,15 +44,16 @@ object MasterStrategy {
     return log(maxCountForProperties.toString.toInt / countForProperty)
   }
 
+
   def matchStrategyClassNameToStrategy(strategy: String, property: String, domain: List[String], range: List[String], entity: String, rdfType: String): Option[ArrayBuffer[Strategy]] = {
     return strategy match {
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#PropertyMatchStrategy" => {
         val strategies = ArrayBuffer[Strategy]()
-        if (range.length > 0) {
+        if (range.nonEmpty) {
           val weight = QueryFactory.findDomainCount(property)
           strategies.append(PropMatchStrategy(property, true, logarithmicWeight(weight), rdfType))
         }
-        if (domain.length > 0) {
+        if (domain.nonEmpty) {
           val weight = QueryFactory.findRangeCount(property)
           strategies.append(PropMatchStrategy(property, false, logarithmicWeight(weight), rdfType))
 
@@ -61,32 +63,56 @@ object MasterStrategy {
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#AlternativeLinkStrategy" => {
         val strategies = ArrayBuffer[Strategy]()
         val (filteredDomain, filteredRange) = getDomainAndRangeWithCorrectType(domain, range, rdfType)
-        if (filteredDomain.length > 0) {
+        if (filteredDomain.nonEmpty) {
           val weight = QueryFactory.findDomainCount(property)
           strategies += AlternativeLinkStrategy(property, Set() ++ filteredDomain, true,  MyConfiguration.alternativeLinkNegative *logarithmicWeight(weight))
         }
-        if (filteredRange.length > 0) {
+        if (filteredRange.nonEmpty) {
           val weight = QueryFactory.findRangeCount(property)
           strategies += AlternativeLinkStrategy(property, Set() ++ filteredRange, true, MyConfiguration.alternativeLinkNegative *  logarithmicWeight(weight))
         }
-        if (strategies.length == 0) return None
+        if (strategies.isEmpty) return None
         return Some(strategies)
       }
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#DirectLinkStrategy" => {
         val strategies = ArrayBuffer[Strategy]()
         val (filteredDomain, filteredRange) = getDomainAndRangeWithCorrectType(domain, range, rdfType)
-        if (filteredDomain.length > 0) {
+        if (filteredDomain.nonEmpty) {
           strategies += DirectLinkStrategy(property, Set() ++ filteredDomain, MyConfiguration.directLinkBoost * logarithmicWeight(filteredDomain.length))
         }
-        if (filteredRange.length > 0) {
+        if (filteredRange.nonEmpty) {
           strategies += DirectLinkStrategy(property, Set() ++ filteredRange, MyConfiguration.directLinkBoost * logarithmicWeight(filteredRange.length))
         }
-        if (strategies.length == 0) return None
+        if (strategies.isEmpty) return None
         return Some(strategies)
       }
         None //Some(DirectLinkStrategy(property, isSubject, entity))
-      case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#ValueMatchStrategy" =>
-        None //Some(ValueMatchStrategy(property, isSubject, value))
+      case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#ValueMatchStrategy" => {
+        val strategies = ArrayBuffer[Strategy]()
+        if (domain.nonEmpty) {
+          if(isSharableDomain(property)) {
+            for(d <- domain) {
+              valueIsAPotentialValueMatch(d, property) match {
+                case Some(count) => strategies += ValueMatchStrategy(property, false, d, rdfType, MyConfiguration.valueMatchBoost * logarithmicWeight(count))
+                case None => Unit
+              }
+            }
+          }
+        }
+        if(range.nonEmpty) {
+          if(isSharableRange(property)) {
+            println("Sharable range...")
+            for(r <- range) {
+              valueIsAPotentialValueMatch(r, property) match {
+                case Some(count) => strategies += ValueMatchStrategy(property, true, r, rdfType, MyConfiguration.valueMatchBoost * logarithmicWeight(count))
+                case None => Unit
+              }
+            }
+          }
+        }
+        if (strategies.isEmpty) return None
+        return Some(strategies)
+      }
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#HierarchyMatchStrategy" =>
         None //Some(HierarchyMatchStrategy(property, isSubject))
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#InANotInBStrategy" =>
@@ -94,10 +120,28 @@ object MasterStrategy {
       case _ => None
     }
   }
+  def valueIsAPotentialValueMatch(value : String, property : String) : Option[Int] = {
+    try {
+      val statement1 = SimpleRDFFactory.getStatement(property, SimilarPropertyOntology.valueMatchProperty, "?o " + OptionsForResultQueryVariable.ignoreMe)
+      val statement2 = SimpleRDFFactory.getStatement("?o " + OptionsForResultQueryVariable.ignoreMe, SimilarPropertyOntology.valueMatchValue, value)
+      val statement3 = SimpleRDFFactory.getStatement("?o " + OptionsForResultQueryVariable.ignoreMe, SimilarPropertyOntology.valueMatchCount, "?c")
+      val count = QueryFactoryV2.findSingleValue(statement1, statement2, statement3)
+      println("Able to find count!!")
+      return Some(count)
+    } catch {
+      case a => println(a); return None
+    }
+  }
 
   def getDomainAndRangeWithCorrectType(domain: List[String], range: List[String], rdfType: String): (List[String], List[String]) = {
     val filteredRange = range.filter((s) => QueryFactory.ask(SimpleRDFFactory.getStatement((s, "w:P31", rdfType))))
     val filteredDomain = domain.filter((s) => QueryFactory.ask(SimpleRDFFactory.getStatement((s, "w:P31", rdfType))))
     return (filteredDomain, filteredRange)
+  }
+  def isSharableDomain(property: String): Boolean = {
+    return QueryFactory.ask(SimpleRDFFactory.getStatement(property, SimilarPropertyOntology.sharableDomain, "?o"))
+  }
+  def isSharableRange(property: String): Boolean = {
+    return QueryFactory.ask(SimpleRDFFactory.getStatement(property, SimilarPropertyOntology.sharableRange, "?o"))
   }
 }

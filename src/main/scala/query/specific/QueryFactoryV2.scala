@@ -19,7 +19,7 @@ object QueryFactoryV2 {
 
   def findList(statements : SimpleRDF*) : List[ResultVariable] = {
     val (query: Query, resultQueryVariable: List[ResultQueryVariable]) = getQueryAndResultVariables(statements: _*)
-    assert(resultQueryVariable.length == 1)
+    assert(resultQueryVariable.length == 1 || resultQueryVariable.foldRight(true){(next: ResultQueryVariable, previousEqual: Boolean) => previousEqual && next == resultQueryVariable(0)})
     return getListFromQueryAndVariables(query, resultQueryVariable : _*)(0)
   }
 

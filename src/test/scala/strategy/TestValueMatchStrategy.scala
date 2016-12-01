@@ -1,0 +1,40 @@
+package strategy
+
+import globals.MyConfiguration
+import org.scalatest.FunSuite
+import rdf.GraphRDF
+import strategies.{MasterStrategy, PropMatchStrategy, Strategy, ValueMatchStrategy}
+
+/**
+  * Created by Espen on 11.11.2016.
+  */
+class TestValueMatchStrategy extends FunSuite{
+  test("Value match strategy should work") {
+    val st1Count = MyConfiguration.valueMatchBoost * MasterStrategy.logarithmicWeight(2)
+    val st2Count = MyConfiguration.valueMatchBoost * MasterStrategy.logarithmicWeight(5)
+    val strategy = ValueMatchStrategy("http://www.wikidata.org/entity/P43",true, "http://www.wikidata.org/entity/Q43274", "http://www.wikidata.org/entity/Q5", st1Count)
+    val strategy2 = ValueMatchStrategy("http://www.wikidata.org/entity/P1038", true, "http://www.wikidata.org/entity/Q10479","http://www.wikidata.org/entity/Q5", st2Count)
+
+    val list = List[Strategy](strategy, strategy2)
+    val sortedList = list.sorted
+    assert(sortedList(0) == strategy)
+    assert(sortedList(1) == strategy2)
+    println(strategy.findSimilars())
+    println(strategy2.findSimilars())
+  }
+  test("Creating the value match strategy from master strategy") {
+    val strategies = MasterStrategy.matchStrategyClassNameToStrategy("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#ValueMatchStrategy", "http://www.wikidata.org/entity/P43",
+      domain = List(), range = List("http://www.wikidata.org/entity/Q43274","http://www.wikidata.org/entity/Q3743314"), rdfType ="http://www.wikidata.org/entity/Q5", entity= "Do not matter")
+    strategies match {
+      case Some(a) => println(a); assert(true)
+      case None => println("Failed to find strategies"); assert(false)
+    }
+  }
+  test("Check that the execution runs correctly") {
+    val graph1 = new GraphRDF("w:Q3736070")
+    val graph2 = new GraphRDF("w:Q3743314")
+    val st1Count = MyConfiguration.valueMatchBoost * MasterStrategy.logarithmicWeight(2)
+    val strategy = ValueMatchStrategy("http://www.wikidata.org/entity/P43",true, "http://www.wikidata.org/entity/Q43274", "http://www.wikidata.org/entity/Q5", st1Count)
+    assert(strategy.execute(List(graph1, graph2)).toList.length == 2)
+  }
+}

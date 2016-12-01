@@ -31,16 +31,13 @@ object SimilarityFinder {
     val featureMap = mutable.Map[String, ListBuffer[Feature]]()
     for(s <- strategies) {
       val newFeatures: Map[String, Feature] = s.execute(otherEntitiesAsGraphs)
-      println(newFeatures)
       for((s, f) <- newFeatures) {
         featureMap.get(s) match {
           case Some(l) => l += f
           case None => featureMap += s -> ListBuffer(f)
         }
       }
-      println(featureMap.keys)
     }
-    println(featureMap)
     val ranked = Ranker.getSortedOrder(featureMap.toMap)
     println(ranked)
     Displayer.displayResult(ranked, topK, entityGraph.entity)

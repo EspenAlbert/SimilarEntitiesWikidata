@@ -6,7 +6,7 @@ import globals.{MyDatasets, SimilarPropertyOntology}
   * Created by Espen on 15.11.2016.
   */
 object DatasetInferrer {
-  val patternForValueMatchDataset = (SimilarPropertyOntology.valueMatchProp + "").r
+  val patternForValueMatchDataset = ("" + SimilarPropertyOntology.valueMatchClass + "|" +SimilarPropertyOntology.valueMatchCount + "|" + SimilarPropertyOntology.valueMatchValue + "").r
   val patternForSimilarPropOntology = (SimilarPropertyOntology.spo + "").r
   def getDataset(query : String) : String = {
     patternForValueMatchDataset.findFirstIn(query) match {
