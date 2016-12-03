@@ -1,5 +1,6 @@
 package query.specific
 
+import globals.SimilarPropertyOntology
 import jenaQuerier.QueryLocalServer
 import rdf.SimpleRDF
 
@@ -18,4 +19,10 @@ object UpdateQueryFactory {
     insertLine
   }
 
+  def updateValueCount(propertyAsFullString: String, entity: String, count: Int) = {
+    val updateQuery = s"insert { <$propertyAsFullString> <${SimilarPropertyOntology.valueMatchProperty}> [ <${SimilarPropertyOntology.valueMatchValue}> <$entity>;\n" +
+      s"""<${SimilarPropertyOntology.valueMatchCount}> "%d" ] } where {}""".format(count)
+    println(updateQuery)
+    QueryLocalServer.updateLocalData(updateQuery)
+  }
 }

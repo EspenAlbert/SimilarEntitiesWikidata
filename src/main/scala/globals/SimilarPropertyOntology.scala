@@ -23,7 +23,10 @@ object SimilarPropertyOntology extends Enumeration{
   val valueMatchProperty = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#ValueMatchProperty")
   val valueMatchValue = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#valueMatchValue")
   val valueMatchCount = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#valueMatchCount")
-
+  val valueMatchSubjectStrategy = Value(spo + "#ValueMatchSubjectStrategy")
+  val valueMatchObjectStrategy = Value(spo + "#ValueMatchObjectStrategy")
+  val alternativeLinkStrategy = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#AlternativeLinkStrategy")
+  val directLinkStrategy = Value(spo + "#DirectLinkStrategy")
 
   val basePropertyClassId = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#Property")
   val maxCountForProperties = Value("17871093")

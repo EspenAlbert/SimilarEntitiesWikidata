@@ -4,18 +4,32 @@ import globals.{MyDatasets, SimilarPropertyOntology}
 import globals.PrimitiveDatatype.PrimitiveDatatype
 import globals.SimilarPropertyOntology.SimilarPropertyOntology
 import jenaQuerier.QueryLocalServer
+import ownOntologyPopularizer.CustomPropertyClass
 import ownOntologyPopularizer.CustomPropertyClass.CustomPropertyClass
 import query.filters.NotEqualFilter
-import query.specific.{QueryFactory, QueryFactoryV2}
+import query.specific.{QueryFactory, QueryFactoryV2, UpdateQueryFactory}
 import query.variables.{DynamicQueryVariable, OptionsForResultQueryVariable, StaticQueryVariable}
 import rdf.{CreateRdfFile, SimpleRDF, SimpleRDFFactory, WikidataPropertyHelper}
 
+import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
 
 /**
   * Created by Espen on 11.11.2016.
   */
 object AttributeGenerator {
+  def addStrategyClassToProperties(propertyClass: CustomPropertyClass, className: SimilarPropertyOntology, query: (String) => Boolean, fileName : String) = {
+    val properties = QueryFactory.findAllPropertiesOfCustomClass(propertyClass)
+    val statements = new ArrayBuffer[SimpleRDF]()
+    for(p <- properties.filterNot((p) => "P31" == p.substring(p.indexOf("P")))) {
+      if(query(p)) {
+        statements.append(SimpleRDFFactory.getStatement(p, SimilarPropertyOntology.rdfType, className))
+        println(s"Adding strategy class to property: $p =  for $className")
+      }
+    }
+    CreateRdfFile.createRDFFile(statements.toList, fileName)
+  }
+
   def generateStatementsForProperty(domainOfProperties: CustomPropertyClass, customPropertyName: SimilarPropertyOntology, primitiveDatatype: PrimitiveDatatype, filename : String, queryFunction: String => Any) = {
     val properties = QueryFactory.findAllPropertiesOfCustomClass(domainOfProperties)
     val statements = new ArrayBuffer[SimpleRDF]
@@ -27,11 +41,33 @@ object AttributeGenerator {
     }
     CreateRdfFile.createRDFFile(statements.toList, filename)
   }
+
+  def lowCount(property: String): Boolean = {
+//    QueryFactory.findC
+    println("TODO")
+    return true
+  }
+
   def valueCountsForSharableDomains() : Unit = {
-    val properties : List[String] = QueryFactoryV2.findList(SimpleRDFFactory.getStatement("?s", SimilarPropertyOntology.sharableDomain, "?o " + OptionsForResultQueryVariable.ignoreMe))
-    print(properties.length)
-    for(prop <- properties) {
+    val allProperties = QueryFactory.findAllPropertiesOfCustomClass(CustomPropertyClass.itemProperty)
+    val sharableDomainProperties : List[String] = QueryFactoryV2.findList(SimpleRDFFactory.getStatement("?s", SimilarPropertyOntology.sharableDomain, "?o " + OptionsForResultQueryVariable.ignoreMe))
+    val propertiesWithSharableDomainAndLowCount = mutable.ListBuffer[String]()
+    println(sharableDomainProperties.length, " total # of properties with sharable domain")
+    for (p <- allProperties) {
+      if(sharableDomainProperties.contains(p) && lowCount(p)) {
+        propertiesWithSharableDomainAndLowCount.append(p)
+      }
+    }
+    println(propertiesWithSharableDomainAndLowCount.length, " total # of properties with sharable domain and low count")
+    for(prop <- sharableDomainProperties) {
       generateValueCountsForProperty(true, prop)
+    }
+  }
+  def valueCountsForSharableRange() : Unit = {
+    val properties : List[String] = QueryFactoryV2.findList(SimpleRDFFactory.getStatement("?s", SimilarPropertyOntology.sharableRange, "?o " + OptionsForResultQueryVariable.ignoreMe))
+    println(properties.length)
+    for(prop <- properties) {
+      generateValueCountsForProperty(false, prop)
     }
 
   }
@@ -45,11 +81,11 @@ object AttributeGenerator {
       val countQuery = if(isDomain) SimpleRDFFactory.getStatement(entity, property, "?o " + OptionsForResultQueryVariable.count) else
         SimpleRDFFactory.getStatement("?s " + OptionsForResultQueryVariable.count, property, entity)
       val count : Int = QueryFactoryV2.findSingleValue(countQuery)
-      val updateQuery = s"insert { <$propertyAsFullString> <${SimilarPropertyOntology.valueMatchProperty}> [ <${SimilarPropertyOntology.valueMatchValue}> <$entity>;\n" +
-      s"""<${SimilarPropertyOntology.valueMatchCount}> "%d" ] } where {}""".format(count)
-      QueryLocalServer.updateLocalData(updateQuery)
+      UpdateQueryFactory.updateValueCount(propertyAsFullString, entity, count)
     }
   }
+
+
 
   def getDomainValuesWithMultipleObjects(property: String): List[String] = {
     val subjects: DynamicQueryVariable = DynamicQueryVariable("s", true)

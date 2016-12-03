@@ -8,6 +8,8 @@ import breeze.numerics.log
 object MyConfiguration {
 
 
+  val windowForDateComparison = 30
+  val dateComparisonWeight = 0.3
   val valueMatchBoost = 2
   val directLinkBoost = 5
   val alternativeLinkNegative = -0.1

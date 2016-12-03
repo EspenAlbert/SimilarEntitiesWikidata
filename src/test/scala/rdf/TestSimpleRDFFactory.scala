@@ -48,5 +48,11 @@ class TestSimpleRDFFactory extends FunSuite{
     val statement = SimpleRDFFactory.getStatement(("?s " + OptionsForResultQueryVariable.ignoreMe, "?p "+ OptionsForResultQueryVariable.ignoreMe, "?o"))
     assert(SimpleRDFFactory.getResultVariables(statement).length == 3)
   }
+  test("Get result query variables a distinct count variable") {
+    val statemetn = SimpleRDFFactory.getStatement("?s " + OptionsForResultQueryVariable.distinct + " " + OptionsForResultQueryVariable.count, "w:P21", "w:Q1052281")
+    print(statemetn.getResultVariables())
+    assert(SimpleRDFFactory.getResultVariables(statemetn).length == 1)
+
+  }
 
 }

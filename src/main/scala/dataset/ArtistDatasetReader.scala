@@ -6,7 +6,7 @@ import query.variables.DynamicQueryVariable
 import rdf.SimpleRDFFactory
 
 import scala.collection.mutable
-import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 import scala.io.Source
 
 /**
@@ -45,9 +45,29 @@ object ArtistDatasetReader {
     DumpObject.dumpJsonMapStringListString(readDataset().toMap, filename)
   }
   def getDatasetFromFile() : Map[String, List[String]] = {
-    return DumpObject.getStringMap(filename)
+    println("Reading the artist dataset...")
+    val map = DumpObject.getStringMap(filename)
+    val mutableMap = mutable.Map[String, List[String]]()
+    val myMap = map.filterKeys(isUri(_)).map{case (key : String, values : List[String]) => (key, values.filter(isUri(_)))}
+    println(map.keys.size, " was reduced to: ", myMap.keys.size, " for the keys")
+    val totalValues = myMap.values.foldRight(0) { (a, b) => a.length + b }
+    println(map.values.foldRight(0)(((a, b) => a.length + b)), " number of values was reduced to: ", totalValues)
+    println("Making on average :", totalValues.toFloat / myMap.keys.size , " similars per statement")
+    return myMap
+//    for(k <- map.keys) {
+//      if(isUri(k)) {
+//        val results = ListBuffer[String]()
+//        for(r<- map(k)) {
+//          if(isUri(r)) results.append(r)
+//        }
+//        mutableMap += k -> results.toList
+//      }
+//    }
   }
 
+  def isUri(value : String) : Boolean = {
+    return value.startsWith("http")
+  }
 
   def getStringFromOption(similar: String, option: Option[String]): String = {
     option match {

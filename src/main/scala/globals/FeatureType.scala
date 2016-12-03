@@ -5,12 +5,17 @@ package globals
   */
 object FeatureType extends Enumeration{
 
+
   type FeatureType = Value
+  val timeComparison = Value("Time comparison")
   val alternativeMatch = Value("Alternative match")
   val valueMatch = Value("Value match")
   val sameProperty = Value("Same property")
   val inANotInB = Value("In a not in b")
   val directLinkMatch = Value("Direct link match")
 
+  implicit def getStringValue(featureType: FeatureType) : String = {
+    return featureType.toString
+  }
 
 }

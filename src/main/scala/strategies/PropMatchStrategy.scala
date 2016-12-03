@@ -21,7 +21,6 @@ case class PropMatchStrategy(property : String, isSubject : Boolean, override  v
   }
 
   override def execute(otherEntities: List[GraphRDF]): Map[String, Feature] = {
-    println(s"executing prop match strategy for: $property ....")
     val featureMap = mutable.Map[String, Feature]()
     for (other <- otherEntities) {
       val entity: String = other.entity

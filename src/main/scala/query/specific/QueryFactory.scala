@@ -1,6 +1,6 @@
 package query.specific
 
-import globals.SimilarPropertyOntology
+import globals.{MyDatasets, SimilarPropertyOntology}
 import ownOntologyPopularizer.CustomPropertyClass.CustomPropertyClass
 import query._
 import query.specific.QueryFactoryV2.{findList, findMultipleLists, findSingleValue}
@@ -19,6 +19,12 @@ object QueryFactory {
   def findRangeCount(property: String): Int = {
     val statement = SimpleRDFFactory.getStatement((property, SimilarPropertyOntology.rangeCount.toString, "?o"))
     findSingleValue(statement)
+  }
+  def getStrategiesUpdated(prop: String) : List[String] = {
+    val statement = SimpleRDFFactory.getStatement((prop, SimilarPropertyOntology.rdfType.toString, "?s"))
+    DatasetInferrer.overrideDataset(MyDatasets.SimilarProperties)
+    return findList(statement)
+
   }
   def getStrategies(prop: String) : List[String] = {
     val statement = SimpleRDFFactory.getStatement((prop, SimilarPropertyOntology.rdfType.toString, "?s"))

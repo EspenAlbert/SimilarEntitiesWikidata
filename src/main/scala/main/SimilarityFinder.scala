@@ -2,7 +2,7 @@ package main
 
 import displayer.Displayer
 import feature.Feature
-import ranker.Ranker
+import ranker.{Ranker, SimilarEntity}
 import rdf.GraphRDF
 import strategies.StrategyGenerator
 
@@ -14,33 +14,27 @@ import scala.collection.mutable.ListBuffer
   */
 object SimilarityFinder {
 
-  def findTopKSimilarTo(entity : String, topK : Int) : Unit = {
+  def findTopKSimilarTo(entity : String, topK : Int) : List[SimilarEntity] = {
     val entityGraph = new GraphRDF(entity)
     val strategies = StrategyGenerator.generateStrategies(entityGraph)
     val sortedStrategies = strategies.sorted
     val otherEntities = mutable.Set[String]()
     var i = 0
-    while (otherEntities.toList.length < 100) {
+    while (otherEntities.toList.length < 1000) {
       val s = sortedStrategies(i)
 //      otherEntities.add(find)
       otherEntities ++= s.findSimilars()
       i += 1
     }
-    println(otherEntities)
     val otherEntitiesAsGraphs = otherEntities.map((s) => new GraphRDF(s)).toList
     val featureMap = mutable.Map[String, ListBuffer[Feature]]()
     for(s <- strategies) {
       val newFeatures: Map[String, Feature] = s.execute(otherEntitiesAsGraphs)
-      for((s, f) <- newFeatures) {
-        featureMap.get(s) match {
-          case Some(l) => l += f
-          case None => featureMap += s -> ListBuffer(f)
-        }
-      }
+      addFeaturesToMap(featureMap, newFeatures)
     }
     val ranked = Ranker.getSortedOrder(featureMap.toMap)
-    println(ranked)
     Displayer.displayResult(ranked, topK, entityGraph.entity)
+    return ranked
 //    implicit val system = ActorSystem("Sys")
 //
 //    import system.dispatcher
@@ -59,4 +53,12 @@ object SimilarityFinder {
 
   }
 
+  def addFeaturesToMap(featureMap: mutable.Map[String, ListBuffer[Feature]], newFeatures: Map[String, Feature]) = {
+    for ((s, f) <- newFeatures) {
+      featureMap.get(s) match {
+        case Some(l) => l += f
+        case None => featureMap += s -> ListBuffer(f)
+      }
+    }
+  }
 }

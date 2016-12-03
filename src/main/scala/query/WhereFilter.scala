@@ -38,7 +38,7 @@ class WhereFilter(statements : SimpleRDF*) {
 
 object WhereFilter {
   private val selectPattern = """(distinct )?\?[^\s]""".r
-  private val countStatement = """\(count\(\?[^\s]*\) as \?[^\s]*\)""".r
+  private val countStatement = """\(count\((distinct )?\?[^\s]*\) as \?[^\s]*\)""".r
 
   def filterAwayMultipleOfSameSelect(select: String): String = {
     val adjustedSelect = ArrayBuffer[String]()

@@ -2,6 +2,7 @@ package strategy
 
 import globals.MyConfiguration
 import org.scalatest.FunSuite
+import ownOntologyPopularizer.attributesGenerator.AttributeGenerator
 import rdf.GraphRDF
 import strategies.{MasterStrategy, PropMatchStrategy, Strategy, ValueMatchStrategy}
 
@@ -36,5 +37,17 @@ class TestValueMatchStrategy extends FunSuite{
     val st1Count = MyConfiguration.valueMatchBoost * MasterStrategy.logarithmicWeight(2)
     val strategy = ValueMatchStrategy("http://www.wikidata.org/entity/P43",true, "http://www.wikidata.org/entity/Q43274", "http://www.wikidata.org/entity/Q5", st1Count)
     assert(strategy.execute(List(graph1, graph2)).toList.length == 2)
+  }
+  test("Transgender count Q1052281") {
+    MasterStrategy.valueIsAPotentialValueMatch("http://www.wikidata.org/entity/Q1052281", "http://www.wikidata.org/entity/P21", true) match {
+      case Some(c) => assert(c > 1)
+      case None => assert(false)
+    }
+  }
+  test("Male count Q6581097") {
+    MasterStrategy.valueIsAPotentialValueMatch("http://www.wikidata.org/entity/Q6581097", "http://www.wikidata.org/entity/P21", true) match {
+      case Some(c) => assert(c > 1)
+      case None => assert(false)
+    }
   }
 }

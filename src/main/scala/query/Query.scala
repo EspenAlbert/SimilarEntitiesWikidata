@@ -21,7 +21,7 @@ class Query(f : () => String,  val dataset : String) extends FindSomething{
   }
 
   def execute():Unit = {
-    println(getQuery())
+//    println(getQuery())
     if(executed) return
     dataset match {
       case MyDatasets.Wikidata => QueryLocalServer.query(getQuery(), resultStream, MyDatasets.Wikidata); if(getQuery().contains("similarPropertyOntology")) println("you are probably querying the wrong dataset!!")

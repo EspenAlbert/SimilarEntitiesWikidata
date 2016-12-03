@@ -12,6 +12,13 @@ class Feature(property : String, featureType : FeatureType, count : Int, weight 
   }
 
   override def compare(that: Feature): Int = {
-    return floor(that.getScore() - this.getScore()).toInt
+    val comparedValue = floor(that.getScore() - this.getScore()).toInt
+//    println(comparedValue, "for feature: ", featureType, " with count :", count, " and weight: ", weight, " for property: ", property)
+
+    return comparedValue
+  }
+
+  override def toString: String = {
+    return s"Feature for $property with $featureType had value: $count * $weight"
   }
 }

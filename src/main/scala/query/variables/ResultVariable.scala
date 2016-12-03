@@ -10,6 +10,7 @@ object ResultVariable {
 //  val valueInsideQuotes = """\\"[^\\"]*\\"""".r
   val valueInsideQuotes = """"[^"]*"""".r
   val insideNode = """<[^>]*>""".r
+  val datatypeAnswer = """[^<]*\^\^<[^>]*>""".r
   implicit def getInt(x : ResultVariable) : Int = {
     try {
       return x.value.toInt
@@ -21,11 +22,14 @@ object ResultVariable {
     }
   }
   implicit def getString(x : ResultVariable) : String = {
-    insideNode.findFirstIn(x.value) match {
-      case Some(v) => return v.substring(1, v.length - 1)
-      case None => valueInsideQuotes.findFirstIn(x.value) match {
-        case Some(v) => return v.substring(1, v.length -1)
-        case None =>return x.value// throw new Exception(s"Weird result! ${x.value}")
+    datatypeAnswer.findFirstIn(x.value) match {
+      case Some(v) => return v
+      case None => insideNode.findFirstIn(x.value) match {
+        case Some(v) => return v.substring(1, v.length - 1)
+        case None => valueInsideQuotes.findFirstIn(x.value) match {
+          case Some(v) => return v.substring(1, v.length - 1)
+          case None => return x.value // throw new Exception(s"Weird result! ${x.value}")
+        }
       }
     }
   }

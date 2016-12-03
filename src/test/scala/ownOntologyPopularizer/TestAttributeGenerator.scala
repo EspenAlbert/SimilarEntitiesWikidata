@@ -32,23 +32,43 @@ class TestAttributeGenerator extends FunSuite{
       PrimitiveDatatype.boolean, "sharableDomain", (p : String) => QueryFactory.ask(new SimpleRDF(p = new StaticQueryVariable(p), o = new DynamicQueryVariable("o", false)),
       new SimpleRDF(p = new StaticQueryVariable(p), o = secondObject)))
 //    assert(Source.fromFile("output/sharableDomain.nt").getLines().length == 752)
-
-
   }
-  //P470 = true
-  test("Test sharable range generator") {
+  test("Value match subject class generated without problems ") {
+    val secondObject = new DynamicQueryVariable("o2", false)
+    secondObject.addQueryFilter(new NotEqualFilter(secondObject, "?o"))
+    val query = (p : String) => QueryFactory.ask(new SimpleRDF(p = new StaticQueryVariable(p), o = new DynamicQueryVariable("o", false)), new SimpleRDF(p = new StaticQueryVariable(p), o = secondObject))
+    AttributeGenerator.addStrategyClassToProperties(CustomPropertyClass.itemProperty, SimilarPropertyOntology.valueMatchSubjectStrategy, query, "ValueMatchSubjectStrategies")
+  }
+  test("Value match object strategy generated without problems ") {
     val secondObject = new DynamicQueryVariable("s2", false)
     secondObject.addQueryFilter(new NotEqualFilter(secondObject, "?s"))
-    AttributeGenerator.generateStatementsForProperty(CustomPropertyClass.itemProperty, SimilarPropertyOntology.sharableRange,
-      PrimitiveDatatype.boolean, "sharableRange", (p : String) => QueryFactory.ask(new SimpleRDF(p = new StaticQueryVariable(p), s = new DynamicQueryVariable("s", false)),
-      new SimpleRDF(p = new StaticQueryVariable(p), s = secondObject)))
-  } //TODO: Remove all lines where value = false -> See RemoveAllValuesWhereFalse...
+    val query = (p : String) => QueryFactory.ask(new SimpleRDF(p = new StaticQueryVariable(p), s = new DynamicQueryVariable("s", false)), new SimpleRDF(p = new StaticQueryVariable(p), s = secondObject))
+    AttributeGenerator.addStrategyClassToProperties(CustomPropertyClass.itemProperty, SimilarPropertyOntology.valueMatchObjectStrategy, query, "ValueMatchObjectStrategies")
+  }
   test("Test sameType possible generator") {
     val statement = ((s : String) => SimpleRDFFactory.getStatement(("?s " + OptionsForResultQueryVariable.unknownTypeFilter + "_" + "t", s, "?o " + OptionsForResultQueryVariable.unknownTypeFilter + "_t")))
-    AttributeGenerator.generateStatementsForProperty(CustomPropertyClass.itemProperty, SimilarPropertyOntology.sameTypePossible,
-      PrimitiveDatatype.boolean, "sameTypePossible", ((s) => QueryFactory.ask(statement(s))))
-    assert(Source.fromFile("output/sameTypePossible.nt").getLines().length > 2)
+    AttributeGenerator.addStrategyClassToProperties(CustomPropertyClass.itemProperty, SimilarPropertyOntology.directLinkStrategy,((s) => QueryFactory.ask(statement(s))), "DirectLinkStrategy")
+    assert(Source.fromFile("output/DirectLinkStrategy.nt").getLines().length > 2)
   }
+  test("Test alternative link strategy generator") {
+    val statement = ((s : String) => SimpleRDFFactory.getStatement(("?s " + OptionsForResultQueryVariable.unknownTypeFilter + "_" + "t", s, "?o " + OptionsForResultQueryVariable.unknownTypeFilter + "_t")))
+    AttributeGenerator.addStrategyClassToProperties(CustomPropertyClass.itemProperty, SimilarPropertyOntology.alternativeLinkStrategy,((s) => QueryFactory.ask(statement(s))), "AlternativeLinkStrategy")
+    assert(Source.fromFile("output/AlternativeLinkStrategy.nt").getLines().length > 2)
+  }
+  //P470 = true
+//  test("Test sharable range generator") {
+//    val secondObject = new DynamicQueryVariable("s2", false)
+//    secondObject.addQueryFilter(new NotEqualFilter(secondObject, "?s"))
+//    AttributeGenerator.generateStatementsForProperty(CustomPropertyClass.itemProperty, SimilarPropertyOntology.sharableRange,
+//      PrimitiveDatatype.boolean, "sharableRange", (p : String) => QueryFactory.ask(new SimpleRDF(p = new StaticQueryVariable(p), s = new DynamicQueryVariable("s", false)),
+//      new SimpleRDF(p = new StaticQueryVariable(p), s = secondObject)))
+//  } //TODO: Remove all lines where value = false -> See RemoveAllValuesWhereFalse...
+//  test("Test sameType possible generator") {
+//    val statement = ((s : String) => SimpleRDFFactory.getStatement(("?s " + OptionsForResultQueryVariable.unknownTypeFilter + "_" + "t", s, "?o " + OptionsForResultQueryVariable.unknownTypeFilter + "_t")))
+//    AttributeGenerator.generateStatementsForProperty(CustomPropertyClass.itemProperty, SimilarPropertyOntology.sameTypePossible,
+//      PrimitiveDatatype.boolean, "sameTypePossible", ((s) => QueryFactory.ask(statement(s))))
+//    assert(Source.fromFile("output/sameTypePossible.nt").getLines().length > 2)
+//  }
   test("The values in the domain are gatheredCorrectly for step father P43") {
     val subjects = AttributeGenerator.getDomainValuesWithMultipleObjects("w:P43")
     print(subjects)
@@ -66,6 +86,9 @@ class TestAttributeGenerator extends FunSuite{
   }
   test("The values in the domain get a proper count") {
     val objects = AttributeGenerator.generateValueCountsForProperty(true, "w:P43")
+  }
+  test("It works to create values for a big property to") {
+    val objects = AttributeGenerator.generateValueCountsForProperty(false, "w:P910")
   }
   test("Create values for sharable domain ") {
     AttributeGenerator.valueCountsForSharableDomains()
