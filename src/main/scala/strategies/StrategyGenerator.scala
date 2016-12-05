@@ -1,5 +1,6 @@
 package strategies
 
+import globals.MyConfiguration
 import rdf.GraphRDF
 
 import scala.collection.mutable.ArrayBuffer

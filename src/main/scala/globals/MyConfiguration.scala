@@ -8,10 +8,15 @@ import breeze.numerics.log
 object MyConfiguration {
 
 
+  var doScaling = true
+
+
+  var inANotInBBoost = -0.3
+  var inBNotInABoost = -0.1
   val windowForDateComparison = 30
-  val dateComparisonWeight = 0.3
-  val valueMatchBoost = 2
-  val directLinkBoost = 5
-  val alternativeLinkNegative = -0.1
-  val maximumWeightPropertyMatch = log(SimilarPropertyOntology.maxCountForProperties.toString.toInt / 100)
+  var dateComparisonWeight = 0.3
+  var valueMatchBoost = 2.0
+  var directLinkBoost = 5.0
+  var alternativeLinkNegative = -0.1
+  var maximumWeightPropertyMatch = log(SimilarPropertyOntology.maxCountForProperties.toString.toInt / 100)
 }

@@ -26,6 +26,14 @@ class TestGraphRDF extends FunSuite with BeforeAndAfter{
   test("get properties where obama is object") {
     assert(graph.getProperties(o = true).length == 410)
   }
+  test("scaling factor for the same entity must be 1") {
+    assert(graph.findScalingFactor(graph) == 1)
+  }
+  test("scaling factor for a similar entity works as expected") {
+    val scalingFactor = graph.findScalingFactor(new GraphRDF("w:Q6294"))
+    print(scalingFactor)
+    assert(scalingFactor > 0.5)
+  }
 
 
 }

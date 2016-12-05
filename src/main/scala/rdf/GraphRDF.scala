@@ -8,6 +8,18 @@ import scala.collection.mutable.ArrayBuffer
   * Created by Espen on 09.11.2016.
   */
 class GraphRDF(val entity : String) {
+  def findScalingFactor(graph: GraphRDF) : Double = {
+    val otherEntity = graph.entity
+    var overlaps = 0
+    for(statement <- graph.statements) {
+      statement match {
+        case (`otherEntity`, p, value) => if(getProperties(s=true).exists(_ == p)) overlaps += 1
+        case (value, p, `otherEntity`) => if(getProperties(o=true).exists(_ == p)) overlaps += 1
+      }
+    }
+    return overlaps.toDouble /  graph.statements.size
+  }
+
   var getType: String = ""
 
 

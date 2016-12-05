@@ -11,8 +11,8 @@ import strategies.{MasterStrategy, PropMatchStrategy, Strategy, ValueMatchStrate
   */
 class TestValueMatchStrategy extends FunSuite{
   test("Value match strategy should work") {
-    val st1Count = MyConfiguration.valueMatchBoost * MasterStrategy.logarithmicWeight(2)
-    val st2Count = MyConfiguration.valueMatchBoost * MasterStrategy.logarithmicWeight(5)
+    val st1Count = MyConfiguration.valueMatchBoost * MasterStrategy.logarithmicWeightForCount(2)
+    val st2Count = MyConfiguration.valueMatchBoost * MasterStrategy.logarithmicWeightForCount(5)
     val strategy = ValueMatchStrategy("http://www.wikidata.org/entity/P43",true, "http://www.wikidata.org/entity/Q43274", "http://www.wikidata.org/entity/Q5", st1Count)
     val strategy2 = ValueMatchStrategy("http://www.wikidata.org/entity/P1038", true, "http://www.wikidata.org/entity/Q10479","http://www.wikidata.org/entity/Q5", st2Count)
 
@@ -34,7 +34,7 @@ class TestValueMatchStrategy extends FunSuite{
   test("Check that the execution runs correctly") {
     val graph1 = new GraphRDF("w:Q3736070")
     val graph2 = new GraphRDF("w:Q3743314")
-    val st1Count = MyConfiguration.valueMatchBoost * MasterStrategy.logarithmicWeight(2)
+    val st1Count = MyConfiguration.valueMatchBoost * MasterStrategy.logarithmicWeightForCount(2)
     val strategy = ValueMatchStrategy("http://www.wikidata.org/entity/P43",true, "http://www.wikidata.org/entity/Q43274", "http://www.wikidata.org/entity/Q5", st1Count)
     assert(strategy.execute(List(graph1, graph2)).toList.length == 2)
   }

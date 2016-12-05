@@ -12,6 +12,7 @@ object FeatureType extends Enumeration{
   val valueMatch = Value("Value match")
   val sameProperty = Value("Same property")
   val inANotInB = Value("In a not in b")
+  val inBNotInA = Value("In b not in a")
   val directLinkMatch = Value("Direct link match")
 
   implicit def getStringValue(featureType: FeatureType) : String = {

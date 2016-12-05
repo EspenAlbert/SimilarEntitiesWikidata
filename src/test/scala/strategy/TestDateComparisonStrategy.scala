@@ -17,8 +17,8 @@ import scala.collection.mutable.ListBuffer
   */
 class TestDateComparisonStrategy extends FunSuite{
   test("DateComparison should work") {
-    val st1Count = MyConfiguration.dateComparisonWeight * MasterStrategy.logarithmicWeight(2)
-    val st2Count = MyConfiguration.dateComparisonWeight * MasterStrategy.logarithmicWeight(5)
+    val st1Count = MyConfiguration.dateComparisonWeight * MasterStrategy.logarithmicWeightForCount(2)
+    val st2Count = MyConfiguration.dateComparisonWeight * MasterStrategy.logarithmicWeightForCount(5)
     val strategy = DateComparisonStrategy("http://www.wikidata.org/entity/P2031", "\"2011\"^^xsd:gYear", st1Count)
     val strategy2 = DateComparisonStrategy("http://www.wikidata.org/entity/P2031", "\"2011\"^^xsd:gYear", st2Count)
     val list = List[Strategy](strategy2, strategy)
@@ -45,7 +45,7 @@ class TestDateComparisonStrategy extends FunSuite{
     val graph1 = new GraphRDF("w:Q436113")
     val graph2 = new GraphRDF("w:Q3371101")
     val graph3 = new GraphRDF("w:Q254")
-    val st1Count = MyConfiguration.valueMatchBoost * MasterStrategy.logarithmicWeight(2)
+    val st1Count = MyConfiguration.valueMatchBoost * MasterStrategy.logarithmicWeightForCount(2)
     val strategy = DateComparisonStrategy("http://www.wikidata.org/entity/P569","\"1970\"^^<http://www.w3.org/2001/XMLSchema#gYear>", st1Count)
     val features = strategy.execute(List(graph1, graph2, graph3))
     assert(features.toList.length == 3)

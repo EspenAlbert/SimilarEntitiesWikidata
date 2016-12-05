@@ -40,7 +40,7 @@ class MasterStrategy (statements : List[Tuple3[String, String, String]], entity 
 }
 //This is where all strategies are created
 object MasterStrategy {
-  def logarithmicWeight(countForProperty: Int): Double = {
+  def logarithmicWeightForCount(countForProperty: Int): Double = {
     return log(maxCountForProperties.toString.toInt / countForProperty)
   }
 
@@ -51,11 +51,11 @@ object MasterStrategy {
         val strategies = ArrayBuffer[Strategy]()
         if (range.nonEmpty) {
           val weight = QueryFactory.findDomainCount(property)
-          strategies.append(PropMatchStrategy(property, true, logarithmicWeight(weight), rdfType))
+          strategies.append(PropMatchStrategy(property, true, logarithmicWeightForCount(weight), rdfType))
         }
         if (domain.nonEmpty) {
           val weight = QueryFactory.findRangeCount(property)
-          strategies.append(PropMatchStrategy(property, false, logarithmicWeight(weight), rdfType))
+          strategies.append(PropMatchStrategy(property, false, logarithmicWeightForCount(weight), rdfType))
 
         }
         return Some(strategies)
@@ -65,11 +65,11 @@ object MasterStrategy {
         val (filteredDomain, filteredRange) = getDomainAndRangeWithCorrectType(domain, range, rdfType)
         if (filteredDomain.nonEmpty) {
           val weight = QueryFactory.findDomainCount(property)
-          strategies += AlternativeLinkStrategy(property, Set() ++ filteredDomain, true, MyConfiguration.alternativeLinkNegative * logarithmicWeight(weight))
+          strategies += AlternativeLinkStrategy(property, Set() ++ filteredDomain, true, MyConfiguration.alternativeLinkNegative * logarithmicWeightForCount(weight))
         }
         if (filteredRange.nonEmpty) {
           val weight = QueryFactory.findRangeCount(property)
-          strategies += AlternativeLinkStrategy(property, Set() ++ filteredRange, true, MyConfiguration.alternativeLinkNegative * logarithmicWeight(weight))
+          strategies += AlternativeLinkStrategy(property, Set() ++ filteredRange, true, MyConfiguration.alternativeLinkNegative * logarithmicWeightForCount(weight))
         }
         if (strategies.isEmpty) return None
         return Some(strategies)
@@ -78,10 +78,10 @@ object MasterStrategy {
         val strategies = ArrayBuffer[Strategy]()
         val (filteredDomain, filteredRange) = getDomainAndRangeWithCorrectType(domain, range, rdfType)
         if (filteredDomain.nonEmpty) {
-          strategies += DirectLinkStrategy(property, Set() ++ filteredDomain, MyConfiguration.directLinkBoost * logarithmicWeight(filteredDomain.length))
+          strategies += DirectLinkStrategy(property, Set() ++ filteredDomain, MyConfiguration.directLinkBoost * logarithmicWeightForCount(3*filteredDomain.length))
         }
         if (filteredRange.nonEmpty) {
-          strategies += DirectLinkStrategy(property, Set() ++ filteredRange, MyConfiguration.directLinkBoost * logarithmicWeight(filteredRange.length))
+          strategies += DirectLinkStrategy(property, Set() ++ filteredRange, MyConfiguration.directLinkBoost * logarithmicWeightForCount(3*filteredRange.length))
         }
         if (strategies.isEmpty) return None
         return Some(strategies)
@@ -92,10 +92,14 @@ object MasterStrategy {
         if (domain.nonEmpty) {
           for (d <- domain) {
             valueIsAPotentialValueMatch(d, property, false) match {
-              case Some(count) => strategies += ValueMatchStrategy(property, false, d, rdfType, MyConfiguration.valueMatchBoost * logarithmicWeight(count))
+              case Some(count) => strategies += ValueMatchStrategy(property, false, d, rdfType, MyConfiguration.valueMatchBoost * logarithmicWeightForCount(count))
               case None => Unit
             }
           }
+          val domainCount = QueryFactory.findDomainCount(property)
+          strategies += InANotInBStrategy(property, false, domain, domain.length * MyConfiguration.inANotInBBoost * logarithmicWeightForCount(domainCount))
+          strategies += InBNotInAStrategy(property, false, domain, domain.length * MyConfiguration.inBNotInABoost * logarithmicWeightForCount(domainCount))
+          //TODO: Add InBNotInAStrategy
         }
         if (strategies.isEmpty) return None
         return Some(strategies)
@@ -105,10 +109,13 @@ object MasterStrategy {
         if (range.nonEmpty) {
           for (r <- range) {
             valueIsAPotentialValueMatch(r, property, true) match {
-              case Some(count) => strategies += ValueMatchStrategy(property, true, r, rdfType, MyConfiguration.valueMatchBoost * logarithmicWeight(count))
+              case Some(count) => strategies += ValueMatchStrategy(property, true, r, rdfType, MyConfiguration.valueMatchBoost * logarithmicWeightForCount(count))
               case None => Unit
             }
           }
+          val rangeCount = QueryFactory.findRangeCount(property)
+          strategies += InANotInBStrategy(property, true, range, range.length * MyConfiguration.inANotInBBoost * logarithmicWeightForCount(rangeCount))
+          strategies += InBNotInAStrategy(property, true, range, range.length * MyConfiguration.inBNotInABoost * logarithmicWeightForCount(rangeCount))
         }
         if (strategies.isEmpty) return None
         return Some(strategies)
@@ -124,7 +131,7 @@ object MasterStrategy {
           case a : Throwable => println("more than 1 date time value", range)
         }
           // Only one value
-          val weight = logarithmicWeight(QueryFactory.findDomainCount(property)) * MyConfiguration.dateComparisonWeight
+          val weight = logarithmicWeightForCount(QueryFactory.findDomainCount(property)) * MyConfiguration.dateComparisonWeight
           return Some(List(DateComparisonStrategy(property, range(0), weight)))
         }
       case _ => None
