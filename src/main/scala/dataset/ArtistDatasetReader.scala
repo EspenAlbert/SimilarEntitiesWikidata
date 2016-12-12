@@ -52,7 +52,9 @@ object ArtistDatasetReader {
     println(map.keys.size, " was reduced to: ", myMap.keys.size, " for the keys")
     val totalValues = myMap.values.foldRight(0) { (a, b) => a.length + b }
     println(map.values.foldRight(0)(((a, b) => a.length + b)), " number of values was reduced to: ", totalValues)
-    println("Making on average :", totalValues.toFloat / myMap.keys.size , " similars per statement")
+    println("Making on average :", totalValues.toFloat / myMap.keys.size , " similars per entity")
+    val uniqueArtists = Set[String]() ++ myMap.keys.toSet ++ myMap.values.flatten.toSet
+    println(s"Unique artists: ${uniqueArtists.size}")
     return myMap
 //    for(k <- map.keys) {
 //      if(isUri(k)) {

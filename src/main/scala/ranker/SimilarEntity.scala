@@ -9,20 +9,13 @@ import feature.Feature
   */
 class SimilarEntity(val name : String, features : List[Feature], scalingFactor : Double = 1.0) extends Ordered[SimilarEntity]{
 
-  val sortedFeatures = try {
-     features.sorted
-  } catch {
-    case e : Throwable => println(s"failed to sort for $name", features, e); features
-  }
+  val sortedFeatures = features.sorted
   val score = sum(for(f <- features)yield f.getScore()) * scalingFactor
 
   override def compare(that: SimilarEntity): Int = {
-    val compared = floor(that.score - this.score).toInt
-    try {
-      assert(compared.isInstanceOf[Int])
-      return compared
-    } catch {
-      case e: Throwable => println(s"failed to compare two similar entities with feature lists $sortedFeatures, ${that.sortedFeatures}"); return -1
-    }
+    val compared = that.score - this.score
+    if(compared > 0) return 1 //Other has higher score
+    if(compared < 0) return -1 //This has higher score
+    return 0
   }
 }

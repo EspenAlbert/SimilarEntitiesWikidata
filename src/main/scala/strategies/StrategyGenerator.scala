@@ -1,6 +1,6 @@
 package strategies
 
-import globals.MyConfiguration
+import globals.{MyConfiguration, SimilarPropertyOntology}
 import rdf.GraphRDF
 
 import scala.collection.mutable.ArrayBuffer
@@ -23,6 +23,9 @@ object StrategyGenerator {
     for(prop <- entityGraph.getUniqueWikidataPropertiesWithoutTheMostCommon()) {
       val masterStrategy = new MasterStrategy(entityGraph.statements.filter((s) => statementHasProperty(prop, s)).toList, entityGraph.entity, entityGraph.getType)
       strategies.append(masterStrategy.getCompositeStrategies() : _*)
+    }
+    if(MyConfiguration.globalInBNotInAActive) {
+      strategies.append(InBNotInAGlobalStrategy(entityGraph, MyConfiguration.globalInBNotInABoost * MasterStrategy.logarithmicWeightForCount(SimilarPropertyOntology.maxCountForProperties.toString.toInt / 2)))
     }
     return strategies.toArray
   }

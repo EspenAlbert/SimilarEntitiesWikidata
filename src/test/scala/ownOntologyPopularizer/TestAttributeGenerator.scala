@@ -15,9 +15,9 @@ import scala.io.Source
   * Created by Espen on 02.11.2016.
   */
 class TestAttributeGenerator extends FunSuite{
-  test("All properties should have a domain count except 3 most common") {
+  test("All properties should have a domain count except P31") {
     AttributeGenerator.generateStatementsForProperty(CustomPropertyClass.baseProperty, SimilarPropertyOntology.domainCount, PrimitiveDatatype.nonNegativeInteger, "domainCounts", QueryFactory.findTotalCountSubjectsWhereProperty(_, true))
-    assert(Source.fromFile("output/domainCounts.nt").getLines().length > 752)
+    assert(Source.fromFile("output/domainCounts.nt").getLines().length == 2397)
   }
   test("Test range count generator") {
     AttributeGenerator.generateStatementsForProperty(CustomPropertyClass.itemProperty, SimilarPropertyOntology.rangeCount,

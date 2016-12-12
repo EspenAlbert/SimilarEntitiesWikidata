@@ -4,6 +4,8 @@ package globals
   * Created by Espen on 04.11.2016.
   */
 object SimilarPropertyOntology extends Enumeration{
+  val maxCountForProperties = 17871093
+  val maxPropertyNumber = 3333
 
 
   type SimilarPropertyOntology = Value
@@ -29,8 +31,6 @@ object SimilarPropertyOntology extends Enumeration{
   val directLinkStrategy = Value(spo + "#DirectLinkStrategy")
 
   val basePropertyClassId = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#Property")
-  val maxCountForProperties = Value("17871093")
-  val maxPropertyNumber = Value("3333")
   def getFromRawString(value : String) : SimilarPropertyOntology = {
     value match {
       case "w" => return w

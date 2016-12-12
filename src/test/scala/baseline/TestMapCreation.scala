@@ -13,7 +13,7 @@ class TestMapCreation extends FunSuite{
   test("it should be possible to dump the map to a file") {
     PropertyIdfCalculator.dumpToFile()
     val map = PropertyIdfCalculator.getMapFromFile()
-    assert(map.keys.toList.length == 2398)
+    assert(map.keys.toList.length == 2397)
   }
   test("read directly from file") {
     val map = PropertyIdfCalculator.getMapFromFile()

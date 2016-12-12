@@ -23,7 +23,8 @@ case class DateComparisonStrategy(property: String, value : String, override val
     val otherInStandard = DateComparisonStrategy.getStandardDateFormat(otherTimeRaw)
     val difference = abs(valueInCorrectFormat - otherInStandard)
     val score = MyConfiguration.windowForDateComparison - difference
-    if(score < 0) return 0
+    if(score > 0) return score
+    if(score < -1 * MyConfiguration.windowForDateComparison) return -1 * MyConfiguration.windowForDateComparison //Makes them more different
     else return score
   }
 

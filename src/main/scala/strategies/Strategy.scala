@@ -12,6 +12,9 @@ trait Strategy extends Ordered[Strategy]{
   def findSimilars() : List[String]
   val weight : Double
   override def compare(that: Strategy): Int = {
-    return floor(that.weight - this.weight).toInt
+    val otherHasHeigherWeight = that.weight - this.weight
+    if(otherHasHeigherWeight > 0) return 1
+    else if(otherHasHeigherWeight < 0) return -1
+    return 0
   }
 }

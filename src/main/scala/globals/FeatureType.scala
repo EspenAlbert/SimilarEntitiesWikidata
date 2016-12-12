@@ -7,6 +7,7 @@ object FeatureType extends Enumeration{
 
 
   type FeatureType = Value
+  val inBNotInAGlobal = Value("In b not in a global")
   val timeComparison = Value("Time comparison")
   val alternativeMatch = Value("Alternative match")
   val valueMatch = Value("Value match")

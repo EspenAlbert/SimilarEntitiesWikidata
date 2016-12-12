@@ -47,7 +47,8 @@ class GraphRDF(val entity : String) {
     return properties.toList
   }
 
-  val tooCommonProperties = Set("P31", "P17")
+  val tooCommonProperties = Set("P31")
+//  val tooCommonProperties = Set("P31")
 
   def getUniqueWikidataPropertiesWithoutTheMostCommon() : Set[String] = {
     return Set() ++ statementsList.filterNot((s) => (s._2.indexOf("P") > 0) && tooCommonProperties.contains(s._2.substring(s._2.indexOf("P")))).

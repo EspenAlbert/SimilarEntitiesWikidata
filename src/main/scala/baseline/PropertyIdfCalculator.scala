@@ -16,23 +16,32 @@ import scala.collection.mutable
 object PropertyIdfCalculator {
   final val propertiesidfscoresFilename: String = "propertiesIdfScores"
   def dumpToFile() = {
-    DumpObject.dumpJsonMap(getMap().toMap, propertiesidfscoresFilename)
+    DumpObject.dumpJsonMapStringTuple(getMap().toMap, propertiesidfscoresFilename)
   }
 
-  def getMap() : mutable.Map[String, Double] = {
+  def getMap() : mutable.Map[String, (Double, Double)] = {
     val properties = QueryFactory.findAllPropertiesOfCustomClass(CustomPropertyClass.baseProperty)
     val countId = SimilarPropertyOntology.spoCount.toString
-    val propertyIdfScore = mutable.Map[String, Double]()
-    for(prop <- properties) {
-      val countForProperty = QueryFactoryV2.findSingleValue(SimpleRDFFactory.getStatement(prop, countId, "?o"))
-      val idfScore = Math.log(SimilarPropertyOntology.maxCountForProperties.toString.toInt / countForProperty)
-      println(s"idf score for : $prop = $idfScore ")
-      propertyIdfScore(prop) = idfScore
+    val propertyIdfScore = mutable.Map[String, (Double, Double)]()
+    for(prop <- properties.filterNot(_ == "http://www.wikidata.org/entity/P31")) {
+      val domainCount = QueryFactory.findDomainCount(prop)
+      val idfScoreDomain = Math.log(SimilarPropertyOntology.maxCountForProperties / domainCount)
+      try {
+        val rangeCount = QueryFactory.findRangeCount(prop)
+        val idfScoresRange = Math.log(SimilarPropertyOntology.maxCountForProperties / rangeCount)
+        println(s"idf scores for : $prop = $idfScoreDomain , $idfScoresRange ")
+        propertyIdfScore(prop) = (idfScoreDomain, idfScoresRange)
+      } catch {
+        case a : Throwable => {
+          propertyIdfScore(prop) = (idfScoreDomain, idfScoreDomain)
+        }
+      }
+
     }
     return propertyIdfScore
   }
-  def getMapFromFile() : Map[String, Double] = {
-    return DumpObject.loadJsonMap(propertiesidfscoresFilename)
+  def getMapFromFile() : Map[String, (Double, Double)] = {
+    return DumpObject.getMapStringTuple(propertiesidfscoresFilename)
   }
 
 }

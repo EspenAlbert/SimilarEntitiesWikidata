@@ -15,7 +15,7 @@ object Ranker {
     try {
       return similarEntities.toList.sorted
     } catch {
-      case e : Throwable => println("failed to sort ", similarEntities.toList); return similarEntities.toList
+      case e : Throwable => println("failed to sort similar entities list"); return similarEntities.toList
     }
   }
   def getSortedOrderScaled(comparators: Map[String, ListBuffer[Feature]], otherEntitiesAsGraphs: List[GraphRDF], queryEntityGraph : GraphRDF): List[SimilarEntity] = {
@@ -28,7 +28,7 @@ object Ranker {
     try {
       return similarEntities.sorted
     } catch {
-      case e : Throwable => println("failed to sort ", similarEntities); return similarEntities
+      case e : Throwable => println("failed to sort similar entities list "); return similarEntities
     }
   }
 }

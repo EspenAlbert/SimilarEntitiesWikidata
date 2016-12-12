@@ -2,14 +2,16 @@ package main
 
 import java.io.PrintWriter
 
+import breeze.numerics.log
 import dataset.ArtistDatasetReader
 import displayer.Displayer
+import dump.DumpObject
 import feature.Feature
-import globals.{FeatureType, MyConfiguration}
+import globals.{FeatureType, MyConfiguration, SimilarPropertyOntology}
 import org.scalatest.FunSuite
 import ranker.Ranker
 import rdf.GraphRDF
-import strategies.{Strategy, StrategyGenerator}
+import strategies._
 
 import scala.collection.mutable
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
@@ -89,8 +91,9 @@ class TestSimilarityFinder extends FunSuite{
       case "DirectLink" => MyConfiguration.directLinkBoost = configValue.asInstanceOf[Double]
       case "AlternativeLink" => MyConfiguration.alternativeLinkNegative = configValue.asInstanceOf[Double]
       case "InANotInB" => MyConfiguration.inANotInBBoost = configValue.asInstanceOf[Double]
-      case "InBNotInA" => MyConfiguration.inBNotInABoost = configValue.asInstanceOf[Double]
+      case "InBNotInAGlobal" => MyConfiguration.globalInBNotInABoost = configValue.asInstanceOf[Double]
       case "DoScaling" => MyConfiguration.doScaling = configValue.asInstanceOf[Boolean]
+      case "PropertyDivideBy" => MyConfiguration.maximumWeightPropertyMatch = log(SimilarPropertyOntology.maxCountForProperties / configValue.asInstanceOf[Int])
     }
   }
 
@@ -105,11 +108,24 @@ class TestSimilarityFinder extends FunSuite{
   val alternativeLinkNegative = -0.1
     var doScaling = true
   val maximumWeightPropertyMatch = log(SimilarPropertyOntology.maxCountForProperties.toString.toInt / 100)
+  topResult
+  doScaling = false
+  alternativeLink = -0.1
+  dL= 5.0
+  vM = 8.0
+  dateComparison = 1.0
+  inBNotInA= -0.1
+  inANotInB = 0
      */
-    val parameterTuning = List(List(-2, -1, -.5, -.25, -.1, 0), List(-2, -1, -.5, -.25, -.1, 0), List(0.1, .3, .5, .8, 1.0),
-      List(0, 1, 2, 3, 5, 8), List(0, 1, 3, 5, 7, 10), List(-2, -1, -.5, -.25, -.1, 0), List(true, false))
-    val tuningParameter = List("InANotInB", "InBNotInA", "DateComparison", "ValueMatch", "DirectLink", "AlternativeLink", "DoScaling")
-    val artistDataset = ArtistDatasetReader.getDatasetFromFile().take(10)
+    val parameterTuning = List(//List(-1, -.5, -.2, 0.0, -.3), List(-2.0, -1.0, -.5, -.25, 0.0, -.1),
+//      List(0.1, .5, .8, 1.0, .3),
+     // List(5.0, 8.0, 2.0),
+ List(3.0, 7.0, 10.0, 5.0), List(5,10,30,50,75,100,150,200))//List(true, false))
+    val tuningParameter = List(//"InANotInB", "InBNotInAGlobal",
+//     "DateComparison",
+     //"ValueMatch",
+ "DirectLink", "PropertyDivideBy")//, "DoScaling")
+    val artistDataset = ArtistDatasetReader.getDatasetFromFile().take(100)
     for((parameter, i) <- tuningParameter.zipWithIndex) {
       for(config <- parameterTuning(i)) {
         adjustConfig(parameter, config)
@@ -117,6 +133,61 @@ class TestSimilarityFinder extends FunSuite{
         doPerformanceTest(artistDataset, filename)
       }
     }
+  }
+  test("Test a better setup") {
+    val artistDataset = ArtistDatasetReader.getDatasetFromFile().take(100)
+    doPerformanceTest(artistDataset, "setup7pmTuesday1500retrieved")
+  }
+  test("Do full test AND store result") {
+    val artistDataset = ArtistDatasetReader.getDatasetFromFile()
+    val saveEvery = 100
+    val queryEntityStatistics = mutable.HashMap[String, mutable.HashMap[String, Int]]()
+    val queryEntityResults = mutable.HashMap[String, mutable.HashMap[String, Double]]()
+    val queryEntityResultForExpected = mutable.HashMap[String, List[(String, (Double, Int))]]()
+    val levels = Array(1, 10, 20, 30, 40, 50, 100, 150, 200, 250, 500, 1000)
+    var fileNumber = 18
+    for((artist, i) <- artistDataset.keys.toList.zipWithIndex) {
+      if (i < 1700) Unit
+      else {
+        if ((i + 1) % saveEvery == 0) {
+          //TODO: Remember to change back...
+          DumpObject.dumpMapStringMapStringInt(queryEntityStatistics, s"qEntityStatistics$fileNumber")
+          DumpObject.dumpMapStringMapStringDouble(queryEntityResults, s"qEntityResultSimilarityFinder$fileNumber")
+          DumpObject.dumpMapStringListStringDoubleInt(queryEntityResultForExpected, s"qEntityResultExpectedSimilarityFinder$fileNumber")
+          println(s"Dumped file # $fileNumber")
+          fileNumber += 1
+        }
+        val (entityGraph: GraphRDF, strategies: Array[Strategy]) = SimilarityFinder.findGraphAndStrategiesForEntity(artist)
+        val entityStatistics = getStrategyCounts(strategies)
+        entityStatistics += "statementCount" -> entityGraph.statements.size
+        queryEntityStatistics += artist -> entityStatistics
+        val expectedSimilars = artistDataset(artist)
+        val (resultsMap, notFound) = getMapOfRecallPrecisionAndScoreForLevelsPlusNotFound(entityGraph, strategies, levels, expectedSimilars)
+        queryEntityResults += artist -> resultsMap
+        val graphsOfSimilars = expectedSimilars.map {
+          new GraphRDF(_)
+        }
+        val featureMap = mutable.Map[String, ListBuffer[Feature]]()
+        strategies.map { (s) => SimilarityFinder.addFeaturesToMap(featureMap, s.execute(graphsOfSimilars)) }
+        val ranked = Ranker.getSortedOrder(featureMap.toMap)
+        val expectedResultFacts: List[(String, (Double, Int))] = ranked.map((s) => s.name -> (s.score, graphsOfSimilars.filter(_.entity == s.name)(0).statements.size))
+        queryEntityResultForExpected += artist -> expectedResultFacts
+        println(s"Finished artist $i of ${artistDataset.keys.size}")
+      }
+    }
+    DumpObject.dumpMapStringMapStringInt(queryEntityStatistics, s"qEntityStatistics$fileNumber")
+    DumpObject.dumpMapStringMapStringDouble(queryEntityResults, s"qEntityResultSimilarityFinder$fileNumber")
+    DumpObject.dumpMapStringListStringDoubleInt(queryEntityResultForExpected, s"qEntityResultExpectedSimilarityFinder$fileNumber")
+
+  }
+
+  private def getStrategyCounts(strategies: Array[Strategy]) = {
+    val statisticsMap = mutable.HashMap[String, Int]()
+    statisticsMap += "valueMatch" -> strategies.filter(_.isInstanceOf[ValueMatchStrategy]).length
+    statisticsMap += "directLink" -> strategies.filter(_.isInstanceOf[DirectLinkStrategy]).length
+    statisticsMap += "propertyMatch" -> strategies.filter(_.isInstanceOf[PropMatchStrategy]).length
+    statisticsMap += "dateComparison" -> strategies.filter(_.isInstanceOf[DateComparisonStrategy]).length
+    statisticsMap
   }
 
   private def doPerformanceTest(artistDataset: Map[String, List[String]], filename : String) = {
@@ -127,22 +198,53 @@ class TestSimilarityFinder extends FunSuite{
       recall.append(0)
       precisions.append(0)
     }
-    val numberOfTests = 10
-    for (artist <- artistDataset.keys.take(numberOfTests)) {
-      val similars = SimilarityFinder.findTopKSimilarTo(artist, 10)
-      val similarsExpected = artistDataset(artist)
-      for ((level, i) <- levels.zipWithIndex) {
-        val overlaps = similars.take(level).foldRight(0) { (uri, prevSum) => if (similarsExpected.contains(uri.name)) prevSum + 1 else prevSum }
-        precisions(i) += overlaps.toDouble / level
-        recall(i) += overlaps.toDouble / similarsExpected.length
-      }
+    val notFoundEntities = mutable.HashMap[String, List[String]]()
+    val numberOfTests = artistDataset.size
+    for (artist <- artistDataset.keys) {
+      val notFound: (String, List[String]) = doTestForArtist(artistDataset, levels, precisions, recall, artist)
+      notFoundEntities += notFound
+      println("unable to find : ", notFound)
     }
     val averagePrecisions = precisions.map(_ / numberOfTests)
     val averageRecalls = recall.map(_ / numberOfTests)
-    val writer = new PrintWriter("output/results/" + filename + "precisionAndRecall.txt")
+    val writer = new PrintWriter("output/results2/" + filename + "precisionAndRecall.txt")
+    writer.write(notFoundEntities.toString() + "\n")
     for ((level, i) <- levels.zipWithIndex) {
       writer.write(s"$level P:${averagePrecisions(i)} R:${averageRecalls(i)} \n")
     }
     writer.close()
+    println(s"Finished setup for $filename")
+  }
+
+  private def doTestForArtist(artistDataset: Map[String, List[String]], levels: Array[Int], precisions: ArrayBuffer[Double], recall: ArrayBuffer[Double], artist: String): (String, List[String]) = {
+    val similars = SimilarityFinder.findTopKSimilarTo(artist, 10)
+    val similarsExpected = artistDataset(artist)
+    for ((level, i) <- levels.zipWithIndex) {
+      val overlaps = similars.take(level).foldRight(0) { (uri, prevSum) => if (similarsExpected.contains(uri.name)) prevSum + 1 else prevSum }
+      precisions(i) += overlaps.toDouble / level
+      val recallValue = overlaps.toDouble / similarsExpected.length
+      recall(i) += recallValue
+      if (i == levels.length - 1) println(s"Recall for artist 1000 received: $artist", recallValue)
+    }
+    val notFound = artist -> similarsExpected.filterNot((s) => similars.exists(_.name == s))
+    notFound
+  }
+  private def getMapOfRecallPrecisionAndScoreForLevelsPlusNotFound(artist : GraphRDF, strategies : Array[Strategy], levels: Array[Int], similarsExpected : List[String]): (mutable.HashMap[String, Double], List[String]) = {
+    val similars = SimilarityFinder.findSimilarToEntityWithStrategies(10, artist, strategies)
+    val statisticsMap = mutable.HashMap[String, Double]()
+    try {
+      for ((level, i) <- levels.zipWithIndex) {
+        val overlaps = similars.take(level).foldRight(0) { (uri, prevSum) => if (similarsExpected.contains(uri.name)) prevSum + 1 else prevSum }
+        statisticsMap += s"precision@$level" -> overlaps.toDouble / level
+        statisticsMap += s"recall@$level" -> overlaps.toDouble / similarsExpected.length
+        statisticsMap += s"score@$level" -> similars(level - 1).score
+      }
+    } catch {
+      case a :IndexOutOfBoundsException => println(s"similars to ${artist.entity} was unable to get full 1000 similars")
+      case a => println("Unknown exceptin caught ", a.getMessage)
+    }
+
+    val notFound = similarsExpected.filterNot((s) => similars.exists(_.name == s))
+    return (statisticsMap, notFound)
   }
 }
