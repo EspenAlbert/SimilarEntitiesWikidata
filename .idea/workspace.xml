@@ -1,146 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d206a159-edb1-49d5-8841-178f417096da" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/feature/ValueMatchFeature.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/query/QueryForOnlineWikidata.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/feature/TestFeature.scala" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/HelloWorld.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/comparator/Comparator.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/priorityQueueExample/IntComparator.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/priorityQueueExample/TestPriorityQueue.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/strategies/StrategyExecutor.scala" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_scala_lang_modules_scala_parser_combinators_2_11_1_0_4_jar.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__org_scala_lang_modules_scala_parser_combinators_2_11_1_0_4_jar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_scala_lang_modules_scala_xml_2_11_1_0_5_jar.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__org_scala_lang_modules_scala_xml_2_11_1_0_5_jar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_scala_lang_scala_library_2_11_8_jar.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__org_scala_lang_scala_library_2_11_8_jar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_scala_lang_scala_reflect_2_11_8_jar.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__org_scala_lang_scala_reflect_2_11_8_jar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_scalactic_scalactic_2_11_3_0_0_jar.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__org_scalactic_scalactic_2_11_3_0_0_jar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/SBT__org_scalatest_scalatest_2_11_3_0_0_jar.xml" afterPath="$PROJECT_DIR$/.idea/libraries/SBT__org_scalatest_scalatest_2_11_3_0_0_jar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/root-build.iml" afterPath="$PROJECT_DIR$/.idea/modules/root-build.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/root.iml" afterPath="$PROJECT_DIR$/.idea/modules/root.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/similarentitieswikidata-build.iml" afterPath="$PROJECT_DIR$/.idea/modules/similarentitieswikidata-build.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/similarentitieswikidata.iml" afterPath="$PROJECT_DIR$/.idea/modules/similarentitieswikidata.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/sbt.xml" afterPath="$PROJECT_DIR$/.idea/sbt.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/scala_compiler.xml" afterPath="$PROJECT_DIR$/.idea/scala_compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/allProperties.txt" afterPath="$PROJECT_DIR$/allProperties.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.sbt" afterPath="$PROJECT_DIR$/build.sbt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/notesUnderway.txt" afterPath="$PROJECT_DIR$/notesUnderway.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/countForP1659.nt" afterPath="$PROJECT_DIR$/output/countForP1659.nt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/inferCountP1111.nt" afterPath="$PROJECT_DIR$/output/inferCountP1111.nt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/output/notFoundMusicBrainzIDs.txt" afterPath="$PROJECT_DIR$/output/notFoundMusicBrainzIDs.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project/plugins.sbt" afterPath="$PROJECT_DIR$/project/plugins.sbt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sparqlQueriesLocalWikidata.txt" afterPath="$PROJECT_DIR$/sparqlQueriesLocalWikidata.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/jenaQuerier/QueryLocalServer.java" afterPath="$PROJECT_DIR$/src/main/java/jenaQuerier/QueryLocalServer.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/tdbModel/CreateWikidataTDBModel.java" afterPath="$PROJECT_DIR$/src/main/java/tdbModel/CreateWikidataTDBModel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/baseline/PropertyIdfCalculator.scala" afterPath="$PROJECT_DIR$/src/main/scala/baseline/PropertyIdfCalculator.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/baseline/VectorRepresentationCreator.scala" afterPath="$PROJECT_DIR$/src/main/scala/baseline/VectorRepresentationCreator.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/dataset/ArtistDatasetReader.scala" afterPath="$PROJECT_DIR$/src/main/scala/dataset/ArtistDatasetReader.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/displayer/Displayer.scala" afterPath="$PROJECT_DIR$/src/main/scala/displayer/Displayer.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/dump/DumpObject.scala" afterPath="$PROJECT_DIR$/src/main/scala/dump/DumpObject.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/feature/Feature.scala" afterPath="$PROJECT_DIR$/src/main/scala/feature/Feature.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/globals/FeatureType.scala" afterPath="$PROJECT_DIR$/src/main/scala/globals/FeatureType.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/globals/MyConfiguration.scala" afterPath="$PROJECT_DIR$/src/main/scala/globals/MyConfiguration.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/globals/MyDatasets.scala" afterPath="$PROJECT_DIR$/src/main/scala/globals/MyDatasets.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/globals/PrimitiveDatatype.scala" afterPath="$PROJECT_DIR$/src/main/scala/globals/PrimitiveDatatype.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/globals/SimilarPropertyOntology.scala" afterPath="$PROJECT_DIR$/src/main/scala/globals/SimilarPropertyOntology.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/graphProducer/GraphDataProducer.scala" afterPath="$PROJECT_DIR$/src/main/scala/graphProducer/GraphDataProducer.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/main/SimilarityFinder.scala" afterPath="$PROJECT_DIR$/src/main/scala/main/SimilarityFinder.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/CustomPropertyClass.scala" afterPath="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/CustomPropertyClass.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/InsertPropertiesIntoOntology.scala" afterPath="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/InsertPropertiesIntoOntology.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/PropertyDatatypeReader.scala" afterPath="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/PropertyDatatypeReader.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/attributesGenerator/AttributeGenerator.scala" afterPath="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/attributesGenerator/AttributeGenerator.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/attributesGenerator/CountAttributeGenerator.scala" afterPath="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/attributesGenerator/CountAttributeGenerator.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/attributesGenerator/RemoveAllValuesWhereFalse.scala" afterPath="$PROJECT_DIR$/src/main/scala/ownOntologyPopularizer/attributesGenerator/RemoveAllValuesWhereFalse.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/AskQuery.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/AskQuery.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/FindSomething.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/FindSomething.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/MultipleGraphQuery.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/MultipleGraphQuery.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/NamedGraphQuery.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/NamedGraphQuery.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/OldQueryFactory.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/OldQueryFactory.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/Query.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/Query.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/WhereFilter.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/WhereFilter.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/filters/NotEqualFilter.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/filters/NotEqualFilter.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/filters/QueryFilter.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/filters/QueryFilter.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/filters/SameTypeFilter.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/filters/SameTypeFilter.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/filters/StringLanguageFilter.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/filters/StringLanguageFilter.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/filters/UnknownTypeFilter.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/filters/UnknownTypeFilter.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/specific/DatasetInferrer.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/specific/DatasetInferrer.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/specific/QueryFactory.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/specific/QueryFactory.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/specific/QueryFactoryV2.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/specific/QueryFactoryV2.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/specific/UpdateQueryFactory.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/specific/UpdateQueryFactory.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/variables/CountQueryVariable.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/variables/CountQueryVariable.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/variables/DynamicQueryVariable.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/variables/DynamicQueryVariable.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/variables/OptionsForResultQueryVariable.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/variables/OptionsForResultQueryVariable.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/variables/QueryVariable.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/variables/QueryVariable.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/variables/ResultQueryVariable.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/variables/ResultQueryVariable.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/variables/ResultVariable.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/variables/ResultVariable.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/query/variables/StaticQueryVariable.scala" afterPath="$PROJECT_DIR$/src/main/scala/query/variables/StaticQueryVariable.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/ranker/Ranker.scala" afterPath="$PROJECT_DIR$/src/main/scala/ranker/Ranker.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/ranker/SimilarEntity.scala" afterPath="$PROJECT_DIR$/src/main/scala/ranker/SimilarEntity.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/rdf/CreateRdfFile.scala" afterPath="$PROJECT_DIR$/src/main/scala/rdf/CreateRdfFile.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/rdf/GraphRDF.scala" afterPath="$PROJECT_DIR$/src/main/scala/rdf/GraphRDF.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/rdf/RawRDF.scala" afterPath="$PROJECT_DIR$/src/main/scala/rdf/RawRDF.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala" afterPath="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDF.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDFFactory.scala" afterPath="$PROJECT_DIR$/src/main/scala/rdf/SimpleRDFFactory.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/rdf/WikidataPropertyHelper.scala" afterPath="$PROJECT_DIR$/src/main/scala/rdf/WikidataPropertyHelper.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/readRdf/SplitAndFixRDF.scala" afterPath="$PROJECT_DIR$/src/main/scala/readRdf/SplitAndFixRDF.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/strategies/AlternativeLinkStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/strategies/AlternativeLinkStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/strategies/DateComparisonStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/strategies/DateComparisonStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/strategies/DirectLinkStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/strategies/DirectLinkStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/strategies/HierarchyMatchStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/strategies/HierarchyMatchStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/strategies/InANotInBStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/strategies/InANotInBStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/strategies/InBNotInAGlobalStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/strategies/InBNotInAGlobalStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/strategies/InBNotInAStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/strategies/InBNotInAStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/strategies/MasterStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/strategies/MasterStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/strategies/PropMatchStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/strategies/PropMatchStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/strategies/Strategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/strategies/Strategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/strategies/StrategyGenerator.scala" afterPath="$PROJECT_DIR$/src/main/scala/strategies/StrategyGenerator.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/strategies/ValueMatchStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/strategies/ValueMatchStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/baseline/TestBaselineOnArtistDataset.scala" afterPath="$PROJECT_DIR$/src/test/scala/baseline/TestBaselineOnArtistDataset.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/baseline/TestMapCreation.scala" afterPath="$PROJECT_DIR$/src/test/scala/baseline/TestMapCreation.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/baseline/TestVectorRepresentationCreator.scala" afterPath="$PROJECT_DIR$/src/test/scala/baseline/TestVectorRepresentationCreator.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/dataset/TestArtistDataset.scala" afterPath="$PROJECT_DIR$/src/test/scala/dataset/TestArtistDataset.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/dump/TestDumpObject.scala" afterPath="$PROJECT_DIR$/src/test/scala/dump/TestDumpObject.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/graphDataProducer/TestGraphDataProducer.scala" afterPath="$PROJECT_DIR$/src/test/scala/graphDataProducer/TestGraphDataProducer.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/main/TestSimilarityFinder.scala" afterPath="$PROJECT_DIR$/src/test/scala/main/TestSimilarityFinder.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/math/TestBreezeLibrary.scala" afterPath="$PROJECT_DIR$/src/test/scala/math/TestBreezeLibrary.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestAttributeGenerator.scala" afterPath="$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestAttributeGenerator.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestCountAttributeGenerator.scala" afterPath="$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestCountAttributeGenerator.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestFindAllPropertiesOfCustomClass.scala" afterPath="$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestFindAllPropertiesOfCustomClass.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestInsertPropertiesIntoOntology.scala" afterPath="$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestInsertPropertiesIntoOntology.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestPropertyDatatypeReader.scala" afterPath="$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestPropertyDatatypeReader.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestRemoveAllValuesWhereFalse.scala" afterPath="$PROJECT_DIR$/src/test/scala/ownOntologyPopularizer/TestRemoveAllValuesWhereFalse.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/query/TestAskQuery.scala" afterPath="$PROJECT_DIR$/src/test/scala/query/TestAskQuery.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/query/TestDatasetInferrer.scala" afterPath="$PROJECT_DIR$/src/test/scala/query/TestDatasetInferrer.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/query/TestFindAllDistinctPropertiesQuery.scala" afterPath="$PROJECT_DIR$/src/test/scala/query/TestFindAllDistinctPropertiesQuery.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/query/TestFindObjectStatementsQuery.scala" afterPath="$PROJECT_DIR$/src/test/scala/query/TestFindObjectStatementsQuery.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/query/TestFindStrategiesQuery.scala" afterPath="$PROJECT_DIR$/src/test/scala/query/TestFindStrategiesQuery.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/query/TestFindSubjectStatementsQuery.scala" afterPath="$PROJECT_DIR$/src/test/scala/query/TestFindSubjectStatementsQuery.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/query/TestFindSubjectsOfType.scala" afterPath="$PROJECT_DIR$/src/test/scala/query/TestFindSubjectsOfType.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/query/TestFindSubjectsWithProperty.scala" afterPath="$PROJECT_DIR$/src/test/scala/query/TestFindSubjectsWithProperty.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/query/TestFindTotalCountWhereQuery.scala" afterPath="$PROJECT_DIR$/src/test/scala/query/TestFindTotalCountWhereQuery.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/query/TestQueryFactoryV2.scala" afterPath="$PROJECT_DIR$/src/test/scala/query/TestQueryFactoryV2.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/query/TestQueryLocalServer.scala" afterPath="$PROJECT_DIR$/src/test/scala/query/TestQueryLocalServer.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/query/TestUpdateSparql.scala" afterPath="$PROJECT_DIR$/src/test/scala/query/TestUpdateSparql.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/query/TestWhereFilter.scala" afterPath="$PROJECT_DIR$/src/test/scala/query/TestWhereFilter.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/rdf/TestGraphRDF.scala" afterPath="$PROJECT_DIR$/src/test/scala/rdf/TestGraphRDF.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/rdf/TestRawRDF.scala" afterPath="$PROJECT_DIR$/src/test/scala/rdf/TestRawRDF.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/rdf/TestResultVariable.scala" afterPath="$PROJECT_DIR$/src/test/scala/rdf/TestResultVariable.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDF.scala" afterPath="$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDF.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDFFactory.scala" afterPath="$PROJECT_DIR$/src/test/scala/rdf/TestSimpleRDFFactory.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/rdf/TestWikidataPropertyHelper.scala" afterPath="$PROJECT_DIR$/src/test/scala/rdf/TestWikidataPropertyHelper.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/readRdf/TestSplitAndFixRDF.scala" afterPath="$PROJECT_DIR$/src/test/scala/readRdf/TestSplitAndFixRDF.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/strategy/TestDateComparisonStrategy.scala" afterPath="$PROJECT_DIR$/src/test/scala/strategy/TestDateComparisonStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/strategy/TestInBNotInAAndInANotInBStrategy.scala" afterPath="$PROJECT_DIR$/src/test/scala/strategy/TestInBNotInAAndInANotInBStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/strategy/TestPropertyMatchStrategy.scala" afterPath="$PROJECT_DIR$/src/test/scala/strategy/TestPropertyMatchStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/strategy/TestStrategyGenerator.scala" afterPath="$PROJECT_DIR$/src/test/scala/strategy/TestStrategyGenerator.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/strategy/TestValueMatchStrategy.scala" afterPath="$PROJECT_DIR$/src/test/scala/strategy/TestValueMatchStrategy.scala" />
-    </list>
+    <list default="true" id="d206a159-edb1-49d5-8841-178f417096da" name="Default" comment="" />
     <ignored path="SimilarEntitiesWikidata.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -1353,9 +1214,6 @@
     <option name="remove_strategy" value="false" />
   </component>
   <component name="TestHistory">
-    <history-entry file="TestSimilarityFinder_similarities_for_obama - 2017.01.20 at 10h 27m 06s.xml">
-      <configuration name="TestSimilarityFinder.similarities for obama" configurationId="ScalaTestRunConfiguration" />
-    </history-entry>
     <history-entry file="TestSimilarityFinder_similarities_for_obama - 2017.01.20 at 10h 27m 29s.xml">
       <configuration name="TestSimilarityFinder.similarities for obama" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
@@ -1381,6 +1239,9 @@
       <configuration name="TestSimilarityFinder.similarities for obama" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
     <history-entry file="TestSimilarityFinder_similarities_for_obama - 2017.01.20 at 10h 46m 32s.xml">
+      <configuration name="TestSimilarityFinder.similarities for obama" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestSimilarityFinder_similarities_for_obama - 2017.01.20 at 11h 14m 02s.xml">
       <configuration name="TestSimilarityFinder.similarities for obama" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
   </component>
