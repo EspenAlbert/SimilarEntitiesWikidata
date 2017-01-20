@@ -34,4 +34,8 @@ case class DirectLinkStrategy(property: String, others : Set[String], override v
 //    return QueryFactoryV2.findList(statment)
   }
 
+  override def toString: String = {
+    s"Direct Link for : $property, weight=$weight" + super.toString
+  }
+
 }

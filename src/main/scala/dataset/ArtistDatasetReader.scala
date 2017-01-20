@@ -48,7 +48,7 @@ object ArtistDatasetReader {
     println("Reading the artist dataset...")
     val map = DumpObject.getStringMap(filename)
     val mutableMap = mutable.Map[String, List[String]]()
-    val myMap = map.filterKeys(isUri(_)).map{case (key : String, values : List[String]) => (key, values.filter(isUri(_)))}
+    val myMap = map.filterKeys(isUri).map{case (key : String, values : List[String]) => (key, values.filter(isUri))}
     println(map.keys.size, " was reduced to: ", myMap.keys.size, " for the keys")
     val totalValues = myMap.values.foldRight(0) { (a, b) => a.length + b }
     println(map.values.foldRight(0)(((a, b) => a.length + b)), " number of values was reduced to: ", totalValues)

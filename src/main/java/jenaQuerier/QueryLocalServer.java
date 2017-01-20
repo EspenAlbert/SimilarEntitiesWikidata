@@ -97,4 +97,17 @@ public class QueryLocalServer {
 //            System.out.println(e);
         }
     }
+    public static void queryOnlineWikidata(String queryString, OutputStream outputStream ) {
+        Query query = QueryFactory.create(queryString);
+        QueryExecution qexec = QueryExecutionFactory.sparqlService("https://query.wikidata.org/sparql", queryString);
+        try {
+            ResultSet results = qexec.execSelect();
+
+            ResultSetFormatter.out(outputStream, results, query);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        } finally {
+            qexec.close();
+        }
+    }
 }

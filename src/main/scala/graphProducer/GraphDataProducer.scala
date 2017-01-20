@@ -43,12 +43,14 @@ object GraphDataProducer {
   def printTrueRecallLevels() = {
 
     val recalledMap =  getMapOfBooleanRecalled()
-    val statementCounts = List(5,10,15,20,30,40,50,75,100,200)
+    val statementCounts = List(5,25,50,75,100,200)
     val recallLevels = List(10, 20, 30, 40, 50, 100)
 
     val recallScores = (for(
       level <- statementCounts;
-      (qEntities, qResultList) = getEntitiesWithMoreThan(level, "recall@100");
+      levelIndex = statementCounts.indexOf(level);
+      nextLevel = if((levelIndex + 1) < statementCounts.length) statementCounts(levelIndex + 1) else 20000;
+      (qEntities, qResultList) = getEntitiesWithMoreThan(level, "recall@100", nextLevel);
       resultsBeforeRecall = qResultList.values.flatten.size;
       index<- 0 until recallLevels.length;
       resultsAfterRecall = qResultList.map{(s) => countRecalledAtLevel(s._1, s._2, index, recalledMap)};
@@ -97,6 +99,14 @@ object GraphDataProducer {
     return moreThanX.toSet ++ qEntitiesWithMoreThanX.toSet
   }
 
+  def getSetOfEntitiesWithStatementsInRange(lowCount : Int, highCount : Int) : Set[String] = {
+    val (qEntityResult, queryEntityResultForExpected, qEntityStatistics) = getWorkingSet
+    val qEntitiesWithMoreThanX = qEntityStatistics.filter(_._2("statementCount") >= lowCount).filter(_._2("statementCount") < highCount).map(_._1).toSet
+    val moreThanX = queryEntityResultForExpected.filter((s) => qEntitiesWithMoreThanX.contains(s._1)).map(_._2).flatten.filter((s) => s._2._2 >= lowCount && s._2._2 < highCount).map(_._1)
+    val applicableEntities = moreThanX.toSet ++ qEntitiesWithMoreThanX.toSet
+    println(s"${applicableEntities.size} for $lowCount - $highCount")
+    return applicableEntities
+  }
   private def getWorkingSet() : (mutable.HashMap[String, mutable.HashMap[String, Double]],
     mutable.Map[String, List[(String, (Double, Int))]],
     mutable.HashMap[String, mutable.HashMap[String, Int]])= {
@@ -110,10 +120,10 @@ object GraphDataProducer {
     (qEntityResult, queryEntityResultForExpected, qEntityStatistics)
   }
 
-  def createRecallLevelsMoreThanXStatementsCheat(statementCount : Int, atLevel : String): (Double, Int) = {
+  def createRecallLevelsMoreThanXStatementsCheat(statementCount : Int, atLevel : String, highStatementCOunt : Int = 0): (Double, Int) = {
     val (qEntityResult: mutable.HashMap[String, mutable.HashMap[String, Double]],
     resultListMoreThanXStatements: mutable.Map[String, List[(String, (Double, Int))]]) =
-      getEntitiesWithMoreThan(statementCount, atLevel)
+      getEntitiesWithMoreThan(statementCount, atLevel, highStatementCOunt)
     val recallScores = qEntityResult.map((s)=> s._1 -> s._2(atLevel))
     val afterRecall = (for(
       (qEntity, listOfR)<- resultListMoreThanXStatements;
@@ -127,13 +137,13 @@ object GraphDataProducer {
 //    println(s"Recall level = ${sizeAfter / sizeBefore.toDouble}")
   }
 
-  private def getEntitiesWithMoreThan(statementCount: Int, atLevel: String): (mutable.HashMap[String, mutable.HashMap[String, Double]], mutable.Map[String, List[(String, (Double, Int))]]) = {
+  private def getEntitiesWithMoreThan(statementCount: Int, atLevel: String, highCount : Int = 0): (mutable.HashMap[String, mutable.HashMap[String, Double]], mutable.Map[String, List[(String, (Double, Int))]]) = {
     val (qEntityResult2, queryEntityResultForExpected2, qEntityStatistics2) = getWorkingSet
     val notFound = qEntityResult2.filterNot((s) => s._2.contains(atLevel))
     val qEntityResult = qEntityResult2.filterNot((s) => notFound.contains(s._1))
     val queryEntityResultForExpected = queryEntityResultForExpected2.filterNot((s) => notFound.contains(s._1))
     val qEntityStatistics = qEntityStatistics2.filterNot((s) => notFound.contains(s._1))
-    val setOfEntitiesWithMoreThanXStatements = getSetOfEntitiesWithMoreThanXStatements(statementCount)
+    val setOfEntitiesWithMoreThanXStatements = if(highCount == 0) getSetOfEntitiesWithMoreThanXStatements(statementCount) else getSetOfEntitiesWithStatementsInRange(statementCount, highCount)
     val qEntityExpectedQEntityHasMoreThanX = queryEntityResultForExpected.filter((s) => setOfEntitiesWithMoreThanXStatements.contains(s._1))
     val resultListMoreThanXStatements = for (
       (qEntity, listOfResult) <- qEntityExpectedQEntityHasMoreThanX;
@@ -143,13 +153,15 @@ object GraphDataProducer {
   }
 
   def printRecallLevelForStatementCounts() = {
-    val statementCounts = List(5,10,15,20,30,40,50,75,100,200)
+    val statementCounts = List(5,25,50,75,100,200)
     val recallLevels = List(10, 20, 30, 40, 50, 100)
     val recallLevelStrings = recallLevels.map((s) => s"score@$s")
     val recallScores = (for(
       level <- statementCounts;
       recallLevel <- recallLevelStrings;
-      (score, count) = createRecallLevelsMoreThanXStatementsCheat(level, recallLevel)
+      levelIndex = statementCounts.indexOf(level);
+      nextLevel = if((levelIndex + 1) < statementCounts.length) statementCounts(levelIndex + 1) else 20000;
+      (score, count) = createRecallLevelsMoreThanXStatementsCheat(level, recallLevel, nextLevel)
     )yield (score, count))
     println(recallScores)
     for((count, i) <- statementCounts.zipWithIndex) {

@@ -1,7 +1,12 @@
 package feature
 
+import java.io.ByteArrayOutputStream
+
 import breeze.numerics.floor
 import globals.FeatureType.FeatureType
+import jenaQuerier.QueryLocalServer
+import query.QueryForOnlineWikidata
+import query.variables.{DynamicQueryVariable, ResultVariable}
 
 /**
   * Created by Espen on 09.11.2016.
@@ -19,6 +24,20 @@ class Feature(property : String, featureType : FeatureType, count : Int, weight 
   }
 
   override def toString: String = {
-    return s"Feature for $property with $featureType had value: $count * $weight"
+    val label = Feature.findLabel(property)
+    println(label)
+    return s"Feature for $property with label: $label with $featureType had value: $count * $weight"
+  }
+
+
+}
+
+object Feature {
+  def findLabel(id : String) : String = {
+    val commonPrefixes = "PREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+    val labelQuery = new QueryForOnlineWikidata(() => commonPrefixes + s"select ?label \n where { <$id> rdfs:label ?label . \n filter(lang(?label) = 'en')\n }")
+    labelQuery.executeRaw()
+    val label = labelQuery.getResults(new DynamicQueryVariable("label", false))(0)
+    label
   }
 }

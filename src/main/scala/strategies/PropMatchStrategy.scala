@@ -14,8 +14,8 @@ case class PropMatchStrategy(property : String, isSubject : Boolean, override  v
 
   def matchEntityAndProperty(tuple: (String, String, String), entity : String): Boolean = {
     return tuple match {
-      case (`entity`, `property`, o) => true
-      case (s, `property`, `entity`) => true
+      case (`entity`, `property`, o) if(isSubject) => true
+      case (s, `property`, `entity`) if(!isSubject)=> true
       case _ => false
     }
   }
@@ -36,6 +36,8 @@ case class PropMatchStrategy(property : String, isSubject : Boolean, override  v
     if(isSubject) return QueryFactoryV2.findList(SimpleRDFFactory.getStatement(("?s " + OptionsForResultQueryVariable.sameTypeFilter + "_" + rdfType, property, "?o " + OptionsForResultQueryVariable.ignoreMe)))
     else return QueryFactoryV2.findList(SimpleRDFFactory.getStatement(("?s " + OptionsForResultQueryVariable.ignoreMe , property, "?o " + OptionsForResultQueryVariable.sameTypeFilter + "_" + rdfType)))
   }
-
+  override def toString: String = {
+    s"PropMatchStrategy for : $property isSubject=$isSubject, weight=$weight" + super.toString
+  }
 
 }

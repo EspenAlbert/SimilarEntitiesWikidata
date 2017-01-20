@@ -32,6 +32,7 @@ object SimilarityFinder {
     var i = 0
     while (otherEntities.toList.length < 1000 && i < sortedStrategies.length) {
       val s = sortedStrategies(i)
+      println("Find similars: " + s)
       otherEntities ++= s.findSimilars()
       i += 1
     }
