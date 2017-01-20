@@ -1,5 +1,5 @@
 package strategies
-import feature.Feature
+import feature.{Feature, ValueMatchFeature}
 import globals.FeatureType
 import query.specific.QueryFactoryV2
 import query.variables.OptionsForResultQueryVariable
@@ -19,14 +19,14 @@ case class ValueMatchStrategy(property: String, isSubject: Boolean, value : Stri
       if(isSubject) {
         for(a <- other.statements) {
           a match {
-            case (`entity`, `property`, `value`) => featureMap += entity -> new Feature(property, FeatureType.valueMatch, 1, weight)
+            case (`entity`, `property`, `value`) => featureMap += entity -> new ValueMatchFeature(property, FeatureType.valueMatch, 1, weight, value)
             case _=> Unit
           }
         }
       } else {
         for(a <- other.statements) {
           a match {
-            case (`value`, `property`, `entity`) => featureMap += entity -> new Feature(property, FeatureType.valueMatch, 1, weight)
+            case (`value`, `property`, `entity`) => featureMap += entity -> new ValueMatchFeature(property, FeatureType.valueMatch, 1, weight, value)
             case _ => Unit
           }
         }
@@ -39,6 +39,9 @@ case class ValueMatchStrategy(property: String, isSubject: Boolean, value : Stri
     val statement = if(isSubject) SimpleRDFFactory.getStatement("?s " + OptionsForResultQueryVariable.sameTypeFilter + "_" + rdfType, property, value) else
       SimpleRDFFactory.getStatement(value, property, "?o " + OptionsForResultQueryVariable.sameTypeFilter + "_" + rdfType)
     return QueryFactoryV2.findList(statement)
+  }
+  override def toString: String = {
+    s"ValueMatchStrategy for : $property isSubject=$isSubject value=$value, weight=$weight" + super.toString
   }
 
 }

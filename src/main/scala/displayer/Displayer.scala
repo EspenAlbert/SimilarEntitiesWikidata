@@ -1,5 +1,6 @@
 package displayer
 
+import feature.Feature
 import ranker.SimilarEntity
 
 /**
@@ -9,7 +10,8 @@ object Displayer {
   def displayResult(result : List[SimilarEntity], topK : Int, entity : String) : Unit = {
     println(s"Most similar to $entity is: ")
     for((r, i) <- result.slice(0, topK).zipWithIndex) {
-      println(s"Most similar #$i is: ${r.name} with similarity score : ${r.score}")
+      val label = Feature.findLabel(r.name)
+      println(s"Most similar #$i is: ${r.name} with label $label: with similarity score : ${r.score}")
       try {
         printFeatureInfo(r)
       } catch {
@@ -20,9 +22,10 @@ object Displayer {
 
   private def printFeatureInfo(r: SimilarEntity) = {
     println(s"Most important feature was ${r.sortedFeatures(0)}")
-    println(s"2nd most important feature was ${r.sortedFeatures(1)}")
-    println(s"3rd most important feature was ${r.sortedFeatures(2)}")
-    println(s"4th most important feature was ${r.sortedFeatures(3)}")
+    for(i <- 1 to 20) {
+      println(s"${i}nd most important feature was ${r.sortedFeatures(i)}")
+
+    }
     println(s"Minimum import feature was ${r.sortedFeatures.last}")
   }
 }

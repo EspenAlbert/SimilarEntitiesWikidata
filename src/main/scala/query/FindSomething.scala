@@ -19,11 +19,11 @@ trait FindSomething{
     val headers = new scala.collection.mutable.ArrayBuffer[String]()
     for(header <- iterable) {
       val trimmedHeader = header.trim()
-      if(header.startsWith("\r\n")) return headers
+      if(header.startsWith("\n")) return headers
 //      else if(trimmedHeader.length > 1) throw new Exception("A header value with more than one character!")
       else headers.append(trimmedHeader)
     }
-    throw new Exception("Unknown headers")
+    throw new Exception("Unknown headers, might be because of windows line spacing...")
 
   }
 
@@ -36,7 +36,7 @@ trait FindSomething{
     if(values== null) getValues
     def getValues: Unit = {
       val rawValues = new ArrayBuffer[String]()
-      for (line <- resList.split("\r\n").drop(3).dropRight(1)) {
+      for (line <- resList.split("\n").drop(3).dropRight(1)) {
         //First three lines are headers last line is not a result
         rawValues.append(line.split("\\|").drop(1): _*)
       }

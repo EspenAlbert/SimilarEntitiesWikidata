@@ -81,6 +81,7 @@ object MasterStrategy {
         val strategies = ArrayBuffer[Strategy]()
         val (filteredDomain, filteredRange) = getDomainAndRangeWithCorrectType(domain, range, rdfType)
         if (filteredDomain.nonEmpty) {
+          println("Created direct link strategy..")
           strategies += DirectLinkStrategy(property, Set() ++ filteredDomain, MyConfiguration.directLinkBoost * logarithmicWeightForCount(filteredDomain.length))
         }
         if (filteredRange.nonEmpty) {

@@ -30,7 +30,8 @@ object AttributeGenerator {
     CreateRdfFile.createRDFFile(statements.toList, fileName)
   }
 
-  def generateStatementsForProperty(domainOfProperties: CustomPropertyClass, customPropertyName: SimilarPropertyOntology, primitiveDatatype: PrimitiveDatatype, filename : String, queryFunction: String => Any) = {
+  def generateStatementsForProperty(domainOfProperties: CustomPropertyClass, customPropertyName: SimilarPropertyOntology, primitiveDatatype: PrimitiveDatatype,
+                                    filename : String, queryFunction: String => Any) = {
     val properties = QueryFactory.findAllPropertiesOfCustomClass(domainOfProperties)
     val statements = new ArrayBuffer[SimpleRDF]
     val tooCommonProperties = Set("P31")

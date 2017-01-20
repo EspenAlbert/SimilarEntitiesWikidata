@@ -25,6 +25,9 @@ class TestSimilarityFinder extends FunSuite{
   }
   test("similarities for tufte Q436113") {
     SimilarityFinder.findTopKSimilarTo("w:Q436113", 10)
+//    val g = new GraphRDF("w:Q513")
+//    println(g.getType)
+//    SimilarityFinder.findTopKSimilarTo("w:Q513", 10)
   }
   test("An empty int") {
     val listOfFeatures = List(
