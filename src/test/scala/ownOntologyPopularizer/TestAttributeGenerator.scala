@@ -55,6 +55,12 @@ class TestAttributeGenerator extends FunSuite{
     AttributeGenerator.addStrategyClassToProperties(CustomPropertyClass.itemProperty, SimilarPropertyOntology.alternativeLinkStrategy,((s) => QueryFactory.ask(statement(s))), "AlternativeLinkStrategy")
     assert(Source.fromFile("output/AlternativeLinkStrategy.nt").getLines().length > 2)
   }
+  test("Test property match strategy to all properties except rdf:type P31") {
+    val statement = ((s : String) => SimpleRDFFactory.getStatement(("?s", s, "?o")))
+    AttributeGenerator.addStrategyClassToProperties(CustomPropertyClass.baseProperty, SimilarPropertyOntology.propertyMatchStrategy,((s) => QueryFactory.ask(statement(s))), "PropertyMatchStrategy")
+    assert(Source.fromFile("output/PropertyMatchStrategy.nt").getLines().length > 2)
+  }
+
   //P470 = true
 //  test("Test sharable range generator") {
 //    val secondObject = new DynamicQueryVariable("s2", false)

@@ -1,6 +1,6 @@
 package query.specific
 
-import globals.SimilarPropertyOntology
+import globals.{MyDatasets, ResultsSimilarArtistsGlobals, SimilarPropertyOntology}
 import jenaQuerier.QueryLocalServer
 import rdf.SimpleRDF
 
@@ -24,5 +24,19 @@ object UpdateQueryFactory {
       s"""<${SimilarPropertyOntology.valueMatchCount}> "%d" ] } where {}""".format(count)
     println(updateQuery)
     QueryLocalServer.updateLocalData(updateQuery)
+  }
+  def addResult(qEntity: String, foundEntity : String, ranking : Int, simScore: Double) = {
+    QueryLocalServer.updateLocalData(addResultQuery(qEntity, foundEntity, ranking, simScore), MyDatasets.ResultsSimilarArtists)
+  }
+
+  def addResultQuery(qEntity: String, foundEntity: String, ranking: Int, simScore: Double): String = {
+    return s"""insert { <$qEntity> <${ResultsSimilarArtistsGlobals.similar}> [ <${ResultsSimilarArtistsGlobals.ranking}> "$ranking";\n""" +
+      s"""<${ResultsSimilarArtistsGlobals.foundEntity}> <${foundEntity}> ; \n <${ResultsSimilarArtistsGlobals.simScore}> "${simScore}" ] } where {}"""
+  }
+  def cleanDataset(dataset : String): Unit = {
+    QueryLocalServer.deleteLocalData(dataset)
+  }
+  def addStatementCount(entity: String, count : Int) = {
+    QueryLocalServer.updateLocalData(s"""insert { <${entity}> <${ResultsSimilarArtistsGlobals.statementCount}> "${count}" } where {} """, MyDatasets.ResultsSimilarArtists)
   }
 }

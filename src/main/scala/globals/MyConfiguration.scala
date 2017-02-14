@@ -21,4 +21,5 @@ object MyConfiguration {
   var directLinkBoost = 5.0
   var alternativeLinkNegative = -0.1
   var maximumWeightPropertyMatch = log(SimilarPropertyOntology.maxCountForProperties / 100)
+  val maxCountForValueMatchesToFindSimlars = 10000
 }

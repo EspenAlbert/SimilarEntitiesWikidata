@@ -39,13 +39,13 @@ class TestValueMatchStrategy extends FunSuite{
     assert(strategy.execute(List(graph1, graph2)).toList.length == 2)
   }
   test("Transgender count Q1052281") {
-    MasterStrategy.valueIsAPotentialValueMatch("http://www.wikidata.org/entity/Q1052281", "http://www.wikidata.org/entity/P21", true) match {
+    MasterStrategy.valueIsAPotentialValueMatchFindCount("http://www.wikidata.org/entity/Q1052281", "http://www.wikidata.org/entity/P21", true) match {
       case Some(c) => assert(c > 1); println(c)
       case None => assert(false)
     }
   }
   test("Male count Q6581097") {
-    MasterStrategy.valueIsAPotentialValueMatch("http://www.wikidata.org/entity/Q6581097", "http://www.wikidata.org/entity/P21", true) match {
+    MasterStrategy.valueIsAPotentialValueMatchFindCount("http://www.wikidata.org/entity/Q6581097", "http://www.wikidata.org/entity/P21", true) match {
       case Some(c) => assert(c > 1); println(c)
       case None => assert(false)
     }

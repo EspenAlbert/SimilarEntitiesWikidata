@@ -10,7 +10,7 @@ import scala.collection.mutable
 /**
   * Created by Espen on 11.11.2016.
   */
-case class ValueMatchStrategy(property: String, isSubject: Boolean, value : String, rdfType : String, override val weight: Double) extends Strategy{
+case class ValueMatchStrategy(property: String, isSubject: Boolean, value : String, rdfType : String, override val weight: Double, findSimilarsActive : Boolean = true) extends Strategy{
 
   override def execute(otherEntities: List[GraphRDF]): Map[String, Feature] = {
     val featureMap = mutable.Map[String, Feature]()
@@ -36,6 +36,7 @@ case class ValueMatchStrategy(property: String, isSubject: Boolean, value : Stri
   }
 
   override def findSimilars(): List[String] = {
+    if(!findSimilarsActive) return Nil
     val statement = if(isSubject) SimpleRDFFactory.getStatement("?s " + OptionsForResultQueryVariable.sameTypeFilter + "_" + rdfType, property, value) else
       SimpleRDFFactory.getStatement(value, property, "?o " + OptionsForResultQueryVariable.sameTypeFilter + "_" + rdfType)
     return QueryFactoryV2.findList(statement)

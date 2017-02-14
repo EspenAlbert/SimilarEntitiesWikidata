@@ -23,6 +23,9 @@ class TestSimilarityFinder extends FunSuite{
   test("similarities for obama") {
     SimilarityFinder.findTopKSimilarTo("w:Q76", 10)
   }
+  test("Similars to Lionel Messi") {
+    SimilarityFinder.findTopKSimilarTo("w:Q615", 10)
+  }
   test("similarities for tufte Q436113") {
     SimilarityFinder.findTopKSimilarTo("w:Q436113", 10)
 //    val g = new GraphRDF("w:Q513")

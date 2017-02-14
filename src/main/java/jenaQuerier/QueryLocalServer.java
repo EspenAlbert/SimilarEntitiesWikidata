@@ -78,8 +78,11 @@ public class QueryLocalServer {
         }
     }
     public static void updateLocalData(String query) {
+        updateLocalData(query, "valueMatch");
+    }
+    public static void updateLocalData(String query, String dataset) {
         UpdateRequest update = UpdateFactory.create(query);
-        UpdateProcessor remote = UpdateExecutionFactory.createRemote(update, "http://localhost:3030/valueMatch/update");
+        UpdateProcessor remote = UpdateExecutionFactory.createRemote(update, "http://localhost:3030/" + dataset + "/update");
         try {
             remote.execute();
             System.out.println(remote.getDatasetGraph());
@@ -88,8 +91,11 @@ public class QueryLocalServer {
         }
     }
     public static void deleteLocalData() {
+        deleteLocalData("valueMatch");
+    }
+    public static void deleteLocalData(String dataset) {
         UpdateRequest update = UpdateFactory.create("delete { ?s ?p ?o } where { ?s ?p ?o}");
-        UpdateProcessor remote = UpdateExecutionFactory.createRemote(update, "http://localhost:3030/valueMatch/update");
+        UpdateProcessor remote = UpdateExecutionFactory.createRemote(update, "http://localhost:3030/" + dataset + "/update");
         try {
             remote.execute();
 //            System.out.println(remote.getDatasetGraph());

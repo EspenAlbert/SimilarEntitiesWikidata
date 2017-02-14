@@ -29,26 +29,34 @@ trait FindSomething{
 
   def getResults(variable: ResultQueryVariable): List[ResultVariable] = {
     if(resList == null) resList =resultStream.toString
-    assert(resList.length > 0)
-    if(headers == null) headers = findHeaders(resList.split("\\|").drop(1))
-    val index = headers.indexOf(variable.name)
-    assert(index != -1)
-    if(values== null) getValues
-    def getValues: Unit = {
-      val rawValues = new ArrayBuffer[String]()
-      for (line <- resList.split("\n").drop(3).dropRight(1)) {
-        //First three lines are headers last line is not a result
-        rawValues.append(line.split("\\|").drop(1): _*)
-      }
-      values = new ArrayBuffer[ResultVariable]()
-      for(value <- rawValues) {
-        values.append(new ResultVariable(value))
+    try {
+      assert(resList.length > 0)
+    } catch {
+      case _ => {
+        println("Had an exception...")
+        return Nil
       }
     }
 
+      if(headers == null) headers = findHeaders(resList.split("\\|").drop(1))
+      val index = headers.indexOf(variable.name)
+      assert(index != -1)
+      if(values== null) getValues
+      def getValues: Unit = {
+        val rawValues = new ArrayBuffer[String]()
+        for (line <- resList.split("\n").drop(3).dropRight(1)) {
+          //First three lines are headers last line is not a result
+          rawValues.append(line.split("\\|").drop(1): _*)
+        }
+        values = new ArrayBuffer[ResultVariable]()
+        for(value <- rawValues) {
+          values.append(new ResultVariable(value))
+        }
+      }
 
-    return (for(
-      (value,i) <- values.zipWithIndex
-      if i % headers.length == index) yield value).toList
-  }
+
+      return (for(
+        (value,i) <- values.zipWithIndex
+        if i % headers.length == index) yield value).toList
+    }
 }

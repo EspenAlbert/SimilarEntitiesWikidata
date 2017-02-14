@@ -53,12 +53,12 @@ object MasterStrategy {
         if (range.nonEmpty) {
           val count = QueryFactory.findDomainCount(property)
           val weight = getPropMatchWeight(count)
-          strategies.append(PropMatchStrategy(property, true, weight, rdfType))
+          strategies.append(PropMatchStrategy(property, true, weight, rdfType, count < MyConfiguration.maxCountForValueMatchesToFindSimlars))
         }
         if (domain.nonEmpty) {
           val count = QueryFactory.findRangeCount(property)
           val weight = getPropMatchWeight(count)
-          strategies.append(PropMatchStrategy(property, false, weight, rdfType))
+          strategies.append(PropMatchStrategy(property, false, weight, rdfType, count < MyConfiguration.maxCountForValueMatchesToFindSimlars))
 
         }
         return Some(strategies)
@@ -95,8 +95,8 @@ object MasterStrategy {
         val strategies = ArrayBuffer[Strategy]()
         if (domain.nonEmpty) {
           for (d <- domain) {
-            valueIsAPotentialValueMatch(d, property, false) match {
-              case Some(count) => strategies += ValueMatchStrategy(property, false, d, rdfType, MyConfiguration.valueMatchBoost * logarithmicWeightForCount(count))
+            valueIsAPotentialValueMatchFindCount(d, property, false) match {
+              case Some(count) => strategies += ValueMatchStrategy(property, false, d, rdfType, MyConfiguration.valueMatchBoost * logarithmicWeightForCount(count), count < MyConfiguration.maxCountForValueMatchesToFindSimlars)
               case None => Unit
             }
           }
@@ -119,8 +119,8 @@ object MasterStrategy {
         val strategies = ArrayBuffer[Strategy]()
         if (range.nonEmpty) {
           for (r <- range) {
-            valueIsAPotentialValueMatch(r, property, true) match {
-              case Some(count) => strategies += ValueMatchStrategy(property, true, r, rdfType, MyConfiguration.valueMatchBoost * logarithmicWeightForCount(count))
+            valueIsAPotentialValueMatchFindCount(r, property, true) match {
+              case Some(count) => strategies += ValueMatchStrategy(property, true, r, rdfType, MyConfiguration.valueMatchBoost * logarithmicWeightForCount(count), count < MyConfiguration.maxCountForValueMatchesToFindSimlars)
               case None => Unit
             }
           }
@@ -161,7 +161,7 @@ object MasterStrategy {
     return if(logarithmicWeightForCount(count) > MyConfiguration.maximumWeightPropertyMatch) MyConfiguration.maximumWeightPropertyMatch else logarithmicWeightForCount(count)
   }
 
-  def valueIsAPotentialValueMatch(value: String, property: String, isSubject: Boolean): Option[Int] = {
+  def valueIsAPotentialValueMatchFindCount(value: String, property: String, isSubject: Boolean): Option[Int] = {
     try {
       //"?s " + OptionsForResultQueryVariable.distinct + " " + OptionsForResultQueryVariable.count
       getValueMatchFromExistingDb(value, property) match {

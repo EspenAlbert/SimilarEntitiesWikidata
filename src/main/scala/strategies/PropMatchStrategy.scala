@@ -10,7 +10,7 @@ import scala.collection.mutable
 /**
   * Created by Espen on 10.11.2016.
   */
-case class PropMatchStrategy(property : String, isSubject : Boolean, override  val weight: Double, rdfType : String) extends Strategy {
+case class PropMatchStrategy(property : String, isSubject : Boolean, override  val weight: Double, rdfType : String, findSimilarsActive : Boolean = true) extends Strategy {
 
   def matchEntityAndProperty(tuple: (String, String, String), entity : String): Boolean = {
     return tuple match {
@@ -33,6 +33,7 @@ case class PropMatchStrategy(property : String, isSubject : Boolean, override  v
   }
 
   override def findSimilars(): List[String] = {
+    if(!findSimilarsActive) return Nil
     if(isSubject) return QueryFactoryV2.findList(SimpleRDFFactory.getStatement(("?s " + OptionsForResultQueryVariable.sameTypeFilter + "_" + rdfType, property, "?o " + OptionsForResultQueryVariable.ignoreMe)))
     else return QueryFactoryV2.findList(SimpleRDFFactory.getStatement(("?s " + OptionsForResultQueryVariable.ignoreMe , property, "?o " + OptionsForResultQueryVariable.sameTypeFilter + "_" + rdfType)))
   }
