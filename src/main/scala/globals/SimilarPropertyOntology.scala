@@ -46,4 +46,12 @@ object SimilarPropertyOntology extends Enumeration{
   }
 
 
+  abstract class PropertyTypes
+  case class QuantityPropertyType() extends PropertyTypes
+  case class DateTimePropertyType() extends PropertyTypes
+  case class StringPropertyType() extends PropertyTypes
+  case class UrlPropertyType() extends PropertyTypes
+  case class ItemPropertyType() extends PropertyTypes
+  case class GlobeCoordinatePropertyType() extends PropertyTypes
+
 }

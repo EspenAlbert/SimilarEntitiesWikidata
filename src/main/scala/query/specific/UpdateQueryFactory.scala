@@ -39,4 +39,7 @@ object UpdateQueryFactory {
   def addStatementCount(entity: String, count : Int) = {
     QueryLocalServer.updateLocalData(s"""insert { <${entity}> <${ResultsSimilarArtistsGlobals.statementCount}> "${count}" } where {} """, MyDatasets.ResultsSimilarArtists)
   }
+  def addStatements(statements: Iterable[String], dataset: String = MyDatasets.DsBig) = {
+    QueryLocalServer.updateLocalData("insert { \n %s } \n where {}".format(statements.mkString("\n")), dataset)
+  }
 }

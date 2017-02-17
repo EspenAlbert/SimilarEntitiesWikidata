@@ -3,173 +3,222 @@ package readRdf
 import java.io.{BufferedInputStream, FileInputStream, InputStream, PrintWriter}
 import java.util.zip.GZIPInputStream
 
+import globals.MyDatasets
+import org.apache.jena.query.QueryParseException
+import query.Query
+import query.specific.UpdateQueryFactory
+import query.variables.DynamicQueryVariable
 import readRdf.SplitAndFixRDFBig.CustomOriginalPropertyTypes.CustomOriginalPropertyTypes
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 import scala.io.Source
 import scala.util.matching.Regex.MatchIterator
-
+import readRdf.bigDataset.SplitAndFixRDFBigHelper._
+import readRdf.bigDataset.URIFixer
 /**
   * Created by Espen on 13.10.2016.
   */
 object SplitAndFixRDFBig {
-  val NON_FIXABLE_URI = "ERROR"
-  final val StatementsPerFile: Int = 100000
-  val totalPattern = ("<http://[^>]*(" +
-    "(\\\\\")|" +
-    "(\\^)|" +
-    "(\\|)|" +
-    "(\\})|" +
-    "(\\`)|" +
-    "(\\{)|" +
-    "(\\\\n)|" +
-    "(\\\\\\\\)|" +
-    "(\\s))" +
-    "").r
-  val bracketsPattern = "(\\{[^>]*\\})".r
-  val subPattern = "(\\\\\")|(\\^)|(\\|)|(\\})|(\\`)|(\\{)|(\\\\n)|(\\{[^>]*\\})|(\\\\\\\\)|(\\s)".r
-  val propertyEndWithCPattern = "<http://www.wikidata.org/entity/P\\d{1,4}[^>]*>".r
-
-  var stringBuffer = new StringBuilder()
-  var counter = 0
+  var testActive = false
+  var addEverything = true
   var fileNumber = 1
 
-  def decodeLine(line: String) = {
-    findLineType(line) match {
-      case l : NewEntityLine => addStatements()
-      case l : EntityLine => statementIdMap += (l.statementID -> (l.entity, l.property))
-      case l : StatementLine => statementIdToValuesMap.get(l.statementId) match {
-        case Some(tuples) => tuples += Tuple2(l.property, l.value)
-        case None => statementIdToValuesMap += (l.statementId -> mutable.ListBuffer((l.property, l.value)))
+  def main(args: Array[String]) {
+    //    var lines = Source.fromFile("/home/espen/prog/java/Wikidata-Toolkit-master/results/wikidata-statements.nt.gz", enc = "utf-8")
+    def gis(s: String): InputStream = return new GZIPInputStream(new BufferedInputStream(new FileInputStream(s)))
+
+    var lines = Source.fromInputStream(gis("/home/espen/prog/java/Wikidata-Toolkit-master/results/wikidata-statements.nt.gz"), enc = "utf-8")
+    //.fromFile("/home/espen/prog/java/Wikidata-Toolkit-master/results/wikidata-statements.nt.gz", enc = "utf-8").getLines()
+    var s = new StringBuilder()
+    var iter = lines.iter
+    val uploadEvery = 2000
+    //    val statementBuffer= ListBuffer[String]()
+    var i = 0
+    var printWriter = new PrintWriter(s"input/errorLog$fileNumber.txt")
+    var errorNumber = 1
+    while (iter.hasNext) {
+      iter.next() match {
+        case '\n' => {
+          //          statementBuffer.append(s.toString())
+          //          if(i%uploadEvery == 0) {
+          i += 1
+          if(i > -1) {
+            try {
+              decodeLine(s.toString())
+            } catch {
+              case a: QueryParseException => {
+                printWriter.write(s"Line $i : ${s.toString()} had ERROR NR $errorNumber : ${a.getMessage} \n\n\n\n statements: ${lastFinalStatements.mkString("\n")}")
+                println(a.getMessage)
+                errorNumber += 1
+                if (errorNumber % 10 == 0) {
+                  printWriter.close()
+                  fileNumber += 1
+                  printWriter = new PrintWriter(s"input/errorLog$fileNumber.txt")
+                }
+              }
+            }
+            s.clear()
+            //            statementBuffer.clear()
+            if(i%uploadEvery == 0) println(s"upload line nr: $i")
+          }
+          }
+
+        //        }
+        case c => s.append(c)
       }
-      case l : ValueNodeLine => valueNodeToValuesMap.get(l.valueId) match {
-        case Some(tuples) => tuples += Tuple2(l.property, l.value)
-        case None => valueNodeToValuesMap += (l.valueId -> mutable.ListBuffer((l.property, l.value)))
-      }
-      case l : UnknownLine =>
     }
+    //      iter.next() match {
+    //        case '\n' => decodeLine(s.toString());s.clear()
+    //        case c => s.append(c)
+    //      }
+    //      count -= 1
+    //    }
+    //    print(s.toString())
+    //    val printWriter = new PrintWriter("input/smallFiles/wikidata-statements" + fileNumber + ".nt")
+    //    printWriter.write(s.toString())
+    //    printWriter.close()
+    //    for (line <- lines) {
+    //      appendBuffer(line)
+    //    }
   }
-  abstract class RDFLine
-  case class NewEntityLine(entity : String, property : String, statementID: String) extends RDFLine
-  case class EntityLine(entity : String, property : String, statementID: String) extends RDFLine
-  case class StatementLine(statementId : String, property : String, value: String) extends RDFLine
-  case class ValueNodeLine(valueId: String, property : String, value: String) extends RDFLine
-  case class UnknownLine() extends RDFLine
-
-  val entityPattern = """<http://www.wikidata.org/entity/Q\d+>""".r
-  val statementIdPattern = """<http://www.wikidata.org/entity/Q\d+.*>""".r
-  val valueNodePattern = """<http://www.wikidata.org/entity/V.*>""".r
-
-  def findLineType(line : String) : RDFLine = {
-    val Array(subj,predicate,objectValue,_) = line.split(" ")
-    println(subj, predicate, objectValue)
-    subj match {
-      case entityPattern(_*) => objectValue match{
-        case "<http://www.wikidata.org/ontology#Item>" => return NewEntityLine(subj, predicate, objectValue)
-        case other => return EntityLine(subj, predicate.dropRight(2) + ">", objectValue)
-      }
-      case statementIdPattern(_*) => return StatementLine(subj, predicate, objectValue)
-      case valueNodePattern(_*) => return ValueNodeLine(subj, predicate, objectValue)
-      case _ => UnknownLine()
-    }
-  }
-
 
   val statementIdMap = mutable.Map[String, (String, String)]()
   val statementIdToValuesMap = mutable.Map[String, mutable.ListBuffer[(String, String)]]()
   val valueNodeToValuesMap = mutable.Map[String, mutable.ListBuffer[(String, String)]]()
 
+  def decodeLine(line: String) = {
+    findLineType(line) match {
+      case l: NewEntityLine => addStatements()
+      case l: EntityLine => statementIdMap += (l.statementID -> (l.entity, l.property))
+      case l: StatementLine => statementIdToValuesMap.get(l.statementId) match {
+        case Some(tuples) => tuples += Tuple2(l.property, l.value)
+        case None => statementIdToValuesMap += (l.statementId -> mutable.ListBuffer((l.property, l.value)))
+      }
+      case l: ValueNodeLine => valueNodeToValuesMap.get(l.valueId) match {
+        case Some(tuples) => tuples += Tuple2(l.property, l.value)
+        case None => valueNodeToValuesMap += (l.valueId -> mutable.ListBuffer((l.property, l.value)))
+      }
+      case l: UnknownLine =>
+    }
+  }
+
+
   val preferredRank = "<http://www.wikidata.org/ontology#PreferredRank>"
+  var lastFinalStatements : List[String] = null
+
   def addStatements() = {
     val literalMap = getLiteralMap
+    if (SAVE_VALUE_NODES) uploadValueNodeStatements(createValueNodeStatements(literalMap))
     val statementsAndRanks = findStatementsAndRanks(literalMap)
     val propertiesWithPrefferedRank = statementsAndRanks.filter(_._2 == preferredRank).map(_._1._2).toSet
     val finalStatements = ListBuffer[String]()
-    for(((s,p,o), rank) <- statementsAndRanks) {
-      if(!propertiesWithPrefferedRank.contains(p)) finalStatements.append(createStatementNt(s, p, o))
+    for (((s, p, o), rank) <- statementsAndRanks) {
+      if (!propertiesWithPrefferedRank.contains(p)) finalStatements.append(createStatementNt(s, p, o))
       else {
         statementIdPattern.findFirstIn(o) match {
           case Some(objectValue) => finalStatements.append(createStatementNt(s, p, o))
-          case None => if(rank == preferredRank) finalStatements.append(createStatementNt(s, p, o))
+          case None => if (rank == preferredRank) finalStatements.append(createStatementNt(s, p, o))
         }
       }
     }
-    writeStatementsToFile(finalStatements)
+    //    writeStatementsToFile(finalStatements)
+    lastFinalStatements = finalStatements.toList
+    if (!testActive) {
+      try {
+        uploadToDataset(finalStatements)
+      } catch {
+        case a : QueryParseException => uploadToDataset(URIFixer.fixFixableURIs(finalStatements))
+      }
+    }
+    else {
+      writeStatementsToFile(finalStatements)
+    }
     statementIdMap.clear()
     statementIdToValuesMap.clear()
     valueNodeToValuesMap.clear()
   }
-  private def writeStatementsToFile(s : Iterable[String]) = {
-    val printWriter = new PrintWriter("input/smallFiles/wikidata-statements" + fileNumber + ".nt")
-    fileNumber += 1
-  }
 
-  private def createStatementNt(s: String, p: String, o: String) : String= {
-    List(s, p, o).mkString(" ") + " ."
-  }
-
-  object CustomOriginalPropertyTypes extends Enumeration{
+  object CustomOriginalPropertyTypes extends Enumeration {
     type CustomOriginalPropertyTypes = Value
     val statement = Value("statement")
     val qualifier = Value("qualifier")
     val latitude = Value("latitude")
     val longitude = Value("longitude")
   }
-  val propertyValue = """http://www.wikidata.org/entity/P\d+v>""".r
-  val qualifierValue = """http://www.wikidata.org/entity/P\d+q>""".r
+
+  val propertyValue = """<http://www.wikidata.org/entity/P\d+v>""".r
+  val qualifierValue = """<http://www.wikidata.org/entity/P\d+q>""".r
 
 
-  def findStatementsAndRanks(literalMap: Map[String, String]) : List[((String, String, String), String)]= {
+  def findStatementsAndRanks(literalMap: Map[String, String]): List[((String, String, String), String)] = {
     val statementAndRanks = ListBuffer[((String, String, String), String)]()
     for ((statementID, tupleList) <- statementIdToValuesMap) {
       var rank: String = null
-      var statements =  ListBuffer[(String, String, String)]()
-      def createStatement(literalValue: String, changedOriginalProperty: CustomOriginalPropertyTypes = CustomOriginalPropertyTypes.statement, qualifierProperty: String = null): (String, String, String) = {
+      var statements = ListBuffer[(String, String, String)]()
+      val entity = statementIdMap.getOrElse(statementID, throw new Exception(s"StatementID had no original entity $statementID"))._1
+      val originalProperty = statementIdMap.getOrElse(statementID, throw new Exception(s"StatementID had no original entity $statementID"))._2
+
+      def createStatement(literalValue: String, changedOriginalProperty: CustomOriginalPropertyTypes = CustomOriginalPropertyTypes.statement,
+                          qualifierProperty: String = null): Option[(String, String, String)] = {
         statementIdMap.get(statementID) match {
-          case Some((subj, property)) => return (subj, getCustomOriginalProperty(CustomOriginalPropertyTypes.statement, qualifierProperty), literalValue)
-          case None => println(s"A statementID not included in entity lines! $statementID"); return null;
+          case Some((subj, property)) => getCustomOriginalProperty(changedOriginalProperty, qualifierProperty) match {
+            case Some(property) => Some(subj, property, literalValue)
+            case None => None
+          }
+          case None => None
         }
       }
 
-      def getCustomOriginalProperty(customType: CustomOriginalPropertyTypes, qualifierProperty: String = null): String = {
-        try {
-          customType match {
-            case CustomOriginalPropertyTypes.statement => statementIdMap.get(statementID) match {
-              case Some((prop, obj)) => return prop.dropRight(2) + ">"
-            }
-            case CustomOriginalPropertyTypes.latitude => statementIdMap.get(statementID) match {
-              case Some((prop, obj)) => return prop.dropRight(2) + "la>"
-            }
-            case CustomOriginalPropertyTypes.longitude => statementIdMap.get(statementID) match {
-              case Some((prop, obj)) => return prop.dropRight(2) + "la>"
-            }
-            case CustomOriginalPropertyTypes.qualifier => statementIdMap.get(statementID) match {
-              case Some((prop, obj)) => return prop.dropRight(2) + qualifierProperty + ">"
-            }
-          }
-        }
-        catch {
-          case a: MatchError => println("couldn't find property or you tried a custom orginial property value that don't exists!"); "UNKOWN"
+      def getCustomOriginalProperty(customType: CustomOriginalPropertyTypes, qualifierProperty: String = null): Option[String] = {
+        customType match {
+          case CustomOriginalPropertyTypes.statement => Some(originalProperty)
+          case CustomOriginalPropertyTypes.latitude => Some(originalProperty.dropRight(1) + "la>")
+          case CustomOriginalPropertyTypes.longitude => Some(originalProperty.dropRight(1) + "lo>")
+          case CustomOriginalPropertyTypes.qualifier => Some(originalProperty.dropRight(1) + qualifierProperty + ">")
+          case a => println("couldn't find property or you tried a custom orginial property value that don't exists!"); None
         }
       }
 
       for ((prop, value) <- tupleList) {
-        def getStatementFromValueNode(qualifier: Boolean = false) = {
+        def getStatementFromValueNode(qualifier: Boolean): (Option[(String, String, String)], Option[(String, String, String)]) = {
           val qualifierPropertyId = if (qualifier) prop.substring(prop.indexOf('P'), prop.length - 1) else null
+
+          def createStatementNormal(literalValue: String): (Option[(String, String, String)], Option[(String, String, String)]) = {
+            if (qualifier) ((createStatement(literalValue, CustomOriginalPropertyTypes.qualifier, qualifierPropertyId)), None)
+            else ((createStatement(literalValue), None))
+          }
+
           literalMap.get(value) match {
-            case Some(literalValue) => statements.append(if (qualifier) createStatement(literalValue, CustomOriginalPropertyTypes.qualifier, qualifierPropertyId) else createStatement(literalValue))
+            case Some(literalValue) => createStatementNormal(literalValue)
             case None => (literalMap.get(value + "la"), literalMap.get(value + "lo")) match {
               //Means we have a coordinate statement
               case (Some(la), Some(lo)) =>
                 if (!qualifier) {
-                  statements.append(createStatement(la, CustomOriginalPropertyTypes.latitude), createStatement(lo, CustomOriginalPropertyTypes.longitude))
+                  (createStatement(la, CustomOriginalPropertyTypes.latitude), createStatement(lo, CustomOriginalPropertyTypes.longitude))
                 }
                 else {
-                  statements.append(createStatement(la, CustomOriginalPropertyTypes.qualifier, qualifierPropertyId + "la"),
-                createStatement(lo, CustomOriginalPropertyTypes.qualifier, qualifierPropertyId + "lo"))
+                  (createStatement(la, CustomOriginalPropertyTypes.qualifier, qualifierPropertyId + "la"),
+                    createStatement(lo, CustomOriginalPropertyTypes.qualifier, qualifierPropertyId + "lo"))
                 }
+              //last try the statement already exist somewhere else we need to use or db
+              case (None, None) => {
+                val literalValue = getLiteralValueFromDB(value) match {
+                  case Some(lValue) => return createStatementNormal(lValue)
+                  case None => println(s"No result for $entity $originalProperty $value"); return (None, None)
+                }
+                println("This should never happen");
+                return (None, None)
+              }
             }
+          }
+        }
+
+        def createValueStatementAddToList(qualifier: Boolean) = {
+          getStatementFromValueNode(qualifier) match {
+            case (Some(a), Some(b)) => statements.append(a, b)
+            case ((Some(a), None)) => statements.append(a)
+            case (None, None) =>
           }
         }
 
@@ -178,14 +227,20 @@ object SplitAndFixRDFBig {
           case propertyValue(_*) => {
             value match {
               case valueNodePattern(_*) => {
-                getStatementFromValueNode()
+                createValueStatementAddToList(false)
+              }
+              case literValue => {
+                statements.append((entity, originalProperty, literValue))
               }
             }
           }
           case qualifierValue(_*) => {
             value match {
               case valueNodePattern(_*) => {
-                getStatementFromValueNode(true)
+                createValueStatementAddToList(true)
+              }
+              case literValue => {
+                statements.append((entity, originalProperty, literValue))
               }
             }
           }
@@ -193,6 +248,7 @@ object SplitAndFixRDFBig {
         }
       }
       statementAndRanks.++=(statements.map((_, rank)))
+      statements.clear()
     }
     return statementAndRanks.toList
   }
@@ -204,6 +260,8 @@ object SplitAndFixRDFBig {
   val valueNodeTimeQuantityProperty = "<http://www.wikidata.org/ontology#time>"
   val valueNodeGeoLatitudeProperty = "<http://www.wikidata.org/ontology#latitude>"
   val valueNodeGeoLongitudeProperty = "<http://www.wikidata.org/ontology#longitude>"
+
+  val SAVE_VALUE_NODES = true
 
   def getLiteralMap: Map[String, String] = {
     val literalMap = mutable.Map[String, String]()
@@ -234,104 +292,35 @@ object SplitAndFixRDFBig {
     return literalMap.toMap
   }
 
-
-  def main(args: Array[String]) {
-    println("Following is the content read:")
-//    var lines = Source.fromFile("/home/espen/prog/java/Wikidata-Toolkit-master/results/wikidata-statements.nt.gz", enc = "utf-8")
-    def gis(s: String): InputStream = return new GZIPInputStream(new BufferedInputStream(new FileInputStream(s)))
-    var lines = Source.fromInputStream(gis("/home/espen/prog/java/Wikidata-Toolkit-master/results/wikidata-statements.nt.gz"), enc = "utf-8")//.fromFile("/home/espen/prog/java/Wikidata-Toolkit-master/results/wikidata-statements.nt.gz", enc = "utf-8").getLines()
-    var count = 10000
-    var s = new StringBuilder()
-    var iter = lines.iter
-    while(count > 0) {
-      iter.next() match {
-        case '\n' => println(decodeLine(s.toString()));s.clear()
-        case c => s.append(c)
+  def createValueNodeStatements(literalMap: Map[String, String]): Seq[String] = {
+    val valueNodeStatements = ListBuffer[String]()
+    for ((valueNode, literalValue) <- literalMap) {
+      var realValueNodeIRI: String = null
+      if (valueNode.endsWith(">la")) {
+        realValueNodeIRI = valueNode.replace(">la", "la>")
       }
-      count -= 1
+      else if (valueNode.endsWith(">lo")) {
+        realValueNodeIRI = valueNode.replace(">lo", "lo>")
+      }
+      else {
+        realValueNodeIRI = valueNode
+      }
+      valueNodeStatements.append(s"$realValueNodeIRI $valueNodeConnectorProperty $literalValue .")
     }
-    print(s.toString())
-    val printWriter = new PrintWriter("input/smallFiles/wikidata-statements" + fileNumber + ".nt")
-    printWriter.write(s.toString())
+    return valueNodeStatements
+  }
+
+
+  def writeStatementsToFile(s: Iterable[String]) = {
+    //    val printWriter = new PrintWriter("input/smallFiles/" +(if(testActive) "/test" else "") + "wikidata-statements" + fileNumber + (if(testActive) "-test" else "") + ".nt")
+    val printWriter = new PrintWriter(s"input/smallFiles/${if (testActive) "test/" else "run1/"}wikidata-statements$fileNumber.nt")
+    for (l <- s) {
+      printWriter.write(l)
+    }
     printWriter.close()
-    //    for (line <- lines) {
-//      appendBuffer(line)
-//    }
-  }
-
-  def appendBuffer(line: String): Unit = {
-    counter += 1
-    if (counter % StatementsPerFile == 0) {
-      val printWriter = new PrintWriter("input/smallFiles/wikidata-statements" + fileNumber + ".nt")
-      fileNumber += 1
-      printWriter.write(stringBuffer.toString())
-      printWriter.close()
-      stringBuffer.clear()
-      println(s"@ file number: $fileNumber")
-    }
-    val cleanedLine = cleanUpLine(line)
-    if(cleanedLine != NON_FIXABLE_URI) stringBuffer.append(cleanedLine + "\n")
-  }
-  def cleanUpLine(line: String) : String = {
-    val matches: MatchIterator = totalPattern.findAllIn(line)
-    if (!matches.hasNext) {
-      return removeCAtTheEndOfProperties(line)
-    }
-    else {
-      val modifiedLine = fixURI(line, matches)
-      print("Modified line: " + modifiedLine)
-      if (modifiedLine != NON_FIXABLE_URI) {
-        return removeCAtTheEndOfProperties(modifiedLine)
-      }
-      else return modifiedLine
-    }
-  }
-
-  //Remove c from the end of properties, eg: <http://www.wikidata.org/entity/Q4537983> <http://www.wikidata.org/entity/P1687c> <http://www.wikidata.org/entity/P1553>
-  def removeCAtTheEndOfProperties(line: String): String = {
-    val matches: MatchIterator = propertyEndWithCPattern.findAllIn(line)
-    val listMatches = matches.toList
-    if (listMatches.length == 0) return line
-    val modifiedProperty = fixProperty(listMatches(0))
-    return line.replace(listMatches(0), modifiedProperty)
-  }
-
-  def fixProperty(prop: String): String = {
-    var cToRemove = 1
-    for (c <- prop.dropRight(1).reverse) {
-      if (c.isDigit) return prop.dropRight(cToRemove) + ">"
-      cToRemove += 1
-    }
-    throw new Exception("Unable to fix prop: " + prop)
-  }
-
-  def fixURI(line: String, matches: MatchIterator): String = {
-    var newURI = ""
-    for (oldURI <- matches) {
-      //println("error URI:" + oldURI)
-      val subMatches = subPattern.findAllIn(oldURI)
-      var counter = 0
-      for (subValue <- subMatches) {
-        subValue match {
-          case "{" => println("removing {"); newURI = if (counter > 0) newURI.replaceAllLiterally(subValue, "") else oldURI.replaceAllLiterally(subValue, "")
-          case "}" => println("removing }"); newURI = if (counter > 0) newURI.replaceAllLiterally(subValue, "") else oldURI.replaceAllLiterally(subValue, "")
-          case "`" => println("removing `"); newURI = if (counter > 0) newURI.replaceAllLiterally(subValue, "%60") else oldURI.replaceAllLiterally(subValue, "%60")
-          case "|" => println("removing `"); return NON_FIXABLE_URI
-          case "^" => println("removing `"); newURI = if (counter > 0) newURI.replaceAllLiterally(subValue, "%5E") else oldURI.replace(subValue, "%5E")
-          case "\\\"" => println("removing \\\""); return NON_FIXABLE_URI
-          case "\\\\" => println("removing \\\\"); newURI = if (counter > 0) newURI.replaceAllLiterally(subValue, "") else oldURI.replaceAllLiterally(subValue, "")
-          case "\\n" => println("removing \\n"); newURI = if (counter > 0) newURI.replaceAllLiterally(subValue, "") else oldURI.replaceAllLiterally(subValue, "")
-          case " " => println("removing (space)"); newURI = if (counter > 0) newURI.replaceAllLiterally(subValue, "%20") else oldURI.replaceAllLiterally(subValue, "%20")
-          case a => println("not removing...." + a)
-        }
-        counter += 1
-      }
-//      if (bracketsPattern.findAllIn(line).hasNext) {
-//        return NON_FIXABLE_URI
-//      }
-      return line.replace(oldURI, newURI)
-    }
-    throw new Exception("Found an unknown pattern...")
+    fileNumber += 1
   }
 }
+
+
 

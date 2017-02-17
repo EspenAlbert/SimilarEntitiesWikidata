@@ -6,7 +6,7 @@ import globals.{FeatureType, MyConfiguration}
 import rdf.GraphRDF
 
 import scala.collection.mutable
-
+import globals.PrimitiveDatatype.getYearFromDateFormat
 /**
   * Created by Espen on 11.11.2016.
   *///AlternativeLinkStrategy(property, Set() ++ filteredRange, true, logarithmicWeight(filteredRange.length))
@@ -17,10 +17,10 @@ case class DateComparisonStrategy(property: String, value : String, override val
       case _ => false
     }
   }
-  val valueInCorrectFormat = DateComparisonStrategy.getStandardDateFormat(value)
+  val valueInCorrectFormat = getYearFromDateFormat(value).getOrElse(99999)
 
   def calculateScore(otherTimeRaw: String) : Int = {
-    val otherInStandard = DateComparisonStrategy.getStandardDateFormat(otherTimeRaw)
+    val otherInStandard = getYearFromDateFormat(otherTimeRaw).getOrElse(-99999)
     val difference = abs(valueInCorrectFormat - otherInStandard)
     val score = MyConfiguration.windowForDateComparison - difference
     if(score > 0) return score
@@ -46,15 +46,6 @@ case class DateComparisonStrategy(property: String, value : String, override val
   }
 }
 object DateComparisonStrategy {
-  def getStandardDateFormat(stringDateRaw : String) : Int = {
-    stringDateRaw.trim() match {
-      case x if x endsWith("gYearMonth>") => return x.substring(1, 5).toInt
-      case x if x endsWith("#date>") => return x.substring(1, 5).toInt
-      case x if x endsWith("gYear>") => return x.substring(1, 5).toInt
-      case x => println(s"dont know how to convert $x"); return 999999
-    }
-    println(s"Raw string received $stringDateRaw")
-    return 2
-  }
+
 
 }
