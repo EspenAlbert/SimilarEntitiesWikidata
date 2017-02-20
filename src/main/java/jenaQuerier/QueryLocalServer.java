@@ -51,6 +51,7 @@ public class QueryLocalServer {
         int a = 2;
     }
     public static boolean ask(String queryString, String dataset) throws Exception {
+        System.out.println(queryString);
         QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/" + dataset +"/query", queryString);
         try {
             return qexec.execAsk();
@@ -65,6 +66,7 @@ public class QueryLocalServer {
         query(queryString, outputStream, "ds");
     }
     public static void query(String queryString, OutputStream outputStream, String dataset ) {
+        System.out.println(queryString);
         Query query = QueryFactory.create(queryString);
         QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/" + dataset +"/query", queryString);
         try {

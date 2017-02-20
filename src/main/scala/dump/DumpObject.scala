@@ -3,6 +3,7 @@ package dump
 import java.io.File
 
 import com.lambdaworks.jacks.JacksMapper
+import globals.PropertyType
 import org.apache.commons.io.FileUtils
 
 import scala.collection.mutable
@@ -12,6 +13,7 @@ import scala.collection.mutable
   */
 
 object DumpObject {
+
   def getQEntityStatistics(): mutable.HashMap[String, mutable.HashMap[String, Int]] = {
     val importantFilenames = List(3, 17, 24)
     val fullMap = mutable.HashMap[String, mutable.HashMap[String, Int]]()
@@ -88,6 +90,18 @@ object DumpObject {
     val fullFilename: String = picklePath + filename + ".txt"
     FileUtils.write(new File(fullFilename), json)
   }
+  def dumpJsonMapStringPropertyType(stringToStrings: Map[String, PropertyType], filename: String): Unit = {
+    val formatedStringsToPropTypes = stringToStrings.map{case (st, pT) => (st -> pT.toString)}
+    val json = JacksMapper.writeValueAsString[Map[String, String]](formatedStringsToPropTypes)
+    val fullFilename: String = picklePath + filename + ".txt"
+    FileUtils.write(new File(fullFilename), json)
+  }
+  def readJsonMapStringPropertyType(filename: String): Map[String, PropertyType] = {
+    val json = FileUtils.readFileToString(new File(picklePath + filename + ".txt"))
+    val map = JacksMapper.readValue[Map[String, String]](json)
+    return map.map{case (st, ptSt) => (st -> PropertyType.stringToPropType(ptSt))}
+  }
+
 
   final val picklePath = "output/pickles/"
 

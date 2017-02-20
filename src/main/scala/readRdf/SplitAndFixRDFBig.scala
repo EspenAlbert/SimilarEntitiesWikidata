@@ -35,6 +35,7 @@ object SplitAndFixRDFBig {
     val uploadEvery = 2000
     //    val statementBuffer= ListBuffer[String]()
     var i = 0
+    var j = -1
     var printWriter = new PrintWriter(s"input/errorLog$fileNumber.txt")
     var errorNumber = 1
     while (iter.hasNext) {
@@ -43,7 +44,8 @@ object SplitAndFixRDFBig {
           //          statementBuffer.append(s.toString())
           //          if(i%uploadEvery == 0) {
           i += 1
-          if(i > -1) {
+          s.clear()
+          if(j > -1) {
             try {
               decodeLine(s.toString())
             } catch {
@@ -68,6 +70,7 @@ object SplitAndFixRDFBig {
         case c => s.append(c)
       }
     }
+    println(s"In total $i number of lines")
     //      iter.next() match {
     //        case '\n' => decodeLine(s.toString());s.clear()
     //        case c => s.append(c)

@@ -3,7 +3,7 @@ package globals
 /**
   * Created by Espen on 04.11.2016.
   */
-import globals.SimilarPropertyOntology.{DateTimePropertyType, ItemPropertyType, PropertyTypes, QuantityPropertyType, StringPropertyType, UrlPropertyType}
+import globals.{DateTimePropertyType, ItemPropertyType, PropertyType, QuantityPropertyType, StringPropertyType, UrlPropertyType}
 import query.AskQuery
 import query.specific.QueryFactoryRaw
 object PrimitiveDatatype extends Enumeration{
@@ -59,25 +59,25 @@ object PrimitiveDatatype extends Enumeration{
 
   val literalValuePattern = """".*"""".r
 
-  def getPropertyTypeFromDatatypes(datatypes : List[String]): Option[PropertyTypes] = {
+  def getPropertyTypeFromDatatypes(datatypes : List[String]): Option[PropertyType] = {
     if(datatypes.exists(numericTypes.contains(_))) return Some(QuantityPropertyType())
     if(datatypes.exists(stringTypes.contains(_))) return Some(StringPropertyType())
     if(datatypes.exists(dateTypes.contains(_))) return Some(DateTimePropertyType())
     else None
   }
-  def determineFromObjectValuePropertyType(property : String) : Option[PropertyTypes] = {
+  def determineFromObjectValuePropertyType(property : String) : Option[PropertyType] = {
     val itemPropertyQuery =
       s"""
-        |select ?s
+        |ask
         |where {
-        | ?s $property ?o .
+        | ?s <$property> ?o .
         | ?o ?p ?v .
         | }
       """.stripMargin
     if(AskQuery.ask(() => itemPropertyQuery)) return Some(ItemPropertyType())
     val samples = QueryFactoryRaw.find100SamplesForProperty(property)
+    if(samples.filter(_.startsWith("http")).length == samples.length) return Some(UrlPropertyType())
     if(samples.exists{case literalValuePattern(_*) => false; case _=> true}) return Some(StringPropertyType()) //IF we find a literal value not wrapped in "" it is not a string property type
-    if(samples.filter(_.startsWith("<http")).length == samples.length) return Some(UrlPropertyType())
     else None
   }
 
