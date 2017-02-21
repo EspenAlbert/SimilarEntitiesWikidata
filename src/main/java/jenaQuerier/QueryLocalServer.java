@@ -57,10 +57,11 @@ public class QueryLocalServer {
             return qexec.execAsk();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
+            System.out.println("failed to ask:" + queryString);
         } finally {
             qexec.close();
+            return false;
         }
-        throw new Exception("failed to ask:" + queryString);
     }
     public static void query(String queryString, OutputStream outputStream) {
         query(queryString, outputStream, "ds");
@@ -77,6 +78,7 @@ public class QueryLocalServer {
             System.out.println(ex.getMessage());
         } finally {
             qexec.close();
+
         }
     }
     public static void updateLocalData(String query) {

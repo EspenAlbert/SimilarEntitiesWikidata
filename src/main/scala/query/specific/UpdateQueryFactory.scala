@@ -8,6 +8,9 @@ import rdf.SimpleRDF
   * Created by Espen on 01.12.2016.
   */
 object UpdateQueryFactory {
+
+
+
   def addToLocalDataset(statements: SimpleRDF*): String = {
     val statementsInsert = statements.map(_.getStatementNt()).mkString("\n")
     val insertLine = "insert { \n %s } \n where {}".format(statementsInsert)

@@ -15,5 +15,23 @@ class TestQueryFactoryRaw extends FunSuite{
     assert(dTypesTime.length == 3)
 
   }
+  test("findDomainCount") {
+    val dCount = findDomainCount("http://www.wikidata.org/entity/P6")
+    print(dCount)
+    assert(dCount == 10686)
+  }
+
+  test("findRangeCount") {
+    val rCount = findRangeCount("http://www.wikidata.org/entity/P127")
+    println(rCount)
+    assert(rCount == 9484)
+  }
+  test("find max date for http://www.wikidata.org/entity/P575 date of discovery") {
+    val maxDate = findMaxDate("http://www.wikidata.org/entity/P575")
+    val maxDate2 = findMaxDate("http://www.wikidata.org/entity/P1326")
+    println(maxDate)
+    println(maxDate2)
+
+  }
 
 }

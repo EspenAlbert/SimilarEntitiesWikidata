@@ -5,9 +5,11 @@ package globals
   */
 object MyDatasets{
 
+
   val valueNodeDs = "valueNodeDs"
   final val DsBig = "dsBig"
 
+  val similarProperties2 = "similarProperties2"
   final val Wikidata = "ds"
   final val SimilarProperties = "similarProperties"
   final val ValueMatch = "valueMatch"

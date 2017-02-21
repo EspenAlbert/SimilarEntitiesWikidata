@@ -29,6 +29,7 @@ object SimilarPropertyOntology extends Enumeration{
   val valueMatchObjectStrategy = Value(spo + "#ValueMatchObjectStrategy")
   val alternativeLinkStrategy = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#AlternativeLinkStrategy")
   val directLinkStrategy = Value(spo + "#DirectLinkStrategy")
+  val dateTimeStrategy = Value(spo + "#TimeProperty")
   val propertyMatchStrategy = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#PropertyMatchStrategy")
 
   val basePropertyClassId = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#Property")
