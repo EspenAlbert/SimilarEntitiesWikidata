@@ -7,6 +7,8 @@ import query.Query
 import query.specific.UpdateQueryFactory
 import query.variables.DynamicQueryVariable
 
+import scala.collection.mutable.ListBuffer
+
 /**
   * Created by espen on 16.02.17.
   */
@@ -66,8 +68,13 @@ object SplitAndFixRDFBigHelper {
       case a : IndexOutOfBoundsException => return None
     }
   }
+  val valueNodeStatements = ListBuffer[String]()
   def uploadValueNodeStatements(s : Iterable[String]) = {
-    UpdateQueryFactory.addStatements(s, MyDatasets.valueNodeDs)
+    valueNodeStatements ++= s
+    if(valueNodeStatements.size > 1000) {
+      UpdateQueryFactory.addStatements(valueNodeStatements, MyDatasets.valueNodeDs)
+      valueNodeStatements.clear()
+    }
   }
 
   val valueNodeConnectorProperty = "<http://www.espenalbert.com/rdf/wikidata/valueNodeConnector>"

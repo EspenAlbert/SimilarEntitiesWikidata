@@ -37,7 +37,7 @@ object InsertPropertiesIntoOntology {
   val geoProperty = ".*(P\\d+l[ao]).*".r
   val ordinaryPropertiesPattern = "http://www.wikidata.org/entity/P\\d+".r
 
-  val dummyTest = true
+  val dummyTest = false
   def getPropertiesByReadingFile(): List[String] = {
     return Source.fromFile("output/domainCounts.nt").getLines().map{l =>
       l.split(" ")(0).drop(1).dropRight(1)
@@ -47,9 +47,12 @@ object InsertPropertiesIntoOntology {
   def findAllPropertyTypesAndTheirPropertyDatatype(): Map[String, PropertyType] = {
     val propertyToPropertyDatatype = mutable.Map[String, PropertyType]()
 
-    val properties = if(!dummyTest) QueryFactoryRaw.findAllDistinctProperties else getPropertiesByReadingFile()
+    val properties = if(dummyTest) getPropertiesByReadingFile() else QueryFactoryRaw.findAllDistinctProperties
     val coordinateProperties = properties.filter{case geoProperty(pid) => true; case _ => false}
     val ordinaryProperties = properties.filter{p => ordinaryPropertiesPattern.findFirstIn(p).isInstanceOf[Some[String]]}
+    println(s"Coordinate properties: $coordinateProperties")
+    println(s"ordinaryProperties: $ordinaryProperties")
+    println(s"Other properties: ${properties.filterNot(coordinateProperties.contains(_)).filterNot(ordinaryProperties.contains(_))}")
     for(p <- ordinaryProperties) {
       try {
         val datatypes = QueryFactoryRaw.findAllDistinctDatatypesForProperty(p)
@@ -75,6 +78,6 @@ object InsertPropertiesIntoOntology {
     return propertyToPropertyDatatype.toMap
   }
   def dumpMappingToOwnOntologyDS(mapping : Map[String, PropertyType]) = {
-    DumpObject.dumpJsonMapStringPropertyType(mapping, "propToTypeMapping")
+    DumpObject.dumpJsonMapStringPropertyType(mapping, "propToTypeMapping2")
   }
 }

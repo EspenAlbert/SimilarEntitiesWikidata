@@ -22,7 +22,8 @@ object DatasetInferrer {
       case Some(s) => return MyDatasets.ValueMatch
       case None => patternForSimilarPropOntology.findFirstMatchIn(query) match {
         case Some(s) => return MyDatasets.SimilarProperties
-        case None => return MyDatasets.Wikidata
+        case None => return MyDatasets.DsBig//CHANGE FOR YOUR DB
+
       }
 
     }

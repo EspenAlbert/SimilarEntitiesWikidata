@@ -74,6 +74,6 @@ object QueryFactory {
   }
   def ask(statements: SimpleRDF*) : Boolean = {
     val filter = new WhereFilter(statements: _*)
-    return AskQuery.ask(() => s"ask {${filter.getWhereClause()} }", DatasetInferrer.getDataset(filter.getWhereClause()))
+    return AskQuery.ask(() => s"ask {${filter.getWhereClause()} }")
   }
 }

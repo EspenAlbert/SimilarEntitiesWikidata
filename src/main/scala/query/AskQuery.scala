@@ -65,8 +65,8 @@ object AskQuery {
 
   }
 
-  def ask(f : () => String, dataset : String = "ds") : Boolean = {
-    return QueryLocalServer.ask(QueryLocalServer.convertToMutlipleGraphQueryWithoutSelect(f()), dataset)
+  def ask(f : () => String) : Boolean = {
+    return QueryLocalServer.ask(QueryLocalServer.convertToMutlipleGraphQueryWithoutSelect(f()), DatasetInferrer.getDataset(f()))
   }
 
 

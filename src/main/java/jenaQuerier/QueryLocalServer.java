@@ -51,23 +51,21 @@ public class QueryLocalServer {
         int a = 2;
     }
     public static boolean ask(String queryString, String dataset) throws Exception {
-        System.out.println(queryString);
         QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/" + dataset +"/query", queryString);
         try {
             return qexec.execAsk();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
             System.out.println("failed to ask:" + queryString);
+            return false;
         } finally {
             qexec.close();
-            return false;
         }
     }
     public static void query(String queryString, OutputStream outputStream) {
         query(queryString, outputStream, "ds");
     }
     public static void query(String queryString, OutputStream outputStream, String dataset ) {
-        System.out.println(queryString);
         Query query = QueryFactory.create(queryString);
         QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/" + dataset +"/query", queryString);
         try {
@@ -89,7 +87,6 @@ public class QueryLocalServer {
         UpdateProcessor remote = UpdateExecutionFactory.createRemote(update, "http://localhost:3030/" + dataset + "/update");
         try {
             remote.execute();
-            System.out.println(remote.getDatasetGraph());
         } catch(Exception e) {
             System.out.println(e);
         }

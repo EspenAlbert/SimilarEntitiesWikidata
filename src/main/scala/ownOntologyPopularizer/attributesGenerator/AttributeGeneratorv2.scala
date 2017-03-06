@@ -11,7 +11,6 @@ import scala.collection.mutable
   */
 object AttributeGeneratorv2 {
   def generateMetaStatementKnowledgeAndStrategiesForProperties(propertiesToPropTypeMap : Map[String, PropertyType]) = {
-
     val (propToDomainCount: mutable.Map[String, Int], propToRangeCount: mutable.Map[String, Int], sameTypePossibleProps: mutable.Set[String], sharableDomainProps: mutable.Set[String], sharableRangeProps: mutable.Set[String], dateTimeStrategies : mutable.Set[String]) = findMetaPropertyKnowledge(propertiesToPropTypeMap)
     addMetaKnowledgeToDatabase(propToDomainCount, propToRangeCount)
     addStrategiesToDatabase(propertiesToPropTypeMap, sameTypePossibleProps, sharableDomainProps, sharableRangeProps, dateTimeStrategies)
@@ -40,7 +39,10 @@ object AttributeGeneratorv2 {
     val sharableDomainProps = mutable.Set[String]()
     val sharableRangeProps = mutable.Set[String]()
     val dateProperties = mutable.Set[String]()
+    var counter = 0
     for ((prop, propType) <- propertiesToPropTypeMap) {
+      counter +=1
+      println(s"finished $counter of ${propertiesToPropTypeMap.size}")
       propToDomainCount += (prop -> QueryFactoryRaw.findDomainCount(prop))
       propType match {
         case a: ItemPropertyType => {

@@ -24,7 +24,7 @@ class Query(f : () => String,  val dataset : String) extends FindSomething{
 //    println(getQuery())
     if(executed) return
     dataset match {
-      case MyDatasets.Wikidata => QueryLocalServer.query(getQuery(), resultStream, MyDatasets.Wikidata); if(getQuery().contains("similarPropertyOntology")) println("you are probably querying the wrong dataset!!")
+      case MyDatasets.DsBig => QueryLocalServer.query(getQuery(), resultStream, MyDatasets.DsBig); if(getQuery().contains("similarPropertyOntology")) println("you are probably querying the wrong dataset!!")
       case MyDatasets.SimilarProperties => QueryLocalServer.query(getQuery(), resultStream, MyDatasets.SimilarProperties)
       case MyDatasets.ValueMatch => QueryLocalServer.query(getQuery(), resultStream, MyDatasets.ValueMatch)
       case MyDatasets.ResultsSimilarArtists => QueryLocalServer.query(getQuery(), resultStream, MyDatasets.ResultsSimilarArtists)

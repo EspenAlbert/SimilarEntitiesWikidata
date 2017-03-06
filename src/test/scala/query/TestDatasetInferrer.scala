@@ -11,7 +11,16 @@ import rdf.SimpleRDFFactory
 class TestDatasetInferrer extends FunSuite{
   test("The wikidata dataset should be inferred properly") {
     val statment = SimpleRDFFactory.getStatement(("w:Q76", "w:P51", "w:QXX"))
-    assert(DatasetInferrer.getDataset(statment.wherePhrase()) == MyDatasets.Wikidata)
+    val query =
+      """
+        |PREFIX wd: <http://www.wikidata.org/entity/>
+        |select *
+        |where {
+        | wd:Q76 ?p wd:Q13133
+        | }
+      """.stripMargin
+    assert(DatasetInferrer.getDataset(statment.wherePhrase()) == MyDatasets.DsBig)
+    assert(DatasetInferrer.getDataset(query) == MyDatasets.DsBig)
   }
   test("The similar property dataset should be inferred properly") {
     val statment = SimpleRDFFactory.getStatement(("w:Q76", SimilarPropertyOntology.domainCount.toString, "w:QXX"))

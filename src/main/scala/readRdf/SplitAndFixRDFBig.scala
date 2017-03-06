@@ -23,32 +23,34 @@ object SplitAndFixRDFBig {
   var testActive = false
   var addEverything = true
   var fileNumber = 1
+  var isCountingLines = false
+  val SAVE_VALUE_NODES = true
 
   def main(args: Array[String]) {
     //    var lines = Source.fromFile("/home/espen/prog/java/Wikidata-Toolkit-master/results/wikidata-statements.nt.gz", enc = "utf-8")
     def gis(s: String): InputStream = return new GZIPInputStream(new BufferedInputStream(new FileInputStream(s)))
 
     var lines = Source.fromInputStream(gis("/home/espen/prog/java/Wikidata-Toolkit-master/results/wikidata-statements.nt.gz"), enc = "utf-8")
-    //.fromFile("/home/espen/prog/java/Wikidata-Toolkit-master/results/wikidata-statements.nt.gz", enc = "utf-8").getLines()
     var s = new StringBuilder()
     var iter = lines.iter
     val uploadEvery = 2000
-    //    val statementBuffer= ListBuffer[String]()
     var i = 0
-    var j = -1
     var printWriter = new PrintWriter(s"input/errorLog$fileNumber.txt")
     var errorNumber = 1
+    val alreadyParsedLines = 474000000
+//    val alreadyParsedLines = 1510000
     while (iter.hasNext) {
       iter.next() match {
         case '\n' => {
-          //          statementBuffer.append(s.toString())
-          //          if(i%uploadEvery == 0) {
           i += 1
-          s.clear()
-          if(j > -1) {
+          if (!isCountingLines && i > alreadyParsedLines) {
             try {
               decodeLine(s.toString())
             } catch {
+              case a : Exception => {//Happens when we are starting from a line number > 0, the first entity might not be registered in the statementMaps...
+                println(s"clearing the mutable maps..")
+                clearMutableMaps
+              }
               case a: QueryParseException => {
                 printWriter.write(s"Line $i : ${s.toString()} had ERROR NR $errorNumber : ${a.getMessage} \n\n\n\n statements: ${lastFinalStatements.mkString("\n")}")
                 println(a.getMessage)
@@ -59,31 +61,29 @@ object SplitAndFixRDFBig {
                   printWriter = new PrintWriter(s"input/errorLog$fileNumber.txt")
                 }
               }
+              case a: Throwable => {
+                printWriter.write(s"Line $i : ${s.toString()} had OTHER TYPE OF ERROR: ERROR NR $errorNumber : ${a.getMessage} \n\n\n\n statements: ${lastFinalStatements.mkString("\n")}")
+                println(a.getMessage)
+                errorNumber += 1
+                if (errorNumber % 10 == 0) {
+                  printWriter.close()
+                  fileNumber += 1
+                  printWriter = new PrintWriter(s"input/errorLog$fileNumber.txt")
+                }
+              }
+
             }
             s.clear()
-            //            statementBuffer.clear()
-            if(i%uploadEvery == 0) println(s"upload line nr: $i")
+            if (i % uploadEvery == 0) println(s"upload line nr: $i")
           }
+          else {
+            s.clear()
           }
-
-        //        }
+        }
         case c => s.append(c)
       }
     }
     println(s"In total $i number of lines")
-    //      iter.next() match {
-    //        case '\n' => decodeLine(s.toString());s.clear()
-    //        case c => s.append(c)
-    //      }
-    //      count -= 1
-    //    }
-    //    print(s.toString())
-    //    val printWriter = new PrintWriter("input/smallFiles/wikidata-statements" + fileNumber + ".nt")
-    //    printWriter.write(s.toString())
-    //    printWriter.close()
-    //    for (line <- lines) {
-    //      appendBuffer(line)
-    //    }
   }
 
   val statementIdMap = mutable.Map[String, (String, String)]()
@@ -108,7 +108,7 @@ object SplitAndFixRDFBig {
 
 
   val preferredRank = "<http://www.wikidata.org/ontology#PreferredRank>"
-  var lastFinalStatements : List[String] = null
+  var lastFinalStatements : ListBuffer[String] = ListBuffer[String]()
 
   def addStatements() = {
     val literalMap = getLiteralMap
@@ -126,17 +126,26 @@ object SplitAndFixRDFBig {
       }
     }
     //    writeStatementsToFile(finalStatements)
-    lastFinalStatements = finalStatements.toList
+    lastFinalStatements ++= finalStatements
     if (!testActive) {
-      try {
-        uploadToDataset(finalStatements)
-      } catch {
-        case a : QueryParseException => uploadToDataset(URIFixer.fixFixableURIs(finalStatements))
+      if(lastFinalStatements.size > 15000) {
+        try {
+          uploadToDataset(lastFinalStatements)
+        } catch {
+          case a : QueryParseException => uploadToDataset(URIFixer.fixFixableURIs(lastFinalStatements))
+        }
+        finally {
+          lastFinalStatements.clear()
+        }
       }
     }
     else {
       writeStatementsToFile(finalStatements)
     }
+    clearMutableMaps
+  }
+
+  private def clearMutableMaps = {
     statementIdMap.clear()
     statementIdToValuesMap.clear()
     valueNodeToValuesMap.clear()
@@ -264,7 +273,6 @@ object SplitAndFixRDFBig {
   val valueNodeGeoLatitudeProperty = "<http://www.wikidata.org/ontology#latitude>"
   val valueNodeGeoLongitudeProperty = "<http://www.wikidata.org/ontology#longitude>"
 
-  val SAVE_VALUE_NODES = true
 
   def getLiteralMap: Map[String, String] = {
     val literalMap = mutable.Map[String, String]()

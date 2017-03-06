@@ -58,13 +58,20 @@ object QueryFactoryRaw {
   }
 
   def findAllDistinctProperties : List[String] = {
-    val queryString =
+    val queryStringOld =
       s"""
          |SELECT distinct ?p
          |From <http://www.espenalbert.com/rdf/wikidata/localGraph1>
          |From <http://www.espenalbert.com/rdf/wikidata/localGraph2>
          |From <http://www.espenalbert.com/rdf/wikidata/localGraph3>
          |From <http://www.espenalbert.com/rdf/wikidata/localGraph4>
+         |WHERE {
+         |  ?s ?p ?object .
+         |}
+      """.stripMargin
+    val queryString =
+      s"""
+         |SELECT distinct ?p
          |WHERE {
          |  ?s ?p ?object .
          |}
