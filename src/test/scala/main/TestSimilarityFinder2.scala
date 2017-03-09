@@ -2,17 +2,12 @@ package main
 
 import java.io.PrintWriter
 
-import breeze.numerics.log
-import dataset.ArtistDatasetReader
-import displayer.Displayer
-import dump.DumpObject
-import feature.Feature
-import globals.{FeatureType, MyConfiguration, SimilarPropertyOntology}
+import core.query.specific.UpdateQueryFactory
+import core.rdf.GraphRDF
+import iAndO.dataset.ArtistDatasetReader
 import org.scalatest.FunSuite
-import query.specific.UpdateQueryFactory
-import ranker.Ranker
-import rdf.GraphRDF
-import strategies._
+import core.strategies._
+import similarityFinder.SimilarityFinder
 
 import scala.collection.mutable
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}

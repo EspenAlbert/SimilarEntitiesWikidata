@@ -3,15 +3,16 @@ package main
 import java.io.PrintWriter
 
 import breeze.numerics.log
-import dataset.ArtistDatasetReader
-import displayer.Displayer
-import dump.DumpObject
-import feature.Feature
-import globals.{FeatureType, MyConfiguration, SimilarPropertyOntology}
+import core.feature.Feature
+import core.globals.{FeatureType, SimilarPropertyOntology}
+import core.rdf.GraphRDF
+import iAndO.dataset.ArtistDatasetReader
+import iAndO.dump.DumpObject
 import org.scalatest.FunSuite
-import ranker.Ranker
-import rdf.GraphRDF
-import strategies._
+import similarityFinder.displayer.Displayer
+import similarityFinder.ranker.Ranker
+import core.strategies._
+import similarityFinder.{MyConfiguration, SimilarityFinder}
 
 import scala.collection.mutable
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
@@ -65,7 +66,7 @@ class TestSimilarityFinder extends FunSuite{
       val overlaps = similars.foldRight(0){(uri, prevSum) => if(similarsExpected.contains(uri.name)) prevSum + 1 else prevSum}
       println(s"Of the simlars found, only : $overlaps was from expected...")
       accuracy += overlaps.toFloat / k
-//      baseline.VectorRepresentationCreator.compareVectorRepresentationForEntities(artist, artistDataset(artist): _*)
+//      VectorRepresentationCreator.compareVectorRepresentationForEntities(artist, artistDataset(artist): _*)
     }
 //    println("On average is key has about: ", statmentsTotal.toFloat / artistDataset.keys.size, " statements")
     println("On average is key has about: ", statmentsTotal.toFloat / 10, " statements")
@@ -86,7 +87,7 @@ class TestSimilarityFinder extends FunSuite{
       Displayer.displayResult(ranked, graphsOfSimilars.length, artist)
       val overlaps = similars.take(10).foldRight(0){(uri, prevSum) => if(similarsExpected.contains(uri.name)) prevSum + 1 else prevSum}
       println(s"Of the simlars found, only : $overlaps was from expected...")
-      //      baseline.VectorRepresentationCreator.compareVectorRepresentationForEntities(artist, artistDataset(artist): _*)
+      //      VectorRepresentationCreator.compareVectorRepresentationForEntities(artist, artistDataset(artist): _*)
     }
   }
 

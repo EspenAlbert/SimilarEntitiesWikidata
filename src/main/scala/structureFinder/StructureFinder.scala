@@ -1,8 +1,8 @@
 package structureFinder
 
-import query.MultipleGraphQuery
-import query.specific.DatasetInferrer
-import rdf.GraphRDF
+import core.query.MultipleGraphQuery
+import core.query.specific.DatasetInferrer
+import core.rdf.GraphRDF
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer

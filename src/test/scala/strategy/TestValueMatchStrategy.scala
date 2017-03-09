@@ -1,10 +1,9 @@
 package strategy
 
-import globals.MyConfiguration
+import core.rdf.GraphRDF
 import org.scalatest.FunSuite
-import ownOntologyPopularizer.attributesGenerator.AttributeGenerator
-import rdf.GraphRDF
-import strategies.{MasterStrategy, PropMatchStrategy, Strategy, ValueMatchStrategy}
+import core.strategies.{MasterStrategy, PropMatchStrategy, Strategy, ValueMatchStrategy}
+import similarityFinder.MyConfiguration
 
 /**
   * Created by Espen on 11.11.2016.
@@ -28,7 +27,7 @@ class TestValueMatchStrategy extends FunSuite{
       domain = List(), range = List("http://www.wikidata.org/entity/Q43274","http://www.wikidata.org/entity/Q3743314"), rdfType ="http://www.wikidata.org/entity/Q5", entity= "Do not matter")
     strategies match {
       case Some(a) => println(a); assert(true)
-      case None => println("Failed to find strategies"); assert(false)
+      case None => println("Failed to find core.strategies"); assert(false)
     }
   }
   test("Check that the execution runs correctly") {

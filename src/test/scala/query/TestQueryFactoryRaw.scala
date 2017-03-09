@@ -1,7 +1,7 @@
 package query
 
 import org.scalatest.FunSuite
-import query.specific.QueryFactoryRaw._
+import core.query.specific.QueryFactory._
 /**
   * Created by espen on 20.02.17.
   */

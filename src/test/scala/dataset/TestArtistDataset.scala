@@ -1,5 +1,6 @@
 package dataset
 
+import iAndO.dataset.ArtistDatasetReader
 import org.scalatest.FunSuite
 
 /**

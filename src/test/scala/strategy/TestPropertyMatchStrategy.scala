@@ -1,8 +1,8 @@
 package strategy
 
+import core.rdf.GraphRDF
 import org.scalatest.FunSuite
-import rdf.GraphRDF
-import strategies.{PropMatchStrategy, Strategy}
+import core.strategies.{PropMatchStrategy, Strategy}
 
 /**
   * Created by Espen on 11.11.2016.

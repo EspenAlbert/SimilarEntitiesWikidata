@@ -1,7 +1,7 @@
 package pruning
 
-import main.SimilarityFinder
 import org.scalatest.FunSuite
+import similarityFinder.SimilarityFinder
 
 /**
   * Created by espen on 03.02.17.

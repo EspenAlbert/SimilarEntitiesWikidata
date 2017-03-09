@@ -79,9 +79,6 @@ public class QueryLocalServer {
 
         }
     }
-    public static void updateLocalData(String query) {
-        updateLocalData(query, "valueMatch");
-    }
     public static void updateLocalData(String query, String dataset) {
         UpdateRequest update = UpdateFactory.create(query);
         UpdateProcessor remote = UpdateExecutionFactory.createRemote(update, "http://localhost:3030/" + dataset + "/update");

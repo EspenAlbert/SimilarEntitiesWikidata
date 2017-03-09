@@ -1,15 +1,15 @@
 package strategy
 
-import globals.MyConfiguration
+import core.rdf.GraphRDF
 import org.scalatest.FunSuite
-import rdf.GraphRDF
-import strategies._
+import core.strategies._
+import similarityFinder.MyConfiguration
 
 /**
   * Created by Espen on 11.11.2016.
   */
 class TestInBNotInAAndInANotInBStrategy extends FunSuite{
-  test("Sorting the strategies should work") {
+  test("Sorting the core.strategies should work") {
     val st1Count = MyConfiguration.inBNotInABoost * MasterStrategy.logarithmicWeightForCount(2)
     val st2Count = MyConfiguration.inBNotInABoost * MasterStrategy.logarithmicWeightForCount(5)
     val strategy = InBNotInAStrategy("http://www.wikidata.org/entity/P21",true, List("http://www.wikidata.org/entity/Q1052281"),st1Count)
@@ -26,7 +26,7 @@ class TestInBNotInAAndInANotInBStrategy extends FunSuite{
       domain = List(), range = List("http://www.wikidata.org/entity/Q1052281"), rdfType ="http://www.wikidata.org/entity/Q5", entity= "http://www.wikidata.org/entity/Q16489")
     val inBNotInAStrategyList = strategies match {
       case Some(a) => println(a); a.filter(_.isInstanceOf[InBNotInAStrategy])
-      case None => println("Failed to find strategies"); assert(false); List()
+      case None => println("Failed to find core.strategies"); assert(false); List()
     }
     assert(inBNotInAStrategyList.length == 1)
     val strategy = inBNotInAStrategyList(0)
@@ -39,7 +39,7 @@ class TestInBNotInAAndInANotInBStrategy extends FunSuite{
       domain = List(), range = List("http://www.wikidata.org/entity/Q1052281"), rdfType ="http://www.wikidata.org/entity/Q5", entity= "http://www.wikidata.org/entity/Q16489")
     val inANotInBStrategyList = strategies match {
       case Some(a) => println(a); a.filter(_.isInstanceOf[InANotInBStrategy])
-      case None => println("Failed to find strategies"); assert(false); List()
+      case None => println("Failed to find core.strategies"); assert(false); List()
     }
     assert(inANotInBStrategyList.length == 1)
     val strategy = inANotInBStrategyList(0)

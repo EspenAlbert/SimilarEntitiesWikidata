@@ -1,6 +1,7 @@
 package rdf
 
-import globals.SimilarPropertyOntology
+import core.globals.SimilarPropertyOntology
+import core.rdf.GraphRDF
 import org.scalatest.{BeforeAndAfter, FunSuite}
 
 /**

@@ -1,14 +1,12 @@
 package strategy
 
-import displayer.Displayer
-import feature.Feature
-import globals.{MyConfiguration, PrimitiveDatatype}
+import core.feature.Feature
+import core.globals.PrimitiveDatatype
+import core.rdf.GraphRDF
 import org.scalatest.FunSuite
-import query.specific.QueryFactoryV2
-import query.variables.OptionsForResultQueryVariable
-import ranker.Ranker
-import rdf.{GraphRDF, SimpleRDFFactory}
-import strategies.{DateComparisonStrategy, MasterStrategy, Strategy, ValueMatchStrategy}
+import similarityFinder.ranker.Ranker
+import core.strategies.{DateComparisonStrategy, MasterStrategy, Strategy, ValueMatchStrategy}
+import similarityFinder.MyConfiguration
 
 import scala.collection.mutable.ListBuffer
 
@@ -27,19 +25,6 @@ class TestDateComparisonStrategy extends FunSuite{
     assert(sortedList(1) == strategy2)
     println(strategy.findSimilars())
     println(strategy2.findSimilars())
-  }
-  test("Converting to a standard format works as expected") {
-    val differentDateValues : List[String]= QueryFactoryV2.findList(SimpleRDFFactory.getStatement("?s " + OptionsForResultQueryVariable.ignoreMe, "w:P1319", "?o"))
-    println(differentDateValues)
-    for(a <- differentDateValues) {
-      println(PrimitiveDatatype.getYearFromDateFormat(a))
-    }
-//    val strategies = MasterStrategy.matchStrategyClassNameToStrategy("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#ValueMatchStrategy", "http://www.wikidata.org/entity/P43",
-//      domain = List(), range = List("http://www.wikidata.org/entity/Q43274","http://www.wikidata.org/entity/Q3743314"), rdfType ="http://www.wikidata.org/entity/Q5", entity= "Do not matter")
-//    strategies match {
-//      case Some(a) => println(a); assert(true)
-//      case None => println("Failed to find strategies"); assert(false)
-//    }
   }
   test("Check that the execution runs correctly") {
     val graph1 = new GraphRDF("w:Q436113")

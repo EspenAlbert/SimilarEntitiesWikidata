@@ -1,6 +1,7 @@
 package feature
 
-import globals.FeatureType
+import core.feature.Feature
+import core.globals.FeatureType
 import org.scalatest.FunSuite
 
 /**
