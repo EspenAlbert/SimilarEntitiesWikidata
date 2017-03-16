@@ -13,6 +13,16 @@ import scala.collection.mutable
   */
 
 object DumpObject {
+  def dumpListString(dumpObject: List[String], filename: String) = {
+    val json = JacksMapper.writeValueAsString[List[String]](dumpObject)
+    val fullFilename: String = picklePath + filename + ".txt"
+    FileUtils.write(new File(fullFilename), json)
+  }
+  def getListString(filename: String): List[String] = {
+    val json = FileUtils.readFileToString(new File(picklePath + filename + ".txt"))
+    return JacksMapper.readValue[List[String]](json)
+  }
+
 
   def getQEntityStatistics(): mutable.HashMap[String, mutable.HashMap[String, Int]] = {
     val importantFilenames = List(3, 17, 24)

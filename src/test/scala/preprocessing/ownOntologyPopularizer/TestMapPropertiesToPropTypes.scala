@@ -1,16 +1,30 @@
 package preprocessing.ownOntologyPopularizer
 
-import core.globals.{DateTimePropertyType, ItemPropertyType}
+import core.globals.{DateTimePropertyType, ItemPropertyType, KnowledgeGraph}
+import data.WikidataFactory
 import iAndO.dump.DumpObject
 import org.scalatest.FunSuite
 
 import scala.io.Source
 import preprocessing.ownOntologyPopularizer.MapPropertiesToPropTypes._
+import query.TestFindAllDistinctPropertiesQuery
+import tags.Active
 
 /**
   * Created by Espen on 01.11.2016.
   */
-class TestInsertPropertiesIntoOntology extends FunSuite{
+class TestMapPropertiesToPropTypes extends FunSuite{
+  implicit val dataset = KnowledgeGraph.wikidata
+  test("filterGeoTypes should work", Active) {
+    val filteredGeoProperties = filterGeoPropertyTypes(WikidataFactory.allProperties)
+    assertResult(WikidataFactory.geoProperties.size + WikidataFactory.qualifierGeoProperties.size){
+      filteredGeoProperties.size
+    }
+  }
+  test("filterOrdinaryProperties should work", Active) {
+    val ordinaryProperties = filterOrdinaryProperties(WikidataFactory.allProperties)
+    assertResult(WikidataFactory.ordinaryProperties){ordinaryProperties}
+  }
   test("Dump object should work") {
     val dummyMap = Map(("http://www.wikidata.org/entity/P155", ItemPropertyType()))
     DumpObject.dumpJsonMapStringPropertyType(dummyMap, "propToTypeMappingTest")

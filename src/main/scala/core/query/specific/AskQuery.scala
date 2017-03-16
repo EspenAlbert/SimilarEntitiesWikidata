@@ -24,10 +24,6 @@ object AskQuery {
          |PREFIX wd: <http://www.wikidata.org/entity/>
          |PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
          |ask
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph1>
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph2>
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph3>
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph4>
          |WHERE {
          |  ?s1 <$prop> ?o .
          |  ?s2 <$prop> ?o .
@@ -43,10 +39,6 @@ object AskQuery {
          |PREFIX wd: <http://www.wikidata.org/entity/>
          |PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
          |ask
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph1>
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph2>
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph3>
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph4>
          |WHERE {
          |  ?s <$prop> ?o1 .
          |  ?s <$prop> ?o2 .
@@ -62,10 +54,6 @@ object AskQuery {
          |PREFIX wd: <http://www.wikidata.org/entity/>
          |PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
          |ask
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph1>
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph2>
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph3>
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph4>
          |WHERE {
          |  ?s <$prop> ?object .
          |  ?s wd:P31 ?t .

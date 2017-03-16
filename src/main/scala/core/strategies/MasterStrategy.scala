@@ -27,7 +27,7 @@ class MasterStrategy (statements : List[Tuple3[String, String, String]], entity 
   val strategyStrings = StrategyFactory.getStrategies(property)
     for (s <- strategyStrings) {
       MasterStrategy.matchStrategyClassNameToStrategy(s, property, domain.toList, range.toList, entity, typeString) match {
-        case Some(s) => strategies.append(s :_*); val a = 5;
+        case Some(s) => strategies.append(s :_*);
         case _ => Unit
       }
 

@@ -6,7 +6,8 @@ import core.globals.{DateTimePropertyType, ItemPropertyType, QuantityPropertyTyp
 /**
   * Created by espen on 17.02.17.
   */
-class TestPrimitiveDatatype  extends FunSuite {
+class
+TestPrimitiveDatatype  extends FunSuite {
   test("getDatatypeAsStringFromResult") {
     val test1 = "<http://www.wikidata.org/entity/VC2e73d63b7d980f6998ee0feeb4818e79> <http://www.wikidata.org/ontology#latitude> \"57.0\"^^<http://www.w3.org/2001/XMLSchema#double> ."
     val test2 = "fda <http://www.w3.org/1999/02/22-rdf-syntax-ns#langString>"

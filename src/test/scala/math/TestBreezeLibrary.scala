@@ -2,12 +2,13 @@ package math
 
 import org.scalatest.FunSuite
 import breeze.linalg._
+import tags.FastTag
 
 /**
   * Created by Espen on 02.11.2016.
   */
 class TestBreezeLibrary extends FunSuite{
-  test("testing library") {
+  test("testing library", FastTag) {
     val x = DenseVector.zeros[Double](5)
     print(x.length)
     val y = DenseVector(1d,2d,3d)

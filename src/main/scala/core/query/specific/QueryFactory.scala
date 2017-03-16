@@ -1,12 +1,13 @@
 package core.query.specific
 
-import core.globals.{PrimitiveDatatype, SimilarPropertyOntology}
+import core.globals.{MyDatasets, PrimitiveDatatype, SimilarPropertyOntology}
 import core.query.Query
 
 /**
   * Created by espen on 17.02.17.
   */
 object QueryFactory {
+  implicit var dataset = MyDatasets.DsBig
   def singleSubjectWithPropertyAndValue(property: String, objectValue: String) : String ={
     throw new NotImplementedError()
 }
@@ -79,10 +80,6 @@ object QueryFactory {
     val queryString =
       s"""
          |SELECT (count(distinct ?s) as ?c)
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph1>
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph2>
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph3>
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph4>
          |WHERE {
          |  ?s <$prop> ?object .
          |}
@@ -95,10 +92,6 @@ object QueryFactory {
     val queryString =
       s"""
          |SELECT (count(distinct ?object) as ?c)
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph1>
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph2>
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph3>
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph4>
          |WHERE {
          |  ?s <$prop> ?object .
          |}
@@ -124,26 +117,15 @@ object QueryFactory {
     return PrimitiveDatatype.getYearFromDateFormat(query.getResults("maxDate")(0))
   }
 
-  def findAllDistinctProperties : List[String] = {
-    val queryStringOld =
-      s"""
-         |SELECT distinct ?p
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph1>
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph2>
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph3>
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph4>
-         |WHERE {
-         |  ?s ?p ?object .
-         |}
-      """.stripMargin
+  def findAllDistinctProperties(implicit dataset : String = dataset) : List[String] = {
     val queryString =
       s"""
          |SELECT distinct ?p
          |WHERE {
-         |  ?s ?p ?object .
+         |  ?s ?p ?o .
          |}
       """.stripMargin
-    val query = new Query(() => queryString, DatasetInferrer.getDataset(queryString))
+    val query = new Query(() => queryString, dataset)
     query.execute()
     return query.getResults("p")
   }
@@ -154,16 +136,12 @@ object QueryFactory {
     val queryString =
       s"""
         |SELECT distinct ?b
-        |From <http://www.espenalbert.com/rdf/wikidata/localGraph1>
-        |From <http://www.espenalbert.com/rdf/wikidata/localGraph2>
-        |From <http://www.espenalbert.com/rdf/wikidata/localGraph3>
-        |From <http://www.espenalbert.com/rdf/wikidata/localGraph4>
         |WHERE {
         |  ?s <$property> ?object .
         |  bind(datatype(?object) as ?b)
         |}
       """.stripMargin
-    val query = new Query(() => queryString, DatasetInferrer.getDataset(queryString))
+    val query = new Query(() => queryString, dataset)
     query.execute()
     return query.getResults("b")
   }
@@ -172,10 +150,6 @@ object QueryFactory {
     val queryString =
       s"""
          |select ?o
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph1>
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph2>
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph3>
-         |From <http://www.espenalbert.com/rdf/wikidata/localGraph4>
          |where {
          |  ?s <$property> ?o
          |  }

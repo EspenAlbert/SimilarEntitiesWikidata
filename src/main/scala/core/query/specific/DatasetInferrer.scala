@@ -28,4 +28,16 @@ object DatasetInferrer {
 
     }
   }
+  def getDatasetWithImplicit(query: String)(implicit dataset: String) : String = {
+    val ds = patternForValueMatchDataset.findFirstIn(query) match {
+      case Some(s) => MyDatasets.ValueMatch
+      case None => patternForSimilarPropOntology.findFirstMatchIn(query) match {
+        case Some(s) => MyDatasets.SimilarProperties
+        case None => MyDatasets.DsBig//CHANGE FOR YOUR DB
+
+      }
+    }
+    return dataset + "/"+ ds
+
+  }
 }

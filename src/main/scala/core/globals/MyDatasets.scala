@@ -1,9 +1,11 @@
 package core.globals
 
+
 /**
   * Created by Espen on 04.11.2016.
   */
 object MyDatasets{
+  val DBpediaDS = "dsDBpedia"
 
 
   val valueNodeDs = "valueNodeDs"
@@ -15,4 +17,12 @@ object MyDatasets{
   final val ValueMatch = "valueMatch"
   final val ResultsSimilarArtists = "resultsSimilarArtists"
 
+
+
+}
+
+object KnowledgeGraph extends Enumeration {
+  type KnowledgeGraph = Value
+  val wikidata: KnowledgeGraph = Value("wikidata")
+  val dbPedia: KnowledgeGraph = Value("DBpedia")
 }
