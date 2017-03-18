@@ -6,14 +6,14 @@ import jenaQuerier.QueryLocalServer
   * Created by Espen on 08.11.2016.
   */
 object AskQuery {
-  def subjectHasType(subject: String, rdfType: String) : Boolean = {
+  def subjectHasType(subject: String, rdfTypes: List[String]) : Boolean = {
     val askQuery =
       s"""
          |PREFIX wd: <http://www.wikidata.org/entity/>
          |PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
          |ask
          |WHERE {
-         |  <$subject> <wd:P31> <$rdfType>.
+         |  <$subject> <wd:P31> <$rdfTypes>.
          |}
         """.stripMargin
     return QueryLocalServer.ask(askQuery, DatasetInferrer.getDataset(askQuery))

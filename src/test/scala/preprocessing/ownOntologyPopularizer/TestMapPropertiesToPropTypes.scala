@@ -8,20 +8,20 @@ import org.scalatest.FunSuite
 import scala.io.Source
 import preprocessing.ownOntologyPopularizer.MapPropertiesToPropTypes._
 import query.TestFindAllDistinctPropertiesQuery
-import tags.Active
+import tags.ActiveTag
 
 /**
   * Created by Espen on 01.11.2016.
   */
 class TestMapPropertiesToPropTypes extends FunSuite{
   implicit val dataset = KnowledgeGraph.wikidata
-  test("filterGeoTypes should work", Active) {
+  test("filterGeoTypes should work", ActiveTag) {
     val filteredGeoProperties = filterGeoPropertyTypes(WikidataFactory.allProperties)
     assertResult(WikidataFactory.geoProperties.size + WikidataFactory.qualifierGeoProperties.size){
       filteredGeoProperties.size
     }
   }
-  test("filterOrdinaryProperties should work", Active) {
+  test("filterOrdinaryProperties should work", ActiveTag) {
     val ordinaryProperties = filterOrdinaryProperties(WikidataFactory.allProperties)
     assertResult(WikidataFactory.ordinaryProperties){ordinaryProperties}
   }

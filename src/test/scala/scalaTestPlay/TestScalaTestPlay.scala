@@ -1,7 +1,7 @@
 package scalaTestPlay
 
 import org.scalatest.FunSuite
-import tags.Active
+import tags.ActiveTag
 
 import scala.collection.mutable.ListBuffer
 
@@ -13,7 +13,7 @@ class TestScalaTestPlay extends FunSuite{
     val builder = new StringBuilder("Scala test is")
     val buffer = new ListBuffer[String]
   }
-  test("testing fixture", Active) {
+  test("testing fixture", ActiveTag) {
     val f = fixture
     f.builder.append(" easy")
     assertResult("Scala test is easy"){f.builder.toString()}
@@ -21,7 +21,7 @@ class TestScalaTestPlay extends FunSuite{
     f.buffer.append("test")
     assert(f.buffer.nonEmpty)
   }
-  test("fixture reset after previous test", Active) {
+  test("fixture reset after previous test", ActiveTag) {
     val f = fixture
     assert(f.buffer.isEmpty)
   }

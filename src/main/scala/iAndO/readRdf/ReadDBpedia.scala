@@ -22,14 +22,21 @@ object ReadDBpedia {
     def gis(s: String): InputStream = return new CompressorStreamFactory().createCompressorInputStream(new BufferedInputStream(new FileInputStream(s)))
 
     var fileNumber = 0
-    var lines = Source.fromInputStream(gis("/media/espen/Windows8_OS/dataset/dbPedia/page_links_en.ttl.bz2"), enc = "utf-8")
+    val filesLeft = List(
+      "/media/espen/Windows8_OS/dataset/dbPedia/instance_types_en",
+      "/media/espen/Windows8_OS/dataset/dbPedia/skos_categories_en",
+      "/media/espen/Windows8_OS/dataset/dbPedia/topical_concepts_en",
+      "/media/espen/Windows8_OS/dataset/dbPedia/article_categories_en",
+      "/media/espen/Windows8_OS/dataset/dbPedia/interlanguage_links_en"//TODO: Needs filter
+    )
+    var lines = Source.fromInputStream(gis("/media/espen/Windows8_OS/dataset/dbPedia/article_categories_en.ttl.bz2"), enc = "utf-8")
     var s = new StringBuilder()
     var iter = lines.iter
     val uploadEvery = 10000
     var i = 0
     var printWriter = new PrintWriter(s"input/errorLog$fileNumber.txt")
     var errorNumber = 1
-    val alreadyParsedLines = 162440000
+    val alreadyParsedLines = 0
     var statements = ListBuffer[String]()
     //    val alreadyParsedLines = 1510000
     while (iter.hasNext) {
@@ -73,6 +80,7 @@ object ReadDBpedia {
       }
     }
     println(s"In total $i number of lines")
+    UpdateQueryFactory.addStatements(statements, MyDatasets.DBpediaDS)
   }
 
 }

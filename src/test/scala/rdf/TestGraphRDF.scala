@@ -1,8 +1,9 @@
 package rdf
 
-import core.globals.SimilarPropertyOntology
+import core.globals.{MyDatasets, SimilarPropertyOntology}
 import core.rdf.GraphRDF
 import org.scalatest.{BeforeAndAfter, FunSuite}
+import tags.ActiveTag
 
 /**
   * Created by Espen on 02.11.2016.
@@ -37,4 +38,14 @@ class TestGraphRDF extends FunSuite with BeforeAndAfter{
   }
 
 
+}
+class TestGraphRDFKristiansand extends FunSuite {
+  test("It should have two types for wikidata", ActiveTag) {
+    implicit val dataset = MyDatasets.DsBig
+    val kristiansand = new GraphRDF(SimilarPropertyOntology.w + "Q2415")
+    val type1 = "http://www.wikidata.org/entity/Q515"
+    val type2 = "http://www.wikidata.org/entity/Q755707"
+    val expectedTypes = List(type1, type2)
+    expectedTypes.foreach(t => assert(expectedTypes.contains(t)))
+  }
 }

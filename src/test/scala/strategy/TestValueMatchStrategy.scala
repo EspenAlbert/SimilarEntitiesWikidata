@@ -12,8 +12,8 @@ class TestValueMatchStrategy extends FunSuite{
   test("Value match strategy should work") {
     val st1Count = MyConfiguration.valueMatchBoost * MasterStrategy.logarithmicWeightForCount(2)
     val st2Count = MyConfiguration.valueMatchBoost * MasterStrategy.logarithmicWeightForCount(5)
-    val strategy = ValueMatchStrategy("http://www.wikidata.org/entity/P43",true, "http://www.wikidata.org/entity/Q43274", "http://www.wikidata.org/entity/Q5", st1Count)
-    val strategy2 = ValueMatchStrategy("http://www.wikidata.org/entity/P1038", true, "http://www.wikidata.org/entity/Q10479","http://www.wikidata.org/entity/Q5", st2Count)
+    val strategy = ValueMatchStrategy("http://www.wikidata.org/entity/P43",true, "http://www.wikidata.org/entity/Q43274", List("http://www.wikidata.org/entity/Q5"), st1Count)
+    val strategy2 = ValueMatchStrategy("http://www.wikidata.org/entity/P1038", true, "http://www.wikidata.org/entity/Q10479",List("http://www.wikidata.org/entity/Q5"), st2Count)
 
     val list = List[Strategy](strategy, strategy2)
     val sortedList = list.sorted
@@ -24,7 +24,7 @@ class TestValueMatchStrategy extends FunSuite{
   }
   test("Creating the value match strategy from master strategy") {
     val strategies = MasterStrategy.matchStrategyClassNameToStrategy("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#ValueMatchStrategy", "http://www.wikidata.org/entity/P43",
-      domain = List(), range = List("http://www.wikidata.org/entity/Q43274","http://www.wikidata.org/entity/Q3743314"), rdfType ="http://www.wikidata.org/entity/Q5", entity= "Do not matter")
+      domain = List(), range = List("http://www.wikidata.org/entity/Q43274","http://www.wikidata.org/entity/Q3743314"), rdfTypes =List("http://www.wikidata.org/entity/Q5"), entity= "Do not matter")
     strategies match {
       case Some(a) => println(a); assert(true)
       case None => println("Failed to find core.strategies"); assert(false)
@@ -34,7 +34,7 @@ class TestValueMatchStrategy extends FunSuite{
     val graph1 = new GraphRDF("w:Q3736070")
     val graph2 = new GraphRDF("w:Q3743314")
     val st1Count = MyConfiguration.valueMatchBoost * MasterStrategy.logarithmicWeightForCount(2)
-    val strategy = ValueMatchStrategy("http://www.wikidata.org/entity/P43",true, "http://www.wikidata.org/entity/Q43274", "http://www.wikidata.org/entity/Q5", st1Count)
+    val strategy = ValueMatchStrategy("http://www.wikidata.org/entity/P43",true, "http://www.wikidata.org/entity/Q43274", List("http://www.wikidata.org/entity/Q5"), st1Count)
     assert(strategy.execute(List(graph1, graph2)).toList.length == 2)
   }
   test("Transgender count Q1052281") {

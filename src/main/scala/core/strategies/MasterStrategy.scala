@@ -10,7 +10,7 @@ import scala.collection.mutable.ArrayBuffer
 /**
   * Created by Espen on 15.11.2016.
   */
-class MasterStrategy (statements : List[Tuple3[String, String, String]], entity : String, typeString : String){
+class MasterStrategy (statements : List[Tuple3[String, String, String]], entity : String, typeString : List[String]){
 
   val property = statements(0)._2
   private val domain = ArrayBuffer[String]()
@@ -46,31 +46,31 @@ object MasterStrategy {
 
 
 
-  def getDomainAndRangeWithCorrectType(domain: List[String], range: List[String], rdfType: String): (List[String], List[String]) = {
-    val filteredRange = range.filter((s) => AskQuery.subjectHasType(s, rdfType))
-    val filteredDomain = domain.filter((s) => AskQuery.subjectHasType(s, rdfType))
+  def getDomainAndRangeWithCorrectType(domain: List[String], range: List[String], rdfTypes: List[String]): (List[String], List[String]) = {
+    val filteredRange = range.filter((s) => AskQuery.subjectHasType(s, rdfTypes))
+    val filteredDomain = domain.filter((s) => AskQuery.subjectHasType(s, rdfTypes))
     return (filteredDomain, filteredRange)
   }
-  def matchStrategyClassNameToStrategy(strategy: String, property: String, domain: List[String], range: List[String], entity: String, rdfType: String): Option[Seq[Strategy]] = {
+  def matchStrategyClassNameToStrategy(strategy: String, property: String, domain: List[String], range: List[String], entity: String, rdfTypes: List[String]): Option[Seq[Strategy]] = {
     return strategy match {
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#PropertyMatchStrategy" => {
         val strategies = ArrayBuffer[Strategy]()
         if (range.nonEmpty) {
           val count = QueryFactory.findDomainCount(property)
           val weight = getPropMatchWeight(count)
-          strategies.append(PropMatchStrategy(property, true, weight, rdfType, count < MyConfiguration.maxCountForValueMatchesToFindSimlars))
+          strategies.append(PropMatchStrategy(property, true, weight, rdfTypes, count < MyConfiguration.maxCountForValueMatchesToFindSimlars))
         }
         if (domain.nonEmpty) {
           val count = QueryFactory.findRangeCount(property)
           val weight = getPropMatchWeight(count)
-          strategies.append(PropMatchStrategy(property, false, weight, rdfType, count < MyConfiguration.maxCountForValueMatchesToFindSimlars))
+          strategies.append(PropMatchStrategy(property, false, weight, rdfTypes, count < MyConfiguration.maxCountForValueMatchesToFindSimlars))
 
         }
         return Some(strategies)
       }
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#AlternativeLinkStrategy" if(MyConfiguration.alActive) => {
         val strategies = ArrayBuffer[Strategy]()
-        val (filteredDomain, filteredRange) = getDomainAndRangeWithCorrectType(domain, range, rdfType)
+        val (filteredDomain, filteredRange) = getDomainAndRangeWithCorrectType(domain, range, rdfTypes)
         if (filteredDomain.nonEmpty) {
           val weight = QueryFactory.findDomainCount(property)
           strategies += AlternativeLinkStrategy(property, Set() ++ filteredDomain, true, MyConfiguration.alternativeLinkNegative * logarithmicWeightForCount(weight))
@@ -84,7 +84,7 @@ object MasterStrategy {
       }
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#DirectLinkStrategy" => {
         val strategies = ArrayBuffer[Strategy]()
-        val (filteredDomain, filteredRange) = getDomainAndRangeWithCorrectType(domain, range, rdfType)
+        val (filteredDomain, filteredRange) = getDomainAndRangeWithCorrectType(domain, range, rdfTypes)
         if (filteredDomain.nonEmpty) {
           println("Created direct link strategy..")
           strategies += DirectLinkStrategy(property, Set() ++ filteredDomain, MyConfiguration.directLinkBoost * logarithmicWeightForCount(filteredDomain.length))
@@ -101,7 +101,7 @@ object MasterStrategy {
         if (domain.nonEmpty) {
           for (d <- domain) {
             valueIsAPotentialValueMatchFindCount(d, property, false) match {
-              case Some(count) => strategies += ValueMatchStrategy(property, false, d, rdfType, MyConfiguration.valueMatchBoost * logarithmicWeightForCount(count), count < MyConfiguration.maxCountForValueMatchesToFindSimlars)
+              case Some(count) => strategies += ValueMatchStrategy(property, false, d, rdfTypes, MyConfiguration.valueMatchBoost * logarithmicWeightForCount(count), count < MyConfiguration.maxCountForValueMatchesToFindSimlars)
               case None => Unit
             }
           }
@@ -125,7 +125,7 @@ object MasterStrategy {
         if (range.nonEmpty) {
           for (r <- range) {
             valueIsAPotentialValueMatchFindCount(r, property, true) match {
-              case Some(count) => strategies += ValueMatchStrategy(property, true, r, rdfType, MyConfiguration.valueMatchBoost * logarithmicWeightForCount(count), count < MyConfiguration.maxCountForValueMatchesToFindSimlars)
+              case Some(count) => strategies += ValueMatchStrategy(property, true, r, rdfTypes, MyConfiguration.valueMatchBoost * logarithmicWeightForCount(count), count < MyConfiguration.maxCountForValueMatchesToFindSimlars)
               case None => Unit
             }
           }

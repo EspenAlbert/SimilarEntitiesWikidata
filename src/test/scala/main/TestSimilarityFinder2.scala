@@ -36,7 +36,7 @@ class TestSimilarityFinder2 extends FunSuite{
   private def doTestAndStoreResultForArtist(artist: String, similars: List[String]) = {
     val (entityGraph: GraphRDF, strategies: Array[Strategy]) = SimilarityFinder.findGraphAndStrategiesForEntity(artist)
     val foundSimilars = SimilarityFinder.findSimilarToEntityWithStrategies(0, entityGraph, strategies)
-    val entityType = entityGraph.getType
+    val entityType = entityGraph.getTypes
     val forcedSimScores = SimilarityFinder.calculateAndRankSimilarity(10, entityGraph, strategies, similars.toSet)
 
     def getSimScore(similar: String): Double = {
@@ -46,10 +46,10 @@ class TestSimilarityFinder2 extends FunSuite{
     UpdateQueryFactory.addStatementCount(artist, entityGraph.statements.size - 1) //UPDATE DB
     for (similar <- similars) {
       val similarGraph = new GraphRDF(similar)
-      val similarType = similarGraph.getType
+      val similarType = similarGraph.getTypes
       val statementCount = similarGraph.statements.size - 1 //Not interested in P31
       UpdateQueryFactory.addStatementCount(similar, statementCount) //UPDATE DB
-      if (entityType == similarType) {
+      if (entityType == similarType) {//TODO: Update to check all types
         val rankingIndex = foundSimilars.indexWhere(fs => fs.name == similar)
         if (rankingIndex > -1) {
           println("ranking = ", rankingIndex)

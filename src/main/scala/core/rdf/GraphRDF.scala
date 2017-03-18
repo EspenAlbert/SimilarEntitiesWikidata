@@ -1,5 +1,6 @@
 package core.rdf
 
+import core.globals.SimilarPropertyOntology
 import core.query.specific.QueryFactory
 
 import scala.collection.mutable
@@ -21,9 +22,6 @@ class GraphRDF(val entity : String) {
     return overlaps.toDouble /  graph.statements.size
   }
 
-  var getType: String = ""
-
-
   val entityIsObjectStatements = QueryFactory.findSubjectsAndProperties(entity)
   val statements = mutable.Set[Tuple3[String, String, String]]()
   for((subject, property) <- entityIsObjectStatements._1 zip entityIsObjectStatements._2) {
@@ -37,11 +35,14 @@ class GraphRDF(val entity : String) {
   def isType(s: (String, String, String)): Boolean = {
     s match {
       case (s, "http://www.wikidata.org/entity/P31", o) => true
+      case (s, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", o) => true
       case _ => false
     }
   }
 
-  getType = statementsList.find((s) => isType(s)).get._3
+  def getTypes : List[String] = {
+    return statementsList.filter((s) => isType(s)).map(_._3)
+  }
   def getProperties(s : Boolean = false, o : Boolean = false) : List[String] = {
     val properties = ArrayBuffer[String]()
     statements.foreach((f) => if(!s && !o || s && f._1 == entity || o && f._3 == entity) properties.append(f._2))

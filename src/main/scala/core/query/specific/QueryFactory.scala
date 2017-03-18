@@ -12,19 +12,19 @@ object QueryFactory {
     throw new NotImplementedError()
 }
 
-  def objectsOfTypeWithPropertyAndSubject(property: String, subject: String, rdfType: String): List[String] = {
+  def objectsOfTypeWithPropertyAndSubject(property: String, subject: String, rdfTypes: List[String]): List[String] = {
     throw new NotImplementedError()
   }
-  def subjectsOfTypeWithPropertyAndValue(property: String, objectValue: String, rdfType: String) : List[String] = {
-    throw new NotImplementedError()
-  }
-
-
-  def findObjectsOfTypeForProperty(property: String, rdfType: String)  : List[String] = {
+  def subjectsOfTypeWithPropertyAndValue(property: String, objectValue: String, rdfTypes: List[String]) : List[String] = {
     throw new NotImplementedError()
   }
 
-  def findSubjectsOfTypeForProperty(property: String, rdfType: String) : List[String] = {
+
+  def findObjectsOfTypeForProperty(property: String, rdfTypes: List[String])  : List[String] = {
+    throw new NotImplementedError()
+  }
+
+  def findSubjectsOfTypeForProperty(property: String, rdfTypes: List[String]) : List[String] = {
     throw new NotImplementedError()
 
   }

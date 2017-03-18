@@ -4,7 +4,7 @@ import core.globals.{MyDatasets, SimilarPropertyOntology}
 import org.scalatest.FunSuite
 import preprocessing.ownOntologyPopularizer.MapPropertiesToPropTypes
 import similarityFinder.implicitTest.SimFinderDS
-import tags.{Active, FastTag}
+import tags.{ActiveTag, FastTag}
 
 /**
   * Created by espen on 10.03.17.
@@ -24,7 +24,7 @@ class TestImplicit extends FunSuite{
     b.worksForCallingAnotherFunctionFromFunction(SimilarPropertyOntology.valueMatchClass)
     c.worksForCallingAnotherFunctionFromFunction(SimilarPropertyOntology.valueMatchClass)
   }
-  test("Implicit overriding a value", Active) {
+  test("Implicit overriding a value", ActiveTag) {
     val dummyList = List("a")
     implicit val dataset = MyDatasets.DsBig
     assertResult(List(dataset)){SimFinderDS.filterGeoPropertyTypes(dummyList)}

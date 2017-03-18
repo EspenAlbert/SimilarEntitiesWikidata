@@ -22,7 +22,7 @@ object StrategyGenerator {
   def generateStrategies(entityGraph: GraphRDF): Array[Strategy] = {
     val strategies = new ArrayBuffer[Strategy]()
     for(prop <- entityGraph.getUniqueWikidataPropertiesWithoutTheMostCommon()) {
-      val masterStrategy = new MasterStrategy(entityGraph.statements.filter((s) => statementHasProperty(prop, s)).toList, entityGraph.entity, entityGraph.getType)
+      val masterStrategy = new MasterStrategy(entityGraph.statements.filter((s) => statementHasProperty(prop, s)).toList, entityGraph.entity, entityGraph.getTypes)
       strategies.append(masterStrategy.getCompositeStrategies() : _*)
     }
     if(MyConfiguration.globalInBNotInAActive) {
