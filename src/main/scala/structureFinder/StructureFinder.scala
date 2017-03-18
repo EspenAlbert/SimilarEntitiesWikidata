@@ -1,5 +1,6 @@
 package structureFinder
 
+import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.query.MultipleGraphQuery
 import core.query.specific.DatasetInferrer
 import core.rdf.GraphRDF
@@ -46,7 +47,7 @@ object StructureFinder {
     return query.mkString("\n")
   }
 
-  def findStructures(entities : List[String]): Unit = {
+  def findStructures(entities : List[String])(implicit knowledgeGraph: KnowledgeGraph): Unit = {
     val entityGraphs = entities.map(new GraphRDF(_))
     val directLinkMatches = ListBuffer[(String, String, String)]()
 

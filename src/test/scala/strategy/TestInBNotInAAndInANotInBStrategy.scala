@@ -1,5 +1,6 @@
 package strategy
 
+import core.globals.KnowledgeGraph
 import core.rdf.GraphRDF
 import org.scalatest.FunSuite
 import core.strategies._
@@ -9,6 +10,7 @@ import similarityFinder.MyConfiguration
   * Created by Espen on 11.11.2016.
   */
 class TestInBNotInAAndInANotInBStrategy extends FunSuite{
+  implicit val knowledgeGraph = KnowledgeGraph.wikidata
   test("Sorting the core.strategies should work") {
     val st1Count = MyConfiguration.inBNotInABoost * MasterStrategy.logarithmicWeightForCount(2)
     val st2Count = MyConfiguration.inBNotInABoost * MasterStrategy.logarithmicWeightForCount(5)

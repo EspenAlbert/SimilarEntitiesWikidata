@@ -1,5 +1,6 @@
 package core.rdf
 
+import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.globals.SimilarPropertyOntology
 import core.query.specific.QueryFactory
 
@@ -9,7 +10,7 @@ import scala.collection.mutable.ArrayBuffer
 /**
   * Created by Espen on 09.11.2016.
   */
-class GraphRDF(val entity : String) {
+class GraphRDF(val entity : String)(implicit val knowledgeGraph: KnowledgeGraph) {
   def findScalingFactor(graph: GraphRDF) : Double = {
     val otherEntity = graph.entity
     var overlaps = 0

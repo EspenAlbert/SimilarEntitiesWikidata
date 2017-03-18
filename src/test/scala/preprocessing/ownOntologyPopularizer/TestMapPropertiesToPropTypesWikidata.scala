@@ -1,6 +1,6 @@
 package preprocessing.ownOntologyPopularizer
 
-import core.globals.{DateTimePropertyType, ItemPropertyType, KnowledgeGraph}
+import core.globals._
 import data.WikidataFactory
 import iAndO.dump.DumpObject
 import org.scalatest.FunSuite
@@ -8,12 +8,12 @@ import org.scalatest.FunSuite
 import scala.io.Source
 import preprocessing.ownOntologyPopularizer.MapPropertiesToPropTypes._
 import query.TestFindAllDistinctPropertiesQuery
-import tags.ActiveTag
+import tags.{ActiveOnceTag, ActiveSlowTag, ActiveTag, TestOnlyTag}
 
 /**
   * Created by Espen on 01.11.2016.
   */
-class TestMapPropertiesToPropTypes extends FunSuite{
+class TestMapPropertiesToPropTypesWikidata extends FunSuite{
   implicit val dataset = KnowledgeGraph.wikidata
   test("filterGeoTypes should work", ActiveTag) {
     val filteredGeoProperties = filterGeoPropertyTypes(WikidataFactory.allProperties)
@@ -30,15 +30,23 @@ class TestMapPropertiesToPropTypes extends FunSuite{
     DumpObject.dumpJsonMapStringPropertyType(dummyMap, "propToTypeMappingTest")
     val readMap = DumpObject.readJsonMapStringPropertyType("propToTypeMappingTest")
     assert(dummyMap == readMap)
-
-
   }
-  test("findAllPropertyTypesAndTheirPropertyDatatype should work") {
+  test("findAllPropertyTypesAndTheirPropertyDatatype should work", ActiveSlowTag) {
+    val properties = WikidataFactory.allProperties
+    val propertyToPropTypes = findAllPropertyTypesAndTheirPropertyDatatype(properties)
+    propertyToPropTypes.foreach{case (property, propertyType) => {
+      propertyType match {
+        case a : GlobeCoordinatePropertyType => assert(WikidataFactory.geoProperties.contains(property))
+        case a : ItemPropertyType => assert(WikidataFactory.itemProperties.contains(property))
+        case a : QuantityPropertyType => assert(WikidataFactory.quantityProp == property)
+        case a : UrlPropertyType => assert(WikidataFactory.urlProperties.contains(property))
+        case a : StringPropertyType => assert(WikidataFactory.stringProperties.contains(property))
+        case a : DateTimePropertyType => assert(WikidataFactory.dateProperty == property)
+      }
+    }}
+  }
+  test("Find property types for the whole dataset", ActiveOnceTag) {
     dumpMappingToOwnOntologyDS(findAllPropertyTypesAndTheirPropertyDatatype())
-
-  }
-  test("Get properties by reading file") {
-    println(getPropertiesByReadingFile.foreach(println(_)))
   }
   test("read stored mapping") {
     val readMap = DumpObject.readJsonMapStringPropertyType("propToTypeMapping")

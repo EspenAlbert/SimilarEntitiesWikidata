@@ -2,6 +2,7 @@ package core.strategies
 
 import core.feature.Feature
 import core.globals.FeatureType
+import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.rdf.GraphRDF
 
 import scala.collection.mutable
@@ -11,7 +12,7 @@ import scala.collection.mutable
   */
 case class InBNotInAGlobalStrategy(val queryEntityGraph : GraphRDF, override val weight : Double) extends Strategy {
 
-  override def execute(otherEntities: List[GraphRDF]): Map[String, Feature] = {
+  override def execute(otherEntities: List[GraphRDF])(implicit knowledgeGraph: KnowledgeGraph): Map[String, Feature] = {
     val featureMap = mutable.Map[String, Feature]()
     val propertiesForEntityGraph = queryEntityGraph.getProperties()
     for (other <- otherEntities) {
@@ -28,7 +29,7 @@ case class InBNotInAGlobalStrategy(val queryEntityGraph : GraphRDF, override val
     return featureMap.toMap
   }
 
-  override def findSimilars(): List[String] = {
+  override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): List[String] = {
     return Nil
   }
 }

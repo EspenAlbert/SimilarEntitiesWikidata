@@ -1,5 +1,6 @@
 package core.strategies
 import breeze.numerics._
+import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.globals.SimilarPropertyOntology
 import core.globals.SimilarPropertyOntology._
 import core.query.specific.{AskQuery, QueryFactory, UpdateQueryFactory}
@@ -10,7 +11,7 @@ import scala.collection.mutable.ArrayBuffer
 /**
   * Created by Espen on 15.11.2016.
   */
-class MasterStrategy (statements : List[Tuple3[String, String, String]], entity : String, typeString : List[String]){
+class MasterStrategy (statements : List[Tuple3[String, String, String]], entity : String, typeString : List[String])(implicit knowledgeGraph: KnowledgeGraph){
 
   val property = statements(0)._2
   private val domain = ArrayBuffer[String]()
@@ -46,12 +47,12 @@ object MasterStrategy {
 
 
 
-  def getDomainAndRangeWithCorrectType(domain: List[String], range: List[String], rdfTypes: List[String]): (List[String], List[String]) = {
+  def getDomainAndRangeWithCorrectType(domain: List[String], range: List[String], rdfTypes: List[String])(implicit knowledgeGraph: KnowledgeGraph): (List[String], List[String]) = {
     val filteredRange = range.filter((s) => AskQuery.subjectHasType(s, rdfTypes))
     val filteredDomain = domain.filter((s) => AskQuery.subjectHasType(s, rdfTypes))
     return (filteredDomain, filteredRange)
   }
-  def matchStrategyClassNameToStrategy(strategy: String, property: String, domain: List[String], range: List[String], entity: String, rdfTypes: List[String]): Option[Seq[Strategy]] = {
+  def matchStrategyClassNameToStrategy(strategy: String, property: String, domain: List[String], range: List[String], entity: String, rdfTypes: List[String])(implicit knowledgeGraph: KnowledgeGraph): Option[Seq[Strategy]] = {
     return strategy match {
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#PropertyMatchStrategy" => {
         val strategies = ArrayBuffer[Strategy]()
@@ -166,7 +167,7 @@ object MasterStrategy {
     return if(logarithmicWeightForCount(count) > MyConfiguration.maximumWeightPropertyMatch) MyConfiguration.maximumWeightPropertyMatch else logarithmicWeightForCount(count)
   }
 
-  def valueIsAPotentialValueMatchFindCount(value: String, property: String, isSubject: Boolean): Option[Int] = {
+  def valueIsAPotentialValueMatchFindCount(value: String, property: String, isSubject: Boolean)(implicit knowledgeGraph: KnowledgeGraph): Option[Int] = {
     QueryFactory.getValueMatchFromExistingDb(value, property) match {
       case Some(s) => return Some(s)
       case None => {

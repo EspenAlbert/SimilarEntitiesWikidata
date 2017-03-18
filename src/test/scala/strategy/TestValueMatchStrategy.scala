@@ -1,5 +1,6 @@
 package strategy
 
+import core.globals.KnowledgeGraph
 import core.rdf.GraphRDF
 import org.scalatest.FunSuite
 import core.strategies.{MasterStrategy, PropMatchStrategy, Strategy, ValueMatchStrategy}
@@ -9,6 +10,7 @@ import similarityFinder.MyConfiguration
   * Created by Espen on 11.11.2016.
   */
 class TestValueMatchStrategy extends FunSuite{
+  implicit val knowledgeGraph = KnowledgeGraph.wikidata
   test("Value match strategy should work") {
     val st1Count = MyConfiguration.valueMatchBoost * MasterStrategy.logarithmicWeightForCount(2)
     val st2Count = MyConfiguration.valueMatchBoost * MasterStrategy.logarithmicWeightForCount(5)

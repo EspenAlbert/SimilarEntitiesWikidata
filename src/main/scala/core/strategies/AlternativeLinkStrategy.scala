@@ -1,6 +1,7 @@
 package core.strategies
 import core.feature.Feature
 import core.globals.FeatureType
+import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.rdf.GraphRDF
 
 import scala.collection.mutable
@@ -19,7 +20,7 @@ case class AlternativeLinkStrategy(property: String, others : Set[String], isSub
       case _ => false
     }
   }
-  override def execute(otherEntities: List[GraphRDF]): Map[String, Feature] = {
+  override def execute(otherEntities: List[GraphRDF])(implicit knowledgeGraph: KnowledgeGraph): Map[String, Feature] = {
     val featureMap = mutable.Map[String, Feature]()
     for (other <- otherEntities) {
       val entity: String = other.entity
@@ -30,6 +31,6 @@ case class AlternativeLinkStrategy(property: String, others : Set[String], isSub
     return featureMap.toMap
   }
 
-  override def findSimilars(): List[String] = throw new Exception("This strategy is not suited to find similars !!")
+  override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): List[String] = throw new Exception("This strategy is not suited to find similars !!")
 
 }

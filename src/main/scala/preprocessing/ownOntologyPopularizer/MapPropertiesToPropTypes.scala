@@ -15,7 +15,6 @@ import scala.util.matching.Regex
   */
 object MapPropertiesToPropTypes {
 
-  val dummyTest = false
   def getPropertiesByReadingFile(): List[String] = {
     return Source.fromFile("output/domainCounts.nt").getLines().map{l =>
       l.split(" ")(0).drop(1).dropRight(1)
@@ -25,7 +24,7 @@ object MapPropertiesToPropTypes {
   def filterGeoPropertyTypes(properties: List[String])(implicit dataset: KnowledgeGraph) : List[String] = {
     dataset match {
       case KnowledgeGraph.wikidata => {
-        val geoProperty = ".*(P\\d+q?l[ao]).*".r
+        val geoProperty = ".*(P\\d+l[ao]).*".r
         return properties.filter{case geoProperty(pid) => true; case _ => false}
       }
       case KnowledgeGraph.dbPedia => {
@@ -45,22 +44,19 @@ object MapPropertiesToPropTypes {
     }
   }
 
-  def findAllPropertyTypesAndTheirPropertyDatatype(): Map[String, PropertyType] = {
+  def findAllPropertyTypesAndTheirPropertyDatatype(propertiesInput: List[String]= Nil)(implicit dataset: KnowledgeGraph): Map[String, PropertyType] = {
     val propertyToPropertyDatatype = mutable.Map[String, PropertyType]()
 
-    val properties = if(dummyTest) getPropertiesByReadingFile() else QueryFactory.findAllDistinctProperties
+    val properties = if(propertiesInput == Nil) QueryFactory.findAllDistinctProperties else propertiesInput
     val coordinateProperties = filterGeoPropertyTypes(properties)
     val ordinaryProperties = filterOrdinaryProperties(properties)
-    println(s"Coordinate properties: $coordinateProperties")
-    println(s"ordinaryProperties: $ordinaryProperties")
-    println(s"Other properties: ${properties.filterNot(coordinateProperties.contains(_)).filterNot(ordinaryProperties.contains(_))}")
     for(p <- ordinaryProperties) {
       try {
         val datatypes = QueryFactory.findAllDistinctDatatypesForProperty(p)
         val datatypesInStringFormat = datatypes.map {
           PrimitiveDatatype.getDatatypeAsStringFromResult(_)
         }.
-          filter { case Some(s) => true; case _ => false }.
+          filter { _.isDefined }.
           map { case Some(s) => s }
         PrimitiveDatatype.getPropertyTypeFromDatatypes(datatypesInStringFormat) match {
           case Some(pType) => propertyToPropertyDatatype += (p -> pType)
@@ -76,9 +72,10 @@ object MapPropertiesToPropTypes {
         case a : Throwable => println(a); println(s"Had an error find datatype for: $p")
       }
     }
-    return propertyToPropertyDatatype.toMap
+    val mapGeoProps = coordinateProperties.map(prop => (prop -> GlobeCoordinatePropertyType())).toMap
+    return propertyToPropertyDatatype.toMap ++ mapGeoProps
   }
-  def dumpMappingToOwnOntologyDS(mapping : Map[String, PropertyType]) = {
-    DumpObject.dumpJsonMapStringPropertyType(mapping, "propToTypeMapping2")
+  def dumpMappingToOwnOntologyDS(mapping : Map[String, PropertyType])(implicit dataset: KnowledgeGraph) = {
+    DumpObject.dumpJsonMapStringPropertyType(mapping, s"$dataset-propToTypeMapping")
   }
 }

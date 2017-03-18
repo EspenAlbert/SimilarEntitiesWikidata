@@ -2,6 +2,7 @@ package main
 
 import java.io.PrintWriter
 
+import core.globals.KnowledgeGraph
 import core.query.specific.UpdateQueryFactory
 import core.rdf.GraphRDF
 import iAndO.dataset.ArtistDatasetReader
@@ -16,6 +17,7 @@ import scala.collection.mutable.{ArrayBuffer, ListBuffer}
   * Created by Espen on 02.11.2016.
   */
 class TestSimilarityFinder2 extends FunSuite{
+  implicit val knowledgeGraph = KnowledgeGraph.wikidata
   test("similarities for obama") {
     SimilarityFinder.findTopKSimilarTo("w:Q76", 10)
   }

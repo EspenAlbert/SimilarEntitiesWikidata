@@ -3,6 +3,7 @@ package core.strategies
 import breeze.numerics.abs
 import core.feature.Feature
 import core.globals.FeatureType
+import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.rdf.GraphRDF
 
 import scala.collection.mutable
@@ -29,7 +30,7 @@ case class DateComparisonStrategy(property: String, value : String, override val
     else return score
   }
 
-  override def execute(otherEntities: List[GraphRDF]): Map[String, Feature] = {
+  override def execute(otherEntities: List[GraphRDF])(implicit knowledgeGraph: KnowledgeGraph): Map[String, Feature] = {
     val featureMap = mutable.Map[String, Feature]()
     for (other <- otherEntities) {
       val entity: String = other.entity
@@ -42,7 +43,7 @@ case class DateComparisonStrategy(property: String, value : String, override val
     return featureMap.toMap
   }
 
-  override def findSimilars(): List[String] = {
+  override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): List[String] = {
     return Nil //Not worth it at the moment
   }
 }

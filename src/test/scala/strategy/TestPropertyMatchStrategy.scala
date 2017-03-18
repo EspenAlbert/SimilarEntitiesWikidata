@@ -1,5 +1,6 @@
 package strategy
 
+import core.globals.KnowledgeGraph
 import core.rdf.GraphRDF
 import org.scalatest.FunSuite
 import core.strategies.{PropMatchStrategy, Strategy}
@@ -8,6 +9,7 @@ import core.strategies.{PropMatchStrategy, Strategy}
   * Created by Espen on 11.11.2016.
   */
 class TestPropertyMatchStrategy extends FunSuite{
+  implicit val knowledgeGraph = KnowledgeGraph.wikidata
   test("Sorting a strategy should work") {
     val strategy = PropMatchStrategy("http://www.wikidata.org/entity/P991",false,8.471149252914831,List("http://www.wikidata.org/entity/Q5"))
     val strategy2 = PropMatchStrategy("http://www.wikidata.org/entity/P244",true,4.007333185232471,List("http://www.wikidata.org/entity/Q5"))

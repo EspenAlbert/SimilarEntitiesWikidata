@@ -42,14 +42,14 @@ TestPrimitiveDatatype  extends FunSuite {
       assert(getPropertyTypeFromDatatypes(List(d)).getOrElse("Fail").isInstanceOf[StringPropertyType])
     }
   }
-  test("determineFromObjectValuePropertyType") {
+  test("determineFromObjectValuePropertyType wikidata") {
+    implicit val knowledgeGraph = KnowledgeGraph.wikidata
     val optionForPropTypeExpectItempPropType = determineFromObjectValuePropertyType("http://www.wikidata.org/entity/P6")
     assert(optionForPropTypeExpectItempPropType.getOrElse("faill").isInstanceOf[ItemPropertyType])
     val optionForPropTypeExpectIString = determineFromObjectValuePropertyType("http://www.wikidata.org/entity/P1036")
     assert(optionForPropTypeExpectIString.getOrElse("faill").isInstanceOf[StringPropertyType])
     val optionForPropTypeExpectUrlType = determineFromObjectValuePropertyType("http://www.wikidata.org/entity/P1581")
     assert(optionForPropTypeExpectUrlType.getOrElse("faill").isInstanceOf[UrlPropertyType])
-
   }
 
 }

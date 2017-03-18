@@ -3,7 +3,7 @@ package preprocessing.ownOntologyPopularizer
 import core.globals._
 import iAndO.dump.DumpObject
 import org.scalatest.FunSuite
-import preprocessing.ownOntologyPopularizer.attributesGenerator.AttributeGeneratorv2._
+import preprocessing.ownOntologyPopularizer.attributesGenerator.PropTypeToStrategyCreator._
 
 import scala.collection.mutable
 /**
@@ -13,6 +13,8 @@ class TestAttributeGeneratorv2 extends FunSuite{
   val exampleProperty = "http://wwww.example.com/test/property1"
   val exampleProperty2 = "http://wwww.example.com/test/property2"
   val exampleProperty3 = "http://wwww.example.com/test/property3"
+  implicit val knowledgeGraph = KnowledgeGraph.wikidata
+
   test("addMetaKnowledgeToDatabase should work") {
     addMetaKnowledgeToDatabase(mutable.Map[String, Int]((exampleProperty -> 10)), mutable.Map[String, Int]((exampleProperty -> 20)))
   }

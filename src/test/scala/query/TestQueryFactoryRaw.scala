@@ -1,11 +1,13 @@
 package query
 
+import core.globals.KnowledgeGraph
 import org.scalatest.FunSuite
 import core.query.specific.QueryFactory._
 /**
   * Created by espen on 20.02.17.
   */
 class TestQueryFactoryRaw extends FunSuite{
+  implicit val knowledgeGraph = KnowledgeGraph.wikidata
   test("Should be able to find all datatypes for a property") {
     val dTypes = findAllDistinctDatatypesForProperty("http://www.wikidata.org/entity/P6")
     println(dTypes)

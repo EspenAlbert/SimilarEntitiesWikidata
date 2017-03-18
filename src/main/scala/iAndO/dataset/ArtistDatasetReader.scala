@@ -1,5 +1,6 @@
 package iAndO.dataset
 
+import core.globals.KnowledgeGraph
 import core.query.specific.QueryFactory
 import iAndO.dump.DumpObject
 
@@ -15,7 +16,7 @@ object ArtistDatasetReader {
   private def findWikidataId(objectValue: String, musicbrainzIdPropertyName : String): Option[String]= {
     if(failedIds.exists( _ == objectValue)) return None
     try {
-      Some(QueryFactory.singleSubjectWithPropertyAndValue(musicbrainzIdPropertyName, objectValue))
+      Some(QueryFactory.singleSubjectWithPropertyAndValue(musicbrainzIdPropertyName, objectValue)(KnowledgeGraph.wikidata))
     } catch {
       case _ => None
     }

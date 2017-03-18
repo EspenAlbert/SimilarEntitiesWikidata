@@ -1,6 +1,7 @@
 package core.strategies
 import core.feature.Feature
 import core.globals.FeatureType
+import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.rdf.GraphRDF
 
 import scala.collection.mutable
@@ -16,7 +17,7 @@ case class DirectLinkStrategy(property: String, others : Set[String], override v
 //      case _ => false
 //    }
 //  }
-  override def execute(otherEntities: List[GraphRDF]): Map[String, Feature] = {
+  override def execute(otherEntities: List[GraphRDF])(implicit knowledgeGraph: KnowledgeGraph): Map[String, Feature] = {
     val featureMap = mutable.Map[String, Feature]()
     for (other <- otherEntities) {
       val entity: String = other.entity
@@ -25,7 +26,7 @@ case class DirectLinkStrategy(property: String, others : Set[String], override v
     return featureMap.toMap
   }
 
-  override def findSimilars(): List[String] = {
+  override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): List[String] = {
     others.toList
 //    val statment = if(isSubject) SimpleRDFFactory.getStatement((entity, property, "?o " + OptionsForResultQueryVariable.sameTypeFilter + "_" + rdfType))
 //    else SimpleRDFFactory.getStatement(("?s " + OptionsForResultQueryVariable.sameTypeFilter + "_" + rdfType, property, entity))

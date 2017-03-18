@@ -1,6 +1,7 @@
 package similarityFinder
 
 import core.feature.Feature
+import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.rdf.GraphRDF
 import core.strategies.{Strategy, StrategyGenerator}
 import similarityFinder.displayer.Displayer
@@ -15,12 +16,12 @@ import scala.collection.{Set, mutable}
 object SimilarityFinder {
   val SKIP_PRINTING = true
   val USE_PRUNING = true
-  def findTopKSimilarTo(entity : String, topK : Int) : List[SimilarEntity] = {
+  def findTopKSimilarTo(entity : String, topK : Int)(implicit knowledgeGraph: KnowledgeGraph) : List[SimilarEntity] = {
     val (entityGraph: GraphRDF, sortedStrategies: Array[Strategy]) = findGraphAndStrategiesForEntity(entity)
     return findSimilarToEntityWithStrategies(topK, entityGraph, sortedStrategies)
   }
 
-  def findGraphAndStrategiesForEntity(entity: String) = {
+  def findGraphAndStrategiesForEntity(entity: String)(implicit knowledgeGraph: KnowledgeGraph) = {
     val entityGraph = new GraphRDF(entity)
     val strategies = StrategyGenerator.generateStrategies(entityGraph)
     val sortedStrategies = strategies.sorted
@@ -28,13 +29,13 @@ object SimilarityFinder {
   }
 
 
-  def findSimilarToEntityWithStrategies(topK: Int, entityGraph: GraphRDF, sortedStrategies: Array[Strategy]): List[SimilarEntity] = {
+  def findSimilarToEntityWithStrategies(topK: Int, entityGraph: GraphRDF, sortedStrategies: Array[Strategy])(implicit knowledgeGraph: KnowledgeGraph): List[SimilarEntity] = {
     val otherEntities: Set[String] = if(!USE_PRUNING) findSimilarsUnranked(sortedStrategies) else findSimilarsUnrankedWithPruning(sortedStrategies)
     println("Similars found : ", otherEntities.size)
     return calculateAndRankSimilarity(topK, entityGraph, sortedStrategies, otherEntities)
   }
 
-  def calculateAndRankSimilarity(topK: Int, entityGraph: GraphRDF, sortedStrategies: Array[Strategy], otherEntities: Set[String]): List[SimilarEntity] = {
+  def calculateAndRankSimilarity(topK: Int, entityGraph: GraphRDF, sortedStrategies: Array[Strategy], otherEntities: Set[String])(implicit knowledgeGraph: KnowledgeGraph): List[SimilarEntity] = {
     val otherEntitiesAsGraphs = otherEntities.map((s) => new GraphRDF(s)).toList
     val featureMap = mutable.Map[String, ListBuffer[Feature]]()
     for (s <- sortedStrategies) {
@@ -50,7 +51,7 @@ object SimilarityFinder {
     return ranked
   }
 
-  def findSimilarsUnranked(sortedStrategies: Array[Strategy]): mutable.Set[String] = {
+  def findSimilarsUnranked(sortedStrategies: Array[Strategy])(implicit knowledgeGraph: KnowledgeGraph): mutable.Set[String] = {
     val otherEntities = mutable.Set[String]()
     var i = 0
     while (otherEntities.toList.length < 1000 && i < sortedStrategies.length) {
@@ -61,7 +62,7 @@ object SimilarityFinder {
     }
     return otherEntities
   }
-  def findSimilarsUnrankedWithPruning(sortedStrategies: Array[Strategy]): Set[String] = {
+  def findSimilarsUnrankedWithPruning(sortedStrategies: Array[Strategy])(implicit knowledgeGraph: KnowledgeGraph): Set[String] = {
     val otherEntities = mutable.Map[String, Int]()
     var strategyNumber = 0
     while (!isFinishedWithPruning(sortedStrategies, otherEntities, strategyNumber)) {

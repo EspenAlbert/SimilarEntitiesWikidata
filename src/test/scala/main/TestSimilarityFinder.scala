@@ -4,7 +4,7 @@ import java.io.PrintWriter
 
 import breeze.numerics.log
 import core.feature.Feature
-import core.globals.{FeatureType, SimilarPropertyOntology}
+import core.globals.{FeatureType, KnowledgeGraph, SimilarPropertyOntology}
 import core.rdf.GraphRDF
 import iAndO.dataset.ArtistDatasetReader
 import iAndO.dump.DumpObject
@@ -21,6 +21,7 @@ import scala.collection.mutable.{ArrayBuffer, ListBuffer}
   * Created by Espen on 02.11.2016.
   */
 class TestSimilarityFinder extends FunSuite{
+  implicit val knowledgeGraph = KnowledgeGraph.wikidata
   test("similarities for obama") {
     SimilarityFinder.findTopKSimilarTo("w:Q76", 10)
   }

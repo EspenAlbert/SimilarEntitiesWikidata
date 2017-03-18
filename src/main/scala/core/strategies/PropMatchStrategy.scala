@@ -2,6 +2,7 @@ package core.strategies
 
 import core.feature.Feature
 import core.globals.FeatureType
+import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.query.specific.QueryFactory
 import core.rdf.GraphRDF
 
@@ -19,7 +20,7 @@ case class PropMatchStrategy(property : String, isSubject : Boolean, override  v
     }
   }
 
-  override def execute(otherEntities: List[GraphRDF]): Map[String, Feature] = {
+  override def execute(otherEntities: List[GraphRDF])(implicit knowledgeGraph: KnowledgeGraph): Map[String, Feature] = {
     val featureMap = mutable.Map[String, Feature]()
     for (other <- otherEntities) {
       val entity: String = other.entity
@@ -31,7 +32,7 @@ case class PropMatchStrategy(property : String, isSubject : Boolean, override  v
 
   }
 
-  override def findSimilars(): List[String] = {
+  override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): List[String] = {
     if(!findSimilarsActive) return Nil
     if(isSubject) return QueryFactory.findSubjectsOfTypeForProperty(property, rdfTypes)
     else return QueryFactory.findObjectsOfTypeForProperty(property, rdfTypes)

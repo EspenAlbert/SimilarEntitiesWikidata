@@ -1,40 +1,40 @@
 package core.query.specific
 
-import core.globals.{MyDatasets, PrimitiveDatatype, SimilarPropertyOntology}
+import core.globals.KnowledgeGraph.KnowledgeGraph
+import core.globals.{PrimitiveDatatype}
 import core.query.Query
 
 /**
   * Created by espen on 17.02.17.
   */
 object QueryFactory {
-  implicit var dataset = MyDatasets.DsBig
-  def singleSubjectWithPropertyAndValue(property: String, objectValue: String) : String ={
+  def singleSubjectWithPropertyAndValue(property: String, objectValue: String)(implicit knowledgeGraph : KnowledgeGraph) : String ={
     throw new NotImplementedError()
 }
 
-  def objectsOfTypeWithPropertyAndSubject(property: String, subject: String, rdfTypes: List[String]): List[String] = {
+  def objectsOfTypeWithPropertyAndSubject(property: String, subject: String, rdfTypes: List[String])(implicit knowledgeGraph : KnowledgeGraph): List[String] = {
     throw new NotImplementedError()
   }
-  def subjectsOfTypeWithPropertyAndValue(property: String, objectValue: String, rdfTypes: List[String]) : List[String] = {
-    throw new NotImplementedError()
-  }
-
-
-  def findObjectsOfTypeForProperty(property: String, rdfTypes: List[String])  : List[String] = {
+  def subjectsOfTypeWithPropertyAndValue(property: String, objectValue: String, rdfTypes: List[String])(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
     throw new NotImplementedError()
   }
 
-  def findSubjectsOfTypeForProperty(property: String, rdfTypes: List[String]) : List[String] = {
-    throw new NotImplementedError()
 
+  def findObjectsOfTypeForProperty(property: String, rdfTypes: List[String])(implicit knowledgeGraph : KnowledgeGraph)  : List[String] = {
+    throw new NotImplementedError()
   }
 
-  def findDistinctCountForPropertyWithSubject(property: String, subject: String) : Option[Int] = {
+  def findSubjectsOfTypeForProperty(property: String, rdfTypes: List[String])(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
     throw new NotImplementedError()
 
   }
 
-  def getValueMatchFromExistingDb(value: String, property: String): Option[Int] = {
+  def findDistinctCountForPropertyWithSubject(property: String, subject: String)(implicit knowledgeGraph : KnowledgeGraph) : Option[Int] = {
+    throw new NotImplementedError()
+
+  }
+
+  def getValueMatchFromExistingDb(value: String, property: String)(implicit knowledgeGraph : KnowledgeGraph): Option[Int] = {
     throw new NotImplementedError()
 
     //    try {
@@ -47,11 +47,11 @@ object QueryFactory {
 //      case a: Throwable => return None
 //    }
   }
-  def findDistinctCountForPropertyWithValue(property: String, objectValue: String) : Option[Int] = {
+  def findDistinctCountForPropertyWithValue(property: String, objectValue: String)(implicit knowledgeGraph : KnowledgeGraph) : Option[Int] = {
     throw new NotImplementedError()
   }
 
-  def findPropertiesAndObjects(subject: String) : Tuple2[List[String], List[String]] = {
+  def findPropertiesAndObjects(subject: String)(implicit knowledgeGraph : KnowledgeGraph) : Tuple2[List[String], List[String]] = {
     val queryString =
       s"""
          |SELECT ?o ?p
@@ -59,11 +59,10 @@ object QueryFactory {
          |  <$subject> ?p ?o.
          |}
         """.stripMargin
-    val query = new Query(() => queryString, DatasetInferrer.getDataset(queryString))
-    query.execute()
+    val query: Query = executeQuery(queryString)
     return Tuple2(query.getResults("o"), query.getResults("p"))
   }
-  def findSubjectsAndProperties(objectEntity: String) : Tuple2[List[String], List[String]] = {
+  def findSubjectsAndProperties(objectEntity: String)(implicit knowledgeGraph : KnowledgeGraph) : Tuple2[List[String], List[String]] = {
     val queryString =
       s"""
          |SELECT ?s ?p
@@ -71,12 +70,11 @@ object QueryFactory {
          |  ?s ?p <$objectEntity>.
          |}
         """.stripMargin
-    val query = new Query(() => queryString, DatasetInferrer.getDataset(queryString))
-    query.execute()
+    val query: Query = executeQuery(queryString)
     return Tuple2(query.getResults("s"), query.getResults("p"))
   }
 
-  def findDomainCount(prop: String) : Int = {
+  def findDomainCount(prop: String)(implicit knowledgeGraph : KnowledgeGraph) : Int = {
     val queryString =
       s"""
          |SELECT (count(distinct ?s) as ?c)
@@ -84,11 +82,10 @@ object QueryFactory {
          |  ?s <$prop> ?object .
          |}
         """.stripMargin
-    val query = new Query(() => queryString, DatasetInferrer.getDataset(queryString))
-    query.execute()
+    val query: Query = executeQuery(queryString)
     return query.getResults("c")(0)
   }
-  def findRangeCount(prop: String) : Int ={
+  def findRangeCount(prop: String)(implicit knowledgeGraph : KnowledgeGraph) : Int ={
     val queryString =
       s"""
          |SELECT (count(distinct ?object) as ?c)
@@ -96,11 +93,10 @@ object QueryFactory {
          |  ?s <$prop> ?object .
          |}
         """.stripMargin
-    val query = new Query(() => queryString, DatasetInferrer.getDataset(queryString))
-    query.execute()
+    val query: Query = executeQuery(queryString)
     return query.getResults("c")(0)
   }
-  def findMaxDate(prop: String) : Option[Int] = {
+  def findMaxDate(prop: String)(implicit knowledgeGraph : KnowledgeGraph) : Option[Int] = {
     val queryString =
       s"""
          |SELECT (MAX(?date) AS ?maxDate)
@@ -112,12 +108,11 @@ object QueryFactory {
          |  ?subject <$prop> ?date
          |}
        """.stripMargin
-    val query = new Query(() => queryString, DatasetInferrer.getDataset(queryString))
-    query.execute()
+    val query: Query = executeQuery(queryString)
     return PrimitiveDatatype.getYearFromDateFormat(query.getResults("maxDate")(0))
   }
 
-  def findAllDistinctProperties(implicit dataset : String = dataset) : List[String] = {
+  def findAllDistinctProperties(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
     val queryString =
       s"""
          |SELECT distinct ?p
@@ -125,14 +120,13 @@ object QueryFactory {
          |  ?s ?p ?o .
          |}
       """.stripMargin
-    val query = new Query(() => queryString, dataset)
-    query.execute()
+    val query: Query = executeQuery(queryString)
     return query.getResults("p")
   }
 
 
   //Always expectign full URI without <>  for property
-  def findAllDistinctDatatypesForProperty(property : String) : List[String] = {
+  def findAllDistinctDatatypesForProperty(property : String)(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
     val queryString =
       s"""
         |SELECT distinct ?b
@@ -141,12 +135,10 @@ object QueryFactory {
         |  bind(datatype(?object) as ?b)
         |}
       """.stripMargin
-    val query = new Query(() => queryString, dataset)
-    query.execute()
+    val query: Query = executeQuery(queryString)
     return query.getResults("b")
   }
-
-  def find100SamplesForProperty(property : String) : List[String] = {
+  def find100SamplesForProperty(property : String)(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
     val queryString =
       s"""
          |select ?o
@@ -155,10 +147,16 @@ object QueryFactory {
          |  }
          |  LIMIT 100
        """.stripMargin
-    val query = new Query(() => queryString, DatasetInferrer.getDataset(queryString))
-    query.execute()
+    val query = executeQuery(queryString)
     return query.getResults("o")
   }
+
+  private def executeQuery(queryString: String)(implicit knowledgeGraph : KnowledgeGraph): Query = {
+    val query = new Query(() => queryString, DatasetInferrer.getDataset(queryString))
+    query.execute()
+    query
+  }
+
 
 
 

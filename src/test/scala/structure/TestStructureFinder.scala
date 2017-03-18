@@ -1,5 +1,6 @@
 package structure
 
+import core.globals.KnowledgeGraph
 import org.scalatest.FunSuite
 import org.scalatest.BeforeAndAfter
 import structureFinder.StructureFinder
@@ -7,6 +8,7 @@ import structureFinder.StructureFinder
   * Created by espen on 23.01.17.
   */
 class TestStructureFinder extends FunSuite{
+  implicit val knowledgeGraph = KnowledgeGraph.wikidata
   val entities = List(
     "http://www.wikidata.org/entity/Q76",
     "http://www.wikidata.org/entity/Q649593",

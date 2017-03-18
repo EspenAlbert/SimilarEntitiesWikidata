@@ -1,5 +1,6 @@
 package pruning
 
+import core.globals.KnowledgeGraph
 import org.scalatest.FunSuite
 import similarityFinder.SimilarityFinder
 
@@ -7,6 +8,7 @@ import similarityFinder.SimilarityFinder
   * Created by espen on 03.02.17.
   */
 class TestPruning extends FunSuite{
+  implicit val knowledgeGraph = KnowledgeGraph.wikidata
   test("Result for Elton John") {
     val (graph, strategies) = SimilarityFinder.findGraphAndStrategiesForEntity("http://www.wikidata.org/entity/Q2808")
     val foundSimilarsAlgorithm = SimilarityFinder.findSimilarsUnranked(strategies)

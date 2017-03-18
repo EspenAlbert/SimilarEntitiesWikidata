@@ -3,6 +3,7 @@ package core.globals
 /**
   * Created by Espen on 04.11.2016.
   */
+import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.globals.{DateTimePropertyType, ItemPropertyType, PropertyType, QuantityPropertyType, StringPropertyType, UrlPropertyType}
 import core.query.specific.{AskQuery, QueryFactory}
 object PrimitiveDatatype extends Enumeration{
@@ -30,6 +31,7 @@ object PrimitiveDatatype extends Enumeration{
     result match {
       case xmlSchemaPattern(v) => return Some(v)
       case rdfLangString(v) => return Some(v)
+      case "" => return None
       case _ => println(s"Unknown datatype $result");return None
     }
   }
@@ -64,7 +66,7 @@ object PrimitiveDatatype extends Enumeration{
     if(datatypes.exists(dateTypes.contains(_))) return Some(DateTimePropertyType())
     else None
   }
-  def determineFromObjectValuePropertyType(property : String) : Option[PropertyType] = {
+  def determineFromObjectValuePropertyType(property : String)(implicit knowledgeGraph: KnowledgeGraph) : Option[PropertyType] = {
     val itemPropertyQuery =
       s"""
         |ask

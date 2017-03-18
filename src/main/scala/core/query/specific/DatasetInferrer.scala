@@ -1,43 +1,31 @@
 package core.query.specific
 
-import core.globals.{MyDatasets, SimilarPropertyOntology}
+import core.globals.KnowledgeGraph.KnowledgeGraph
+import core.globals.{KnowledgeGraph, MyDatasets, SimilarPropertyOntology}
 
 /**
   * Created by Espen on 15.11.2016.
   */
 object DatasetInferrer {
-  def overrideDataset(SimilarProperties: String) : Unit= {
-    overrideDataset = SimilarProperties
-  }
-  var overrideDataset = ""
+
   val patternForValueMatchDataset = ("" + SimilarPropertyOntology.valueMatchClass + "|" +SimilarPropertyOntology.valueMatchCount + "|" + SimilarPropertyOntology.valueMatchValue + "").r
-  val patternForSimilarPropOntology = (SimilarPropertyOntology.spo + "").r
-  def getDataset(query : String) : String = {
-    if(overrideDataset != "") {
-      val oldValue = overrideDataset
-      overrideDataset = ""
-      return oldValue
-    }
-    patternForValueMatchDataset.findFirstIn(query) match {
-      case Some(s) => return MyDatasets.ValueMatch
-      case None => patternForSimilarPropOntology.findFirstMatchIn(query) match {
-        case Some(s) => return MyDatasets.SimilarProperties
-        case None => return MyDatasets.DsBig//CHANGE FOR YOUR DB
 
-      }
-
-    }
-  }
-  def getDatasetWithImplicit(query: String)(implicit dataset: String) : String = {
-    val ds = patternForValueMatchDataset.findFirstIn(query) match {
-      case Some(s) => MyDatasets.ValueMatch
-      case None => patternForSimilarPropOntology.findFirstMatchIn(query) match {
-        case Some(s) => MyDatasets.SimilarProperties
-        case None => MyDatasets.DsBig//CHANGE FOR YOUR DB
-
+  def getDataset(query: String)(implicit knowledgeGraph: KnowledgeGraph) : String = {
+    knowledgeGraph match {
+      case KnowledgeGraph.wikidata => {
+        return patternForValueMatchDataset.findFirstIn(query) match {
+          case Some(s) => MyDatasets.ValueMatch
+          case None => MyDatasets.DsBig
       }
     }
-    return dataset + "/"+ ds
-
+      case KnowledgeGraph.dbPedia => {
+        return patternForValueMatchDataset.findFirstIn(query) match {
+          case Some(s) => MyDatasets.ValueMatchDBpedia
+          case None => MyDatasets.DBpediaDS
+          }
+        }
+      case _ => throw new Exception("Couldn't find which knowledge graph you are using!")
+    }
   }
+
 }

@@ -1,7 +1,7 @@
 package strategy
 
 import core.feature.Feature
-import core.globals.PrimitiveDatatype
+import core.globals.{KnowledgeGraph, PrimitiveDatatype}
 import core.rdf.GraphRDF
 import org.scalatest.FunSuite
 import similarityFinder.ranker.Ranker
@@ -14,6 +14,7 @@ import scala.collection.mutable.ListBuffer
   * Created by Espen on 11.11.2016.
   */
 class TestDateComparisonStrategy extends FunSuite{
+  implicit val knowledgeGraph = KnowledgeGraph.wikidata
   test("DateComparison should work") {
     val st1Count = MyConfiguration.dateComparisonWeight * MasterStrategy.logarithmicWeightForCount(2)
     val st2Count = MyConfiguration.dateComparisonWeight * MasterStrategy.logarithmicWeightForCount(5)

@@ -5,6 +5,8 @@ package core.globals
   * Created by Espen on 04.11.2016.
   */
 object MyDatasets{
+  val ValueMatchDBpedia = throw new NotImplementedError()
+
   val DBpediaDS = "dsDBpedia"
 
 

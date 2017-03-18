@@ -1,5 +1,6 @@
 package core.strategies
 
+import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.globals.SimilarPropertyOntology
 import core.rdf.GraphRDF
 import similarityFinder.MyConfiguration
@@ -19,7 +20,7 @@ object StrategyGenerator {
 
   }
 
-  def generateStrategies(entityGraph: GraphRDF): Array[Strategy] = {
+  def generateStrategies(entityGraph: GraphRDF)(implicit knowledgeGraph: KnowledgeGraph): Array[Strategy] = {
     val strategies = new ArrayBuffer[Strategy]()
     for(prop <- entityGraph.getUniqueWikidataPropertiesWithoutTheMostCommon()) {
       val masterStrategy = new MasterStrategy(entityGraph.statements.filter((s) => statementHasProperty(prop, s)).toList, entityGraph.entity, entityGraph.getTypes)

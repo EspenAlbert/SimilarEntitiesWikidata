@@ -1,5 +1,6 @@
 package strategy
 
+import core.globals.KnowledgeGraph
 import core.rdf.GraphRDF
 import org.scalatest.FunSuite
 import core.strategies._
@@ -8,6 +9,7 @@ import core.strategies._
   * Created by Espen on 11.11.2016.
   */
 class TestStrategyGenerator extends FunSuite{
+  implicit val knowledgeGraph = KnowledgeGraph.wikidata
   test("The correct core.strategies for obama are created") {
     val strategies = StrategyGenerator.generateStrategies(new GraphRDF("w:Q76"))
     print(strategies)
