@@ -11,18 +11,18 @@ import similarityFinder.MyConfiguration
   */
 class TestInBNotInAAndInANotInBStrategy extends FunSuite{
   implicit val knowledgeGraph = KnowledgeGraph.wikidata
-  test("Sorting the core.strategies should work") {
-    val st1Count = MyConfiguration.inBNotInABoost * MasterStrategy.logarithmicWeightForCount(2)
-    val st2Count = MyConfiguration.inBNotInABoost * MasterStrategy.logarithmicWeightForCount(5)
-    val strategy = InBNotInAStrategy("http://www.wikidata.org/entity/P21",true, List("http://www.wikidata.org/entity/Q1052281"),st1Count)
-    val strategy2 = InBNotInAStrategy("http://www.wikidata.org/entity/P21",true, List("http://www.wikidata.org/entity/Q6581097"),st2Count)
-
-    val list = List[Strategy](strategy, strategy2)
-    val sortedList = list.sorted
-    assert(sortedList(0) == strategy2)//Woops, remember they are negative...
-    assert(sortedList(1) == strategy)
-    assert(strategy.findSimilars() == Nil)
-  }
+//  test("Sorting the core.strategies should work") {
+//    val st1Count = MyConfiguration.inBNotInABoost * MasterStrategy.logarithmicWeightForCount(2)
+//    val st2Count = MyConfiguration.inBNotInABoost * MasterStrategy.logarithmicWeightForCount(5)
+//    val strategy = InBNotInAStrategy("http://www.wikidata.org/entity/P21",true, List("http://www.wikidata.org/entity/Q1052281"),st1Count)
+//    val strategy2 = InBNotInAStrategy("http://www.wikidata.org/entity/P21",true, List("http://www.wikidata.org/entity/Q6581097"),st2Count)
+//
+//    val list = List[Strategy](strategy, strategy2)
+//    val sortedList = list.sorted
+//    assert(sortedList(0) == strategy2)//Woops, remember they are negative...
+//    assert(sortedList(1) == strategy)
+//    assert(strategy.findSimilars() == Nil)
+//  }
 //  test("Creating the inBNotInA strategy from master strategy for a transgender female, then checking that obama will get a feature in BnotInA") {
 //    val strategies = MasterStrategy.matchStrategyClassNameToStrategy("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#ValueMatchObjectStrategy", "http://www.wikidata.org/entity/P21",
 //      domain = List(), range = List("http://www.wikidata.org/entity/Q1052281"), rdfTypes ="http://www.wikidata.org/entity/Q5", entity= "http://www.wikidata.org/entity/Q16489")

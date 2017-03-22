@@ -11,7 +11,10 @@ import core.rdf.GraphRDF
 trait Strategy extends Ordered[Strategy]{
   def execute(otherEntities: List[GraphRDF])(implicit knowledgeGraph: KnowledgeGraph): Map[String, Feature]
   def findSimilars()(implicit knowledgeGraph: KnowledgeGraph) : List[String]
-  val weight : Double
+//  val weight : Double
+  def weight : Double = {
+    return StrategyWeighter.getWeight(this)
+  }
   override def compare(that: Strategy): Int = {
     val otherHasHeigherWeight = that.weight - this.weight
     if(otherHasHeigherWeight > 0) return 1

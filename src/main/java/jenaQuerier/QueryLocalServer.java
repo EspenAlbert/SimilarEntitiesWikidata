@@ -66,10 +66,12 @@ public class QueryLocalServer {
         query(queryString, outputStream, "ds");
     }
     public static void query(String queryString, OutputStream outputStream, String dataset ) {
+        System.out.println("about to execute query");
         Query query = QueryFactory.create(queryString);
         QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/" + dataset +"/query", queryString);
         try {
             ResultSet results = qexec.execSelect();
+            System.out.println("done executing query");
 
             ResultSetFormatter.out(outputStream, results, query);
         } catch (Exception ex) {
@@ -99,6 +101,16 @@ public class QueryLocalServer {
 //            System.out.println(remote.getDatasetGraph());
         } catch(Exception e) {
 //            System.out.println(e);
+        }
+    }
+    public static void deleteLocalData(String dataset, String where) {
+        UpdateRequest update = UpdateFactory.create("delete { "+ where + " } where { " + where + "}");
+        UpdateProcessor remote = UpdateExecutionFactory.createRemote(update, "http://localhost:3030/" + dataset + "/update");
+        try {
+            remote.execute();
+//            System.out.println(remote.getDatasetGraph());
+        } catch(Exception e) {
+            System.out.println(e);
         }
     }
     public static void queryOnlineWikidata(String queryString, OutputStream outputStream ) {

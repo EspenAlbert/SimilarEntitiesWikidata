@@ -26,9 +26,9 @@ object StrategyGenerator {
       val masterStrategy = new MasterStrategy(entityGraph.statements.filter((s) => statementHasProperty(prop, s)).toList, entityGraph.entity, entityGraph.getTypes)
       strategies.append(masterStrategy.getCompositeStrategies() : _*)
     }
-    if(MyConfiguration.globalInBNotInAActive) {
-      strategies.append(InBNotInAGlobalStrategy(entityGraph, MyConfiguration.globalInBNotInABoost * MasterStrategy.logarithmicWeightForCount(SimilarPropertyOntology.maxCountForProperties.toString.toInt / 2)))
-    }
+//    if(MyConfiguration.globalInBNotInAActive) {
+//      strategies.append(InBNotInAGlobalStrategy(entityGraph, MyConfiguration.globalInBNotInABoost * MasterStrategy.logarithmicWeightForCount(SimilarPropertyOntology.maxCountForProperties.toString.toInt / 2)))
+//    }
     return strategies.toArray
   }
 }

@@ -9,7 +9,7 @@ import scala.collection.mutable
 /**
   * Created by Espen on 11.11.2016.
   *///AlternativeLinkStrategy(property, Set() ++ filteredRange, true, logarithmicWeight(filteredRange.length))
-case class AlternativeLinkStrategy(property: String, others : Set[String], isSubject: Boolean, override val weight : Double) extends Strategy{
+case class AlternativeLinkStrategy(property: String, others : Set[String], isSubject: Boolean) extends Strategy{
 
   def isOppositeOfIsSubjectForProperty(tuple : (String, String, String), entity : String) : Boolean = {
     if(isSubject) tuple match {

@@ -11,7 +11,7 @@ import scala.collection.mutable
 /**
   * Created by Espen on 11.11.2016.
   */
-case class ValueMatchStrategy(property: String, isSubject: Boolean, value : String, rdfTypes : List[String], override val weight: Double, findSimilarsActive : Boolean = true) extends Strategy{
+case class ValueMatchStrategy(property: String, isSubject: Boolean, value : String, rdfTypes : List[String], dbCount: Int) extends Strategy{
 
   override def execute(otherEntities: List[GraphRDF])(implicit knowledgeGraph: KnowledgeGraph): Map[String, Feature] = {
     val featureMap = mutable.Map[String, Feature]()
@@ -37,7 +37,6 @@ case class ValueMatchStrategy(property: String, isSubject: Boolean, value : Stri
   }
 
   override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): List[String] = {
-    if(!findSimilarsActive) return Nil
     return if(isSubject) QueryFactory.subjectsOfTypeWithPropertyAndValue(property, value, rdfTypes) else
       QueryFactory.objectsOfTypeWithPropertyAndSubject(property, value, rdfTypes)
   }

@@ -6,33 +6,50 @@ import core.query.specific.QueryFactory
 
 import scala.collection.mutable
 import scala.collection.mutable.ArrayBuffer
-
+import scala.concurrent.{Await, Future, future}
+import scala.concurrent.duration._
+import scala.util.{Failure, Success}
+import scala.concurrent.ExecutionContext.Implicits.global
 /**
   * Created by Espen on 09.11.2016.
   */
 class GraphRDF(val entity : String)(implicit val knowledgeGraph: KnowledgeGraph) {
-  def findScalingFactor(graph: GraphRDF) : Double = {
-    val otherEntity = graph.entity
-    var overlaps = 0
-    for(statement <- graph.statements) {
-      statement match {
-        case (`otherEntity`, p, value) => if(getProperties(s=true).exists(_ == p)) overlaps += 1
-        case (value, p, `otherEntity`) => if(getProperties(o=true).exists(_ == p)) overlaps += 1
-      }
-    }
-    return overlaps.toDouble /  graph.statements.size
-  }
 
-  val entityIsObjectStatements = QueryFactory.findSubjectsAndProperties(entity)
+  val entityIsObjectStatements = Future{
+    QueryFactory.findSubjectsAndProperties(entity)
+  }
+  val entityIsSubjectStatments = Future{
+    QueryFactory.findPropertiesAndObjects(entity)
+  }
   val statements = mutable.Set[Tuple3[String, String, String]]()
-  for((subject, property) <- entityIsObjectStatements._1 zip entityIsObjectStatements._2) {
-    statements.add((subject, property, entity))
+  val statementsList = List(("a", "b", "c"))
+//  val statementsList = (for((subject, property) <- entityIsObjectStatements._1 zip entityIsObjectStatements._2)yield (subject, property, entity))
+//    .++(for((property, objectValue) <- entityIsSubjectStatments._2 zip entityIsSubjectStatments._1) yield (entity, property, objectValue))
+
+//  val s2 = Future {
+//    val a = (for {
+//      (s, p) <- entityIsObjectStatements._1 zip entityIsObjectStatements._2
+//      (p, o) <- entityIsSubjectStatments._2 zip entityIsSubjectStatments._1
+//    }yield List((s,p, entity),(entity,p, o)))
+//    println(s"Full length: ${a.length}")
+//    a
+//  }
+//  val s3 = Await.result(s2, 10 seconds)
+  def getStringIterable: List[(String,String,String)]= {
+    val eIsObject = Await.result(entityIsObjectStatements, 10 seconds)
+    val eIsSubject = Await.result(entityIsSubjectStatments, 10 seconds)
+    val statements = (for ((subject, property) <- eIsObject._1 zip eIsObject._2) yield (subject, property, entity))
+      .++(for ((property, objectValue) <- eIsSubject._2 zip eIsSubject._1) yield (entity, property, objectValue))
+    return statements.toList
   }
-  val entityIsSubjectStatments = QueryFactory.findPropertiesAndObjects(entity)
-  for((property, objectValue) <- entityIsSubjectStatments._2 zip entityIsSubjectStatments._1) {
-    statements.add((entity, property, objectValue))
-  }
-  val statementsList = statements.toList
+//  val preparedList = Future[List[(String, String, String)]](statementsList)
+//  val b = preparedList.onComplete()
+//  private val statementsList2 = statements.toList
+//  def getStatementsList(): List[(String, String, String)] = {
+//    Thread.sleep(1000)
+//    return statementsList2
+//  }
+  val executionIsDone = true
   def isType(s: (String, String, String)): Boolean = {
     s match {
       case (s, "http://www.wikidata.org/entity/P31", o) => true
@@ -43,6 +60,17 @@ class GraphRDF(val entity : String)(implicit val knowledgeGraph: KnowledgeGraph)
 
   def getTypes : List[String] = {
     return statementsList.filter((s) => isType(s)).map(_._3)
+  }
+  def findScalingFactor(graph: GraphRDF) : Double = {
+    val otherEntity = graph.entity
+    var overlaps = 0
+    for(statement <- graph.statements) {
+      statement match {
+        case (`otherEntity`, p, value) => if(getProperties(s=true).exists(_ == p)) overlaps += 1
+        case (value, p, `otherEntity`) => if(getProperties(o=true).exists(_ == p)) overlaps += 1
+      }
+    }
+    return overlaps.toDouble /  graph.statements.size
   }
   def getProperties(s : Boolean = false, o : Boolean = false) : List[String] = {
     val properties = ArrayBuffer[String]()

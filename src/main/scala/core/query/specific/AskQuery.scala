@@ -66,7 +66,7 @@ object AskQuery {
   }
 
   def ask(f : () => String)(implicit knowledgeGraph: KnowledgeGraph) : Boolean = {
-    return QueryLocalServer.ask(QueryLocalServer.convertToMutlipleGraphQueryWithoutSelect(f()), DatasetInferrer.getDataset(f()))
+    return QueryLocalServer.ask(s"ask WHERE {${f()} }", DatasetInferrer.getDataset(f()))
   }
 
 

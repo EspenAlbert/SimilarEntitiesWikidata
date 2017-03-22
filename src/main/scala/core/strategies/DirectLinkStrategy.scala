@@ -9,7 +9,7 @@ import scala.collection.mutable
 /**
   * Created by Espen on 11.11.2016.
   */
-case class DirectLinkStrategy(property: String, others : Set[String], override val weight: Double) extends Strategy{
+case class DirectLinkStrategy(property: String, others : Set[String]) extends Strategy{
 //  def fullMatch(tuple: (String, String, String), otherEntity : String): Boolean = {
 //    return tuple match {
 //      case (`otherEntity`, `property`, `entity`) => true

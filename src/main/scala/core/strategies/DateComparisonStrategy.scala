@@ -12,7 +12,7 @@ import similarityFinder.MyConfiguration
 /**
   * Created by Espen on 11.11.2016.
   *///AlternativeLinkStrategy(property, Set() ++ filteredRange, true, logarithmicWeight(filteredRange.length))
-case class DateComparisonStrategy(property: String, value : String, override val weight : Double ) extends Strategy{
+case class DateComparisonStrategy(property: String, value : String, dbCountProperty: Int ) extends Strategy{
   def otherHasSameTimeProperty(tuple : (String, String, String)) : Boolean = {
      tuple match {
       case (s, `property`, timevalue) => true
@@ -46,8 +46,4 @@ case class DateComparisonStrategy(property: String, value : String, override val
   override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): List[String] = {
     return Nil //Not worth it at the moment
   }
-}
-object DateComparisonStrategy {
-
-
 }

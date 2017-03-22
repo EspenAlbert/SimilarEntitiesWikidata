@@ -1,13 +1,32 @@
 package core.query.specific
 
 import core.globals.KnowledgeGraph.KnowledgeGraph
-import core.globals.{PrimitiveDatatype}
+import core.globals.{KnowledgeGraph, PrimitiveDatatype}
 import core.query.Query
+
+import scala.concurrent.{ExecutionContext, Future}
 
 /**
   * Created by espen on 17.02.17.
   */
 object QueryFactory {
+
+  def findAllStrategies()(implicit knowledgeGraph: KnowledgeGraph) : (List[String], List[String]) = {
+    val queryString =
+      s"""
+         |PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+         |SELECT *
+         |WHERE {
+         |  ?property rdf:type ?strategy
+         |}
+        """.stripMargin
+    val query = executeQuery(queryString, KnowledgeGraph.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
+    val properties = query.getResults("property")
+    val strategies = query.getResults("strategy")
+
+    return (properties,strategies)
+  }
+
   def singleSubjectWithPropertyAndValue(property: String, objectValue: String)(implicit knowledgeGraph : KnowledgeGraph) : String ={
     throw new NotImplementedError()
 }
@@ -51,6 +70,24 @@ object QueryFactory {
     throw new NotImplementedError()
   }
 
+  import scala.concurrent.ExecutionContext.Implicits.global
+  def findPropertiesAndObjectsFuture(subject: String):Future[Tuple2[List[String], List[String]]] = {
+    implicit val knowledgeGraph = KnowledgeGraph.wikidata
+    return Future {
+      println("Executing future...")
+      findPropertiesAndObjects(subject)
+    }
+  }
+  def findPropertiesAndObjectsFuture2(subject: String)(implicit ec: ExecutionContext):Future[Int] = {
+    implicit val knowledgeGraph = KnowledgeGraph.wikidata
+  import scala.concurrent.ExecutionContext.Implicits.global
+
+  return Future {
+      println("Executing future...")
+      1000
+//      findPropertiesAndObjects(subject)
+    }
+  }
   def findPropertiesAndObjects(subject: String)(implicit knowledgeGraph : KnowledgeGraph) : Tuple2[List[String], List[String]] = {
     val queryString =
       s"""
@@ -151,8 +188,8 @@ object QueryFactory {
     return query.getResults("o")
   }
 
-  private def executeQuery(queryString: String)(implicit knowledgeGraph : KnowledgeGraph): Query = {
-    val query = new Query(() => queryString, DatasetInferrer.getDataset(queryString))
+  private def executeQuery(queryString: String, datasetForced: String = "")(implicit knowledgeGraph : KnowledgeGraph): Query = {
+    val query = new Query(() => queryString, if(datasetForced != "") datasetForced else DatasetInferrer.getDataset(queryString))
     query.execute()
     query
   }

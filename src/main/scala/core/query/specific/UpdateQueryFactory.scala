@@ -25,6 +25,9 @@ object UpdateQueryFactory {
   def cleanDataset(dataset : String): Unit = {
     QueryLocalServer.deleteLocalData(dataset)
   }
+  def cleanDatasetWhere(dataset: String, query: String) : Unit = {
+    QueryLocalServer.deleteLocalData(dataset,query)
+  }
   def addStatementCount(entity: String, count : Int) = {
     QueryLocalServer.updateLocalData(s"""insert { <${entity}> <${ResultsSimilarArtistsGlobals.statementCount}> "${count}" } where {} """, MyDatasets.ResultsSimilarArtists)
   }

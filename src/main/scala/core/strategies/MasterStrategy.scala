@@ -25,14 +25,14 @@ class MasterStrategy (statements : List[Tuple3[String, String, String]], entity 
     if(isSubject) range.append(value) else domain.append(value)
   }
   private val strategies = ArrayBuffer[Strategy]()
-  val strategyStrings = StrategyFactory.getStrategies(property)
-    for (s <- strategyStrings) {
-      MasterStrategy.matchStrategyClassNameToStrategy(s, property, domain.toList, range.toList, entity, typeString) match {
-        case Some(s) => strategies.append(s :_*);
-        case _ => Unit
-      }
+//  val strategyStrings = StrategyFactory.getStrategies(property)
+//    for (s <- strategyStrings) {
+//      MasterStrategy.matchStrategyClassNameToStrategy(s, property, domain.toList, range.toList, entity, typeString) match {
+//        case Some(s) => strategies.append(s :_*);
+//        case _ => Unit
+//      }
 
-    }
+//    }
 
   def getCompositeStrategies() : List[Strategy] = {
     if(strategies.exists(_.isInstanceOf[DirectLinkStrategy])) return strategies.filterNot(_.isInstanceOf[ValueMatchStrategy]).toList
@@ -41,12 +41,6 @@ class MasterStrategy (statements : List[Tuple3[String, String, String]], entity 
 }
 //This is where all core.strategies are created
 object MasterStrategy {
-  def logarithmicWeightForCount(countForProperty: Int): Double = {
-    return log(maxCountForProperties / countForProperty)
-  }
-
-
-
   def getDomainAndRangeWithCorrectType(domain: List[String], range: List[String], rdfTypes: List[String])(implicit knowledgeGraph: KnowledgeGraph): (List[String], List[String]) = {
     val filteredRange = range.filter((s) => AskQuery.subjectHasType(s, rdfTypes))
     val filteredDomain = domain.filter((s) => AskQuery.subjectHasType(s, rdfTypes))
@@ -58,13 +52,11 @@ object MasterStrategy {
         val strategies = ArrayBuffer[Strategy]()
         if (range.nonEmpty) {
           val count = QueryFactory.findDomainCount(property)
-          val weight = getPropMatchWeight(count)
-          strategies.append(PropMatchStrategy(property, true, weight, rdfTypes, count < MyConfiguration.maxCountForValueMatchesToFindSimlars))
+          strategies.append(PropMatchStrategy(property, true, rdfTypes, count))
         }
         if (domain.nonEmpty) {
           val count = QueryFactory.findRangeCount(property)
-          val weight = getPropMatchWeight(count)
-          strategies.append(PropMatchStrategy(property, false, weight, rdfTypes, count < MyConfiguration.maxCountForValueMatchesToFindSimlars))
+          strategies.append(PropMatchStrategy(property, false, rdfTypes, count))
 
         }
         return Some(strategies)
@@ -74,11 +66,11 @@ object MasterStrategy {
         val (filteredDomain, filteredRange) = getDomainAndRangeWithCorrectType(domain, range, rdfTypes)
         if (filteredDomain.nonEmpty) {
           val weight = QueryFactory.findDomainCount(property)
-          strategies += AlternativeLinkStrategy(property, Set() ++ filteredDomain, true, MyConfiguration.alternativeLinkNegative * logarithmicWeightForCount(weight))
+          strategies += AlternativeLinkStrategy(property, Set() ++ filteredDomain, true)
         }
         if (filteredRange.nonEmpty) {
           val weight = QueryFactory.findRangeCount(property)
-          strategies += AlternativeLinkStrategy(property, Set() ++ filteredRange, true, MyConfiguration.alternativeLinkNegative * logarithmicWeightForCount(weight))
+          strategies += AlternativeLinkStrategy(property, Set() ++ filteredRange, true)
         }
         if (strategies.isEmpty) return None
         return Some(strategies)
@@ -88,10 +80,10 @@ object MasterStrategy {
         val (filteredDomain, filteredRange) = getDomainAndRangeWithCorrectType(domain, range, rdfTypes)
         if (filteredDomain.nonEmpty) {
           println("Created direct link strategy..")
-          strategies += DirectLinkStrategy(property, Set() ++ filteredDomain, MyConfiguration.directLinkBoost * logarithmicWeightForCount(filteredDomain.length))
+          strategies += DirectLinkStrategy(property, Set() ++ filteredDomain)
         }
         if (filteredRange.nonEmpty) {
-          strategies += DirectLinkStrategy(property, Set() ++ filteredRange, MyConfiguration.directLinkBoost * logarithmicWeightForCount(filteredRange.length))
+          strategies += DirectLinkStrategy(property, Set() ++ filteredRange)
         }
         if (strategies.isEmpty) return None
         return Some(strategies)
@@ -102,19 +94,19 @@ object MasterStrategy {
         if (domain.nonEmpty) {
           for (d <- domain) {
             valueIsAPotentialValueMatchFindCount(d, property, false) match {
-              case Some(count) => strategies += ValueMatchStrategy(property, false, d, rdfTypes, MyConfiguration.valueMatchBoost * logarithmicWeightForCount(count), count < MyConfiguration.maxCountForValueMatchesToFindSimlars)
+              case Some(count) => strategies += ValueMatchStrategy(property, false, d, rdfTypes, count)
               case None => Unit
             }
           }
-          if(MyConfiguration.inANotInBActive) {
-            val domainCount = QueryFactory.findDomainCount(property)
-            val domainPotentialValueMatches = strategies.map((s) => if (s.isInstanceOf[ValueMatchStrategy]) s.asInstanceOf[ValueMatchStrategy].value)
-            if (domainPotentialValueMatches.length > 0) {
-              val weight = getPropMatchWeight(SimilarPropertyOntology.maxCountForProperties - domainCount)
-              strategies += InANotInBStrategy(property, true, domainPotentialValueMatches.asInstanceOf[Iterable[String]], (1.toDouble / domainPotentialValueMatches.length) * MyConfiguration.inANotInBBoost * weight)
-              //As long as inANotInBBoost < 1, then it will never be more negative than a PropertyMatchStrategy...
-            }
-          }
+//          if(MyConfiguration.inANotInBActive) {
+//            val domainCount = QueryFactory.findDomainCount(property)
+//            val domainPotentialValueMatches = strategies.map((s) => if (s.isInstanceOf[ValueMatchStrategy]) s.asInstanceOf[ValueMatchStrategy].value)
+//            if (domainPotentialValueMatches.length > 0) {
+//              val weight = getPropMatchWeight(SimilarPropertyOntology.maxCountForProperties - domainCount)
+//              strategies += InANotInBStrategy(property, true, domainPotentialValueMatches.asInstanceOf[Iterable[String]], (1.toDouble / domainPotentialValueMatches.length) * MyConfiguration.inANotInBBoost * weight)
+//              //As long as inANotInBBoost < 1, then it will never be more negative than a PropertyMatchStrategy...
+//            }
+//          }
           //          core.strategies += InANotInBStrategy(property, false, domain, domain.length * MyConfiguration.inANotInBBoost * logarithmicWeightForCount(domainCount))
 //          core.strategies += InBNotInAStrategy(property, false, domain, domain.length * MyConfiguration.inBNotInABoost * logarithmicWeightForCount(domainCount))
         }
@@ -126,19 +118,19 @@ object MasterStrategy {
         if (range.nonEmpty) {
           for (r <- range) {
             valueIsAPotentialValueMatchFindCount(r, property, true) match {
-              case Some(count) => strategies += ValueMatchStrategy(property, true, r, rdfTypes, MyConfiguration.valueMatchBoost * logarithmicWeightForCount(count), count < MyConfiguration.maxCountForValueMatchesToFindSimlars)
+              case Some(count) => strategies += ValueMatchStrategy(property, true, r, rdfTypes, count)
               case None => Unit
             }
           }
-          if(MyConfiguration.inANotInBActive) {
-            val rangeCount = QueryFactory.findRangeCount(property)
-            val rangePotentialValueMatches = strategies.map((s) => if(s.isInstanceOf[ValueMatchStrategy]) s.asInstanceOf[ValueMatchStrategy].value)
-            if(rangePotentialValueMatches.length > 0) {
-              val weight = getPropMatchWeight(SimilarPropertyOntology.maxCountForProperties - rangeCount)
-              strategies += InANotInBStrategy(property, true, rangePotentialValueMatches.asInstanceOf[Iterable[String]], (1.toDouble / rangePotentialValueMatches.length) * MyConfiguration.inANotInBBoost * weight)
-              //As long as inANotInBBoost < 1, then it will never be more negative than a PropertyMatchStrategy...
-            }
-          }
+//          if(MyConfiguration.inANotInBActive) {
+//            val rangeCount = QueryFactory.findRangeCount(property)
+//            val rangePotentialValueMatches = strategies.map((s) => if(s.isInstanceOf[ValueMatchStrategy]) s.asInstanceOf[ValueMatchStrategy].value)
+//            if(rangePotentialValueMatches.length > 0) {
+//              val weight = getPropMatchWeight(SimilarPropertyOntology.maxCountForProperties - rangeCount)
+//              strategies += InANotInBStrategy(property, true, rangePotentialValueMatches.asInstanceOf[Iterable[String]], (1.toDouble / rangePotentialValueMatches.length) * MyConfiguration.inANotInBBoost * weight)
+//              //As long as inANotInBBoost < 1, then it will never be more negative than a PropertyMatchStrategy...
+//            }
+//          }
 
 //          core.strategies += InBNotInAStrategy(property, true, range, range.length * MyConfiguration.inBNotInABoost * logarithmicWeightForCount(rangeCount))
         }
@@ -156,18 +148,13 @@ object MasterStrategy {
           case a : Throwable => println("more than 1 date time value", range)
         }
           // Only one value
-          val weight = logarithmicWeightForCount(QueryFactory.findDomainCount(property)) * MyConfiguration.dateComparisonWeight
-          return Some(List(DateComparisonStrategy(property, range(0), weight)))
+          val dbCount = QueryFactory.findDomainCount(property)
+          return Some(List(DateComparisonStrategy(property, range(0), dbCount)))
         }
       case _ => None
     }
   }
-
-  private def getPropMatchWeight(count: Int): Double = {
-    return if(logarithmicWeightForCount(count) > MyConfiguration.maximumWeightPropertyMatch) MyConfiguration.maximumWeightPropertyMatch else logarithmicWeightForCount(count)
-  }
-
-  def valueIsAPotentialValueMatchFindCount(value: String, property: String, isSubject: Boolean)(implicit knowledgeGraph: KnowledgeGraph): Option[Int] = {
+def valueIsAPotentialValueMatchFindCount(value: String, property: String, isSubject: Boolean)(implicit knowledgeGraph: KnowledgeGraph): Option[Int] = {
     QueryFactory.getValueMatchFromExistingDb(value, property) match {
       case Some(s) => return Some(s)
       case None => {

@@ -12,10 +12,8 @@ import similarityFinder.MyConfiguration
 class TestValueMatchStrategy extends FunSuite{
   implicit val knowledgeGraph = KnowledgeGraph.wikidata
   test("Value match strategy should work") {
-    val st1Count = MyConfiguration.valueMatchBoost * MasterStrategy.logarithmicWeightForCount(2)
-    val st2Count = MyConfiguration.valueMatchBoost * MasterStrategy.logarithmicWeightForCount(5)
-    val strategy = ValueMatchStrategy("http://www.wikidata.org/entity/P43",true, "http://www.wikidata.org/entity/Q43274", List("http://www.wikidata.org/entity/Q5"), st1Count)
-    val strategy2 = ValueMatchStrategy("http://www.wikidata.org/entity/P1038", true, "http://www.wikidata.org/entity/Q10479",List("http://www.wikidata.org/entity/Q5"), st2Count)
+    val strategy = ValueMatchStrategy("http://www.wikidata.org/entity/P43",true, "http://www.wikidata.org/entity/Q43274", List("http://www.wikidata.org/entity/Q5"), 5)
+    val strategy2 = ValueMatchStrategy("http://www.wikidata.org/entity/P1038", true, "http://www.wikidata.org/entity/Q10479",List("http://www.wikidata.org/entity/Q5"), 55)
 
     val list = List[Strategy](strategy, strategy2)
     val sortedList = list.sorted
@@ -35,8 +33,7 @@ class TestValueMatchStrategy extends FunSuite{
   test("Check that the execution runs correctly") {
     val graph1 = new GraphRDF("w:Q3736070")
     val graph2 = new GraphRDF("w:Q3743314")
-    val st1Count = MyConfiguration.valueMatchBoost * MasterStrategy.logarithmicWeightForCount(2)
-    val strategy = ValueMatchStrategy("http://www.wikidata.org/entity/P43",true, "http://www.wikidata.org/entity/Q43274", List("http://www.wikidata.org/entity/Q5"), st1Count)
+    val strategy = ValueMatchStrategy("http://www.wikidata.org/entity/P43",true, "http://www.wikidata.org/entity/Q43274", List("http://www.wikidata.org/entity/Q5"), 5)
     assert(strategy.execute(List(graph1, graph2)).toList.length == 2)
   }
   test("Transgender count Q1052281") {

@@ -17,7 +17,7 @@ class TestMapPropertiesToPropTypesWikidata extends FunSuite{
   implicit val dataset = KnowledgeGraph.wikidata
   test("filterGeoTypes should work", ActiveTag) {
     val filteredGeoProperties = filterGeoPropertyTypes(WikidataFactory.allProperties)
-    assertResult(WikidataFactory.geoProperties.size + WikidataFactory.qualifierGeoProperties.size){
+    assertResult(WikidataFactory.geoProperties.size){
       filteredGeoProperties.size
     }
   }
