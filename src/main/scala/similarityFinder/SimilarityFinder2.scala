@@ -8,14 +8,20 @@ import core.feature.Feature
 import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.rdf.GraphRDF
 import core.strategies.{DirectLinkStrategy, Strategy, StrategyFactory, ValueMatchStrategy}
+import similarityFinder.ranker.SimilarEntity
 
+import scala.collection.mutable.ListBuffer
+import scala.collection.parallel.mutable
+import scala.collection.parallel.mutable.{ParHashMap, ParIterable}
 import scala.concurrent.Await
 object SimilarityFinder2 {
   val thresholdStrategyWeight = 3.25
+  val ENTITIES_AFTER_PRUNING = 1000
+  val thresholdCountValueMatch = 5000
   def isACheapStrategy(strategy: Strategy) : Boolean= {
     strategy match {
       case a : DirectLinkStrategy => true
-      case b : ValueMatchStrategy if(b.weight > thresholdStrategyWeight) => true
+      case b : ValueMatchStrategy if(b.dbCount < thresholdCountValueMatch) => true
       case _ => false
     }
   }
@@ -44,9 +50,44 @@ class SimilarityFinder2(qEntity : String)(implicit val knowledgeGraph: Knowledge
       statementGrouper.out0.filter(_._2.nonEmpty) ~> strategyMapperFlow(true) ~> merger.in(0)
       statementGrouper.out1.filter(_._2.nonEmpty) ~> strategyMapperFlow(false) ~> merger.in(1)
       merger.out ~> partitioner.in
-//      partitioner.out(0)//Cheap strategies
+      partitioner.out(0) ~> executeCheapStrategies ~> foldFeatureMaps ~> generateSimilarEntities ~> pruneSimilarEntities
       ClosedShape
     })
+  }
+
+
+  def pruneSimilarEntities: Flow[ParIterable[SimilarEntity], List[SimilarEntity], NotUsed] = {
+    return Flow[ParIterable[SimilarEntity]]
+      .map(p => p.toList.sorted.take(SimilarityFinder2.ENTITIES_AFTER_PRUNING))
+  }
+
+  def generateSimilarEntities: Flow[ParHashMap[String, ListBuffer[Feature]], ParIterable[SimilarEntity], NotUsed] = {
+    return Flow[ ParHashMap[String, ListBuffer[Feature]]]
+      .map(hashMap => hashMap.map{case (entity, features) => {
+        new SimilarEntity(entity, features.toList)
+      }})
+  }
+
+  def foldFeatureMaps: Flow[Map[String, Feature], ParHashMap[String, ListBuffer[Feature]], NotUsed] = {
+    Flow[Map[String, Feature]]
+      .fold[mutable.ParHashMap[String, ListBuffer[Feature]]](mutable.ParHashMap[String, ListBuffer[Feature]]())((accumulator, mapOfFeatures) => foldMapOfFeatures(accumulator, mapOfFeatures))
+  }
+
+  private def foldMapOfFeatures(accumulator: ParHashMap[String, ListBuffer[Feature]], mapOfFeatures: Map[String, Feature]): ParHashMap[String, ListBuffer[Feature]] = {
+    addFeatureMaptoAccumulator(mapOfFeatures, accumulator)
+    return accumulator
+  }
+
+  private def addFeatureMaptoAccumulator(mapOfFeatures: Map[String, Feature], accumulator : ParHashMap[String, ListBuffer[Feature]]) = {
+    mapOfFeatures.foreach { case (key, feature) => accumulator.get(key) match {
+      case Some(buffer) => {
+        buffer.append(feature)
+      }
+      case None => {
+        accumulator.update(key, ListBuffer(feature))
+      };
+    }
+    }
   }
 
   def executeCheapStrategies: Flow[Strategy, Map[String, Feature], NotUsed] = {

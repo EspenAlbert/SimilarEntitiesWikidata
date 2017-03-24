@@ -1,40 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d206a159-edb1-49d5-8841-178f417096da" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/core/query/specific/QueryHelper.scala" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/core/strategies/MasterStrategy.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyGenerator.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/pruning/TestPruning.scala" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/test/scala/strategy/TestValueMatchStrategy.scala" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/similarentitieswikidata.iml" afterPath="$PROJECT_DIR$/.idea/modules/similarentitieswikidata.iml" />
+    <list default="true" id="d206a159-edb1-49d5-8841-178f417096da" name="Default" comment="Cheap strategies execution is now done. &#10;Had to reorganize Strategy interface a tiny bit.&#10;Have commented out all non used strategies.&#10;Also deleted a lot of tests.">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/globals/MyDatasets.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/globals/MyDatasets.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/query/specific/AskQuery.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/query/specific/AskQuery.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/query/specific/QueryFactory.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/query/specific/QueryFactory.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/strategies/AlternativeLinkStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/AlternativeLinkStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/strategies/DateComparisonStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/DateComparisonStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/strategies/DirectLinkStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/DirectLinkStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/strategies/HierarchyMatchStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/HierarchyMatchStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/strategies/InANotInBStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/InANotInBStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/strategies/InBNotInAGlobalStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/InBNotInAGlobalStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/strategies/InBNotInAStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/InBNotInAStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/strategies/PropertyMatchStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/PropertyMatchStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/strategies/Strategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/Strategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyFactory.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyFactory.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyWeighter.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyWeighter.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/strategies/ValueMatchStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/ValueMatchStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder.scala" afterPath="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala" afterPath="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/data/WikidataFactory.scala" afterPath="$PROJECT_DIR$/src/test/scala/data/WikidataFactory.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/main/TestSimilarityFinder.scala" afterPath="$PROJECT_DIR$/src/test/scala/main/TestSimilarityFinder.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/main/TestSimilarityFinder2.scala" afterPath="$PROJECT_DIR$/src/test/scala/main/TestSimilarityFinder2.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/query/TestQueryFactory.scala" afterPath="$PROJECT_DIR$/src/test/scala/query/TestQueryFactory.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinder2.scala" afterPath="$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinder2.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/strategy/TestDateComparisonStrategy.scala" afterPath="$PROJECT_DIR$/src/test/scala/strategy/TestDateComparisonStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/strategy/TestInBNotInAAndInANotInBStrategy.scala" afterPath="$PROJECT_DIR$/src/test/scala/strategy/TestInBNotInAAndInANotInBStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/strategy/TestPropertyMatchStrategy.scala" afterPath="$PROJECT_DIR$/src/test/scala/strategy/TestPropertyMatchStrategy.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/strategy/TestStrategyGenerator.scala" afterPath="$PROJECT_DIR$/src/test/scala/strategy/TestStrategyGenerator.scala" />
     </list>
     <list id="d77b7471-7867-433b-9a10-b891ecadeee0" name="ARCHITECTURE REFACTORING. Summarized: 1. The SimpleRDF abstraction is removed. 2. Folder structure are changed to accomodate for both similarity finder and structure finder. A core package contains all the common logic. 3. Old unused files, or files using the (1) abstraction is removed." comment="" />
     <ignored path="SimilarEntitiesWikidata.iws" />
@@ -93,11 +63,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SimilarityFinder2.scala" pinned="false" current-in-tab="true">
+      <file leaf-file-name="SimilarityFinder2.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="51" column="6" lean-forward="false" selection-start-line="51" selection-start-column="6" selection-end-line="51" selection-end-column="6" />
+            <state relative-caret-position="385">
+              <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
               <folding>
                 <element signature="e#26#45#0" expanded="true" />
               </folding>
@@ -105,35 +75,58 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AskQuery.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/specific/AskQuery.scala">
+      <file leaf-file-name="ValueMatchStrategy.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/ValueMatchStrategy.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="17" column="33" lean-forward="false" selection-start-line="17" selection-start-column="33" selection-end-line="17" selection-end-column="33" />
+            <state relative-caret-position="480">
+              <caret line="39" column="79" lean-forward="false" selection-start-line="39" selection-start-column="79" selection-end-line="39" selection-end-column="79" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestSimilarityFinder2.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinder2.scala">
+      <file leaf-file-name="SimilarEntity.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/ranker/SimilarEntity.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="466">
-              <caret line="94" column="60" lean-forward="false" selection-start-line="94" selection-start-column="60" selection-end-line="94" selection-end-column="60" />
+            <state relative-caret-position="105">
+              <caret line="9" column="39" lean-forward="false" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Flow.scala" pinned="false" current-in-tab="false">
+        <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.akka/akka-stream_2.11/srcs/akka-stream_2.11-2.4.17-sources.jar!/akka/stream/scaladsl/Flow.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="460">
+              <caret line="874" column="4" lean-forward="true" selection-start-line="874" selection-start-column="4" selection-end-line="874" selection-end-column="4" />
               <folding>
-                <element signature="e#26#53#0" expanded="true" />
+                <element signature="n#!!doc" expanded="false" />
+                <element signature="e#107#139#0" expanded="false" />
+                <element signature="e#1813#1836#0" expanded="false" />
+                <element signature="e#15473#15505#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="QueryHelper.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/specific/QueryHelper.scala">
+      <file leaf-file-name="Strategy.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/Strategy.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="21" column="1" lean-forward="true" selection-start-line="21" selection-start-column="1" selection-end-line="21" selection-end-column="1" />
+            <state relative-caret-position="135">
+              <caret line="12" column="6" lean-forward="false" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestSimilarityFinder2.scala" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinder2.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="572">
+              <caret line="95" column="207" lean-forward="true" selection-start-line="95" selection-start-column="207" selection-end-line="95" selection-end-column="207" />
               <folding>
-                <element signature="e#29#63#0" expanded="true" />
+                <element signature="e#26#53#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -151,26 +144,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ArtistDatasetReader.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/iAndO/dataset/ArtistDatasetReader.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="18" column="45" lean-forward="false" selection-start-line="18" selection-start-column="45" selection-end-line="18" selection-end-column="45" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FindSomething.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/FindSomething.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Query.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/Query.scala">
           <provider selected="true" editor-type-id="text-editor">
@@ -184,8 +157,8 @@
       <file leaf-file-name="WikidataFactory.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/scala/data/WikidataFactory.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="325">
-              <caret line="64" column="8" lean-forward="false" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="8" />
+            <state relative-caret-position="310">
+              <caret line="54" column="40" lean-forward="false" selection-start-line="54" selection-start-column="33" selection-end-line="54" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -266,7 +239,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/scala/core/strategies/PropMatchStrategy.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/MyConfiguration.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyGenerator.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/query/Query.scala" />
@@ -288,7 +260,6 @@
         <option value="$PROJECT_DIR$/src/main/scala/core/query/FindSomething.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/iAndO/readRdf/ReadWikidata.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/strategy/TestStrategyFactory.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/strategies/InANotInBStrategy.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/strategies/HierarchyMatchStrategy.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/strategies/AlternativeLinkStrategy.scala" />
@@ -316,7 +287,9 @@
         <option value="$PROJECT_DIR$/src/main/scala/iAndO/dataset/ArtistDatasetReader.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/query/specific/QueryFactory.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/query/TestQueryFactory.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/ranker/SimilarEntity.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinder2.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala" />
       </list>
     </option>
   </component>
@@ -874,24 +847,7 @@
       <recent name="main" />
     </key>
   </component>
-  <component name="RunManager" selected="ScalaTest.TestSimilarityFinder2.Cheap strategy executor">
-    <configuration default="false" name="TestSimilarityFinder2.Strategy splitter" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="similarentitieswikidata" />
-      <setting name="path" value="similarityFinder.TestSimilarityFinder2" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="Strategy splitter" />
-      <setting name="testKind" value="Test name" />
-      <setting name="showProgressMessages" value="true" />
-      <classRegexps />
-      <testRegexps />
-      <envs />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="ScalaTest.TestSimilarityFinder2.Cheap strategy executor to feature map folder to generate similar entities">
     <configuration default="false" name="TestSimilarityFinder2.Cheap strategy executor" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="similarentitieswikidata" />
@@ -953,6 +909,23 @@
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
       <setting name="testName" value="findObjectsOfTypeForProperty where the type is kommune in norway, P19 = place of birth" />
+      <setting name="testKind" value="Test name" />
+      <setting name="showProgressMessages" value="true" />
+      <classRegexps />
+      <testRegexps />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestSimilarityFinder2.Cheap strategy executor to feature map folder to generate similar entities" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="similarentitieswikidata" />
+      <setting name="path" value="similarityFinder.TestSimilarityFinder2" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="Cheap strategy executor to feature map folder to generate similar entities" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <classRegexps />
@@ -1563,19 +1536,19 @@
       <item index="1" class="java.lang.String" itemvalue="SBT Task.Run all tests" />
       <item index="2" class="java.lang.String" itemvalue="SBT Task.Run all slow tests" />
       <item index="3" class="java.lang.String" itemvalue="SBT Task.Run all fast test" />
-      <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestSimilarityFinder2.Strategy splitter" />
-      <item index="5" class="java.lang.String" itemvalue="ScalaTest.TestSimilarityFinder2.Cheap strategy executor" />
-      <item index="6" class="java.lang.String" itemvalue="ScalaTest.TestQueryFactory.find members of the beatles (subjectsOfTypeWithPropertyAndValue)" />
-      <item index="7" class="java.lang.String" itemvalue="ScalaTest.TestAskQuery.subject has type" />
-      <item index="8" class="java.lang.String" itemvalue="ScalaTest.TestQueryFactory.findObjectsOfTypeForProperty where the type is kommune in norway, P19 = place of birth" />
+      <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestSimilarityFinder2.Cheap strategy executor" />
+      <item index="5" class="java.lang.String" itemvalue="ScalaTest.TestQueryFactory.find members of the beatles (subjectsOfTypeWithPropertyAndValue)" />
+      <item index="6" class="java.lang.String" itemvalue="ScalaTest.TestAskQuery.subject has type" />
+      <item index="7" class="java.lang.String" itemvalue="ScalaTest.TestQueryFactory.findObjectsOfTypeForProperty where the type is kommune in norway, P19 = place of birth" />
+      <item index="8" class="java.lang.String" itemvalue="ScalaTest.TestSimilarityFinder2.Cheap strategy executor to feature map folder to generate similar entities" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="ScalaTest.TestSimilarityFinder2.Cheap strategy executor" />
-        <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestQueryFactory.findObjectsOfTypeForProperty where the type is kommune in norway, P19 = place of birth" />
-        <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestQueryFactory.find members of the beatles (subjectsOfTypeWithPropertyAndValue)" />
-        <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestAskQuery.subject has type" />
-        <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestSimilarityFinder2.Strategy splitter" />
+        <item index="0" class="java.lang.String" itemvalue="ScalaTest.TestSimilarityFinder2.Cheap strategy executor to feature map folder to generate similar entities" />
+        <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestSimilarityFinder2.Cheap strategy executor" />
+        <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestQueryFactory.findObjectsOfTypeForProperty where the type is kommune in norway, P19 = place of birth" />
+        <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestQueryFactory.find members of the beatles (subjectsOfTypeWithPropertyAndValue)" />
+        <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestAskQuery.subject has type" />
       </list>
     </recent_temporary>
   </component>
@@ -1613,35 +1586,35 @@
     <option name="remove_strategy" value="false" />
   </component>
   <component name="TestHistory">
-    <history-entry file="TestQueryFactory_findObjectsOfTypeForProperty_where_the_type_is_kommune_in_norway,_P19_=_place_of_birth - 2017.03.24 at 16h 09m 43s.xml">
-      <configuration name="TestQueryFactory.findObjectsOfTypeForProperty where the type is kommune in norway, P19 = place of birth" configurationId="ScalaTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestQueryFactory_findObjectsOfTypeForProperty_where_the_type_is_kommune_in_norway,_P19_=_place_of_birth - 2017.03.24 at 16h 11m 24s.xml">
-      <configuration name="TestQueryFactory.findObjectsOfTypeForProperty where the type is kommune in norway, P19 = place of birth" configurationId="ScalaTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestQueryFactory_find_members_of_the_beatles_(subjectsOfTypeWithPropertyAndValue) - 2017.03.24 at 15h 53m 48s.xml">
-      <configuration name="TestQueryFactory.find members of the beatles (subjectsOfTypeWithPropertyAndValue)" configurationId="ScalaTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestQueryFactory_find_members_of_the_beatles_(subjectsOfTypeWithPropertyAndValue) - 2017.03.24 at 15h 54m 17s.xml">
-      <configuration name="TestQueryFactory.find members of the beatles (subjectsOfTypeWithPropertyAndValue)" configurationId="ScalaTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestQueryFactory_find_members_of_the_beatles_(subjectsOfTypeWithPropertyAndValue) - 2017.03.24 at 15h 56m 29s.xml">
-      <configuration name="TestQueryFactory.find members of the beatles (subjectsOfTypeWithPropertyAndValue)" configurationId="ScalaTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestQueryFactory_find_members_of_the_beatles_(subjectsOfTypeWithPropertyAndValue) - 2017.03.24 at 15h 56m 46s.xml">
-      <configuration name="TestQueryFactory.find members of the beatles (subjectsOfTypeWithPropertyAndValue)" configurationId="ScalaTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestQueryFactory_find_members_of_the_beatles_(subjectsOfTypeWithPropertyAndValue) - 2017.03.24 at 15h 57m 42s.xml">
-      <configuration name="TestQueryFactory.find members of the beatles (subjectsOfTypeWithPropertyAndValue)" configurationId="ScalaTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestSimilarityFinder2_Cheap_strategy_executor - 2017.03.24 at 16h 12m 29s.xml">
-      <configuration name="TestSimilarityFinder2.Cheap strategy executor" configurationId="ScalaTestRunConfiguration" />
-    </history-entry>
     <history-entry file="TestSimilarityFinder2_Cheap_strategy_executor - 2017.03.24 at 16h 13m 52s.xml">
       <configuration name="TestSimilarityFinder2.Cheap strategy executor" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
     <history-entry file="TestSimilarityFinder2_Cheap_strategy_executor - 2017.03.24 at 16h 16m 00s.xml">
       <configuration name="TestSimilarityFinder2.Cheap strategy executor" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestSimilarityFinder2_Cheap_strategy_executor_to_feature_map_folder_to_generate_similar_entities - 2017.03.24 at 17h 40m 02s.xml">
+      <configuration name="TestSimilarityFinder2.Cheap strategy executor to feature map folder to generate similar entities" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestSimilarityFinder2_Cheap_strategy_executor_to_feature_map_folder_to_generate_similar_entities - 2017.03.24 at 17h 42m 05s.xml">
+      <configuration name="TestSimilarityFinder2.Cheap strategy executor to feature map folder to generate similar entities" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestSimilarityFinder2_Cheap_strategy_executor_to_feature_map_folder_to_generate_similar_entities - 2017.03.24 at 17h 43m 23s.xml">
+      <configuration name="TestSimilarityFinder2.Cheap strategy executor to feature map folder to generate similar entities" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestSimilarityFinder2_Cheap_strategy_executor_to_feature_map_folder_to_generate_similar_entities - 2017.03.24 at 17h 44m 40s.xml">
+      <configuration name="TestSimilarityFinder2.Cheap strategy executor to feature map folder to generate similar entities" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestSimilarityFinder2_Cheap_strategy_executor_to_feature_map_folder_to_generate_similar_entities - 2017.03.24 at 17h 44m 58s.xml">
+      <configuration name="TestSimilarityFinder2.Cheap strategy executor to feature map folder to generate similar entities" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestSimilarityFinder2_Cheap_strategy_executor_to_feature_map_folder_to_generate_similar_entities - 2017.03.24 at 17h 46m 13s.xml">
+      <configuration name="TestSimilarityFinder2.Cheap strategy executor to feature map folder to generate similar entities" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestSimilarityFinder2_Cheap_strategy_executor_to_feature_map_folder_to_generate_similar_entities - 2017.03.24 at 17h 47m 23s.xml">
+      <configuration name="TestSimilarityFinder2.Cheap strategy executor to feature map folder to generate similar entities" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestSimilarityFinder2_Cheap_strategy_executor_to_feature_map_folder_to_generate_similar_entities - 2017.03.24 at 17h 49m 21s.xml">
+      <configuration name="TestSimilarityFinder2.Cheap strategy executor to feature map folder to generate similar entities" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -1747,7 +1720,8 @@
     <MESSAGE value="BIG COMMIT: Akka integrated into the project. Reading DBpedia properties and testing they are there. Strategy weighter. Strategy factory. ++" />
     <MESSAGE value="Problem: The wikidataReader had a bug where qualifier statements with an entity as object got translated to orignalPropert-&gt; entity. &#10;This makes datetime properties be interpreted as ItemProperty for instance.&#10;The bug is fixed, but I need to re read the whole dataset for wikidata...&#10;&#10;Meanwhile I have continued on the algorithm and strategy factory. I have also created a test set for Ringo Starr. &#10;Next step is to use the strategy factory to create strategies in the SimilarityFinder2." />
     <MESSAGE value="Status: Property -&gt; Strategies -&gt; Cheap Strategies&#10;-&gt; Expensive Strategies&#10;&#10;Is done, (only tested slightly though)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Status: Property -&gt; Strategies -&gt; Cheap Strategies&#10;-&gt; Expensive Strategies&#10;&#10;Is done, (only tested slightly though)" />
+    <MESSAGE value="Cheap strategies execution is now done. &#10;Had to reorganize Strategy interface a tiny bit.&#10;Have commented out all non used strategies.&#10;Also deleted a lot of tests." />
+    <option name="LAST_COMMIT_MESSAGE" value="Cheap strategies execution is now done. &#10;Had to reorganize Strategy interface a tiny bit.&#10;Have commented out all non used strategies.&#10;Also deleted a lot of tests." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1842,20 +1816,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/output/pickles/wikidata-propToTypeMapping.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8336">
-          <caret line="0" column="104736" lean-forward="false" selection-start-line="0" selection-start-column="104736" selection-end-line="0" selection-end-column="104771" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar:///usr/lib/jvm/java-8-oracle/jre/lib/rt.jar!/com/sun/jmx/snmp/IPAcl/PrincipalImpl.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/core/globals/PrimitiveDatatype.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
@@ -1953,14 +1913,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/ranker/SimilarEntity.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/InANotInBStrategy.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -2017,26 +1969,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/ValueMatchStrategy.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/DateComparisonStrategy.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="383">
           <caret line="38" column="20" lean-forward="false" selection-start-line="38" selection-start-column="20" selection-end-line="38" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/Strategy.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="12" column="6" lean-forward="false" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
           <folding />
         </state>
       </provider>
@@ -2241,30 +2177,75 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/data/WikidataFactory.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/Strategy.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="64" column="8" lean-forward="false" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="8" />
+        <state relative-caret-position="135">
+          <caret line="12" column="6" lean-forward="false" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinder2.scala">
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.akka/akka-stream_2.11/srcs/akka-stream_2.11-2.4.17-sources.jar!/akka/stream/scaladsl/Flow.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="466">
-          <caret line="94" column="60" lean-forward="false" selection-start-line="94" selection-start-column="60" selection-end-line="94" selection-end-column="60" />
+        <state relative-caret-position="460">
+          <caret line="874" column="4" lean-forward="true" selection-start-line="874" selection-start-column="4" selection-end-line="874" selection-end-column="4" />
           <folding>
-            <element signature="e#26#53#0" expanded="true" />
+            <element signature="n#!!doc" expanded="false" />
+            <element signature="e#107#139#0" expanded="false" />
+            <element signature="e#1813#1836#0" expanded="false" />
+            <element signature="e#15473#15505#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.akka/akka-stream_2.11/jars/akka-stream_2.11-2.4.17.jar!/akka/stream/scaladsl/GraphDSL.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/data/WikidataFactory.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="310">
+          <caret line="54" column="40" lean-forward="false" selection-start-line="54" selection-start-column="33" selection-end-line="54" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/ranker/SimilarEntity.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="9" column="39" lean-forward="false" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/ValueMatchStrategy.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="39" column="79" lean-forward="false" selection-start-line="39" selection-start-column="79" selection-end-line="39" selection-end-column="79" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="51" column="6" lean-forward="false" selection-start-line="51" selection-start-column="6" selection-end-line="51" selection-end-column="6" />
+        <state relative-caret-position="385">
+          <caret line="61" column="0" lean-forward="false" selection-start-line="61" selection-start-column="0" selection-end-line="61" selection-end-column="0" />
           <folding>
             <element signature="e#26#45#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinder2.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="572">
+          <caret line="95" column="207" lean-forward="true" selection-start-line="95" selection-start-column="207" selection-end-line="95" selection-end-column="207" />
+          <folding>
+            <element signature="e#26#53#0" expanded="true" />
           </folding>
         </state>
       </provider>

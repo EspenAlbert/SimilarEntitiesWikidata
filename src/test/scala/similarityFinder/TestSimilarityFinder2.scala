@@ -8,6 +8,7 @@ import core.globals.KnowledgeGraph
 import core.strategies._
 import data.WikidataFactory
 import org.scalatest.FunSuite
+import similarityFinder.ranker.SimilarEntity
 import tags.{ActiveSlowTag, ActiveTag}
 
 import scala.collection.mutable.ListBuffer
@@ -91,14 +92,24 @@ class TestSimilarityFinder2  extends FunSuite{
     val b = g.mapMaterializedValue(s => Future{ println("done") }).run()
     Await.result(b, 10 seconds)
   }
-  test("Cheap strategy executor", ActiveSlowTag) {
-    val cheapExecutionFlow = ringoStarrSimFinder.executeCheapStrategies
+  test("Cheap strategy executor to feature map folder to generate similar entities", ActiveSlowTag) {
+    val cheapExecutionFlow = ringoStarrSimFinder.executeCheapStrategies.via(ringoStarrSimFinder.foldFeatureMaps.via(ringoStarrSimFinder.generateSimilarEntities).via(ringoStarrSimFinder.pruneSimilarEntities))
+    val strategies = StrategyFactory.getStrategies(ringoStarr.id, ringoStarr.rdfTypes, ringoStarr.occupationProp, true, ringoStarr.occupationValues)
+      .filter(_.isInstanceOf[ValueMatchStrategy]).filter(SimilarityFinder2.isACheapStrategy(_))
+    println("Cheap strategies: ", strategies)
+    assert(strategies.length > 0)
     val runner = cheapExecutionFlow.runWith(
       Source(
-        StrategyFactory.getStrategies(ringoStarr.id, ringoStarr.rdfTypes, ringoStarr.occupationProp, true, ringoStarr.occupationValues)
-          .filter(_.isInstanceOf[ValueMatchStrategy])),
-      Sink.foreach(map => assert(map.values.size > 1)))
-    Await.result(runner._2, 2 minutes)
+        strategies),
+      Sink.foreach((similarEntityList : List[SimilarEntity]) => {
+        println("Found similar entities: ", similarEntityList.size)
+        assert(similarEntityList.size < SimilarityFinder2.ENTITIES_AFTER_PRUNING + 1)
+        similarEntityList.foreach((similarEntity) => {
+          //        println(s"Sim entity: ${similarEntity.name}")
+          assert(similarEntity.sortedFeatures.size > 0)
+        })
+      }))
+    Await.result(runner._2, 3 minutes)
   }
 
 }
