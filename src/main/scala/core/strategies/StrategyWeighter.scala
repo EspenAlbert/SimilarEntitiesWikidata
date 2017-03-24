@@ -15,7 +15,7 @@ object StrategyWeighter {
   def getWeight(strategy: Strategy) : Double = {
     strategy match {
       case a : ValueMatchStrategy => valueMatchBoost * logarithmicWeightForCount(a.dbCount)
-      case b : PropMatchStrategy => logarithmicWeightForCount(b.dbCount)
+      case b : PropertyMatchStrategy => logarithmicWeightForCount(b.dbCount)
       case c : AlternativeLinkStrategy => logarithmicWeightForCount(c.others.size) * alternativeLinkNegative
       case d : DirectLinkStrategy => directLinkBoost * logarithmicWeightForCount(d.others.size)
       case e : DateComparisonStrategy => dateComparisonWeight * logarithmicWeightForCount(e.dbCountProperty)

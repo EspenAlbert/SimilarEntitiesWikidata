@@ -2,7 +2,7 @@ package strategy
 
 import core.globals.KnowledgeGraph
 import core.query.specific.QueryFactory
-import core.strategies.{DirectLinkStrategy, PropMatchStrategy, StrategyFactory, ValueMatchStrategy}
+import core.strategies.{DirectLinkStrategy, PropertyMatchStrategy, StrategyFactory, ValueMatchStrategy}
 import data.WikidataFactory
 import org.scalatest.FunSuite
 import tags.{ActiveSlowTag, ActiveTag, TestOnlyTag}

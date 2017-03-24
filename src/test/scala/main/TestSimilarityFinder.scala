@@ -193,7 +193,7 @@ class TestSimilarityFinder extends FunSuite{
     val statisticsMap = mutable.HashMap[String, Int]()
     statisticsMap += "valueMatch" -> strategies.filter(_.isInstanceOf[ValueMatchStrategy]).length
     statisticsMap += "directLink" -> strategies.filter(_.isInstanceOf[DirectLinkStrategy]).length
-    statisticsMap += "propertyMatch" -> strategies.filter(_.isInstanceOf[PropMatchStrategy]).length
+    statisticsMap += "propertyMatch" -> strategies.filter(_.isInstanceOf[PropertyMatchStrategy]).length
     statisticsMap += "dateComparison" -> strategies.filter(_.isInstanceOf[DateComparisonStrategy]).length
     statisticsMap
   }

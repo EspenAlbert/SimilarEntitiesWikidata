@@ -10,7 +10,7 @@ import scala.collection.mutable
 /**
   * Created by Espen on 10.11.2016.
   */
-case class PropMatchStrategy(property : String, isSubject : Boolean, rdfTypes : List[String], dbCount: Int) extends Strategy {
+case class PropertyMatchStrategy(property : String, isSubject : Boolean, rdfTypes : List[String], dbCount: Int) extends Strategy {
 
   def matchEntityAndProperty(tuple: (String, String, String), entity : String): Boolean = {
     return tuple match {

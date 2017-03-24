@@ -53,11 +53,11 @@ object MasterStrategy {
         val strategies = ArrayBuffer[Strategy]()
         if (range.nonEmpty) {
           val count = QueryFactory.findDomainCount(property)
-          strategies.append(PropMatchStrategy(property, true, rdfTypes, count))
+          strategies.append(PropertyMatchStrategy(property, true, rdfTypes, count))
         }
         if (domain.nonEmpty) {
           val count = QueryFactory.findRangeCount(property)
-          strategies.append(PropMatchStrategy(property, false, rdfTypes, count))
+          strategies.append(PropertyMatchStrategy(property, false, rdfTypes, count))
 
         }
         return Some(strategies)

@@ -3,7 +3,7 @@ package strategy
 import core.globals.KnowledgeGraph
 import core.rdf.GraphRDF
 import org.scalatest.FunSuite
-import core.strategies.{MasterStrategy, PropMatchStrategy, Strategy, ValueMatchStrategy}
+import core.strategies.{MasterStrategy, PropertyMatchStrategy, Strategy, ValueMatchStrategy}
 import similarityFinder.MyConfiguration
 
 /**
