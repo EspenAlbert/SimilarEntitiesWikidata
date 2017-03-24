@@ -11,6 +11,18 @@ import scala.util.Try
   * Created by espen on 17.02.17.
   */
 object QueryFactory {
+  def singleSubjectWithPropertyAndValue(musicbrainzIdPropertyName: String, objectValue: String)(implicit knowledgeGraph: KnowledgeGraph) : String = {
+    val queryString =
+      s"""
+         |SELECT ?s
+         |WHERE {
+         |  ?s <$musicbrainzIdPropertyName> "$objectValue"
+         |}
+        """.stripMargin
+    val query = executeQuery(queryString)
+    return query.getResults("s")(0)
+  }
+
   def findAllDomainCounts()(implicit knowledgeGraph: KnowledgeGraph) : (List[String], List[Int]) = {
     val queryString =
       s"""
@@ -56,25 +68,61 @@ object QueryFactory {
     return (properties,strategies)
   }
 
-  def singleSubjectWithPropertyAndValue(property: String, objectValue: String)(implicit knowledgeGraph : KnowledgeGraph) : String ={
-    throw new NotImplementedError()
-}
 
   def objectsOfTypeWithPropertyAndSubject(property: String, subject: String, rdfTypes: List[String])(implicit knowledgeGraph : KnowledgeGraph): List[String] = {
-    throw new NotImplementedError()
+    val queryString =
+      s"""
+         |SELECT ?o
+         |WHERE {
+         |  <$subject> <$property> ?o .
+         |${QueryHelper.getSameTypeFilterForQueryVariable("o", rdfTypes)}
+         |}
+        """.stripMargin
+    val query = executeQuery(queryString)
+    val objects = query.getResults("o")
+    return objects
   }
   def subjectsOfTypeWithPropertyAndValue(property: String, objectValue: String, rdfTypes: List[String])(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
-    throw new NotImplementedError()
+    val queryString =
+      s"""
+         |SELECT ?s
+         |WHERE {
+         |  ?s <$property> <$objectValue> .
+         |${QueryHelper.getSameTypeFilterForQueryVariable("s", rdfTypes)}
+         |}
+        """.stripMargin
+    val query = executeQuery(queryString)
+    val subjects = query.getResults("s")
+    return subjects
   }
 
 
   def findObjectsOfTypeForProperty(property: String, rdfTypes: List[String])(implicit knowledgeGraph : KnowledgeGraph)  : List[String] = {
-    throw new NotImplementedError()
+    val queryString =
+      s"""
+         |SELECT ?o
+         |WHERE {
+         |  ?s <$property> ?o .
+         |${QueryHelper.getSameTypeFilterForQueryVariable("o", rdfTypes)}
+         |}
+        """.stripMargin
+    val query = executeQuery(queryString)
+    val objects = query.getResults("o")
+    return objects
   }
 
   def findSubjectsOfTypeForProperty(property: String, rdfTypes: List[String])(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
-    throw new NotImplementedError()
-
+    val queryString =
+      s"""
+         |SELECT ?s
+         |WHERE {
+         |  ?s <$property> ?v .
+         |${QueryHelper.getSameTypeFilter("s", rdfTypes)}
+         |}
+        """.stripMargin
+    val query = executeQuery(queryString)
+    val subjects = query.getResults("s")
+    return subjects
   }
 
 

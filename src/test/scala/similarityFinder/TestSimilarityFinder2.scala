@@ -8,7 +8,7 @@ import core.globals.KnowledgeGraph
 import core.strategies._
 import data.WikidataFactory
 import org.scalatest.FunSuite
-import tags.ActiveTag
+import tags.{ActiveSlowTag, ActiveTag}
 
 import scala.collection.mutable.ListBuffer
 import scala.concurrent.{Await, Future}
@@ -90,7 +90,15 @@ class TestSimilarityFinder2  extends FunSuite{
     })
     val b = g.mapMaterializedValue(s => Future{ println("done") }).run()
     Await.result(b, 10 seconds)
-
+  }
+  test("Cheap strategy executor", ActiveSlowTag) {
+    val cheapExecutionFlow = ringoStarrSimFinder.executeCheapStrategies
+    val runner = cheapExecutionFlow.runWith(
+      Source(
+        StrategyFactory.getStrategies(ringoStarr.id, ringoStarr.rdfTypes, ringoStarr.occupationProp, true, ringoStarr.occupationValues)
+          .filter(_.isInstanceOf[ValueMatchStrategy])),
+      Sink.foreach(map => assert(map.values.size > 1)))
+    Await.result(runner._2, 2 minutes)
   }
 
 }

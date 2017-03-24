@@ -15,7 +15,7 @@ object AskQuery {
          |ask
          |WHERE {
          |  <$subject> wd:P31 ?v.
-         |  filter(?v IN(<${rdfTypes.mkString(">,<")}>)) .
+         |${QueryHelper.getSameTypeFilter("v", rdfTypes)}
          |}
         """.stripMargin
     return QueryLocalServer.ask(askQuery, DatasetInferrer.getDataset(askQuery))

@@ -16,7 +16,7 @@ object StrategyWeighter {
     strategy match {
       case a : ValueMatchStrategy => valueMatchBoost * logarithmicWeightForCount(a.dbCount)
       case b : PropertyMatchStrategy => logarithmicWeightForCount(b.dbCount)
-      case c : AlternativeLinkStrategy => logarithmicWeightForCount(c.others.size) * alternativeLinkNegative
+//      case c : AlternativeLinkStrategy => logarithmicWeightForCount(c.others.size) * alternativeLinkNegative
       case d : DirectLinkStrategy => directLinkBoost * logarithmicWeightForCount(d.others.size)
       case e : DateComparisonStrategy => dateComparisonWeight * logarithmicWeightForCount(e.dbCountProperty)
     }

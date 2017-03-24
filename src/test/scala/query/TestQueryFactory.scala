@@ -1,10 +1,11 @@
 package query
 
 import core.globals.KnowledgeGraph
+import core.query.specific.AskQuery
 import org.scalatest.FunSuite
 import core.query.specific.QueryFactory._
 import data.WikidataFactory
-import tags.ActiveTag
+import tags.{ActiveSlowTag, ActiveTag}
 /**
   * Created by espen on 20.02.17.
   */
@@ -45,6 +46,20 @@ class TestQueryFactory extends FunSuite{
     val expectedCount = WikidataFactory.ringoStarr.occupationValues.length
     val actualCount = findCountForPropertyWithSubject(WikidataFactory.ringoStarr.occupationProp, WikidataFactory.ringoStarr.id)
     assert(expectedCount == actualCount.getOrElse(throw new Exception("Failed to find count")))
+  }
+  test("find members of the beatles (subjectsOfTypeWithPropertyAndValue)", ActiveTag) {
+    val beatles = WikidataFactory.theBeatles
+    val expectedMembers = beatles.members
+    val ringoStarr = WikidataFactory.ringoStarr
+    val actualMembers = subjectsOfTypeWithPropertyAndValue(ringoStarr.memberOfProp, beatles.id, ringoStarr.rdfTypes)
+    actualMembers.foreach(m => assert(expectedMembers.contains(m)))
+    expectedMembers.foreach(m => assert(actualMembers.contains(m)))
+  }
+  test("findObjectsOfTypeForProperty where the type is kommune in norway, P19 = place of birth", ActiveSlowTag) {
+    val (_, types) = WikidataFactory.kristiansandAndTypes()
+    val expectedTypes = types.tail //Commune in norway
+    val objects = findObjectsOfTypeForProperty(WikidataFactory.placeOfBirthProp, expectedTypes)
+    objects.foreach(o => AskQuery.subjectHasType(o, expectedTypes))
   }
 
 }

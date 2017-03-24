@@ -49,32 +49,32 @@ class TestInBNotInAAndInANotInBStrategy extends FunSuite{
 //    println(featureMap)
 //    assert(featureMap.size == 1)
 //  }
-  test("Properties that hillary has but obama hasn't should count negatively for their similarity") {
-    val obama = new GraphRDF("w:Q76")
-    val hillary = new GraphRDF("w:Q6294")
-    val strategies = StrategyGenerator.generateStrategies(obama)
-    val inBNotInAGlobalStrategy = strategies.filter(_.isInstanceOf[InBNotInAGlobalStrategy])
-    assert(inBNotInAGlobalStrategy.length == 1)
-    val featureMap = inBNotInAGlobalStrategy(0).execute(List(hillary))
-    println(featureMap)
-  }
-  test("Properties that obama has but hillary hasn't should count negatively for their similarity") {
-    val obama = new GraphRDF("w:Q76")
-    val hillary = new GraphRDF("http://www.wikidata.org/entity/Q6294")
-    val strategies = StrategyGenerator.generateStrategies(obama)
-    val inBNotInAGlobalStrategy = strategies.filter(_.isInstanceOf[InANotInBStrategy])
-    assert(inBNotInAGlobalStrategy.length > 0)
-    val featureMap = inBNotInAGlobalStrategy.map(_.execute(List(hillary)))
-    println(featureMap.toList)
-  }
-  test("Obama should get no in a not in b or otherwise for himself") {
-    val obama = new GraphRDF("w:Q76")
-    val hillary = new GraphRDF("http://www.wikidata.org/entity/Q6294")
-    val strategies = StrategyGenerator.generateStrategies(obama)
-    val inBNotInAGlobalStrategy = strategies.filter(_.isInstanceOf[InANotInBStrategy])
-    assert(inBNotInAGlobalStrategy.length > 0)
-    val featureMap = inBNotInAGlobalStrategy.map(_.execute(List(obama)))
-    println(featureMap.toList)
-    val fMapFromInA = strategies.filter(_.isInstanceOf)
-  }
+//  test("Properties that hillary has but obama hasn't should count negatively for their similarity") {
+//    val obama = new GraphRDF("w:Q76")
+//    val hillary = new GraphRDF("w:Q6294")
+//    val strategies = StrategyGenerator.generateStrategies(obama)
+//    val inBNotInAGlobalStrategy = strategies.filter(_.isInstanceOf[InBNotInAGlobalStrategy])
+//    assert(inBNotInAGlobalStrategy.length == 1)
+//    val featureMap = inBNotInAGlobalStrategy(0).execute(List(hillary))
+//    println(featureMap)
+//  }
+//  test("Properties that obama has but hillary hasn't should count negatively for their similarity") {
+//    val obama = new GraphRDF("w:Q76")
+//    val hillary = new GraphRDF("http://www.wikidata.org/entity/Q6294")
+//    val strategies = StrategyGenerator.generateStrategies(obama)
+//    val inBNotInAGlobalStrategy = strategies.filter(_.isInstanceOf[InANotInBStrategy])
+//    assert(inBNotInAGlobalStrategy.length > 0)
+//    val featureMap = inBNotInAGlobalStrategy.map(_.execute(List(hillary)))
+//    println(featureMap.toList)
+//  }
+//  test("Obama should get no in a not in b or otherwise for himself") {
+//    val obama = new GraphRDF("w:Q76")
+//    val hillary = new GraphRDF("http://www.wikidata.org/entity/Q6294")
+//    val strategies = StrategyGenerator.generateStrategies(obama)
+//    val inBNotInAGlobalStrategy = strategies.filter(_.isInstanceOf[InANotInBStrategy])
+//    assert(inBNotInAGlobalStrategy.length > 0)
+//    val featureMap = inBNotInAGlobalStrategy.map(_.execute(List(obama)))
+//    println(featureMap.toList)
+//    val fMapFromInA = strategies.filter(_.isInstanceOf)
+//  }
 }

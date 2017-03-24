@@ -105,20 +105,20 @@ object StrategyFactory {
         }
         return Some(strategies)
       }
-      case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#AlternativeLinkStrategy" if (MyConfiguration.alActive) => {
-        val strategies = ArrayBuffer[Strategy]()
-        val (filteredDomain, filteredRange) = getDomainAndRangeWithCorrectType(domain, range, rdfTypes)
-        if (filteredDomain.nonEmpty) {
-          val weight = strategyFactory.mapPropertyToDomainCounts(property)
-          strategies += AlternativeLinkStrategy(property, Set() ++ filteredDomain, true)
-        }
-        if (filteredRange.nonEmpty) {
-          val weight = strategyFactory.mapPropertyToRangeCounts(property)
-          strategies += AlternativeLinkStrategy(property, Set() ++ filteredRange, true)
-        }
-        if (strategies.isEmpty) return None
-        return Some(strategies)
-      }
+//      case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#AlternativeLinkStrategy" if (MyConfiguration.alActive) => {
+//        val strategies = ArrayBuffer[Strategy]()
+//        val (filteredDomain, filteredRange) = getDomainAndRangeWithCorrectType(domain, range, rdfTypes)
+//        if (filteredDomain.nonEmpty) {
+//          val weight = strategyFactory.mapPropertyToDomainCounts(property)
+//          strategies += AlternativeLinkStrategy(property, Set() ++ filteredDomain, true)
+//        }
+//        if (filteredRange.nonEmpty) {
+//          val weight = strategyFactory.mapPropertyToRangeCounts(property)
+//          strategies += AlternativeLinkStrategy(property, Set() ++ filteredRange, true)
+//        }
+//        if (strategies.isEmpty) return None
+//        return Some(strategies)
+//      }
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#DirectLinkStrategy" => {
         val strategies = ArrayBuffer[Strategy]()
         val (filteredDomain, filteredRange) = getDomainAndRangeWithCorrectType(domain, range, rdfTypes)

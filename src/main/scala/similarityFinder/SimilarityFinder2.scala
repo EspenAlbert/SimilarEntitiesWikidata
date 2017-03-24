@@ -4,6 +4,7 @@ import akka.NotUsed
 import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer, ClosedShape}
 import akka.stream.scaladsl.{Flow, GraphDSL, Merge, Partition, RunnableGraph, Sink, Source, Unzip, UnzipWith}
+import core.feature.Feature
 import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.rdf.GraphRDF
 import core.strategies.{DirectLinkStrategy, Strategy, StrategyFactory, ValueMatchStrategy}
@@ -22,6 +23,7 @@ object SimilarityFinder2 {
 
 }
 class SimilarityFinder2(qEntity : String)(implicit val knowledgeGraph: KnowledgeGraph) {
+
 
   val qEntityGraph = new GraphRDF(qEntity)
   println("In constructor")
@@ -42,9 +44,14 @@ class SimilarityFinder2(qEntity : String)(implicit val knowledgeGraph: Knowledge
       statementGrouper.out0.filter(_._2.nonEmpty) ~> strategyMapperFlow(true) ~> merger.in(0)
       statementGrouper.out1.filter(_._2.nonEmpty) ~> strategyMapperFlow(false) ~> merger.in(1)
       merger.out ~> partitioner.in
-//      partitioner.out(0)
+//      partitioner.out(0)//Cheap strategies
       ClosedShape
     })
+  }
+
+  def executeCheapStrategies: Flow[Strategy, Map[String, Feature], NotUsed] = {
+    return Flow[Strategy]
+      .map((s) => s.findSimilars())
   }
 
   def strategyCheapOrExpensivePartitioner(isACheapStrategy: (Strategy) => Boolean): Partition[Strategy] = {

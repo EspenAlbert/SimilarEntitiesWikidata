@@ -29,12 +29,16 @@ case class PropertyMatchStrategy(property : String, isSubject : Boolean, rdfType
         }
       }
     return featureMap.toMap
-
   }
 
-  override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): List[String] = {
-    if(isSubject) return QueryFactory.findSubjectsOfTypeForProperty(property, rdfTypes)
-    else return QueryFactory.findObjectsOfTypeForProperty(property, rdfTypes)
+
+  override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): Map[String, Feature] = {
+    val entities = if(isSubject) QueryFactory.findSubjectsOfTypeForProperty(property, rdfTypes)
+    else QueryFactory.findObjectsOfTypeForProperty(property, rdfTypes)
+    return generateFeatures(entities)
+  }
+  private def generateFeatures(entities: List[String]): Map[String, Feature] = {
+    return entities.map(e => e -> new Feature(property, FeatureType.sameProperty, 1, weight)).toMap
   }
   override def toString: String = {
     s"PropMatchStrategy for : $property isSubject=$isSubject, weight=$weight" + super.toString

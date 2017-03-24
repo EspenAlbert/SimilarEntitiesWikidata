@@ -7,6 +7,7 @@ import core.rdf.GraphRDF
   * Created by espen on 16.03.17.
   */
 object WikidataFactory {
+
   val countMaleGender = 2645899
 
   val domainCountGender = 3181942
@@ -65,6 +66,16 @@ object WikidataFactory {
     val genderProp = w + "P21"
     val genderValue = w + "Q6581097"
   }
+  val johnLennon = w + "Q1203"
+  val paulMcCartney = w + "Q2599"
+  val georgeHarrison = w + "Q2643"
+  val peteBest = w + "Q207335"
+  val stuartSutcliffe = w + "Q204218" //Error in the new wikidata I guess, he should not be a member of the beatles
+  val theBeatles = new {
+    val members = List(ringoStarr.id, johnLennon, paulMcCartney, georgeHarrison, peteBest)
+    val id = w + "Q1299"
+  }
+  val placeOfBirthProp = w + "P19"
 
   def obamaSubjectStatements: List[(String, String, String)] = {
     val p1o = List(w + "Q380782", w + "Q1379733")

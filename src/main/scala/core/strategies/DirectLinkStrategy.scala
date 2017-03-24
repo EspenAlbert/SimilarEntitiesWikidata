@@ -18,6 +18,9 @@ case class DirectLinkStrategy(property: String, others : Set[String]) extends St
 //    }
 //  }
   override def execute(otherEntities: List[GraphRDF])(implicit knowledgeGraph: KnowledgeGraph): Map[String, Feature] = {
+    if(otherEntities == Nil) {
+      return others.map(o => o -> new Feature(property, FeatureType.directLinkMatch, 1, weight)).toMap
+    }
     val featureMap = mutable.Map[String, Feature]()
     for (other <- otherEntities) {
       val entity: String = other.entity
@@ -26,8 +29,8 @@ case class DirectLinkStrategy(property: String, others : Set[String]) extends St
     return featureMap.toMap
   }
 
-  override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): List[String] = {
-    others.toList
+  override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): Map[String, Feature] = {
+    return execute(Nil)
 //    val statment = if(isSubject) SimpleRDFFactory.getStatement((entity, property, "?o " + OptionsForResultQueryVariable.sameTypeFilter + "_" + rdfType))
 //    else SimpleRDFFactory.getStatement(("?s " + OptionsForResultQueryVariable.sameTypeFilter + "_" + rdfType, property, entity))
 //    return QueryFactoryV2.findList(statment)

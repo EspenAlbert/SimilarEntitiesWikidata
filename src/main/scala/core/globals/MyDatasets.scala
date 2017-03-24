@@ -27,6 +27,7 @@ object MyDatasets{
 }
 
 object KnowledgeGraph extends Enumeration {
+
   type KnowledgeGraph = Value
   val wikidata: KnowledgeGraph = Value("wikidata")
   val dbPedia: KnowledgeGraph = Value("DBpedia")
@@ -34,6 +35,12 @@ object KnowledgeGraph extends Enumeration {
     knowledgeGraph match {
       case KnowledgeGraph.wikidata => return MyDatasets.strategyMappingWikidata
       case KnowledgeGraph.dbPedia =>  throw new NotImplementedError()
+    }
+  }
+  def getTypeProperty(knowledgeGraph: KnowledgeGraph) : String = {
+    knowledgeGraph match {
+      case KnowledgeGraph.wikidata => SimilarPropertyOntology.w + "P31"
+      case KnowledgeGraph.dbPedia => SimilarPropertyOntology.rdfType
     }
   }
 }

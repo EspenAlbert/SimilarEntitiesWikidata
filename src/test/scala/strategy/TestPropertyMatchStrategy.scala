@@ -22,10 +22,7 @@ class TestPropertyMatchStrategy extends FunSuite{
     val strategy = PropertyMatchStrategy("http://www.wikidata.org/entity/P1591",false,List("http://www.wikidata.org/entity/Q5"), 555)
     val similars = strategy.findSimilars()
     print(similars)
-    assert(similars.length == 4)
-    val features = strategy.execute(List(similars : _*).map((s) => new GraphRDF(s)))
-    print(features)
-    assert(features.keySet.toList.length == 4)
+    assert(similars.keys.size== 4)
   }
 
 }

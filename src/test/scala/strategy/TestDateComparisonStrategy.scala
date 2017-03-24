@@ -5,7 +5,7 @@ import core.globals.{KnowledgeGraph, PrimitiveDatatype}
 import core.rdf.GraphRDF
 import org.scalatest.FunSuite
 import similarityFinder.ranker.Ranker
-import core.strategies.{DateComparisonStrategy, MasterStrategy, Strategy, ValueMatchStrategy}
+import core.strategies.{DateComparisonStrategy, Strategy, ValueMatchStrategy}
 import similarityFinder.MyConfiguration
 
 import scala.collection.mutable.ListBuffer

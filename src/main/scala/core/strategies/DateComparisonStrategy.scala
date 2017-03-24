@@ -43,7 +43,7 @@ case class DateComparisonStrategy(property: String, value : String, dbCountPrope
     return featureMap.toMap
   }
 
-  override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): List[String] = {
-    return Nil //Not worth it at the moment
+  override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): Map[String, Feature] = {
+    return Map() //Not worth it at the moment
   }
 }

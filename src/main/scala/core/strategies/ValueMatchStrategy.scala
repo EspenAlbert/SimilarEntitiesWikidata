@@ -36,9 +36,10 @@ case class ValueMatchStrategy(property: String, isSubject: Boolean, value : Stri
     return featureMap.toMap
   }
 
-  override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): List[String] = {
-    return if(isSubject) QueryFactory.subjectsOfTypeWithPropertyAndValue(property, value, rdfTypes) else
+  override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): Map[String, Feature] = {
+    val entities = if(isSubject) QueryFactory.subjectsOfTypeWithPropertyAndValue(property, value, rdfTypes) else
       QueryFactory.objectsOfTypeWithPropertyAndSubject(property, value, rdfTypes)
+    return entities.map(e=> e-> new ValueMatchFeature(property, FeatureType.valueMatch, 1, weight, value)).toMap
   }
   override def toString: String = {
     s"ValueMatchStrategy for : $property isSubject=$isSubject value=$value, weight=$weight" + super.toString
