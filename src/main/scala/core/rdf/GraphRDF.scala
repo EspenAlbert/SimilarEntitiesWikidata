@@ -22,20 +22,7 @@ class GraphRDF(val entity : String)(implicit val knowledgeGraph: KnowledgeGraph)
     QueryFactory.findPropertiesAndObjects(entity)
   }
   val statements = mutable.Set[Tuple3[String, String, String]]()
-  val statementsList = List(("a", "b", "c"))
-//  val statementsList = (for((subject, property) <- entityIsObjectStatements._1 zip entityIsObjectStatements._2)yield (subject, property, entity))
-//    .++(for((property, objectValue) <- entityIsSubjectStatments._2 zip entityIsSubjectStatments._1) yield (entity, property, objectValue))
-
-//  val s2 = Future {
-//    val a = (for {
-//      (s, p) <- entityIsObjectStatements._1 zip entityIsObjectStatements._2
-//      (p, o) <- entityIsSubjectStatments._2 zip entityIsSubjectStatments._1
-//    }yield List((s,p, entity),(entity,p, o)))
-//    println(s"Full length: ${a.length}")
-//    a
-//  }
-//  val s3 = Await.result(s2, 10 seconds)
-  def getStringIterable: List[(String,String,String)]= {
+  def statementsList: List[(String,String,String)]= {
     val eIsObject = Await.result(entityIsObjectStatements, 10 seconds)
     val eIsSubject = Await.result(entityIsSubjectStatments, 10 seconds)
     val statements = (for ((subject, property) <- eIsObject._1 zip eIsObject._2) yield (subject, property, entity))

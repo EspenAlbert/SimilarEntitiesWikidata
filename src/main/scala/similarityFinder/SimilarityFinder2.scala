@@ -32,7 +32,7 @@ class SimilarityFinder2(qEntity : String)(implicit val knowledgeGraph: Knowledge
     val printSinkIsObject = Sink.foreach((s:Tuple2[String, List[String]]) => println(s"Object: $s"))
     val printSink2 = Sink.foreach((s:Tuple2[Tuple2[String, List[String]], Tuple2[String, List[String]]]) => println(s))
     val printSink3 = Sink.foreach((s:List[(String, String, String)]) => println(s))
-    val source = getSource(qEntityGraph.getStringIterable)
+    val source = getSource(qEntityGraph.statementsList)
     println("done getting source...")
     g = RunnableGraph.fromGraph(GraphDSL.create() {implicit b =>
       import GraphDSL.Implicits._

@@ -11,7 +11,7 @@ import scala.collection.mutable.ListBuffer
 /**
   * Created by espen on 16.02.17.
   */
-object SplitAndFixRDFBigHelper {
+object ReadWikidataHelper {
   abstract class RDFLine
   case class NewEntityLine(entity : String, property : String, statementID: String) extends RDFLine
   case class EntityLine(entity : String, property : String, statementID: String) extends RDFLine
@@ -49,7 +49,7 @@ object SplitAndFixRDFBigHelper {
   }
 
   def uploadToDataset(s : Iterable[String]) = {
-    UpdateQueryFactory.addStatements(s, dataset = MyDatasets.DsBig)
+    UpdateQueryFactory.addStatements(s, dataset = MyDatasets.dsWikidata)
   }
 
   def createStatementNt(s: String, p: String, o: String) : String= {

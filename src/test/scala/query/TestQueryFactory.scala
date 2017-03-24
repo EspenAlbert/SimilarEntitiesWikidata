@@ -3,10 +3,12 @@ package query
 import core.globals.KnowledgeGraph
 import org.scalatest.FunSuite
 import core.query.specific.QueryFactory._
+import data.WikidataFactory
+import tags.ActiveTag
 /**
   * Created by espen on 20.02.17.
   */
-class TestQueryFactoryRaw extends FunSuite{
+class TestQueryFactory extends FunSuite{
   implicit val knowledgeGraph = KnowledgeGraph.wikidata
   test("Should be able to find all datatypes for a property") {
     val dTypes = findAllDistinctDatatypesForProperty("http://www.wikidata.org/entity/P6")
@@ -33,7 +35,16 @@ class TestQueryFactoryRaw extends FunSuite{
     val maxDate2 = findMaxDate("http://www.wikidata.org/entity/P1326")
     println(maxDate)
     println(maxDate2)
-
+  }
+  test("find subject count for male gender", ActiveTag) {
+    val expectedCount = WikidataFactory.countMaleGender
+    val actualCount = findCountForPropertyWithValue(WikidataFactory.ringoStarr.genderProp, WikidataFactory.ringoStarr.genderValue)
+    assert(expectedCount == actualCount.getOrElse(throw new Exception("Failed to find count")))
+  }
+  test("find value count for subject=Ringo starr property = occupation", ActiveTag) {
+    val expectedCount = WikidataFactory.ringoStarr.occupationValues.length
+    val actualCount = findCountForPropertyWithSubject(WikidataFactory.ringoStarr.occupationProp, WikidataFactory.ringoStarr.id)
+    assert(expectedCount == actualCount.getOrElse(throw new Exception("Failed to find count")))
   }
 
 }

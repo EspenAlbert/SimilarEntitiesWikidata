@@ -14,11 +14,12 @@ object MyDatasets{
 
   val valueNodeDs = "valueNodeDs"
   final val DsBig = "dsBig"
+  final val dsWikidata = "dsWikidata"
 
   val similarProperties2 = "similarProperties2"
   final val Wikidata = "ds"
   final val SimilarProperties = "similarProperties"
-  final val ValueMatch = "valueMatch"
+  final val ValueMatchWikidata = "valueMatchWikidata"
   final val ResultsSimilarArtists = "resultsSimilarArtists"
 
 

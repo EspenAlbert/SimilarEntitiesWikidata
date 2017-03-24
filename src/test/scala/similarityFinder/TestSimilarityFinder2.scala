@@ -42,7 +42,6 @@ class TestSimilarityFinder2  extends FunSuite{
           }
         }
       }
-      println(a)
     }))//(b => println(b)))
 
     Thread.sleep(2000)

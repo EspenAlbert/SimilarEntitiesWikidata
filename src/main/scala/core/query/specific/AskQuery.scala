@@ -14,7 +14,8 @@ object AskQuery {
          |PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
          |ask
          |WHERE {
-         |  <$subject> <wd:P31> <$rdfTypes>.
+         |  <$subject> wd:P31 ?v.
+         |  filter(?v IN(<${rdfTypes.mkString(">,<")}>)) .
          |}
         """.stripMargin
     return QueryLocalServer.ask(askQuery, DatasetInferrer.getDataset(askQuery))
@@ -62,6 +63,18 @@ object AskQuery {
          |}
         """.stripMargin
     return QueryLocalServer.ask(askQuery, DatasetInferrer.getDataset(askQuery))
+
+  }
+  def isItemProperty(property: String)(implicit knowledgeGraph: KnowledgeGraph) : Boolean = {
+    val itemPropertyQuery =
+      s"""
+         |ask
+         |where {
+         | ?s <$property> ?o .
+         | ?o ?p ?v .
+         | }
+      """.stripMargin
+    return QueryLocalServer.ask(itemPropertyQuery, DatasetInferrer.getDataset(itemPropertyQuery))
 
   }
 

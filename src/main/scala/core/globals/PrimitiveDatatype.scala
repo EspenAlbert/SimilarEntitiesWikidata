@@ -67,15 +67,7 @@ object PrimitiveDatatype extends Enumeration{
     else None
   }
   def determineFromObjectValuePropertyType(property : String)(implicit knowledgeGraph: KnowledgeGraph) : Option[PropertyType] = {
-    val itemPropertyQuery =
-      s"""
-        |ask
-        |where {
-        | ?s <$property> ?o .
-        | ?o ?p ?v .
-        | }
-      """.stripMargin
-    if(AskQuery.ask(() => itemPropertyQuery)) return Some(ItemPropertyType())
+    return Some(ItemPropertyType())
     val samples = QueryFactory.find100SamplesForProperty(property)
     if(samples.filter(_.startsWith("http")).length == samples.length) return Some(UrlPropertyType())
     if(samples.exists{case literalValuePattern(_*) => false; case _=> true}) return Some(StringPropertyType()) //IF we find a literal value not wrapped in "" it is not a string property type

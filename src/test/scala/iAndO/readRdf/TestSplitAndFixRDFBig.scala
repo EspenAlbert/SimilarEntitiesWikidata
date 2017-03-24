@@ -1,8 +1,8 @@
 package iAndO.readRdf
 
 import org.scalatest.FunSuite
-import iAndO.readRdf.SplitAndFixRDFBig._
-import iAndO.readRdf.bigDataset.SplitAndFixRDFBigHelper._
+import iAndO.readRdf.ReadWikidata._
+import iAndO.readRdf.bigDataset.ReadWikidataHelper._
 import iAndO.readRdf.bigDataset.URIFixer
 
 import scala.collection.mutable.ListBuffer

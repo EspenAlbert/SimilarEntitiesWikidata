@@ -33,7 +33,7 @@ trait FindSomething{
       assert(resList.length > 0)
     } catch {
       case _ => {
-        println("Had an exception...")
+        println(s"Had an exception... when trying to read the result for query variable $variable")
         return Nil
       }
     }

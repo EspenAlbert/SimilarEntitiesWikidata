@@ -12,7 +12,7 @@ object UpdateQueryFactory {
     val updateQuery = s"insert { <$propertyAsFullString> <${SimilarPropertyOntology.valueMatchProperty}> [ <${SimilarPropertyOntology.valueMatchValue}> <$entity>;\n" +
       s"""<${SimilarPropertyOntology.valueMatchCount}> "%d" ] } where {}""".format(count)
     println(updateQuery)
-    QueryLocalServer.updateLocalData(updateQuery, MyDatasets.ValueMatch)
+    QueryLocalServer.updateLocalData(updateQuery, MyDatasets.ValueMatchWikidata)
   }
   def addResult(qEntity: String, foundEntity : String, ranking : Int, simScore: Double) = {
     QueryLocalServer.updateLocalData(addResultQuery(qEntity, foundEntity, ranking, simScore), MyDatasets.ResultsSimilarArtists)

@@ -5,7 +5,7 @@ import java.util.zip.GZIPInputStream
 
 import core.globals.MyDatasets
 import core.query.specific.UpdateQueryFactory
-import iAndO.readRdf.bigDataset.SplitAndFixRDFBigHelper.uploadToDataset
+import iAndO.readRdf.bigDataset.ReadWikidataHelper.uploadToDataset
 import org.apache.jena.query.QueryParseException
 import org.apache
 import org.apache.commons.compress.compressors.CompressorStreamFactory
@@ -23,21 +23,21 @@ object ReadDBpedia {
     //    var lines = Source.fromFile("/home/espen/prog/java/Wikidata-Toolkit-master/results/wikidata-statements.nt.gz", enc = "utf-8")
 //    readFile()
       //"/media/espen/Windows8_OS/dataset/dbPedia/skos_categories_en",
-    val filesLeft = List(
-  "/media/espen/Windows8_OS/dataset/dbPedia/mappingbased_literals_en",
-  "/media/espen/Windows8_OS/dataset/dbPedia/mappingbased_objects_en"
+//    val filesLeft = List(
+//  "/media/espen/Windows8_OS/dataset/dbPedia/mappingbased_literals_en",
+//  "/media/espen/Windows8_OS/dataset/dbPedia/mappingbased_objects_en"
 //      "/media/espen/Windows8_OS/dataset/dbPedia/topical_concepts_en",
 //      "/media/espen/Windows8_OS/dataset/dbPedia/infobox_properties_mapped_en",
 //      "/media/espen/Windows8_OS/dataset/dbPedia/page_links_en",
 //      "/media/espen/Windows8_OS/dataset/dbPedia/instance_types_en",
 //      "/media/espen/Windows8_OS/dataset/dbPedia/article_categories_en"
-    )
-//    val linking = "/media/espen/Windows8_OS/dataset/dbPedia/interlanguage_links_en"
-//    readFile(linking, true)
-    for(filename <- filesLeft) {
-      println(s"Starting to read $filename")
-      readFile(filename)
-    }
+//    )
+    val linking = "/media/espen/Windows8_OS/dataset/dbPedia/interlanguage_links_en"
+    readFile(linking, true)
+//    for(filename <- filesLeft) {
+//      println(s"Starting to read $filename")
+//      readFile(filename)
+//    }
   }
     def readFile(filename :String = "/media/espen/Windows8_OS/dataset/dbPedia/article_categories_en", useFilter : Boolean = false) = {
       var fileNumber = 0

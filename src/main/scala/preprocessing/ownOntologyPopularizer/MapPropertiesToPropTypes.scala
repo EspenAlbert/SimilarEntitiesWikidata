@@ -3,7 +3,7 @@ package preprocessing.ownOntologyPopularizer
 import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.globals._
 import core.globals.SimilarPropertyOntology.{rdfType, w}
-import core.query.specific.QueryFactory
+import core.query.specific.{AskQuery, QueryFactory}
 import iAndO.dump.DumpObject
 
 import scala.collection.mutable
@@ -51,25 +51,31 @@ object MapPropertiesToPropTypes {
     val coordinateProperties = filterGeoPropertyTypes(properties)
     val ordinaryProperties = filterOrdinaryProperties(properties)
     for(p <- ordinaryProperties) {
-      try {
-        val datatypes = QueryFactory.findAllDistinctDatatypesForProperty(p)
-        val datatypesInStringFormat = datatypes.map {
-          PrimitiveDatatype.getDatatypeAsStringFromResult(_)
-        }.
-          filter { _.isDefined }.
-          map { case Some(s) => s }
-        PrimitiveDatatype.getPropertyTypeFromDatatypes(datatypesInStringFormat) match {
-          case Some(pType) => propertyToPropertyDatatype += (p -> pType)
-          case None => {
-            PrimitiveDatatype.determineFromObjectValuePropertyType(p) match {
-              case Some(pType) => propertyToPropertyDatatype += (p -> pType)
-              case None => println(s"Unable to determine property datatype for property=$p")
-            }
 
+      if (AskQuery.isItemProperty(p)) propertyToPropertyDatatype += (p -> ItemPropertyType())
+      else {
+        try {
+          val datatypes = QueryFactory.findAllDistinctDatatypesForProperty(p)
+          val datatypesInStringFormat = datatypes.map {
+            PrimitiveDatatype.getDatatypeAsStringFromResult(_)
+          }.
+            filter {
+              _.isDefined
+            }.
+            map { case Some(s) => s }
+          PrimitiveDatatype.getPropertyTypeFromDatatypes(datatypesInStringFormat) match {
+            case Some(pType) => propertyToPropertyDatatype += (p -> pType)
+            case None => {
+              PrimitiveDatatype.determineFromObjectValuePropertyType(p) match {
+                case Some(pType) => propertyToPropertyDatatype += (p -> pType)
+                case None => println(s"Unable to determine property datatype for property=$p")
+              }
+
+            }
           }
+        } catch {
+          case a: Throwable => println(a); println(s"Had an error find datatype for: $p")
         }
-      } catch {
-        case a : Throwable => println(a); println(s"Had an error find datatype for: $p")
       }
     }
     val mapGeoProps = coordinateProperties.map(prop => (prop -> GlobeCoordinatePropertyType())).toMap

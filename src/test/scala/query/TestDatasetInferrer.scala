@@ -40,9 +40,9 @@ class TestDatasetInferrer extends FunSuite{
   }
 
   test("The value match dataset should be inferred properly") {
-    assert(DatasetInferrer.getDataset(getQueryForProperty(SimilarPropertyOntology.valueMatchClass)) == MyDatasets.ValueMatch)
-    assert(DatasetInferrer.getDataset(getQueryForProperty(SimilarPropertyOntology.valueMatchValue)) == MyDatasets.ValueMatch)
-    assert(DatasetInferrer.getDataset(getQueryForProperty(SimilarPropertyOntology.valueMatchCount)) == MyDatasets.ValueMatch)
+    assert(DatasetInferrer.getDataset(getQueryForProperty(SimilarPropertyOntology.valueMatchClass)) == MyDatasets.ValueMatchWikidata)
+    assert(DatasetInferrer.getDataset(getQueryForProperty(SimilarPropertyOntology.valueMatchValue)) == MyDatasets.ValueMatchWikidata)
+    assert(DatasetInferrer.getDataset(getQueryForProperty(SimilarPropertyOntology.valueMatchCount)) == MyDatasets.ValueMatchWikidata)
   }
 
 

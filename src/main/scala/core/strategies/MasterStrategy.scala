@@ -7,6 +7,7 @@ import core.query.specific.{AskQuery, QueryFactory, UpdateQueryFactory}
 import similarityFinder.MyConfiguration
 
 import scala.collection.mutable.ArrayBuffer
+import scala.util.{Failure, Success, Try}
 
 /**
   * Created by Espen on 15.11.2016.
@@ -158,15 +159,15 @@ def valueIsAPotentialValueMatchFindCount(value: String, property: String, isSubj
     QueryFactory.getValueMatchFromExistingDb(value, property) match {
       case Some(s) => return Some(s)
       case None => {
-        val countFromDs = if (isSubject) QueryFactory.findDistinctCountForPropertyWithValue(property, value) else
-          QueryFactory.findDistinctCountForPropertyWithSubject(property, value)
+        val countFromDs = if (isSubject) QueryFactory.findCountForPropertyWithValue(property, value) else
+          QueryFactory.findCountForPropertyWithSubject(property, value)
         countFromDs match {
-          case Some(count) => {
+          case Success(count) => {
             UpdateQueryFactory.updateValueCount(property, value, count) //Stores the value so we don't have to do the full count again..
             return Some(count)
           }
-          case None => {
-            println(s"Unable to find count for: $property with value: $value isSubject: $isSubject")
+          case Failure(m) => {
+            println(s"Unable to find count for: $property with value: $value isSubject: $isSubject\n Failure message $m")
             return None
           }
         }

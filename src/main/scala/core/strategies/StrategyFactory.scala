@@ -3,25 +3,60 @@ package core.strategies
 import core.globals.KnowledgeGraph
 import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.query.specific.{AskQuery, QueryFactory, UpdateQueryFactory}
+import iAndO.dump.DumpObject
 import similarityFinder.MyConfiguration
 
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
+import scala.util.{Failure, Success}
 
 /**
   * Created by espen on 09.03.17.
   */
 class StrategyFactory(implicit knowledgeGraph: KnowledgeGraph) {
-  val mapPropertyToStrategies = convertPropertiesAndStrategiesToMap()
+  private val filenamePropToStrategies = s"$knowledgeGraph-prop-strategies"
+  private val filenamePropToDomainCount = s"$knowledgeGraph-prop-domain-count"
+  private val filenamePropToRangeCount = s"$knowledgeGraph-prop-range-count"
+  val mapPropertyToStrategies = convertPropertiesAndStrategiesToMap
+  val mapPropertyToDomainCounts = getDomainCounts
+  val mapPropertyToRangeCounts = getRangeCounts
 
-  private def convertPropertiesAndStrategiesToMap(): Map[String, List[String]] = {
-    val (properties, strategies) = QueryFactory.findAllStrategies()
-    return properties.zip(strategies)
-      .groupBy(pAndS => pAndS._1)
-      .map(propAndTuple => propAndTuple._1 -> propAndTuple._2.map(_._2))
+  private def getDomainCounts: Map[String, Int] = {
+    if(StrategyFactory.forceRead) {
+      val (properties, strategies) = QueryFactory.findAllDomainCounts()
+      val mapped = properties.zip(strategies).toMap
+      DumpObject.dumpMapStringInt(mapped, filenamePropToDomainCount)
+      return mapped
+    } else {
+      DumpObject.getMapStringInt(filenamePropToDomainCount)
+    }
+  }
+  private def getRangeCounts: Map[String, Int] = {
+    if(StrategyFactory.forceRead) {
+      val (properties, strategies) = QueryFactory.findAllRangeCounts()
+      val mapped = properties.zip(strategies).toMap
+      DumpObject.dumpMapStringInt(mapped, filenamePropToRangeCount)
+      return mapped
+    } else {
+      DumpObject.getMapStringInt(filenamePropToRangeCount)
+    }
+  }
+
+
+  private def convertPropertiesAndStrategiesToMap: Map[String, List[String]] = {
+    if(StrategyFactory.forceRead) {
+      val (properties, strategies) = QueryFactory.findAllStrategies()
+      val mapped = properties.zip(strategies)
+        .groupBy(pAndS => pAndS._1)
+        .map(propAndTuple => propAndTuple._1 -> propAndTuple._2.map(_._2))
+      DumpObject.dumpJsonMapStringListString(mapped, filenamePropToStrategies)
+      return mapped
+    } else {
+      DumpObject.getStringMap(filenamePropToStrategies)
+    }
   }
 }
 object StrategyFactory {
-
+  var forceRead = false
   var strategyFactoryWikidata: StrategyFactory = null
   var strategyFactoryDBpedia: StrategyFactory = null
 
@@ -41,7 +76,7 @@ object StrategyFactory {
           strategyFactoryWikidata = new StrategyFactory()
         }
         return strategyFactoryWikidata.mapPropertyToStrategies.get(property) match {
-          case Some(strategyList) => strategyList.map(s => matchStrategyClassNameToStrategy(s, property, getDomain, getRange, entity, rdfTypes))
+          case Some(strategyList) => strategyList.map(s => matchStrategyClassNameToStrategy(s, property, getDomain, getRange, entity, rdfTypes)(knowledgeGraph, strategyFactoryWikidata))
             .filter(s => s.isDefined)
             .flatMap(option => option.getOrElse(throw new Exception("not defined")))
         }
@@ -56,18 +91,17 @@ object StrategyFactory {
   }
 
   //    def matchStrategyClassNameToStrategy(strategy: String, property: String, domain: List[String], range: List[String], entity: String, rdfTypes: List[String])(implicit knowledgeGraph: KnowledgeGraph):
-  def matchStrategyClassNameToStrategy(strategy: String, property: String, domain: List[String], range: List[String], entity: String, rdfTypes: List[String])(implicit knowledgeGraph: KnowledgeGraph): Option[Seq[Strategy]] = {
+  def matchStrategyClassNameToStrategy(strategy: String, property: String, domain: List[String], range: List[String], entity: String, rdfTypes: List[String])(implicit knowledgeGraph: KnowledgeGraph, strategyFactory : StrategyFactory): Option[Seq[Strategy]] = {
     return strategy match {
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#PropertyMatchStrategy" => {
         val strategies = ArrayBuffer[Strategy]()
         if (range.nonEmpty) {
-          val count = QueryFactory.findDomainCount(property)
+          val count =strategyFactory.mapPropertyToDomainCounts(property)
           strategies.append(PropMatchStrategy(property, true, rdfTypes, count))
         }
         if (domain.nonEmpty) {
-          val count = QueryFactory.findRangeCount(property)
+          val count = strategyFactory.mapPropertyToRangeCounts(property)
           strategies.append(PropMatchStrategy(property, false, rdfTypes, count))
-
         }
         return Some(strategies)
       }
@@ -75,11 +109,11 @@ object StrategyFactory {
         val strategies = ArrayBuffer[Strategy]()
         val (filteredDomain, filteredRange) = getDomainAndRangeWithCorrectType(domain, range, rdfTypes)
         if (filteredDomain.nonEmpty) {
-          val weight = QueryFactory.findDomainCount(property)
+          val weight = strategyFactory.mapPropertyToDomainCounts(property)
           strategies += AlternativeLinkStrategy(property, Set() ++ filteredDomain, true)
         }
         if (filteredRange.nonEmpty) {
-          val weight = QueryFactory.findRangeCount(property)
+          val weight = strategyFactory.mapPropertyToRangeCounts(property)
           strategies += AlternativeLinkStrategy(property, Set() ++ filteredRange, true)
         }
         if (strategies.isEmpty) return None
@@ -98,7 +132,6 @@ object StrategyFactory {
         if (strategies.isEmpty) return None
         return Some(strategies)
       }
-        None //Some(DirectLinkStrategy(property, isSubject, entity))
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#ValueMatchSubjectStrategy" => {
         val strategies = ArrayBuffer[Strategy]()
         if (domain.nonEmpty) {
@@ -109,7 +142,7 @@ object StrategyFactory {
             }
           }
           //          if(MyConfiguration.inANotInBActive) {
-          //            val domainCount = QueryFactory.findDomainCount(property)
+          //            val domainCount = strategyFactory.mapPropertyToDomainCounts(property)
           //            val domainPotentialValueMatches = strategies.map((s) => if (s.isInstanceOf[ValueMatchStrategy]) s.asInstanceOf[ValueMatchStrategy].value)
           //            if (domainPotentialValueMatches.length > 0) {
           //              val weight = getPropMatchWeight(SimilarPropertyOntology.maxCountForProperties - domainCount)
@@ -133,7 +166,7 @@ object StrategyFactory {
             }
           }
           //          if(MyConfiguration.inANotInBActive) {
-          //            val rangeCount = QueryFactory.findRangeCount(property)
+          //            val rangeCount = strategyFactory.mapPropertyToRangeCounts(property)
           //            val rangePotentialValueMatches = strategies.map((s) => if(s.isInstanceOf[ValueMatchStrategy]) s.asInstanceOf[ValueMatchStrategy].value)
           //            if(rangePotentialValueMatches.length > 0) {
           //              val weight = getPropMatchWeight(SimilarPropertyOntology.maxCountForProperties - rangeCount)
@@ -158,7 +191,7 @@ object StrategyFactory {
           case a: Throwable => println("more than 1 date time value", range)
         }
         // Only one value
-        val dbCount = QueryFactory.findDomainCount(property)
+        val dbCount = strategyFactory.mapPropertyToDomainCounts(property)
         return Some(List(DateComparisonStrategy(property, range(0), dbCount)))
       }
       case _ => None
@@ -169,15 +202,15 @@ object StrategyFactory {
     QueryFactory.getValueMatchFromExistingDb(value, property) match {
       case Some(s) => return Some(s)
       case None => {
-        val countFromDs = if (isSubject) QueryFactory.findDistinctCountForPropertyWithValue(property, value) else
-          QueryFactory.findDistinctCountForPropertyWithSubject(property, value)
+        val countFromDs = if (isSubject) QueryFactory.findCountForPropertyWithValue(property, value) else
+          QueryFactory.findCountForPropertyWithSubject(property, value)
         countFromDs match {
-          case Some(count) => {
+          case Success(count) => {
             UpdateQueryFactory.updateValueCount(property, value, count) //Stores the value so we don't have to do the full count again..
             return Some(count)
           }
-          case None => {
-            println(s"Unable to find count for: $property with value: $value isSubject: $isSubject")
+          case Failure(m) => {
+            println(s"Unable to find count for: $property with value: $value isSubject: $isSubject\n Failure message: $m")
             return None
           }
         }

@@ -4,18 +4,18 @@ import java.io.{BufferedInputStream, FileInputStream, InputStream, PrintWriter}
 import java.util.zip.GZIPInputStream
 
 import org.apache.jena.query.QueryParseException
-import iAndO.readRdf.SplitAndFixRDFBig.CustomOriginalPropertyTypes.CustomOriginalPropertyTypes
+import iAndO.readRdf.ReadWikidata.CustomOriginalPropertyTypes.CustomOriginalPropertyTypes
 
 import scala.collection.mutable
 import scala.collection.mutable.ListBuffer
 import scala.io.Source
 import scala.util.matching.Regex.MatchIterator
-import iAndO.readRdf.bigDataset.SplitAndFixRDFBigHelper._
+import iAndO.readRdf.bigDataset.ReadWikidataHelper._
 import iAndO.readRdf.bigDataset.URIFixer
 /**
   * Created by Espen on 13.10.2016.
   */
-object SplitAndFixRDFBig {
+object ReadWikidata {
   var testActive = false
   var addEverything = true
   var fileNumber = 1
@@ -33,7 +33,7 @@ object SplitAndFixRDFBig {
     var i = 0
     var printWriter = new PrintWriter(s"input/errorLog$fileNumber.txt")
     var errorNumber = 1
-    val alreadyParsedLines = 474000000
+    val alreadyParsedLines = 0
 //    val alreadyParsedLines = 1510000
     while (iter.hasNext) {
       iter.next() match {
@@ -168,9 +168,9 @@ object SplitAndFixRDFBig {
       val originalProperty = statementIdMap.getOrElse(statementID, throw new Exception(s"StatementID had no original entity $statementID"))._2
 
       def createStatement(literalValue: String, changedOriginalProperty: CustomOriginalPropertyTypes = CustomOriginalPropertyTypes.statement,
-                          qualifierProperty: String = null): Option[(String, String, String)] = {
+                          qualifierPropertyID: String = null): Option[(String, String, String)] = {
         statementIdMap.get(statementID) match {
-          case Some((subj, property)) => getCustomOriginalProperty(changedOriginalProperty, qualifierProperty) match {
+          case Some((subj, property)) => getCustomOriginalProperty(changedOriginalProperty, qualifierPropertyID) match {
             case Some(property) => Some(subj, property, literalValue)
             case None => None
           }
@@ -178,19 +178,19 @@ object SplitAndFixRDFBig {
         }
       }
 
-      def getCustomOriginalProperty(customType: CustomOriginalPropertyTypes, qualifierProperty: String = null): Option[String] = {
+      def getCustomOriginalProperty(customType: CustomOriginalPropertyTypes, qualifierPropertyID: String = null): Option[String] = {
         customType match {
           case CustomOriginalPropertyTypes.statement => Some(originalProperty)
           case CustomOriginalPropertyTypes.latitude => Some(originalProperty.dropRight(1) + "la>")
           case CustomOriginalPropertyTypes.longitude => Some(originalProperty.dropRight(1) + "lo>")
-          case CustomOriginalPropertyTypes.qualifier => Some(originalProperty.dropRight(1) + qualifierProperty + ">")
+          case CustomOriginalPropertyTypes.qualifier => Some(originalProperty.dropRight(1) + qualifierPropertyID + ">")
           case a => println("couldn't find property or you tried a custom orginial property value that don't exists!"); None
         }
       }
 
       for ((prop, value) <- tupleList) {
         def getStatementFromValueNode(qualifier: Boolean): (Option[(String, String, String)], Option[(String, String, String)]) = {
-          val qualifierPropertyId = if (qualifier) prop.substring(prop.indexOf('P'), prop.length - 1) else null
+          val qualifierPropertyId = if (qualifier) getPropertyID(prop) else null
 
           def createStatementNormal(literalValue: String): (Option[(String, String, String)], Option[(String, String, String)]) = {
             if (qualifier) ((createStatement(literalValue, CustomOriginalPropertyTypes.qualifier, qualifierPropertyId)), None)
@@ -248,7 +248,8 @@ object SplitAndFixRDFBig {
                 createValueStatementAddToList(true)
               }
               case literValue => {
-                statements.append((entity, originalProperty, literValue))
+                val createdQualifierSimpleStatement = (entity, getCustomOriginalProperty(CustomOriginalPropertyTypes.qualifier, getPropertyID(prop)).getOrElse(throw new Exception("Failed to create a normal qualifier statement")), literValue)
+                statements.append(createdQualifierSimpleStatement)
               }
             }
           }
@@ -259,6 +260,10 @@ object SplitAndFixRDFBig {
       statements.clear()
     }
     return statementAndRanks.toList
+  }
+
+  private def getPropertyID(prop: String) = {
+    prop.substring(prop.indexOf('P'), prop.length - 1)
   }
 
   val valueNodeGeoPattern = """<http://www.wikidata.org/entity/VC.*>""".r

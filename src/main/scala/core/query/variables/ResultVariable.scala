@@ -21,6 +21,9 @@ object ResultVariable {
       }
     }
   }
+  implicit def getListInt(x : List[ResultVariable]) : List[Int] = {
+    for(v <- x) yield getInt(v)
+  }
   implicit def getString(x : ResultVariable) : String = {
     datatypeAnswer.findFirstIn(x.value) match {
       case Some(v) => return v

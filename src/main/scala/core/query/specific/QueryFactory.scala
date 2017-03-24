@@ -1,15 +1,44 @@
 package core.query.specific
 
 import core.globals.KnowledgeGraph.KnowledgeGraph
-import core.globals.{KnowledgeGraph, PrimitiveDatatype}
+import core.globals.{KnowledgeGraph, PrimitiveDatatype, SimilarPropertyOntology}
 import core.query.Query
 
 import scala.concurrent.{ExecutionContext, Future}
+import scala.util.Try
 
 /**
   * Created by espen on 17.02.17.
   */
 object QueryFactory {
+  def findAllDomainCounts()(implicit knowledgeGraph: KnowledgeGraph) : (List[String], List[Int]) = {
+    val queryString =
+      s"""
+         |SELECT *
+         |WHERE {
+         |  ?property <${SimilarPropertyOntology.domainCount}> ?domainCount
+         |}
+        """.stripMargin
+    val query = executeQuery(queryString, KnowledgeGraph.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
+    val properties = query.getResults("property")
+    val strategies = query.getResults("domainCount")
+
+    return (properties,strategies)
+  }
+  def findAllRangeCounts()(implicit knowledgeGraph: KnowledgeGraph) : (List[String], List[Int]) = {
+    val queryString =
+      s"""
+         |SELECT *
+         |WHERE {
+         |  ?property <${SimilarPropertyOntology.rangeCount}> ?domainCount
+         |}
+        """.stripMargin
+    val query = executeQuery(queryString, KnowledgeGraph.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
+    val properties = query.getResults("property")
+    val strategies = query.getResults("domainCount")
+
+    return (properties,strategies)
+  }
 
   def findAllStrategies()(implicit knowledgeGraph: KnowledgeGraph) : (List[String], List[String]) = {
     val queryString =
@@ -48,26 +77,46 @@ object QueryFactory {
 
   }
 
-  def findDistinctCountForPropertyWithSubject(property: String, subject: String)(implicit knowledgeGraph : KnowledgeGraph) : Option[Int] = {
-    throw new NotImplementedError()
-
-  }
 
   def getValueMatchFromExistingDb(value: String, property: String)(implicit knowledgeGraph : KnowledgeGraph): Option[Int] = {
-    throw new NotImplementedError()
-
-    //    try {
-//      val statement1 = SimpleRDFFactory.getStatement(property, SimilarPropertyOntology.valueMatchProperty, "?o " + OptionsForResultQueryVariable.ignoreMe)
-//      val statement2 = SimpleRDFFactory.getStatement("?o " + OptionsForResultQueryVariable.ignoreMe, SimilarPropertyOntology.valueMatchValue, value)
-//      val statement3 = SimpleRDFFactory.getStatement("?o " + OptionsForResultQueryVariable.ignoreMe, SimilarPropertyOntology.valueMatchCount, "?c")
-//      val count = QueryFactoryV2.findSingleValue(statement1, statement2, statement3)
-//      return Some(count)
-//    } catch {
-//      case a: Throwable => return None
-//    }
+    val queryString =
+      s"""
+         |SELECT ?c
+         |WHERE {
+         |  <$property> <${SimilarPropertyOntology.valueMatchProperty}> ?o.
+         |  ?o <${SimilarPropertyOntology.valueMatchValue}> <$value> .
+         |  ?o <${SimilarPropertyOntology.valueMatchCount}> ?c .
+         |}
+        """.stripMargin
+    val query: Query = executeQuery(queryString)
+    try {
+      return Some(query.getResults("c")(0))
+    }
+    catch {
+      case a: Throwable => return None
+    }
   }
-  def findDistinctCountForPropertyWithValue(property: String, objectValue: String)(implicit knowledgeGraph : KnowledgeGraph) : Option[Int] = {
-    throw new NotImplementedError()
+  def findCountForPropertyWithSubject(property: String, subject: String)(implicit knowledgeGraph : KnowledgeGraph) : Try[Int] = {
+    val queryString =
+      s"""
+         |SELECT (count(?object) as ?c)
+         |WHERE {
+         |  <$subject> <$property> ?object
+         |}
+        """.stripMargin
+    val query: Query = executeQuery(queryString)
+    Try(query.getResults("c")(0))
+  }
+  def findCountForPropertyWithValue(property: String, objectValue: String)(implicit knowledgeGraph : KnowledgeGraph) : Try[Int] = {
+    val queryString =
+      s"""
+         |SELECT (count(?subject) as ?c)
+         |WHERE {
+         |  ?subject <$property> <$objectValue>
+         |}
+        """.stripMargin
+    val query: Query = executeQuery(queryString)
+    Try(query.getResults("c")(0))
   }
 
   import scala.concurrent.ExecutionContext.Implicits.global

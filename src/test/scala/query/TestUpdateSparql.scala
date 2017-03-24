@@ -16,6 +16,6 @@ class TestUpdateSparql extends FunSuite {
     val insertStatement = """insert { <http://www.wikidata.org/entity/Q76> <http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#ValueMatchProperty> [
        <http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#valueMatchValue> <http://www.wikidata.org/entity/Q76>;
       <http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#valueMatchCount> "513" ] } where {}"""
-    QueryLocalServer.updateLocalData(insertStatement, MyDatasets.ValueMatch);
+    QueryLocalServer.updateLocalData(insertStatement, MyDatasets.ValueMatchWikidata);
   }
 }
