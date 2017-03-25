@@ -14,6 +14,8 @@ import scala.collection.mutable
 case class ValueMatchStrategy(property: String, isSubject: Boolean, value : String, rdfTypes : List[String], dbCount: Int) extends Strategy{
 
   override def execute(otherEntities: List[GraphRDF])(implicit knowledgeGraph: KnowledgeGraph): Map[String, Feature] = {
+    println(s"Finding similars for property (expensive strategy): $property")
+
     val featureMap = mutable.Map[String, Feature]()
     for (other <- otherEntities) {
       val entity: String = other.entity
@@ -37,6 +39,7 @@ case class ValueMatchStrategy(property: String, isSubject: Boolean, value : Stri
   }
 
   override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): Map[String, Feature] = {
+    println(s"Finding similars for property (cheap strategy) : $property")
     val entities = if(isSubject) QueryFactory.subjectsOfTypeWithPropertyAndValue(property, value, rdfTypes) else
       QueryFactory.objectsOfTypeWithPropertyAndSubject(property, value, rdfTypes)
     return entities.map(e=> e-> new ValueMatchFeature(property, FeatureType.valueMatch, 1, weight, value)).toMap

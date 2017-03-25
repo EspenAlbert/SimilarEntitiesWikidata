@@ -75,11 +75,14 @@ object StrategyFactory {
         if (strategyFactoryWikidata == null) {
           strategyFactoryWikidata = new StrategyFactory()
         }
-        return strategyFactoryWikidata.mapPropertyToStrategies.get(property) match {
+        val a = strategyFactoryWikidata.mapPropertyToStrategies.get(property) match {
           case Some(strategyList) => strategyList.map(s => matchStrategyClassNameToStrategy(s, property, getDomain, getRange, entity, rdfTypes)(knowledgeGraph, strategyFactoryWikidata))
             .filter(s => s.isDefined)
             .flatMap(option => option.getOrElse(throw new Exception("not defined")))
+          case None => Nil
         }
+        println(s"Strategies for $property = $a")
+        return a
       }
     }
   }

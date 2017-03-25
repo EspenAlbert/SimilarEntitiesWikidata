@@ -66,12 +66,12 @@ public class QueryLocalServer {
         query(queryString, outputStream, "ds");
     }
     public static void query(String queryString, OutputStream outputStream, String dataset ) {
-        System.out.println("about to execute query");
+//        System.out.println("about to execute query");
         Query query = QueryFactory.create(queryString);
         QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/" + dataset +"/query", queryString);
         try {
             ResultSet results = qexec.execSelect();
-            System.out.println("done executing query");
+//            System.out.println("done executing query");
 
             ResultSetFormatter.out(outputStream, results, query);
         } catch (Exception ex) {

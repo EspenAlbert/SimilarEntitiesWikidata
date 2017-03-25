@@ -33,7 +33,7 @@ object ReadWikidata {
     var i = 0
     var printWriter = new PrintWriter(s"input/errorLog$fileNumber.txt")
     var errorNumber = 1
-    val alreadyParsedLines = 0
+    val alreadyParsedLines = 310866000
 //    val alreadyParsedLines = 1510000
     while (iter.hasNext) {
       iter.next() match {

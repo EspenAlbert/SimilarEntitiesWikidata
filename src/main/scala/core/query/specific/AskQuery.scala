@@ -3,6 +3,8 @@ package core.query.specific
 import core.globals.KnowledgeGraph.KnowledgeGraph
 import jenaQuerier.QueryLocalServer
 
+import scala.util.{Failure, Success, Try}
+
 /**
   * Created by Espen on 08.11.2016.
   */

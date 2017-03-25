@@ -3,15 +3,18 @@ package similarityFinder
 import akka.{Done, NotUsed}
 import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer, ClosedShape}
-import akka.stream.scaladsl.{GraphDSL, RunnableGraph, Sink, Source}
+import akka.stream.scaladsl.{Flow, GraphDSL, RunnableGraph, Sink, Source}
 import core.globals.KnowledgeGraph
+import core.rdf.GraphRDF
 import core.strategies._
 import data.WikidataFactory
 import org.scalatest.FunSuite
+import similarityFinder.displayer.Displayer
 import similarityFinder.ranker.SimilarEntity
 import tags.{ActiveSlowTag, ActiveTag}
 
 import scala.collection.mutable.ListBuffer
+import scala.collection.parallel.mutable.ParIterable
 import scala.concurrent.{Await, Future}
 import scala.util.{Success, Try}
 import scala.concurrent.duration._
@@ -24,9 +27,9 @@ class TestSimilarityFinder2  extends FunSuite{
   implicit val materializer = ActorMaterializer()
   import scala.concurrent.ExecutionContext.Implicits.global
   test("It should work!!") {
-    val obama = WikidataFactory.obama
-    val a = new SimilarityFinder2(obama)
-    a.runGraph()
+    ringoStarrSimFinder.runGraph()
+
+//    Thread.sleep(600000)
   }
   test("group by property flow and unzipper", ActiveTag) {
     val obamaStatements = WikidataFactory.obamaStatements
@@ -111,5 +114,33 @@ class TestSimilarityFinder2  extends FunSuite{
       }))
     Await.result(runner._2, 3 minutes)
   }
+  val beatles = WikidataFactory.theBeatles
+  test("expensive strategy executor", ActiveTag) {
+    val similarEntities = beatles.members.map(new GraphRDF(_))
+//    val es1 = StrategyFactory.getStrategies(ringoStarr.id, ringoStarr.rdfTypes, ringoStarr.dateOfBProp, true, ringoStarr.dateOfBValue::Nil)
+    val es2 = StrategyFactory.getStrategies(ringoStarr.id, ringoStarr.rdfTypes, ringoStarr.lifestyleProp, true, ringoStarr.lifestyleValue::Nil)
+    val es3 = StrategyFactory.getStrategies(ringoStarr.id, ringoStarr.rdfTypes, ringoStarr.genderProp, true, ringoStarr.genderValue::Nil)
+//    val expensiveStrategies = es1 ++ es2 ++ es3
+    val expensiveStrategies = es2 ++ es3
+    //      strategyAndGraphRDFZipper.out ~> executeExpensiveStrategies ~> foldFeatureMaps ~> generateSimilarEntities.via(Flow[ParIterable[SimilarEntity]].map(_.toList)) ~> similarEntityZipper.in1
 
+    val cheapStrategyFlow = ringoStarrSimFinder.executeExpensiveStrategies
+      .via(ringoStarrSimFinder.foldFeatureMaps)
+      .via(ringoStarrSimFinder.generateSimilarEntities)
+      .via(Flow[ParIterable[SimilarEntity]].map(_.toList.sorted))
+    val result = cheapStrategyFlow.runWith(
+      Source(expensiveStrategies.map(s => (s,similarEntities))),
+      Sink.foreach(a => {
+        a.foreach(se => {
+          assert(beatles.members.contains(se.name))
+          println(se)
+        })
+        Displayer.displayResult(a.toList, 4, ringoStarr.id)
+      })
+    )
+    Await.result(result._2, 20 seconds)
+  }
+  test("coursera play") {
+
+  }
 }

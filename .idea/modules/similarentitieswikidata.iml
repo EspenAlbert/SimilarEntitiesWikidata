@@ -26,6 +26,26 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="SBT: org.tukaani:xz:1.2:jar" level="project" />
+    <orderEntry type="module-library">
+      <library name="SBT: unmanaged-sources-and-docs">
+        <CLASSES />
+        <JAVADOC />
+        <SOURCES>
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-armhf/srcs/netlib-native_ref-linux-armhf-1.1-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-i686/srcs/netlib-native_ref-linux-i686-1.1-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-x86_64/srcs/netlib-native_ref-linux-x86_64-1.1-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-osx-x86_64/srcs/netlib-native_ref-osx-x86_64-1.1-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-win-i686/srcs/netlib-native_ref-win-i686-1.1-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-win-x86_64/srcs/netlib-native_ref-win-x86_64-1.1-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-armhf/srcs/netlib-native_system-linux-armhf-1.1-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-i686/srcs/netlib-native_system-linux-i686-1.1-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-x86_64/srcs/netlib-native_system-linux-x86_64-1.1-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-osx-x86_64/srcs/netlib-native_system-osx-x86_64-1.1-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-win-i686/srcs/netlib-native_system-win-i686-1.1-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-win-x86_64/srcs/netlib-native_system-win-x86_64-1.1-sources.jar!/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
     <orderEntry type="library" name="SBT: org.scala-lang.modules:scala-parser-combinators_2.11:1.0.4:jar" level="project" />
     <orderEntry type="library" name="SBT: org.reactivestreams:reactive-streams:1.0.0:jar" level="project" />
     <orderEntry type="library" name="SBT: com.typesafe.akka:akka-stream_2.11:2.4.17:jar" level="project" />
@@ -99,26 +119,6 @@
     <orderEntry type="library" name="SBT: org.scalanlp:breeze_2.11:0.12:jar" level="project" />
     <orderEntry type="library" name="SBT: org.spire-math:spire-macros_2.11:0.7.4:jar" level="project" />
     <orderEntry type="library" name="SBT: org.spire-math:spire_2.11:0.7.4:jar" level="project" />
-    <orderEntry type="module-library">
-      <library name="SBT: unmanaged-sources-and-docs">
-        <CLASSES />
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-armhf/srcs/netlib-native_ref-linux-armhf-1.1-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-i686/srcs/netlib-native_ref-linux-i686-1.1-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-linux-x86_64/srcs/netlib-native_ref-linux-x86_64-1.1-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-osx-x86_64/srcs/netlib-native_ref-osx-x86_64-1.1-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-win-i686/srcs/netlib-native_ref-win-i686-1.1-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_ref-win-x86_64/srcs/netlib-native_ref-win-x86_64-1.1-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-armhf/srcs/netlib-native_system-linux-armhf-1.1-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-i686/srcs/netlib-native_system-linux-i686-1.1-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-linux-x86_64/srcs/netlib-native_system-linux-x86_64-1.1-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-osx-x86_64/srcs/netlib-native_system-osx-x86_64-1.1-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-win-i686/srcs/netlib-native_system-win-i686-1.1-sources.jar!/" />
-          <root url="jar://$USER_HOME$/.ivy2/cache/com.github.fommil.netlib/netlib-native_system-win-x86_64/srcs/netlib-native_system-win-x86_64-1.1-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
     <orderEntry type="library" name="SBT: org.apache.commons:commons-compress:1.5:jar" level="project" />
     <orderEntry type="library" name="SBT: org.scala-lang:scala-reflect:2.11.7:jar" level="project" />
     <orderEntry type="library" scope="TEST" name="SBT: org.scala-lang:scala-reflect:2.11.8:jar" level="project" />

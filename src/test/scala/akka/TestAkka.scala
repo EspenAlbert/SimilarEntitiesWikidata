@@ -1,13 +1,16 @@
 package akka
 
 import akka.actor.ActorSystem
-import akka.stream.{ActorMaterializer, ClosedShape}
+import akka.stream.{ActorMaterializer, ClosedShape, FlowShape}
 import akka.stream.scaladsl.{Flow, GraphDSL, Partition, RunnableGraph, Sink, Source}
 import core.globals.KnowledgeGraph
 import core.rdf.GraphRDF
 import org.scalatest.FunSuite
 
-import scala.concurrent.Future
+import scala.concurrent.{Await, Future}
+import scala.util.{Failure, Success}
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.duration._
 /**
   * Created by espen on 21.03.17.
   */
@@ -71,6 +74,47 @@ class TestAkka extends FunSuite{
     })
     g.run()
 
+
+  }
+  def mTester(a : Unit, done: Future[Done]): Unit = {
+    done.onComplete {
+      case Success(c) => println(s"Materializer got success: $c")
+      case Failure(c) => println(s"Materializer got failure: $c")
+    }
+  }
+  def mTesterInt(b: NotUsed, a: Future[Int]): Unit = {
+    a.onComplete {
+      case Success(c) => println(s"Materializer Int got success: $c")
+      case Failure(c) => println(s"Materializer Int got failure: $c")
+    }
+  }
+  case class MyClass(val a : Future[Int]) {
+    def close() = a.onComplete {
+      case Success(c) => println(s"Materializer Int got success: $c")
+      case Failure(c) => println(s"Materializer Int got failure: $c")
+    }
+  }
+  test("Akka materializing") {
+    implicit val system = ActorSystem("my-system")
+    implicit val materializer = ActorMaterializer()
+    import GraphDSL.Implicits._
+    val foldFlow: Flow[Int, Int, Future[Int]] = Flow.fromGraph(GraphDSL.create(Sink.fold[Int, Int](0)(_ + _)) { implicit builder => fold =>
+      FlowShape(fold.in, builder.materializedValue.mapAsync(4)(identity).outlet)
+    })
+//    val sink : Sink[Int, Future[Done]]= Sink.foreach((a : Int) => println(a))
+    val sink = Sink.foreach((a : Int) => println(a))
+//    val runnable : RunnableGraph[Future[Done]]= Source(1 to 10).viaMat(foldFlow)(mTesterInt).via(Flow[Int].map(a => {
+//      Thread.sleep(3000)
+//      a
+//    })).to(sink)//.mapMaterializedValue(a => Future{true})//(mTester)
+    val runnable= Source(1 to 10).via(foldFlow).via(Flow[Int].map(a => {
+        Thread.sleep(3000)
+        a
+      })).to(sink)//.mapMaterializedValue(a => Future{true})//(mTester)
+    val r2 = Source(1 to 10).to(sink)
+    val done = runnable.run()
+    Thread.sleep(5000)
+//    Await.result(done, 5 seconds)
 
   }
 

@@ -18,5 +18,8 @@ class TestUpdateQueryFactory extends FunSuite{
     cleanDatasetWhere(dsDBpedia, statement)
     assert(AskQuery.ask(() => statement) == false)
   }
+  test("clean dataset") {
+    cleanDataset(MyDatasets.dsWikidata)
+  }
 
 }

@@ -15,7 +15,7 @@ object DatasetInferrer {
       case KnowledgeGraph.wikidata => {
         return patternForValueMatchDataset.findFirstIn(query) match {
           case Some(s) => MyDatasets.ValueMatchWikidata
-          case None => MyDatasets.DsBig
+          case None => MyDatasets.dsWikidata
       }
     }
       case KnowledgeGraph.dbPedia => {

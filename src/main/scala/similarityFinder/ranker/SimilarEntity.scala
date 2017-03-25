@@ -19,3 +19,10 @@ class SimilarEntity(val name : String, features : List[Feature], scalingFactor :
     return 0
   }
 }
+object SimilarEntity {
+  def combine(sEntity: SimilarEntity, otherSimilarEntity: SimilarEntity): SimilarEntity = {
+    println(s"combining ${sEntity.name}")
+    return new SimilarEntity(sEntity.name, sEntity.sortedFeatures ++ otherSimilarEntity.sortedFeatures)
+  }
+
+}
