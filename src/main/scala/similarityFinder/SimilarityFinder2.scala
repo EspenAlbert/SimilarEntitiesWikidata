@@ -2,7 +2,7 @@ package similarityFinder
 
 import akka.{Done, NotUsed}
 import akka.actor.ActorSystem
-import akka.stream.{ActorMaterializer, ClosedShape}
+import akka.stream.{ActorMaterializer, ActorMaterializerSettings, ClosedShape}
 import akka.stream.scaladsl.{Broadcast, Flow, GraphDSL, Merge, Partition, RunnableGraph, Sink, Source, Unzip, UnzipWith, Zip}
 import core.feature.Feature
 import core.globals.KnowledgeGraph.KnowledgeGraph
@@ -13,12 +13,13 @@ import similarityFinder.displayer.Displayer
 import similarityFinder.ranker.SimilarEntity
 
 import scala.concurrent.duration._
-import scala.collection.mutable.ListBuffer
 import scala.collection.parallel.mutable
 import scala.collection.parallel.mutable.{ParHashMap, ParIterable}
 import scala.concurrent.{Await, Future}
 import scala.concurrent.ExecutionContext.Implicits.global
 import GraphDSL.Implicits._
+
+import scala.collection.mutable.ListBuffer
 object SimilarityFinder2 {
   val thresholdStrategyWeight = 3.25
   val ENTITIES_AFTER_PRUNING = 1000
@@ -27,7 +28,14 @@ object SimilarityFinder2 {
     strategy match {
       case a : DirectLinkStrategy => true
       case b : ValueMatchStrategy if(b.dbCount < thresholdCountValueMatch) => true
-      case c : PropertyMatchStrategy if(c.weight > 5) => true
+      case c : PropertyMatchStrategy if(c.dbCount < 2000) => true
+      case _ => false
+    }
+  }
+  def onlyDirectLinkStrategies(strategy: Strategy) : Boolean = {
+    println(s"classifying: $strategy")
+    strategy match {
+      case a : DirectLinkStrategy => true
       case _ => false
     }
   }
@@ -36,43 +44,105 @@ object SimilarityFinder2 {
 }
 class SimilarityFinder2(qEntity : String)(implicit val knowledgeGraph: KnowledgeGraph) {
 
+  implicit val system = ActorSystem("my-system")
+  implicit val materializer = ActorMaterializer(ActorMaterializerSettings(system).withInputBuffer(2048, 2048))
 
   val qEntityGraph = new GraphRDF(qEntity)
   println("In constructor")
   var g : RunnableGraph[Future[Done]] = null
 
-  def createGraph(): Unit = {
-    println("create graph called")
-//    val finalSink = Sink.combine(printSinkIsSubject, printSinkIsObject)
+  def produceStrategies(): RunnableGraph[(Future[ListBuffer[Strategy]], Future[ListBuffer[Strategy]])] = {
     val source = getSource(qEntityGraph.statementsList)
-    println(s"done getting source..., # statements = ${qEntityGraph.statementsList.size}")
-    val sinkPrintTop10 = Sink.foreach((result : List[SimilarEntity]) => Displayer.displayResult(result, 10, qEntity))
-    g = RunnableGraph.fromGraph(GraphDSL.create(sinkPrintTop10) {implicit b => sink =>
-      val statementGrouper = b.add(unzipStatements)
-      val merger = b.add(mergeStrategies)
-      val partitioner = b.add(strategyCheapOrExpensivePartitioner(SimilarityFinder2.isACheapStrategy))
-      val broadcastSimilarArtists = b.add(Broadcast[List[SimilarEntity]](2))
-      val strategyAndGraphRDFZipper = b.add(Zip[Strategy, List[GraphRDF]])
-      val similarEntityZipper = b.add(Zip[List[SimilarEntity], List[SimilarEntity]])
-      source ~> groupByProperty() ~>statementGrouper.in
-      statementGrouper.out0.filter(_._2.nonEmpty) ~> strategyMapperFlow(true) ~> merger.in(0)
-      statementGrouper.out1.filter(_._2.nonEmpty) ~> strategyMapperFlow(false) ~> merger.in(1)
-      merger.out ~> partitioner.in
-      partitioner.out(0) ~> executeCheapStrategies ~> foldFeatureMaps ~> generateSimilarEntities ~> pruneSimilarEntities ~> broadcastSimilarArtists.in
-      partitioner.out(1) ~> strategyAndGraphRDFZipper.in0
-      broadcastSimilarArtists.out(0) ~> graphRDFMapper ~> strategyAndGraphRDFZipper.in1
-      broadcastSimilarArtists.out(1) ~> similarEntityZipper.in0
-      strategyAndGraphRDFZipper.out ~> executeExpensiveStrategies ~> foldFeatureMaps ~> generateSimilarEntities.via(Flow[ParIterable[SimilarEntity]].map(_.toList)) ~> similarEntityZipper.in1
-      similarEntityZipper.out ~> similarEntityCombiner ~> sink.in
-      ClosedShape
-    })//.mapMaterializedValue(s => Future{println(s"completed similarity comparison for $qEntity")})
+    def strategyFolder = Sink.fold(ListBuffer[Strategy]())((l : ListBuffer[Strategy], s: Strategy) => {
+      l.append(s)
+      l
+    })
+    return RunnableGraph.fromGraph(GraphDSL.create(strategyFolder, strategyFolder)((_,_)){implicit b =>
+      (cheapStrategiesSink, expensiveStrategiesSink) => {
+
+        val statementGrouper = b.add(unzipStatements)
+        val merger = b.add(mergeStrategies)
+        val partitioner = b.add(strategyCheapOrExpensivePartitioner(SimilarityFinder2.isACheapStrategy))
+
+        source ~> groupByProperty() ~>statementGrouper.in
+        statementGrouper.out0.filter(_._2.nonEmpty) ~> strategyMapperFlow(true) ~> merger.in(0)
+        statementGrouper.out1.filter(_._2.nonEmpty) ~> strategyMapperFlow(false) ~> merger.in(1)
+        merger.out ~> partitioner.in
+        partitioner.out(0) ~> cheapStrategiesSink.in
+        partitioner.out(1) ~> expensiveStrategiesSink.in
+        ClosedShape
+      }
+    })
   }
-  def runGraph(): Unit = {
-    implicit val system = ActorSystem("my-system")
-    implicit val materializer = ActorMaterializer()
-    if(g == null) createGraph()
-    val done = g.run()
-    Await.result(done, 12 minutes)
+  def foldSimilarEntities : Sink[List[SimilarEntity], Future[List[SimilarEntity]]] = Sink.fold(List[SimilarEntity]())(_ ++ _)
+  def executeCheapStrategiesGraph(cheapStrategies : Seq[Strategy]): RunnableGraph[Future[List[SimilarEntity]]] = {
+    val source: Source[Strategy, NotUsed] = sourceStrategies(cheapStrategies)
+    return RunnableGraph.fromGraph(GraphDSL.create(foldSimilarEntities){implicit b =>
+      sink =>
+      source ~> executeCheapStrategies ~> foldFeatureMaps ~> generateSimilarEntities ~> pruneSimilarEntities ~> sink.in
+      ClosedShape
+    })
+  }
+
+  private def sourceStrategies(strategies : Seq[Strategy]): Source[Strategy, NotUsed] = {
+    return Source.fromIterator(() => strategies.iterator)
+  }
+
+  def graphRdfCreator(similarEntities: List[SimilarEntity]) : Future[List[GraphRDF]] ={
+    val graphSink = Sink.fold(List[GraphRDF]())((l: List[GraphRDF], gRdf: List[GraphRDF]) => {
+      l ++ gRdf
+    })
+    return Source(List(similarEntities)).via(graphRDFMapper).runWith(graphSink)
+
+  }
+
+  def executeExpensiveStrategiesGraph(expensiveStrategies: Seq[Strategy], similarEntities: List[SimilarEntity]): RunnableGraph[Future[List[SimilarEntity]]] ={
+    val s = Await.result(graphRdfCreator(similarEntities), 2 minutes)
+    println("Created graph rdfs for the 1k entities")
+    return RunnableGraph.fromGraph(GraphDSL.create(foldSimilarEntities){implicit b =>
+      sink =>
+        val strategyAndGraphRDFZipper = b.add(Zip[List[GraphRDF], Strategy])
+
+        val strategySource = sourceStrategies(expensiveStrategies)
+        val graphRdfSource = Source.repeat(s)
+        strategySource ~> strategyAndGraphRDFZipper.in1
+        graphRdfSource~> strategyAndGraphRDFZipper.in0
+        strategyAndGraphRDFZipper.out ~> executeExpensiveStrategies ~> foldFeatureMaps ~> generateSimilarEntities.via(Flow[ParIterable[SimilarEntity]].map(_.toList)) ~> sink.in
+        ClosedShape
+    })
+  }
+  def combineSimilarEntitiesGraph(similarEntities : List[SimilarEntity],similarEntities2 : List[SimilarEntity]): RunnableGraph[Future[List[SimilarEntity]]] = {
+    return RunnableGraph.fromGraph(GraphDSL.create(foldSimilarEntities){implicit b =>
+      sink =>
+        val similarEntityZipper = b.add(Zip[List[SimilarEntity], List[SimilarEntity]])
+        val s1 = Source(List(similarEntities))
+        val s2 = Source(List(similarEntities2))
+        s1 ~> similarEntityZipper.in0
+        s2 ~> similarEntityZipper.in1
+        similarEntityZipper.out ~> similarEntityCombiner~> sink.in
+        ClosedShape
+    })  }
+
+  def runGraph(): List[SimilarEntity] = {
+//    if(g == null) createGraph()
+//    val done = g.run()
+    val strategyProducer = produceStrategies()
+    val (cheapStrategiesFuture, expensiveStrategiesFuture) = strategyProducer.run()
+
+    val cheapStrategies = Await.result(cheapStrategiesFuture, 12 minutes)
+    val expensiveStrategies = Await.result(expensiveStrategiesFuture, 12 minutes)
+    println(s"Cheap strategies : ${cheapStrategies.size} = $cheapStrategies")
+    println(s"Expensive strategies : ${expensiveStrategies.size} = $expensiveStrategies")
+    val cheapExecution = executeCheapStrategiesGraph(cheapStrategies)
+    val initialSimilarEntities = Await.result(cheapExecution.run(), 5 minutes)
+    val similarEntitiesExpensiveGraph = executeExpensiveStrategiesGraph(expensiveStrategies, initialSimilarEntities)
+    val similarEntitiesExpensiveExecution = Await.result(similarEntitiesExpensiveGraph.run(), 5 minutes)
+    assert(initialSimilarEntities.size == similarEntitiesExpensiveExecution.size)
+    val resultCombinerGraph = combineSimilarEntitiesGraph(similarEntitiesExpensiveExecution, initialSimilarEntities)
+    val finalResult = Await.result(resultCombinerGraph.run(), 1 minute)
+    return finalResult
+
+
   }
 
   def similarEntityCombiner: Flow[(List[SimilarEntity], List[SimilarEntity]), List[SimilarEntity], NotUsed] = {
@@ -83,9 +153,9 @@ class SimilarityFinder2(qEntity : String)(implicit val knowledgeGraph: Knowledge
       .map(_.sorted)
   }
 
-  def executeExpensiveStrategies: Flow[(Strategy, List[GraphRDF]), Map[String, Feature], NotUsed] = {
-    return Flow[Tuple2[Strategy,List[GraphRDF]]]
-      .map(s => s._1.execute(s._2))
+  def executeExpensiveStrategies: Flow[(List[GraphRDF],Strategy), Map[String, Feature], NotUsed] = {
+    return Flow[Tuple2[List[GraphRDF], Strategy]]
+      .map(s => s._2.execute(s._1))
   }
 
   def graphRDFMapper: Flow[List[SimilarEntity], List[GraphRDF], NotUsed] = {
@@ -104,7 +174,6 @@ class SimilarityFinder2(qEntity : String)(implicit val knowledgeGraph: Knowledge
   def generateSimilarEntities: Flow[ParHashMap[String, ListBuffer[Feature]], ParIterable[SimilarEntity], NotUsed] = {
     return Flow[ ParHashMap[String, ListBuffer[Feature]]]
       .map(hashMap => hashMap.map{case (entity, features) => {
-        println(s"creating similar entity: $entity")
         new SimilarEntity(entity, features.toList)
       }})
   }
@@ -112,7 +181,6 @@ class SimilarityFinder2(qEntity : String)(implicit val knowledgeGraph: Knowledge
   def foldFeatureMaps: Flow[Map[String, Feature], ParHashMap[String, ListBuffer[Feature]], NotUsed] = {
     Flow[Map[String, Feature]]
       .fold[mutable.ParHashMap[String, ListBuffer[Feature]]](mutable.ParHashMap[String, ListBuffer[Feature]]())((accumulator, mapOfFeatures) => {
-      println("About to fold feature maps...")
       foldMapOfFeatures(accumulator, mapOfFeatures)
     })
   }

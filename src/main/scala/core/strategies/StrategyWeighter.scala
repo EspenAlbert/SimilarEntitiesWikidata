@@ -23,6 +23,7 @@ object StrategyWeighter {
   }
 
   def logarithmicWeightForCount(countForProperty: Int): Double = {
+    if(countForProperty == 0) return 0
     return log(maxCountForProperties / countForProperty)
   }
 

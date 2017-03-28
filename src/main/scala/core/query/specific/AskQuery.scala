@@ -10,6 +10,7 @@ import scala.util.{Failure, Success, Try}
   */
 object AskQuery {
   def subjectHasType(subject: String, rdfTypes: List[String])(implicit knowledgeGraph: KnowledgeGraph) : Boolean = {
+    if(!subject.startsWith("http")) return false
     val askQuery =
       s"""
          |PREFIX wd: <http://www.wikidata.org/entity/>

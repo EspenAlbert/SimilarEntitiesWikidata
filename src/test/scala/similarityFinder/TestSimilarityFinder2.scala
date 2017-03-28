@@ -26,10 +26,27 @@ class TestSimilarityFinder2  extends FunSuite{
   implicit val system = ActorSystem("my-system")
   implicit val materializer = ActorMaterializer()
   import scala.concurrent.ExecutionContext.Implicits.global
-  test("It should work!!") {
-    ringoStarrSimFinder.runGraph()
 
-//    Thread.sleep(600000)
+  val ringoStarr= WikidataFactory.ringoStarr
+  val ringoStarrSimFinder = new SimilarityFinder2(ringoStarr.id)
+  test("It should work!!") {
+    val simEntities = ringoStarrSimFinder.runGraph()
+    assert(simEntities.size == SimilarityFinder2.ENTITIES_AFTER_PRUNING)
+//    Displayer.displayResult(simEntities, 10, ringoStarr.id)
+  }
+  test("Working for obama?") {
+    val obama = WikidataFactory.obama
+    val sFinder = new SimilarityFinder2(obama)
+    val caught = intercept[AssertionError] {
+      sFinder.runGraph()
+    }
+    caught match {
+        case e: Throwable => println(s"Expected exception...$e"); assert(true)
+        case _ => assert(false)
+    }
+//    val simEntities =
+//    assert(simEntities.size == SimilarityFinder2.ENTITIES_AFTER_PRUNING)
+//    Displayer.displayResult(simEntities, 2, obama)
   }
   test("group by property flow and unzipper", ActiveTag) {
     val obamaStatements = WikidataFactory.obamaStatements
@@ -67,11 +84,10 @@ class TestSimilarityFinder2  extends FunSuite{
     })
 
     g.run()
-    Thread.sleep(2000)
+    Thread.sleep(4000)
   }
 
-  val ringoStarr= WikidataFactory.ringoStarr
-  val ringoStarrSimFinder = new SimilarityFinder2(ringoStarr.id)
+
   test("Strategy mapper flow", ActiveTag) {
     val testSink = Sink.foreach((s: Strategy) => assert(s.isInstanceOf[PropertyMatchStrategy] || s.isInstanceOf[ValueMatchStrategy]))
     val done = ringoStarrSimFinder.strategyMapperFlow(true).runWith(Source(List(Tuple2(ringoStarr.occupationProp, ringoStarr.occupationValues))), testSink)
@@ -117,19 +133,19 @@ class TestSimilarityFinder2  extends FunSuite{
   val beatles = WikidataFactory.theBeatles
   test("expensive strategy executor", ActiveTag) {
     val similarEntities = beatles.members.map(new GraphRDF(_))
-//    val es1 = StrategyFactory.getStrategies(ringoStarr.id, ringoStarr.rdfTypes, ringoStarr.dateOfBProp, true, ringoStarr.dateOfBValue::Nil)
+    val es1 = StrategyFactory.getStrategies(ringoStarr.id, ringoStarr.rdfTypes, ringoStarr.dateOfBProp, true, ringoStarr.dateOfBValue::Nil)
     val es2 = StrategyFactory.getStrategies(ringoStarr.id, ringoStarr.rdfTypes, ringoStarr.lifestyleProp, true, ringoStarr.lifestyleValue::Nil)
     val es3 = StrategyFactory.getStrategies(ringoStarr.id, ringoStarr.rdfTypes, ringoStarr.genderProp, true, ringoStarr.genderValue::Nil)
-//    val expensiveStrategies = es1 ++ es2 ++ es3
-    val expensiveStrategies = es2 ++ es3
-    //      strategyAndGraphRDFZipper.out ~> executeExpensiveStrategies ~> foldFeatureMaps ~> generateSimilarEntities.via(Flow[ParIterable[SimilarEntity]].map(_.toList)) ~> similarEntityZipper.in1
+    val expensiveStrategies = es1 ++ es2 ++ es3
+//    val expensiveStrategies = es2 ++ es3
+//          strategyAndGraphRDFZipper.out ~> executeExpensiveStrategies ~> foldFeatureMaps ~> generateSimilarEntities.via(Flow[ParIterable[SimilarEntity]].map(_.toList)) ~> similarEntityZipper.in1
 
     val cheapStrategyFlow = ringoStarrSimFinder.executeExpensiveStrategies
       .via(ringoStarrSimFinder.foldFeatureMaps)
       .via(ringoStarrSimFinder.generateSimilarEntities)
       .via(Flow[ParIterable[SimilarEntity]].map(_.toList.sorted))
     val result = cheapStrategyFlow.runWith(
-      Source(expensiveStrategies.map(s => (s,similarEntities))),
+      Source(expensiveStrategies.map(s => (similarEntities, s))),
       Sink.foreach(a => {
         a.foreach(se => {
           assert(beatles.members.contains(se.name))

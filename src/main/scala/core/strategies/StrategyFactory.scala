@@ -61,6 +61,7 @@ object StrategyFactory {
   var strategyFactoryDBpedia: StrategyFactory = null
 
   def getStrategies(entity: String, rdfTypes: List[String], property: String, isSubject: Boolean, rangeOrDomain: List[String])(implicit knowledgeGraph: KnowledgeGraph): List[Strategy] = {
+//    println(s"About to find strategies for: $property with values: $rangeOrDomain")
 
     def getDomain = {
       if (isSubject) Nil else rangeOrDomain
@@ -75,13 +76,14 @@ object StrategyFactory {
         if (strategyFactoryWikidata == null) {
           strategyFactoryWikidata = new StrategyFactory()
         }
+        if(property == KnowledgeGraph.getTypeProperty(knowledgeGraph)) return Nil
         val a = strategyFactoryWikidata.mapPropertyToStrategies.get(property) match {
           case Some(strategyList) => strategyList.map(s => matchStrategyClassNameToStrategy(s, property, getDomain, getRange, entity, rdfTypes)(knowledgeGraph, strategyFactoryWikidata))
             .filter(s => s.isDefined)
             .flatMap(option => option.getOrElse(throw new Exception("not defined")))
           case None => Nil
         }
-        println(s"Strategies for $property = $a")
+//        println(s"Strategies for $property = $a")
         return a
       }
     }
@@ -124,6 +126,7 @@ object StrategyFactory {
 //      }
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#DirectLinkStrategy" => {
         val strategies = ArrayBuffer[Strategy]()
+        println(s"About to find direct links for $property with $domain domain and range = $range")
         val (filteredDomain, filteredRange) = getDomainAndRangeWithCorrectType(domain, range, rdfTypes)
         if (filteredDomain.nonEmpty) {
           println("Created direct link strategy..")
@@ -202,6 +205,7 @@ object StrategyFactory {
   }
 
   def valueIsAPotentialValueMatchFindCount(value: String, property: String, isSubject: Boolean)(implicit knowledgeGraph: KnowledgeGraph): Option[Int] = {
+    if(!value.startsWith("http")) return None
     QueryFactory.getValueMatchFromExistingDb(value, property) match {
       case Some(s) => return Some(s)
       case None => {

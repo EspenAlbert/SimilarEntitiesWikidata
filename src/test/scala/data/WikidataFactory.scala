@@ -10,8 +10,8 @@ object WikidataFactory {
 
   val countMaleGender = 2645899
 
-  val domainCountGender = 3181942
-  val rangeCountOccupation = 9655
+  val domainCountGender = 1405976
+  val rangeCountOccupation = 4792
 
   implicit val knowledgeGraph = KnowledgeGraph.wikidata
   private val w = "http://www.wikidata.org/entity/"

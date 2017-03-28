@@ -25,6 +25,8 @@ class GraphRDF(val entity : String)(implicit val knowledgeGraph: KnowledgeGraph)
   def statementsList: List[(String,String,String)]= {
     val eIsObject = Await.result(entityIsObjectStatements, 10 seconds)
     val eIsSubject = Await.result(entityIsSubjectStatments, 10 seconds)
+    assert(eIsObject._1.size > 0, s"There are no statements where $entity is object")
+    assert(eIsSubject._1.size > 0, s"There are no statements where $entity is subject")
     val statements = (for ((subject, property) <- eIsObject._1 zip eIsObject._2) yield (subject, property, entity))
       .++(for ((property, objectValue) <- eIsSubject._2 zip eIsSubject._1) yield (entity, property, objectValue))
     return statements.toList
