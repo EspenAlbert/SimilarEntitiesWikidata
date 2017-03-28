@@ -1,5 +1,6 @@
 package core.query.specific
 
+import core.globals.KnowledgeGraph
 import core.globals.KnowledgeGraph.KnowledgeGraph
 import jenaQuerier.QueryLocalServer
 
@@ -17,13 +18,14 @@ object AskQuery {
          |PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
          |ask
          |WHERE {
-         |  <$subject> wd:P31 ?v.
+         |<$subject> <${KnowledgeGraph.getTypeProperty(knowledgeGraph)}> ?v
          |${QueryHelper.getSameTypeFilter("v", rdfTypes)}
          |}
         """.stripMargin
     return QueryLocalServer.ask(askQuery, DatasetInferrer.getDataset(askQuery))
   }
   def sharableRange(prop: String)(implicit knowledgeGraph: KnowledgeGraph) : Boolean = {
+    val typeProperty = KnowledgeGraph.getTypeProperty(knowledgeGraph)
     val askQuery =
       s"""
          |PREFIX wd: <http://www.wikidata.org/entity/>
@@ -32,6 +34,7 @@ object AskQuery {
          |WHERE {
          |  ?s1 <$prop> ?o .
          |  ?s2 <$prop> ?o .
+         |  ?o <$typeProperty> ?t .
          |  filter(?s1 != ?s2)
          |}
         """.stripMargin
@@ -54,6 +57,7 @@ object AskQuery {
   }
 
   def sameTypePossibleForProp(prop: String)(implicit knowledgeGraph: KnowledgeGraph) : Boolean = {
+    val typeProperty = KnowledgeGraph.getTypeProperty(knowledgeGraph)
     val askQuery =
       s"""
          |PREFIX wd: <http://www.wikidata.org/entity/>
@@ -61,8 +65,8 @@ object AskQuery {
          |ask
          |WHERE {
          |  ?s <$prop> ?object .
-         |  ?s wd:P31 ?t .
-         |  ?object wd:P31 ?t .
+         |  ?s <${typeProperty}> ?t .
+         |  ?object <${typeProperty}> ?t .
          |}
         """.stripMargin
     return QueryLocalServer.ask(askQuery, DatasetInferrer.getDataset(askQuery))

@@ -1,5 +1,6 @@
 package core.query.specific
 
+import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.globals.{MyDatasets, ResultsSimilarArtistsGlobals, SimilarPropertyOntology}
 import jenaQuerier.QueryLocalServer
 
@@ -8,11 +9,12 @@ import jenaQuerier.QueryLocalServer
   */
 object UpdateQueryFactory {
 
-  def updateValueCount(propertyAsFullString: String, entity: String, count: Int) = {
+  def updateValueCount(propertyAsFullString: String, entity: String, count: Int)(implicit knowledgeGraph: KnowledgeGraph) = {
     val updateQuery = s"insert { <$propertyAsFullString> <${SimilarPropertyOntology.valueMatchProperty}> [ <${SimilarPropertyOntology.valueMatchValue}> <$entity>;\n" +
       s"""<${SimilarPropertyOntology.valueMatchCount}> "%d" ] } where {}""".format(count)
-    println(updateQuery)
-    QueryLocalServer.updateLocalData(updateQuery, MyDatasets.ValueMatchWikidata)
+    val dataset = DatasetInferrer.getDataset(updateQuery)
+    println(s"Adding to $dataset updateQuery: $updateQuery")
+    QueryLocalServer.updateLocalData(updateQuery, dataset)
   }
   def addResult(qEntity: String, foundEntity : String, ranking : Int, simScore: Double) = {
     QueryLocalServer.updateLocalData(addResultQuery(qEntity, foundEntity, ranking, simScore), MyDatasets.ResultsSimilarArtists)

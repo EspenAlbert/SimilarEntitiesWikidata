@@ -77,14 +77,28 @@ object StrategyFactory {
           strategyFactoryWikidata = new StrategyFactory()
         }
         if(property == KnowledgeGraph.getTypeProperty(knowledgeGraph)) return Nil
-        val a = strategyFactoryWikidata.mapPropertyToStrategies.get(property) match {
+        val foundStrategies = strategyFactoryWikidata.mapPropertyToStrategies.get(property) match {
           case Some(strategyList) => strategyList.map(s => matchStrategyClassNameToStrategy(s, property, getDomain, getRange, entity, rdfTypes)(knowledgeGraph, strategyFactoryWikidata))
             .filter(s => s.isDefined)
             .flatMap(option => option.getOrElse(throw new Exception("not defined")))
           case None => Nil
         }
 //        println(s"Strategies for $property = $a")
-        return a
+        return foundStrategies
+      }
+      case KnowledgeGraph.dbPedia => {
+        if(strategyFactoryDBpedia == null) {
+          strategyFactoryDBpedia = new StrategyFactory()
+        }
+        if(property == KnowledgeGraph.getTypeProperty(knowledgeGraph)) return Nil
+        val foundStrategies = strategyFactoryDBpedia.mapPropertyToStrategies.get(property) match {
+          case Some(strategyList) => strategyList.map(s => matchStrategyClassNameToStrategy(s, property, getDomain, getRange, entity, rdfTypes)(knowledgeGraph, strategyFactoryDBpedia))
+            .filter(s => s.isDefined)
+            .flatMap(option => option.getOrElse(throw new Exception("not defined")))
+          case None => Nil
+        }
+        //        println(s"Strategies for $property = $a")
+        return foundStrategies
       }
     }
   }

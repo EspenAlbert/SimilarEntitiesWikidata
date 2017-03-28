@@ -22,8 +22,8 @@ object ReadDBpedia {
   def main(args: Array[String]) {
     //    var lines = Source.fromFile("/home/espen/prog/java/Wikidata-Toolkit-master/results/wikidata-statements.nt.gz", enc = "utf-8")
 //    readFile()
-      //"/media/espen/Windows8_OS/dataset/dbPedia/skos_categories_en",
-//    val filesLeft = List(
+    val filesLeft = List(
+      "/media/espen/Windows8_OS/dataset/dbPedia/skos_categories_en"
 //  "/media/espen/Windows8_OS/dataset/dbPedia/mappingbased_literals_en",
 //  "/media/espen/Windows8_OS/dataset/dbPedia/mappingbased_objects_en"
 //      "/media/espen/Windows8_OS/dataset/dbPedia/topical_concepts_en",
@@ -31,13 +31,13 @@ object ReadDBpedia {
 //      "/media/espen/Windows8_OS/dataset/dbPedia/page_links_en",
 //      "/media/espen/Windows8_OS/dataset/dbPedia/instance_types_en",
 //      "/media/espen/Windows8_OS/dataset/dbPedia/article_categories_en"
-//    )
-    val linking = "/media/espen/Windows8_OS/dataset/dbPedia/interlanguage_links_en"
-    readFile(linking, true)
-//    for(filename <- filesLeft) {
-//      println(s"Starting to read $filename")
-//      readFile(filename)
-//    }
+    )
+//    val linking = "/media/espen/Windows8_OS/dataset/dbPedia/interlanguage_links_en"
+//    readFile(linking, true)
+    for(filename <- filesLeft) {
+      println(s"Starting to read $filename")
+      readFile(filename)
+    }
   }
     def readFile(filename :String = "/media/espen/Windows8_OS/dataset/dbPedia/article_categories_en", useFilter : Boolean = false) = {
       var fileNumber = 0
@@ -55,7 +55,7 @@ object ReadDBpedia {
       def upload(useFilter: Boolean = false) = {
         println(s"upload line nr: $i")
         try {
-          if(useFilter) UpdateQueryFactory.addStatements(statements.filter((s) => wikidataFilter.findFirstIn(s).isDefined), MyDatasets.DBpediaInterlink)
+          if(useFilter) UpdateQueryFactory.addStatements(statements.filter((s) => wikidataFilter.findFirstIn(s).isDefined), MyDatasets.interlinkDBpediaWikidata)
           else UpdateQueryFactory.addStatements(statements, MyDatasets.DBpediaDS)
           statements.clear()
         } catch {

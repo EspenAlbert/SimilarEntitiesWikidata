@@ -4,11 +4,15 @@ package core.globals
   * Created by Espen on 04.11.2016.
   */
 object SimilarPropertyOntology extends Enumeration{
+
+
   val maxCountForProperties = 17871093
   val maxPropertyNumber = 3333
 
 
   type SimilarPropertyOntology = Value
+  val standardRdfTypeDBpedia = Value("http://www.w3.org/2004/02/skos/core#Concept")
+  val owlSameAs = Value("http://www.w3.org/2002/07/owl#sameAs")
   val w = Value("http://www.wikidata.org/entity/")
   val rdfType = Value("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
   val rdfsSubclassOf = Value("http://www.w3.org/2000/01/rdf-schema#subClassOf")

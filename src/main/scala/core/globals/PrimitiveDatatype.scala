@@ -67,9 +67,8 @@ object PrimitiveDatatype extends Enumeration{
     else None
   }
   def determineFromObjectValuePropertyType(property : String)(implicit knowledgeGraph: KnowledgeGraph) : Option[PropertyType] = {
-    return Some(ItemPropertyType())
     val samples = QueryFactory.find100SamplesForProperty(property)
-    if(samples.filter(_.startsWith("http")).length == samples.length) return Some(UrlPropertyType())
+    if(samples.count(_.startsWith("http")) == samples.length) return Some(UrlPropertyType())
     if(samples.exists{case literalValuePattern(_*) => false; case _=> true}) return Some(StringPropertyType()) //IF we find a literal value not wrapped in "" it is not a string property type
     else None
   }

@@ -28,7 +28,8 @@ object MapPropertiesToPropTypes {
         return properties.filter{case geoProperty(pid) => true; case _ => false}
       }
       case KnowledgeGraph.dbPedia => {
-        throw new NotImplementedError()
+        val geoProperty = ".*(http://www.w3.org/2003/01/geo/wgs84_pos#).*".r
+        return properties.filter{case geoProperty(pid) => true; case _=> false}
       }
     }
   }
@@ -39,7 +40,7 @@ object MapPropertiesToPropTypes {
         return properties.filter{p => ordinaryPropertiesPattern.findFirstIn(p).isInstanceOf[Some[String]]}
       }
       case KnowledgeGraph.dbPedia => {
-        throw new NotImplementedError()
+        return properties
       }
     }
   }

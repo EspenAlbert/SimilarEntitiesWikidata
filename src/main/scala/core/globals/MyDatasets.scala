@@ -5,12 +5,13 @@ package core.globals
   * Created by Espen on 04.11.2016.
   */
 object MyDatasets{
-  val DBpediaInterlink = "mappingDBpediaWikidata"
+  val interlinkDBpediaWikidata = "mappingDBpediaWikidata"
 
   val ValueMatchDBpedia = "valueMatchDBpedia"
 
   val DBpediaDS = "dsDBpedia"
   val strategyMappingWikidata = "strategyMappingWikidata"
+  val strategyMappingDBpedia = "strategyMappingDBpedia"
 
   val valueNodeDs = "valueNodeDs"
   final val DsBig = "dsBig"
@@ -34,7 +35,7 @@ object KnowledgeGraph extends Enumeration {
   def findDatasetForStoringStrategiesAndMetadata(knowledgeGraph: KnowledgeGraph) : String = {
     knowledgeGraph match {
       case KnowledgeGraph.wikidata => return MyDatasets.strategyMappingWikidata
-      case KnowledgeGraph.dbPedia =>  throw new NotImplementedError()
+      case KnowledgeGraph.dbPedia =>  return MyDatasets.strategyMappingDBpedia
     }
   }
   def getTypeProperty(knowledgeGraph: KnowledgeGraph) : String = {

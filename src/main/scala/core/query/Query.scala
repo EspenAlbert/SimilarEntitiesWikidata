@@ -30,7 +30,8 @@ class Query(f : () => String,  val dataset : String) extends FindSomething{
       case MyDatasets.valueNodeDs => QueryLocalServer.query(getQuery(), resultStream, MyDatasets.valueNodeDs)
       case MyDatasets.DBpediaDS => QueryLocalServer.query(getQuery(), resultStream, MyDatasets.DBpediaDS)
       case MyDatasets.strategyMappingWikidata => QueryLocalServer.query(getQuery(), resultStream, MyDatasets.strategyMappingWikidata)
-      case MyDatasets.dsWikidata => QueryLocalServer.query(getQuery(), resultStream, MyDatasets.dsWikidata)
+      case MyDatasets.interlinkDBpediaWikidata => QueryLocalServer.query(getQuery(), resultStream, MyDatasets.interlinkDBpediaWikidata)
+      case _ => throw new Exception("Invalid dataset! " + dataset)
       case _ => throw new Exception("Invalid dataset! " + dataset)
     }
     executed = true

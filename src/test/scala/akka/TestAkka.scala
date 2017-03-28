@@ -300,5 +300,10 @@ class TestAkka extends FunSuite{
         ClosedShape
     })
   }
+  test("flashcard on maps in scala") {
+    val a = Map("a" -> 2)
+    val b = Map("a" ->3, "b" -> 1)
+    println(a ++ b)
+  }
 
 }

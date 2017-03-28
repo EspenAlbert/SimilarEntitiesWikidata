@@ -1,7 +1,7 @@
 package core.query.specific
 
 import core.globals.KnowledgeGraph.KnowledgeGraph
-import core.globals.{KnowledgeGraph, PrimitiveDatatype, SimilarPropertyOntology}
+import core.globals.{KnowledgeGraph, MyDatasets, PrimitiveDatatype, SimilarPropertyOntology}
 import core.query.Query
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -11,6 +11,7 @@ import scala.util.Try
   * Created by espen on 17.02.17.
   */
 object QueryFactory {
+
   def singleSubjectWithPropertyAndValue(musicbrainzIdPropertyName: String, objectValue: String)(implicit knowledgeGraph: KnowledgeGraph) : String = {
     val queryString =
       s"""
@@ -289,6 +290,28 @@ object QueryFactory {
     val query = new Query(() => queryString, if(datasetForced != "") datasetForced else DatasetInferrer.getDataset(queryString))
     query.execute()
     query
+  }
+  def findIdDBpediaFromWikidataId(wikidataId : String): Try[String] = {
+    val queryString =
+      s"""
+         |select ?s
+         |where {
+         |  ?s <${SimilarPropertyOntology.owlSameAs}> <$wikidataId>
+         |  }
+       """.stripMargin
+    val query = executeQuery(queryString, MyDatasets.interlinkDBpediaWikidata)(null)
+    return Try(query.getResults("s")(0))
+  }
+  def findIdWikidataFromDBpedia(dbPediaId: String): Try[String] = {
+    val queryString =
+      s"""
+         |select ?o
+         |where {
+         |  <$dbPediaId> <${SimilarPropertyOntology.owlSameAs}> ?o
+         |  }
+       """.stripMargin
+    val query = executeQuery(queryString, MyDatasets.interlinkDBpediaWikidata)(null)
+    return Try(query.getResults("o")(0))
   }
 
 

@@ -1,6 +1,6 @@
 package core.query.specific
 
-import core.globals.KnowledgeGraph
+import core.globals.{KnowledgeGraph, SimilarPropertyOntology}
 import core.globals.KnowledgeGraph.KnowledgeGraph
 
 /**
@@ -14,8 +14,9 @@ object QueryHelper {
         """.stripMargin
   }
   def getSameTypeFilter(qVariable: String, rdfTypes: List[String]) : String = {
+    val filteredTypes= rdfTypes.filterNot(_ == SimilarPropertyOntology.standardRdfTypeDBpedia.toString)
     s"""
-       |  filter(?$qVariable IN(<${rdfTypes.mkString(">,<")}>)) .
+       |  filter(?$qVariable IN(<${filteredTypes.mkString(">,<")}>)) .
      """.stripMargin
   }
 

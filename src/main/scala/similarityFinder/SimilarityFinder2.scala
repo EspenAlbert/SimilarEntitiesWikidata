@@ -211,18 +211,6 @@ class SimilarityFinder2(qEntity : String)(implicit val knowledgeGraph: Knowledge
     }
     }
   }
-
-  /*
-  import GraphDSL.Implicits._
-val foldFlow: Flow[Int, Int, Future[Int]] = Flow.fromGraph(GraphDSL.create(Sink.fold[Int, Int](0)(_ + _)) { implicit builder => fold =>
-  FlowShape(fold.in, builder.materializedValue.mapAsync(4)(identity).outlet)
-})
-  def executeCheapStrategies: Flow[Strategy, Map[String, Feature], NotUsed] = {
-    val executionFlow : Flow[Strategy, Map[String, Feature], Future[String]] =
-      Flow.fromGraph(GraphDSL.create(Flow[Strategy]
-        .map((s) => s.findSimilars())
-  })){
-   */
   def executeCheapStrategies: Flow[Strategy, Map[String, Feature], NotUsed] = {
     return Flow[Strategy]
       .map((s) => s.findSimilars())

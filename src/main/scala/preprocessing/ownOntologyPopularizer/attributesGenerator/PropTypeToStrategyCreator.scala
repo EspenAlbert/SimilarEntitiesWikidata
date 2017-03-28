@@ -11,7 +11,7 @@ import scala.collection.mutable
   */
 object PropTypeToStrategyCreator {
   def generateMetaStatementKnowledgeAndStrategiesForProperties(propertiesToPropTypeMap : Map[String, PropertyType])(implicit knowledgeGraph: KnowledgeGraph) = {
-    val (propToDomainCount: mutable.Map[String, Int], propToRangeCount: mutable.Map[String, Int], sameTypePossibleProps: mutable.Set[String], sharableDomainProps: mutable.Set[String], sharableRangeProps: mutable.Set[String], dateTimeStrategies : mutable.Set[String]) = findMetaPropertyKnowledge(propertiesToPropTypeMap.filterNot(propToType => propToType._1 == "http://www.wikidata.org/entity/P31"))
+    val (propToDomainCount: mutable.Map[String, Int], propToRangeCount: mutable.Map[String, Int], sameTypePossibleProps: mutable.Set[String], sharableDomainProps: mutable.Set[String], sharableRangeProps: mutable.Set[String], dateTimeStrategies : mutable.Set[String]) = findMetaPropertyKnowledge(propertiesToPropTypeMap.filterNot(propToType => propToType._1 == KnowledgeGraph.getTypeProperty(knowledgeGraph)))
     addMetaKnowledgeToDatabase(propToDomainCount, propToRangeCount)
     addStrategiesToDatabase(propertiesToPropTypeMap, sameTypePossibleProps, sharableDomainProps, sharableRangeProps, dateTimeStrategies)
   }

@@ -3,6 +3,7 @@ package iAndO.readRdf
 import core.globals.{KnowledgeGraph, MyDatasets}
 import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.query.specific.{AskQuery, QueryFactory, UpdateQueryFactory}
+import data.DBpediaFactory
 import org.scalatest.FunSuite
 import tags.{ActiveSlowTag, ActiveTag}
 
@@ -10,7 +11,8 @@ import tags.{ActiveSlowTag, ActiveTag}
   * Created by espen on 20.03.17.
   */
 class TestReadDBpedia extends FunSuite{
-  test("Wikidata filter") {
+  implicit val knowledgeGraph = KnowledgeGraph.dbPedia
+  test("Wikidata filter", ActiveTag) {
     val statementShouldFind = "<http://dbpedia.org/resource/Wales> <http://www.w3.org/2002/07/owl#sameAs> <http://www.wikidata.org/entity/Q25> ."
     val statementShouldNotFind = "<http://dbpedia.org/resource/Wales> <http://www.w3.org/2002/07/owl#sameAs> <http://wikidata.dbpedia.org/resource/Q25> ."
     val statementShouldNotFind2 = "<http://dbpedia.org/resource/Wales> <http://www.w3.org/2002/07/owl#sameAs> <http://af.dbpedia.org/resource/Wallis> ."
@@ -57,12 +59,15 @@ class TestReadDBpedia extends FunSuite{
   }
   test("Only valid properties should be present", ActiveSlowTag) {
     val validProperties = List("http://dbpedia.org/ontology/wikiPageWikiLink", "http://www.w3.org/1999/02/22-rdf-syntax-ns#type", "http://purl.org/dc/terms/subject", "http://www.w3.org/2004/02/skos/core#Concept", "http://www.w3.org/2004/02/skos/core#related>","http://www.w3.org/2004/02/skos/core#prefLabel","http://www.w3.org/2004/02/skos/core#broader")
-    implicit val knowledgeGraph = KnowledgeGraph.dbPedia
     val distinctProperties = QueryFactory.findAllDistinctProperties
     println(distinctProperties.length)
     distinctProperties.foreach( prop => if(!validProperties.contains(prop))UpdateQueryFactory.cleanDatasetWhere(MyDatasets.DBpediaDS, s"?s <$prop> ?o"))
     val distinctPropertiesAfter = QueryFactory.findAllDistinctProperties
     assert(distinctPropertiesAfter.length == validProperties.length)
-
+  }
+  test("Interlinking to wikidata should work", ActiveTag) {
+    val expected = DBpediaFactory.wales.dbpediaId
+    val actual = QueryFactory.findIdDBpediaFromWikidataId(DBpediaFactory.wales.wikidataId)
+    assert(expected == actual.getOrElse(assert(false, s"Failed to find dbpedia id, got: $actual")))
   }
 }

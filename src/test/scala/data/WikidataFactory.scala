@@ -14,7 +14,7 @@ object WikidataFactory {
   val rangeCountOccupation = 4792
 
   implicit val knowledgeGraph = KnowledgeGraph.wikidata
-  private val w = "http://www.wikidata.org/entity/"
+  val w = "http://www.wikidata.org/entity/"
   val directLinkProperty = w + "P1393"
   val itemProperty = w + "P1026"
   val valueMatchObject = w + "P1072"
