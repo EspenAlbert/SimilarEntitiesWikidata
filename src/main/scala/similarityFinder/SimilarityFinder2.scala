@@ -123,14 +123,8 @@ class SimilarityFinder2(qEntity : String)(implicit val knowledgeGraph: Knowledge
         ClosedShape
     })  }
 
-  def runGraph(): List[SimilarEntity] = {
-//    if(g == null) createGraph()
-//    val done = g.run()
-    val strategyProducer = produceStrategies()
-    val (cheapStrategiesFuture, expensiveStrategiesFuture) = strategyProducer.run()
-
-    val cheapStrategies = Await.result(cheapStrategiesFuture, 12 minutes)
-    val expensiveStrategies = Await.result(expensiveStrategiesFuture, 12 minutes)
+  def findSimilarEntities(): List[SimilarEntity] = {
+    val (cheapStrategies, expensiveStrategies) = getStrategiesCheapAndExpensive()
     println(s"Cheap strategies : ${cheapStrategies.size} = $cheapStrategies")
     println(s"Expensive strategies : ${expensiveStrategies.size} = $expensiveStrategies")
     val cheapExecution = executeCheapStrategiesGraph(cheapStrategies)
@@ -141,8 +135,24 @@ class SimilarityFinder2(qEntity : String)(implicit val knowledgeGraph: Knowledge
     val resultCombinerGraph = combineSimilarEntitiesGraph(similarEntitiesExpensiveExecution, initialSimilarEntities)
     val finalResult = Await.result(resultCombinerGraph.run(), 1 minute)
     return finalResult
-
-
+  }
+  private def getStrategiesCheapAndExpensive() : (Seq[Strategy], Seq[Strategy]) = {
+    val strategyProducer = produceStrategies()
+    val (cheapStrategiesFuture, expensiveStrategiesFuture) = strategyProducer.run()
+    val cheapStrategies = Await.result(cheapStrategiesFuture, 12 minutes)
+    val expensiveStrategies = Await.result(expensiveStrategiesFuture, 12 minutes)
+    return (cheapStrategies, expensiveStrategies)
+  }
+  def findSimilarityTo(similarEntities: List[String]): List[SimilarEntity] = {
+    val (cheapStrategies, expensiveStrategies) = getStrategiesCheapAndExpensive()
+    val similarEntitiesExpensiveGraph = executeExpensiveStrategiesGraph(expensiveStrategies++cheapStrategies, similarEntities.map(new SimilarEntity(_,Nil)))
+    val similarEntitiesExpensiveExecution = Await.result(similarEntitiesExpensiveGraph.run(), 5 minutes)
+    try {
+      assert(similarEntities.size == similarEntitiesExpensiveExecution.size)
+    } catch {
+      case a : AssertionError => println("Some similar entity was not found.../had no statements")
+    }
+    return similarEntitiesExpensiveExecution
   }
 
   def similarEntityCombiner: Flow[(List[SimilarEntity], List[SimilarEntity]), List[SimilarEntity], NotUsed] = {

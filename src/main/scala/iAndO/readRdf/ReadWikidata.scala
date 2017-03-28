@@ -43,10 +43,6 @@ object ReadWikidata {
             try {
               decodeLine(s.toString())
             } catch {
-              case a : Exception => {//Happens when we are starting from a line number > 0, the first entity might not be registered in the statementMaps...
-                println(s"clearing the mutable maps..")
-                clearMutableMaps
-              }
               case a: QueryParseException => {
                 printWriter.write(s"Line $i : ${s.toString()} had ERROR NR $errorNumber : ${a.getMessage} \n\n\n\n statements: ${lastFinalStatements.mkString("\n")}")
                 println(a.getMessage)
@@ -56,6 +52,10 @@ object ReadWikidata {
                   fileNumber += 1
                   printWriter = new PrintWriter(s"input/errorLog$fileNumber.txt")
                 }
+              }
+              case a : Exception => {//Happens when we are starting from a line number > 0, the first entity might not be registered in the statementMaps...
+                println(s"clearing the mutable maps..")
+                clearMutableMaps
               }
               case a: Throwable => {
                 printWriter.write(s"Line $i : ${s.toString()} had OTHER TYPE OF ERROR: ERROR NR $errorNumber : ${a.getMessage} \n\n\n\n statements: ${lastFinalStatements.mkString("\n")}")

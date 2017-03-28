@@ -21,12 +21,15 @@ class GraphRDF(val entity : String)(implicit val knowledgeGraph: KnowledgeGraph)
   val entityIsSubjectStatments = Future{
     QueryFactory.findPropertiesAndObjects(entity)
   }
-  val statements = mutable.Set[Tuple3[String, String, String]]()
   def statementsList: List[(String,String,String)]= {
     val eIsObject = Await.result(entityIsObjectStatements, 10 seconds)
     val eIsSubject = Await.result(entityIsSubjectStatments, 10 seconds)
-    assert(eIsObject._1.size > 0, s"There are no statements where $entity is object")
-    assert(eIsSubject._1.size > 0, s"There are no statements where $entity is subject")
+    try{
+      assert(eIsObject._1.size > 0, s"There are no statements where $entity is object")
+      assert(eIsSubject._1.size > 0, s"There are no statements where $entity is subject")
+    } catch {
+      case a: AssertionError => println(s"Result might not be as expected for entity: $entity most likely have missing statements...")
+    }
     val statements = (for ((subject, property) <- eIsObject._1 zip eIsObject._2) yield (subject, property, entity))
       .++(for ((property, objectValue) <- eIsSubject._2 zip eIsSubject._1) yield (entity, property, objectValue))
     return statements.toList
@@ -50,20 +53,23 @@ class GraphRDF(val entity : String)(implicit val knowledgeGraph: KnowledgeGraph)
   def getTypes : List[String] = {
     return statementsList.filter((s) => isType(s)).map(_._3)
   }
+  def getStatementCountWithoutTypeStatements : Int = {
+    return statementsList.size - getTypes.size
+  }
   def findScalingFactor(graph: GraphRDF) : Double = {
     val otherEntity = graph.entity
     var overlaps = 0
-    for(statement <- graph.statements) {
+    for(statement <- graph.statementsList) {
       statement match {
         case (`otherEntity`, p, value) => if(getProperties(s=true).exists(_ == p)) overlaps += 1
         case (value, p, `otherEntity`) => if(getProperties(o=true).exists(_ == p)) overlaps += 1
       }
     }
-    return overlaps.toDouble /  graph.statements.size
+    return overlaps.toDouble /  graph.statementsList.size
   }
   def getProperties(s : Boolean = false, o : Boolean = false) : List[String] = {
     val properties = ArrayBuffer[String]()
-    statements.foreach((f) => if(!s && !o || s && f._1 == entity || o && f._3 == entity) properties.append(f._2))
+    statementsList.foreach((f) => if(!s && !o || s && f._1 == entity || o && f._3 == entity) properties.append(f._2))
     return properties.toList
   }
 

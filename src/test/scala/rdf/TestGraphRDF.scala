@@ -18,7 +18,7 @@ class TestGraphRDF extends FunSuite with BeforeAndAfter{
   }
 
   test("obama should have 545 statements") {
-    assert(graph.statements.toList.length == 545)
+    assert(graph.statementsList.toList.length == 545)
   }
   test("get properties for obama") {
     assert(graph.getUniqueWikidataPropertiesWithoutTheMostCommon().exists(_ == SimilarPropertyOntology.w.toString + "P31"))

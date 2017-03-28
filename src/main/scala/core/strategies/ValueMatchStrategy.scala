@@ -20,14 +20,14 @@ case class ValueMatchStrategy(property: String, isSubject: Boolean, value : Stri
     for (other <- otherEntities) {
       val entity: String = other.entity
       if(isSubject) {
-        for(a <- other.statements) {
+        for(a <- other.statementsList) {
           a match {
             case (`entity`, `property`, `value`) => featureMap += entity -> new ValueMatchFeature(property, FeatureType.valueMatch, 1, weight, value)
             case _=> Unit
           }
         }
       } else {
-        for(a <- other.statements) {
+        for(a <- other.statementsList) {
           a match {
             case (`value`, `property`, `entity`) => featureMap += entity -> new ValueMatchFeature(property, FeatureType.valueMatch, 1, weight, value)
             case _ => Unit

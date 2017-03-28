@@ -30,7 +30,7 @@ class TestSimilarityFinder2  extends FunSuite{
   val ringoStarr= WikidataFactory.ringoStarr
   val ringoStarrSimFinder = new SimilarityFinder2(ringoStarr.id)
   test("It should work!!") {
-    val simEntities = ringoStarrSimFinder.runGraph()
+    val simEntities = ringoStarrSimFinder.findSimilarEntities()
     assert(simEntities.size == SimilarityFinder2.ENTITIES_AFTER_PRUNING)
 //    Displayer.displayResult(simEntities, 10, ringoStarr.id)
   }
@@ -38,7 +38,7 @@ class TestSimilarityFinder2  extends FunSuite{
     val obama = WikidataFactory.obama
     val sFinder = new SimilarityFinder2(obama)
     val caught = intercept[AssertionError] {
-      sFinder.runGraph()
+      sFinder.findSimilarEntities()
     }
     caught match {
         case e: Throwable => println(s"Expected exception...$e"); assert(true)
