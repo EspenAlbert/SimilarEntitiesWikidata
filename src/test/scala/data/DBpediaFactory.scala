@@ -6,10 +6,13 @@ package data
 import WikidataFactory.w
 import core.globals._
 object DBpediaFactory {
+
   val propToTypeFilename = "DBpedia-propToTypeMapping"
   val resource = "http://dbpedia.org/resource/"
   val ontology = "http://dbpedia.org/ontology/"
   val standardRdfType = "http://www.w3.org/2004/02/skos/core#Concept"
+
+  val obama: String = resource + "Barack_Obama"
 
   val wales = new {
     val wikidataId = w + "Q25"

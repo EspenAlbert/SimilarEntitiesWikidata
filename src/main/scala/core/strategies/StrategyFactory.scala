@@ -140,10 +140,10 @@ object StrategyFactory {
 //      }
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#DirectLinkStrategy" => {
         val strategies = ArrayBuffer[Strategy]()
-        println(s"About to find direct links for $property with $domain domain and range = $range")
+//        println(s"About to find direct links for $property with $domain domain and range = $range")
         val (filteredDomain, filteredRange) = getDomainAndRangeWithCorrectType(domain, range, rdfTypes)
         if (filteredDomain.nonEmpty) {
-          println("Created direct link strategy..")
+//          println("Created direct link strategy..")
           strategies += DirectLinkStrategy(property, Set() ++ filteredDomain)
         }
         if (filteredRange.nonEmpty) {

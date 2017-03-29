@@ -12,6 +12,7 @@ object SimilarPropertyOntology extends Enumeration{
 
   type SimilarPropertyOntology = Value
   val standardRdfTypeDBpedia = Value("http://www.w3.org/2004/02/skos/core#Concept")
+  val wikiPageWikiLink = Value("http://dbpedia.org/ontology/wikiPageWikiLink")
   val owlSameAs = Value("http://www.w3.org/2002/07/owl#sameAs")
   val w = Value("http://www.wikidata.org/entity/")
   val rdfType = Value("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")

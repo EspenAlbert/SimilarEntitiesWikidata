@@ -18,6 +18,7 @@ import scala.collection.parallel.mutable.{ParHashMap, ParIterable}
 import scala.concurrent.{Await, Future}
 import scala.concurrent.ExecutionContext.Implicits.global
 import GraphDSL.Implicits._
+import core.globals.SimilarPropertyOntology
 
 import scala.collection.mutable.ListBuffer
 object SimilarityFinder2 {
@@ -27,7 +28,7 @@ object SimilarityFinder2 {
   def isACheapStrategy(strategy: Strategy) : Boolean= {
     strategy match {
       case a : DirectLinkStrategy => true
-      case b : ValueMatchStrategy if(b.dbCount < thresholdCountValueMatch) => true
+      case b : ValueMatchStrategy if(b.dbCount < thresholdCountValueMatch && b.property != SimilarPropertyOntology.wikiPageWikiLink.toString) => true
       case c : PropertyMatchStrategy if(c.dbCount < 2000) => true
       case _ => false
     }
@@ -43,30 +44,38 @@ object SimilarityFinder2 {
 }
 class SimilarityFinder2(qEntity : String)(implicit val knowledgeGraph: KnowledgeGraph) {
 
+
   implicit val system = ActorSystem("my-system")
   implicit val materializer = ActorMaterializer(ActorMaterializerSettings(system).withInputBuffer(2048, 2048))
 
   val qEntityGraph = new GraphRDF(qEntity)
   println("In constructor")
 
+  var expensiveStrategyList : Seq[Strategy] = null
   def findInitialEntities(): List[SimilarEntity] = {
     val (cheapStrategies, expensiveStrategies) = getStrategiesCheapAndExpensive()
+    expensiveStrategyList = expensiveStrategies
+    println(s"$knowledgeGraph Cheap strategies : ${cheapStrategies.size} = $cheapStrategies")
+    println(s"$knowledgeGraph Expensive strategies : ${expensiveStrategies.size} = $expensiveStrategies")
     val cheapExecution = executeCheapStrategiesGraph(cheapStrategies, true)
     val initialSimilarEntities = Await.result(cheapExecution.run(), 10 minutes)
     println(s"Initial similar entities found in KG: $knowledgeGraph was ${initialSimilarEntities.size}")
     return initialSimilarEntities
   }
+  def findSimilarToRestOfStrategies(entities: List[SimilarEntity]): List[SimilarEntity] = {
+    return completeComparison(expensiveStrategyList, entities)
+  }
 
   def findSimilarEntities(): List[SimilarEntity] = {
-    val (cheapStrategies, expensiveStrategies) = getStrategiesCheapAndExpensive()
-    println(s"Cheap strategies : ${cheapStrategies.size} = $cheapStrategies")
-    println(s"Expensive strategies : ${expensiveStrategies.size} = $expensiveStrategies")
-    val cheapExecution = executeCheapStrategiesGraph(cheapStrategies)
-    val initialSimilarEntities = Await.result(cheapExecution.run(), 10 minutes)
-    val similarEntitiesExpensiveGraph = executeExpensiveStrategiesGraph(expensiveStrategies, initialSimilarEntities)
+    val initialSimilarEntities = findInitialEntities()
+    return completeComparison(expensiveStrategyList, initialSimilarEntities)
+  }
+
+  private def completeComparison(strategies: Seq[Strategy], similarEntities: List[SimilarEntity]): List[SimilarEntity] = {
+    val similarEntitiesExpensiveGraph = executeExpensiveStrategiesGraph(strategies, similarEntities)
     val similarEntitiesExpensiveExecution = Await.result(similarEntitiesExpensiveGraph.run(), 10 minutes)
-    assert(initialSimilarEntities.size == similarEntitiesExpensiveExecution.size)
-    val resultCombinerGraph = combineSimilarEntitiesGraph(similarEntitiesExpensiveExecution, initialSimilarEntities)
+//    assert(similarEntities.size == similarEntitiesExpensiveExecution.size)NOT VALID ANYMORE, E.G. ENTITY FROM OTHER DATASET WILL NOT BE REPRESENTED...
+    val resultCombinerGraph = combineSimilarEntitiesGraph(similarEntitiesExpensiveExecution, similarEntities)
     val finalResult = Await.result(resultCombinerGraph.run(), 1 minute)
     return finalResult
   }

@@ -21,9 +21,10 @@ class GraphRDF(val entity : String)(implicit val knowledgeGraph: KnowledgeGraph)
   val entityIsSubjectStatments = Future{
     QueryFactory.findPropertiesAndObjects(entity)
   }
-  def statementsList: List[(String,String,String)]= {
-    val eIsObject = Await.result(entityIsObjectStatements, 10 seconds)
-    val eIsSubject = Await.result(entityIsSubjectStatments, 10 seconds)
+  lazy val statementsList = getStatementsList
+  private def getStatementsList: List[(String,String,String)]= {
+    val eIsObject = Await.result(entityIsObjectStatements, 100 seconds)
+    val eIsSubject = Await.result(entityIsSubjectStatments, 100 seconds)
     try{
       assert(eIsObject._1.size > 0, s"There are no statements where $entity is object")
       assert(eIsSubject._1.size > 0, s"There are no statements where $entity is subject")

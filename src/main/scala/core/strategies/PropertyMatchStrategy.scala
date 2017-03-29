@@ -21,7 +21,7 @@ case class PropertyMatchStrategy(property : String, isSubject : Boolean, rdfType
   }
 
   override def execute(otherEntities: List[GraphRDF])(implicit knowledgeGraph: KnowledgeGraph): Map[String, Feature] = {
-    println(s"Finding similars for property (expensive strategy): $property")
+//    println(s"Finding similars for property (expensive strategy): $property")
     val featureMap = mutable.Map[String, Feature]()
     for (other <- otherEntities) {
       val entity: String = other.entity
@@ -34,7 +34,7 @@ case class PropertyMatchStrategy(property : String, isSubject : Boolean, rdfType
 
 
   override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): Map[String, Feature] = {
-    println(s"Finding similars for property : $property")
+//    println(s"Finding similars for property : $property")
     val entities = if(isSubject) QueryFactory.findSubjectsOfTypeForProperty(property, rdfTypes)
     else QueryFactory.findObjectsOfTypeForProperty(property, rdfTypes)
     return generateFeatures(entities)

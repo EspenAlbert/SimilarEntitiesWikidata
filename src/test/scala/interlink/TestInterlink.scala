@@ -10,7 +10,7 @@ import tags.ActiveTag
   */
 class TestInterlink extends FunSuite{
   test("dbPedia to wikidata id", ActiveTag) {
-    val actual = Interlink.fromDBpediaToWikidata(DBpediaFactory.wales.dbpediaId).get
+    val actual = Interlink.fromDBpediaToWikidata(DBpediaFactory.wales.dbpediaId)
     val expected = DBpediaFactory.wales.wikidataId
     assert(actual == expected)
   }
