@@ -7,7 +7,7 @@ package core.globals
 object MyDatasets{
   val interlinkDBpediaWikidata = "mappingDBpediaWikidata"
 
-  val ValueMatchDBpedia = "valueMatchDBpedia"
+  val valueMatchDBpedia = "valueMatchDBpedia"
 
   val DBpediaDS = "dsDBpedia"
   val strategyMappingWikidata = "strategyMappingWikidata"

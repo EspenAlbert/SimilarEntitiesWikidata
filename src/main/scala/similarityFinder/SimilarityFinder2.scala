@@ -23,7 +23,7 @@ import scala.collection.mutable.ListBuffer
 object SimilarityFinder2 {
   val thresholdStrategyWeight = 3.25
   val ENTITIES_AFTER_PRUNING = 1000
-  val thresholdCountValueMatch = 5000
+  val thresholdCountValueMatch = 2000
   def isACheapStrategy(strategy: Strategy) : Boolean= {
     strategy match {
       case a : DirectLinkStrategy => true
@@ -33,7 +33,6 @@ object SimilarityFinder2 {
     }
   }
   def onlyDirectLinkStrategies(strategy: Strategy) : Boolean = {
-    println(s"classifying: $strategy")
     strategy match {
       case a : DirectLinkStrategy => true
       case _ => false
@@ -49,7 +48,28 @@ class SimilarityFinder2(qEntity : String)(implicit val knowledgeGraph: Knowledge
 
   val qEntityGraph = new GraphRDF(qEntity)
   println("In constructor")
-  var g : RunnableGraph[Future[Done]] = null
+
+  def findInitialEntities(): List[SimilarEntity] = {
+    val (cheapStrategies, expensiveStrategies) = getStrategiesCheapAndExpensive()
+    val cheapExecution = executeCheapStrategiesGraph(cheapStrategies, true)
+    val initialSimilarEntities = Await.result(cheapExecution.run(), 10 minutes)
+    println(s"Initial similar entities found in KG: $knowledgeGraph was ${initialSimilarEntities.size}")
+    return initialSimilarEntities
+  }
+
+  def findSimilarEntities(): List[SimilarEntity] = {
+    val (cheapStrategies, expensiveStrategies) = getStrategiesCheapAndExpensive()
+    println(s"Cheap strategies : ${cheapStrategies.size} = $cheapStrategies")
+    println(s"Expensive strategies : ${expensiveStrategies.size} = $expensiveStrategies")
+    val cheapExecution = executeCheapStrategiesGraph(cheapStrategies)
+    val initialSimilarEntities = Await.result(cheapExecution.run(), 10 minutes)
+    val similarEntitiesExpensiveGraph = executeExpensiveStrategiesGraph(expensiveStrategies, initialSimilarEntities)
+    val similarEntitiesExpensiveExecution = Await.result(similarEntitiesExpensiveGraph.run(), 10 minutes)
+    assert(initialSimilarEntities.size == similarEntitiesExpensiveExecution.size)
+    val resultCombinerGraph = combineSimilarEntitiesGraph(similarEntitiesExpensiveExecution, initialSimilarEntities)
+    val finalResult = Await.result(resultCombinerGraph.run(), 1 minute)
+    return finalResult
+  }
 
   def produceStrategies(): RunnableGraph[(Future[ListBuffer[Strategy]], Future[ListBuffer[Strategy]])] = {
     val source = getSource(qEntityGraph.statementsList)
@@ -75,11 +95,19 @@ class SimilarityFinder2(qEntity : String)(implicit val knowledgeGraph: Knowledge
     })
   }
   def foldSimilarEntities : Sink[List[SimilarEntity], Future[List[SimilarEntity]]] = Sink.fold(List[SimilarEntity]())(_ ++ _)
-  def executeCheapStrategiesGraph(cheapStrategies : Seq[Strategy]): RunnableGraph[Future[List[SimilarEntity]]] = {
+
+  def executeCheapStrategiesGraph(cheapStrategies : Seq[Strategy], awaitPruning : Boolean= false): RunnableGraph[Future[List[SimilarEntity]]] = {
     val source: Source[Strategy, NotUsed] = sourceStrategies(cheapStrategies)
     return RunnableGraph.fromGraph(GraphDSL.create(foldSimilarEntities){implicit b =>
       sink =>
-      source ~> executeCheapStrategies ~> foldFeatureMaps ~> generateSimilarEntities ~> pruneSimilarEntities ~> sink.in
+      if(awaitPruning) {
+        source ~> executeCheapStrategies ~> foldFeatureMaps ~> generateSimilarEntities.map(_.toList) ~> sink.in
+
+      }
+      else {
+        source ~> executeCheapStrategies ~> foldFeatureMaps ~> generateSimilarEntities ~> pruneSimilarEntities ~> sink.in
+
+      }
       ClosedShape
     })
   }
@@ -123,19 +151,6 @@ class SimilarityFinder2(qEntity : String)(implicit val knowledgeGraph: Knowledge
         ClosedShape
     })  }
 
-  def findSimilarEntities(): List[SimilarEntity] = {
-    val (cheapStrategies, expensiveStrategies) = getStrategiesCheapAndExpensive()
-    println(s"Cheap strategies : ${cheapStrategies.size} = $cheapStrategies")
-    println(s"Expensive strategies : ${expensiveStrategies.size} = $expensiveStrategies")
-    val cheapExecution = executeCheapStrategiesGraph(cheapStrategies)
-    val initialSimilarEntities = Await.result(cheapExecution.run(), 5 minutes)
-    val similarEntitiesExpensiveGraph = executeExpensiveStrategiesGraph(expensiveStrategies, initialSimilarEntities)
-    val similarEntitiesExpensiveExecution = Await.result(similarEntitiesExpensiveGraph.run(), 5 minutes)
-    assert(initialSimilarEntities.size == similarEntitiesExpensiveExecution.size)
-    val resultCombinerGraph = combineSimilarEntitiesGraph(similarEntitiesExpensiveExecution, initialSimilarEntities)
-    val finalResult = Await.result(resultCombinerGraph.run(), 1 minute)
-    return finalResult
-  }
   private def getStrategiesCheapAndExpensive() : (Seq[Strategy], Seq[Strategy]) = {
     val strategyProducer = produceStrategies()
     val (cheapStrategiesFuture, expensiveStrategiesFuture) = strategyProducer.run()
@@ -213,7 +228,7 @@ class SimilarityFinder2(qEntity : String)(implicit val knowledgeGraph: Knowledge
   }
   def executeCheapStrategies: Flow[Strategy, Map[String, Feature], NotUsed] = {
     return Flow[Strategy]
-      .map((s) => s.findSimilars())
+      .mapAsyncUnordered(4)((s) => Future {s.findSimilars()})
   }
 
   def strategyCheapOrExpensivePartitioner(isACheapStrategy: (Strategy) => Boolean): Partition[Strategy] = {
@@ -233,8 +248,8 @@ class SimilarityFinder2(qEntity : String)(implicit val knowledgeGraph: Knowledge
   }
   def strategyMapperFlow(isSubject : Boolean): Flow[Tuple2[String, List[String]], Strategy, NotUsed] = {
     return Flow[Tuple2[String, List[String]]]
-      .map{case Tuple2(prop : String, domainOrRange: List[String]) => {
-        StrategyFactory.getStrategies(qEntity, qEntityGraph.getTypes, prop, isSubject, domainOrRange)
+      .mapAsyncUnordered(4){case Tuple2(prop : String, domainOrRange: List[String]) => {
+        Future{StrategyFactory.getStrategies(qEntity, qEntityGraph.getTypes, prop, isSubject, domainOrRange)}
       }}.mapConcat(s => s)
   }
 

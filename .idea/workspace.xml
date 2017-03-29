@@ -1,31 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d206a159-edb1-49d5-8841-178f417096da" name="Default" comment="DBpedia prop -&gt; propTypes finished.&#10;Implementation prop -&gt; strategy finished, but not tested. &#10;Interlinking done. &#10;&#10;About to start working on the combined similarity finder.">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/core/interlinking/Interlink.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/data/DBpediaFactory.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/interlink/TestInterlink.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/preprocessing/ownOntologyPopularizer/TestMapPropertiesToPropTypesDBpedia.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/preprocessing/ownOntologyPopularizer/TestProptypeToStrategyGeneratorDBpedia.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/query/TestAskQueryDBpedia.scala" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/test/scala/query/TestAskQuery.scala" afterPath="$PROJECT_DIR$/src/test/scala/query/TestAskQueryWikidata.scala" />
+    <list default="true" id="d206a159-edb1-49d5-8841-178f417096da" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/similarityFinder/MultipleDatasetsSimFinder.scala" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinderDBpedia.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/globals/MyDatasets.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/globals/MyDatasets.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/globals/PrimitiveDatatype.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/globals/PrimitiveDatatype.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/globals/SimilarPropertyOntology.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/globals/SimilarPropertyOntology.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/query/Query.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/query/Query.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/query/specific/AskQuery.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/query/specific/AskQuery.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/query/specific/QueryFactory.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/query/specific/QueryFactory.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/query/specific/QueryHelper.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/query/specific/QueryHelper.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/query/specific/UpdateQueryFactory.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/query/specific/UpdateQueryFactory.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyFactory.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyFactory.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/iAndO/readRdf/ReadDBpedia.scala" afterPath="$PROJECT_DIR$/src/main/scala/iAndO/readRdf/ReadDBpedia.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/preprocessing/ownOntologyPopularizer/MapPropertiesToPropTypes.scala" afterPath="$PROJECT_DIR$/src/main/scala/preprocessing/ownOntologyPopularizer/MapPropertiesToPropTypes.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/preprocessing/ownOntologyPopularizer/attributesGenerator/PropTypeToStrategyCreator.scala" afterPath="$PROJECT_DIR$/src/main/scala/preprocessing/ownOntologyPopularizer/attributesGenerator/PropTypeToStrategyCreator.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/query/specific/DatasetInferrer.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/query/specific/DatasetInferrer.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala" afterPath="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/akka/TestAkka.scala" afterPath="$PROJECT_DIR$/src/test/scala/akka/TestAkka.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/data/WikidataFactory.scala" afterPath="$PROJECT_DIR$/src/test/scala/data/WikidataFactory.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/iAndO/readRdf/TestReadDBpedia.scala" afterPath="$PROJECT_DIR$/src/test/scala/iAndO/readRdf/TestReadDBpedia.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/similarityFinder/displayer/Displayer.scala" afterPath="$PROJECT_DIR$/src/main/scala/similarityFinder/displayer/Displayer.scala" />
     </list>
     <list id="d77b7471-7867-433b-9a10-b891ecadeee0" name="ARCHITECTURE REFACTORING. Summarized: 1. The SimpleRDF abstraction is removed. 2. Folder structure are changed to accomodate for both similarity finder and structure finder. A core package contains all the common logic. 3. Old unused files, or files using the (1) abstraction is removed." comment="" />
     <ignored path="SimilarEntitiesWikidata.iws" />
@@ -74,26 +58,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AskQuery.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/specific/AskQuery.scala">
+      <file leaf-file-name="Query.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/Query.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="469">
-              <caret line="56" column="3" lean-forward="true" selection-start-line="56" selection-start-column="3" selection-end-line="56" selection-end-column="3" />
-              <folding>
-                <element signature="e#29#63#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Interlink.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/core/interlinking/Interlink.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="11" column="32" lean-forward="true" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
-              <folding>
-                <element signature="e#27#66#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="384">
+              <caret line="34" column="29" lean-forward="false" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -101,86 +71,94 @@
       <file leaf-file-name="QueryFactory.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/specific/QueryFactory.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="556">
-              <caret line="313" column="34" lean-forward="false" selection-start-line="313" selection-start-column="34" selection-end-line="313" selection-end-column="34" />
-              <folding>
-                <element signature="e#29#78#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestAskQueryDBpedia.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestAskQueryDBpedia.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="24" column="21" lean-forward="false" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
-              <folding>
-                <element signature="e#15#49#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestQueryFactory.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestQueryFactory.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="50" column="37" lean-forward="false" selection-start-line="50" selection-start-column="37" selection-end-line="50" selection-end-column="37" />
+            <state relative-caret-position="652">
+              <caret line="293" column="6" lean-forward="false" selection-start-line="293" selection-start-column="6" selection-end-line="293" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestInterlink.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/scala/interlink/TestInterlink.scala">
+      <file leaf-file-name="MyDatasets.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/core/globals/MyDatasets.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="12" column="84" lean-forward="false" selection-start-line="12" selection-start-column="84" selection-end-line="12" selection-end-column="84" />
+            <state relative-caret-position="108">
+              <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MultipleDatasetsSimFinder.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/MultipleDatasetsSimFinder.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="576">
+              <caret line="48" column="63" lean-forward="false" selection-start-line="48" selection-start-column="63" selection-end-line="48" selection-end-column="63" />
               <folding>
-                <element signature="e#19#53#0" expanded="true" />
+                <element signature="e#26#55#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestReadDBpedia.scala" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/scala/iAndO/readRdf/TestReadDBpedia.scala">
+      <file leaf-file-name="SimilarityFinder2.scala" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1321">
+              <caret line="84" column="102" lean-forward="false" selection-start-line="84" selection-start-column="102" selection-end-line="84" selection-end-column="102" />
+              <folding>
+                <element signature="e#26#53#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Feature.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/core/feature/Feature.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestSimilarityFinder2.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinder2.scala">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="264">
-              <caret line="27" column="36" lean-forward="false" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
+              <caret line="39" column="41" lean-forward="false" selection-start-line="39" selection-start-column="41" selection-end-line="39" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DBpediaFactory.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/scala/data/DBpediaFactory.scala">
+      <file leaf-file-name="TestSimilarityFinderDBpedia.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinderDBpedia.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="QueryHelper.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/specific/QueryHelper.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="228">
-              <caret line="19" column="20" lean-forward="true" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
+            <state relative-caret-position="288">
+              <caret line="24" column="53" lean-forward="false" selection-start-line="24" selection-start-column="53" selection-end-line="24" selection-end-column="53" />
               <folding>
-                <element signature="e#29#90#0" expanded="true" />
+                <element signature="e#26#55#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SimilarPropertyOntology.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/core/globals/SimilarPropertyOntology.scala">
+      <file leaf-file-name="Displayer.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/displayer/Displayer.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="156">
-              <caret line="13" column="6" lean-forward="false" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+            <state relative-caret-position="216">
+              <caret line="19" column="7" lean-forward="true" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SimilarEntity.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/ranker/SimilarEntity.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -197,11 +175,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>,</find>
-      <find>List[Int]</find>
-      <find>Map[String, Int]</find>
-      <find>P</find>
-      <find>QueryFactory.findRangeCount(property)</find>
       <find>QueryFactory.findDomainCount(property)</find>
       <find>P26&quot;</find>
       <find>q</find>
@@ -227,6 +200,11 @@
       <find>ItemPropertyType</find>
       <find>type</find>
       <find>http://www.w3.org/1999/02/22-rdf-syntax-ns#type</find>
+      <find>Broadc</find>
+      <find>Execution</find>
+      <find>subject</find>
+      <find>ExecutionC</find>
+      <find>mapAs</find>
     </findStrings>
     <replaceStrings>
       <replace>artist</replace>
@@ -261,9 +239,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/scala/core/strategies/InBNotInAStrategy.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/core/strategies/DateComparisonStrategy.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/core/strategies/Strategy.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/strategies/DirectLinkStrategy.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/main/TestSimilarityFinder.scala" />
@@ -289,14 +264,12 @@
         <option value="$PROJECT_DIR$/src/test/scala/main/TestSimilarityFinderOnArtistDSAndStoreToDB.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/iAndO/readRdf/ReadDBpedia.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/data/WikidataFactory.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/core/query/Query.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/preprocessing/ownOntologyPopularizer/MapPropertiesToPropTypes.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/globals/MyDatasets.scala" />
         <option value="$PROJECT_DIR$/output/pickles/unknownDatatypesDBpedia" />
         <option value="$PROJECT_DIR$/src/test/scala/preprocessing/ownOntologyPopularizer/TestMapPropertiesToPropTypesDBpedia.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyFactory.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/query/specific/UpdateQueryFactory.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/preprocessing/ownOntologyPopularizer/attributesGenerator/PropTypeToStrategyCreator.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/preprocessing/ownOntologyPopularizer/TestProptypeToStrategyGeneratorDBpedia.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/akka/TestAkka.scala" />
@@ -312,6 +285,11 @@
         <option value="$PROJECT_DIR$/src/main/scala/core/query/specific/QueryFactory.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/interlink/TestInterlink.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/iAndO/readRdf/TestReadDBpedia.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/core/query/Query.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinderDBpedia.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/MultipleDatasetsSimFinder.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/displayer/Displayer.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala" />
       </list>
     </option>
   </component>
@@ -324,8 +302,8 @@
   <component name="ProjectFrameBounds">
     <option name="x" value="64" />
     <option name="y" value="-11" />
-    <option name="width" value="1985" />
-    <option name="height" value="1164" />
+    <option name="width" value="1857" />
+    <option name="height" value="1212" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -345,9 +323,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="PackagesPane" />
       <pane id="Scope" />
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -888,7 +866,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../react-native/abakus-jubileumskurs" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
+    <property name="settings.editor.selected.configurable" value="tasks.timeTracking" />
     <property name="project.structure.last.edited" value="SDKs" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -910,11 +888,11 @@
       <recent name="readRdf.bigDataset" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="similarityFinder" />
       <recent name="query" />
       <recent name="preprocessing.ownOntologyPopularizer" />
       <recent name="tags" />
       <recent name="core.rdf" />
-      <recent name="readRdf" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -929,64 +907,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="ScalaTest.TestInterlink.dbPedia to wikidata id">
-    <configuration default="false" name="TestAskQueryDBpedia.subject has type" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="similarentitieswikidata" />
-      <setting name="path" value="query.TestAskQueryDBpedia" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="subject has type" />
-      <setting name="testKind" value="Test name" />
-      <setting name="showProgressMessages" value="true" />
-      <setting name="useSbt" value="false" />
-      <setting name="useUiWithSbt" value="false" />
-      <classRegexps />
-      <testRegexps />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="TestAskQueryDBpedia.same type possible should work" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="similarentitieswikidata" />
-      <setting name="path" value="query.TestAskQueryDBpedia" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="same type possible should work" />
-      <setting name="testKind" value="Test name" />
-      <setting name="showProgressMessages" value="true" />
-      <setting name="useSbt" value="false" />
-      <setting name="useUiWithSbt" value="false" />
-      <classRegexps />
-      <testRegexps />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="TestAskQueryDBpedia.sharable domain should work" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="similarentitieswikidata" />
-      <setting name="path" value="query.TestAskQueryDBpedia" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="sharable domain should work" />
-      <setting name="testKind" value="Test name" />
-      <setting name="showProgressMessages" value="true" />
-      <setting name="useSbt" value="false" />
-      <setting name="useUiWithSbt" value="false" />
-      <classRegexps />
-      <testRegexps />
-      <envs />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="ScalaTest.TestSimilarityFinderDBpedia.It should work for ringo starr on dbpedia dataset!!">
     <configuration default="false" name="TestAskQueryDBpedia.sharable range should work" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="similarentitieswikidata" />
@@ -1016,6 +937,63 @@
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
       <setting name="testName" value="dbPedia to wikidata id" />
+      <setting name="testKind" value="Test name" />
+      <setting name="showProgressMessages" value="true" />
+      <setting name="useSbt" value="false" />
+      <setting name="useUiWithSbt" value="false" />
+      <classRegexps />
+      <testRegexps />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestProptypeToStrategyGeneratorDBpedia.full generation for a single property" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="similarentitieswikidata" />
+      <setting name="path" value="preprocessing.ownOntologyPopularizer.TestProptypeToStrategyGeneratorDBpedia" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="full generation for a single property" />
+      <setting name="testKind" value="Test name" />
+      <setting name="showProgressMessages" value="true" />
+      <setting name="useSbt" value="false" />
+      <setting name="useUiWithSbt" value="false" />
+      <classRegexps />
+      <testRegexps />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestProptypeToStrategyGeneratorDBpedia.full generation" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="similarentitieswikidata" />
+      <setting name="path" value="preprocessing.ownOntologyPopularizer.TestProptypeToStrategyGeneratorDBpedia" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="full generation" />
+      <setting name="testKind" value="Test name" />
+      <setting name="showProgressMessages" value="true" />
+      <setting name="useSbt" value="false" />
+      <setting name="useUiWithSbt" value="false" />
+      <classRegexps />
+      <testRegexps />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestSimilarityFinderDBpedia.It should work for ringo starr on dbpedia dataset!!" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="similarentitieswikidata" />
+      <setting name="path" value="similarityFinder.TestSimilarityFinderDBpedia" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="It should work for ringo starr on dbpedia dataset!!" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <setting name="useSbt" value="false" />
@@ -1576,19 +1554,19 @@
       <item index="2" class="java.lang.String" itemvalue="SBT Task.Run all tests" />
       <item index="3" class="java.lang.String" itemvalue="Application.ReadDBpedia" />
       <item index="4" class="java.lang.String" itemvalue="SBT Task.Run all active tests" />
-      <item index="5" class="java.lang.String" itemvalue="ScalaTest.TestAskQueryDBpedia.subject has type" />
-      <item index="6" class="java.lang.String" itemvalue="ScalaTest.TestAskQueryDBpedia.same type possible should work" />
-      <item index="7" class="java.lang.String" itemvalue="ScalaTest.TestAskQueryDBpedia.sharable domain should work" />
-      <item index="8" class="java.lang.String" itemvalue="ScalaTest.TestAskQueryDBpedia.sharable range should work" />
-      <item index="9" class="java.lang.String" itemvalue="ScalaTest.TestInterlink.dbPedia to wikidata id" />
+      <item index="5" class="java.lang.String" itemvalue="ScalaTest.TestAskQueryDBpedia.sharable range should work" />
+      <item index="6" class="java.lang.String" itemvalue="ScalaTest.TestInterlink.dbPedia to wikidata id" />
+      <item index="7" class="java.lang.String" itemvalue="ScalaTest.TestProptypeToStrategyGeneratorDBpedia.full generation for a single property" />
+      <item index="8" class="java.lang.String" itemvalue="ScalaTest.TestProptypeToStrategyGeneratorDBpedia.full generation" />
+      <item index="9" class="java.lang.String" itemvalue="ScalaTest.TestSimilarityFinderDBpedia.It should work for ringo starr on dbpedia dataset!!" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="ScalaTest.TestInterlink.dbPedia to wikidata id" />
-        <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestAskQueryDBpedia.sharable range should work" />
-        <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestAskQueryDBpedia.sharable domain should work" />
-        <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestAskQueryDBpedia.same type possible should work" />
-        <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestAskQueryDBpedia.subject has type" />
+        <item index="0" class="java.lang.String" itemvalue="ScalaTest.TestSimilarityFinderDBpedia.It should work for ringo starr on dbpedia dataset!!" />
+        <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestProptypeToStrategyGeneratorDBpedia.full generation" />
+        <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestProptypeToStrategyGeneratorDBpedia.full generation for a single property" />
+        <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestInterlink.dbPedia to wikidata id" />
+        <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestAskQueryDBpedia.sharable range should work" />
       </list>
     </recent_temporary>
   </component>
@@ -1625,37 +1603,52 @@
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
   </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d206a159-edb1-49d5-8841-178f417096da" name="Default" comment="" />
+      <created>1490766648709</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1490766648709</updated>
+      <workItem from="1490766659590" duration="6818000" />
+    </task>
+    <servers />
+  </component>
   <component name="TestHistory">
-    <history-entry file="TestAskQueryDBpedia_same_type_possible_should_work - 2017.03.28 at 18h 34m 39s.xml">
-      <configuration name="TestAskQueryDBpedia.same type possible should work" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestProptypeToStrategyGeneratorDBpedia_full_generation - 2017.03.29 at 08h 38m 46s.xml">
+      <configuration name="TestProptypeToStrategyGeneratorDBpedia.full generation" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestAskQueryDBpedia_same_type_possible_should_work - 2017.03.28 at 18h 36m 09s.xml">
-      <configuration name="TestAskQueryDBpedia.same type possible should work" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestProptypeToStrategyGeneratorDBpedia_full_generation_for_a_single_property - 2017.03.29 at 07h 52m 12s.xml">
+      <configuration name="TestProptypeToStrategyGeneratorDBpedia.full generation for a single property" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestAskQueryDBpedia_sharable_domain_should_work - 2017.03.28 at 18h 36m 25s.xml">
-      <configuration name="TestAskQueryDBpedia.sharable domain should work" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestProptypeToStrategyGeneratorDBpedia_full_generation_for_a_single_property - 2017.03.29 at 07h 52m 39s.xml">
+      <configuration name="TestProptypeToStrategyGeneratorDBpedia.full generation for a single property" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestAskQueryDBpedia_sharable_domain_should_work - 2017.03.28 at 18h 37m 27s.xml">
-      <configuration name="TestAskQueryDBpedia.sharable domain should work" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimilarityFinderDBpedia_It_should_work_for_ringo_starr_on_dbpedia_dataset!! - 2017.03.29 at 08h 54m 53s.xml">
+      <configuration name="TestSimilarityFinderDBpedia.It should work for ringo starr on dbpedia dataset!!" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestAskQueryDBpedia_sharable_range_should_work - 2017.03.28 at 18h 37m 32s.xml">
-      <configuration name="TestAskQueryDBpedia.sharable range should work" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimilarityFinderDBpedia_It_should_work_for_ringo_starr_on_dbpedia_dataset!! - 2017.03.29 at 09h 01m 56s.xml">
+      <configuration name="TestSimilarityFinderDBpedia.It should work for ringo starr on dbpedia dataset!!" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestAskQueryDBpedia_subject_has_type - 2017.03.28 at 18h 25m 48s.xml">
-      <configuration name="TestAskQueryDBpedia.subject has type" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimilarityFinderDBpedia_It_should_work_for_ringo_starr_on_dbpedia_dataset!! - 2017.03.29 at 09h 09m 16s.xml">
+      <configuration name="TestSimilarityFinderDBpedia.It should work for ringo starr on dbpedia dataset!!" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestAskQueryDBpedia_subject_has_type - 2017.03.28 at 18h 30m 14s.xml">
-      <configuration name="TestAskQueryDBpedia.subject has type" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimilarityFinderDBpedia_It_should_work_for_ringo_starr_on_dbpedia_dataset!! - 2017.03.29 at 09h 10m 37s.xml">
+      <configuration name="TestSimilarityFinderDBpedia.It should work for ringo starr on dbpedia dataset!!" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestAskQueryDBpedia_subject_has_type - 2017.03.28 at 18h 32m 18s.xml">
-      <configuration name="TestAskQueryDBpedia.subject has type" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimilarityFinderDBpedia_It_should_work_for_ringo_starr_on_dbpedia_dataset!! - 2017.03.29 at 09h 17m 37s.xml">
+      <configuration name="TestSimilarityFinderDBpedia.It should work for ringo starr on dbpedia dataset!!" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestInterlink_dbPedia_to_wikidata_id - 2017.03.28 at 19h 04m 05s.xml">
-      <configuration name="TestInterlink.dbPedia to wikidata id" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimilarityFinderDBpedia_It_should_work_for_ringo_starr_on_dbpedia_dataset!! - 2017.03.29 at 10h 11m 19s.xml">
+      <configuration name="TestSimilarityFinderDBpedia.It should work for ringo starr on dbpedia dataset!!" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestInterlink_dbPedia_to_wikidata_id - 2017.03.28 at 19h 04m 36s.xml">
-      <configuration name="TestInterlink.dbPedia to wikidata id" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimilarityFinderDBpedia_It_should_work_for_ringo_starr_on_dbpedia_dataset!! - 2017.03.29 at 10h 19m 33s.xml">
+      <configuration name="TestSimilarityFinderDBpedia.It should work for ringo starr on dbpedia dataset!!" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="enabled" value="true" />
+    <option name="totallyTimeSpent" value="6818000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -1667,22 +1660,23 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="64" y="-11" width="1985" height="1164" extended-state="6" />
+    <frame x="64" y="-11" width="1857" height="1212" extended-state="6" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14854369" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21553399" sideWeight="0.4687673" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21521336" sideWeight="0.46434495" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="SBT" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26091763" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.270872" sideWeight="0.5129906" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3135436" sideWeight="0.5196241" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19514564" sideWeight="0.49806523" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31359223" sideWeight="0.4870094" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19480519" sideWeight="0.49806523" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3135436" sideWeight="0.4803759" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3067961" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25245225" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26091763" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32745826" sideWeight="0.49253732" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Time Tracking" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946378" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33106795" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1773,7 +1767,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala</url>
-          <line>135</line>
+          <line>69</line>
           <properties />
           <option name="timeStamp" value="85" />
         </line-breakpoint>
@@ -1801,65 +1795,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/output/pickles/propToTypeMappingTest.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output/pickles/wikidata-propToTypeMapping.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8788">
-          <caret line="0" column="101989" lean-forward="false" selection-start-line="0" selection-start-column="101969" selection-end-line="0" selection-end-column="101989" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/strategy/TestStrategyFactory.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1140">
-          <caret line="100" column="63" lean-forward="false" selection-start-line="100" selection-start-column="63" selection-end-line="100" selection-end-column="63" />
-          <folding>
-            <element signature="e#18#52#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/StrategyWeighter.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="26" column="56" lean-forward="false" selection-start-line="26" selection-start-column="56" selection-end-line="26" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output/pickles/wikidata-prop-strategies.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="382043" lean-forward="false" selection-start-line="0" selection-start-column="382043" selection-end-line="0" selection-end-column="382043" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scala-lang/scala-library/srcs/scala-library-2.11.8-sources.jar!/scala/collection/TraversableLike.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3672">
-          <caret line="317" column="6" lean-forward="false" selection-start-line="317" selection-start-column="6" selection-end-line="317" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.akka/akka-stream_2.11/srcs/akka-stream_2.11-2.4.17-sources.jar!/akka/stream/Shape.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="203" column="7" lean-forward="false" selection-start-line="203" selection-start-column="7" selection-end-line="203" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.akka/akka-stream_2.11/srcs/akka-stream_2.11-2.4.17-sources.jar!/akka/stream/FanOutShape.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="9" column="7" lean-forward="false" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.akka/akka-stream_2.11/srcs/akka-stream_2.11-2.4.17-sources.jar!/akka/stream/ActorMaterializer.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="12">
@@ -1881,19 +1816,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinder2.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-853">
-          <caret line="39" column="41" lean-forward="false" selection-start-line="39" selection-start-column="41" selection-end-line="39" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/iAndO/readRdf/ReadWikidata.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2256">
           <caret line="199" column="39" lean-forward="false" selection-start-line="199" selection-start-column="39" selection-end-line="199" selection-end-column="39" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1911,19 +1837,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="468">
           <caret line="45" column="6" lean-forward="false" selection-start-line="45" selection-start-column="6" selection-end-line="45" selection-end-column="6" />
-          <folding>
-            <element signature="e#23#57#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/ranker/SimilarEntity.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="9" column="19" lean-forward="false" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
-          <folding>
-            <element signature="e#33#57#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1931,9 +1844,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="192">
           <caret line="20" column="17" lean-forward="false" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="17" />
-          <folding>
-            <element signature="e#13#86#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1951,9 +1861,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="588">
           <caret line="58" column="53" lean-forward="false" selection-start-line="58" selection-start-column="53" selection-end-line="58" selection-end-column="53" />
-          <folding>
-            <element signature="e#18#67#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1971,15 +1878,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
           <caret line="37" column="44" lean-forward="true" selection-start-line="37" selection-start-column="44" selection-end-line="37" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/Query.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1995,7 +1893,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="96">
           <caret line="8" column="11" lean-forward="false" selection-start-line="8" selection-start-column="11" selection-end-line="8" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2003,7 +1900,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="257">
           <caret line="53" column="0" lean-forward="false" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2027,15 +1923,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5760">
           <caret line="480" column="49" lean-forward="false" selection-start-line="480" selection-start-column="49" selection-end-line="480" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/core/globals/MyDatasets.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2043,7 +1930,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
           <caret line="12" column="6" lean-forward="false" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2051,17 +1937,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="21" column="0" lean-forward="true" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-          <folding>
-            <element signature="e#29#78#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2248">
-          <caret line="212" column="3" lean-forward="false" selection-start-line="212" selection-start-column="3" selection-end-line="212" selection-end-column="3" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2069,25 +1944,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="14" column="21" lean-forward="false" selection-start-line="14" selection-start-column="21" selection-end-line="14" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output/pickles/DBpedia-propToTypeMapping.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="241">
-          <caret line="0" column="84638" lean-forward="false" selection-start-line="0" selection-start-column="84638" selection-end-line="0" selection-end-column="84638" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/preprocessing/ownOntologyPopularizer/TestProptypeToStrategyGeneratorDBpedia.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="568">
-          <caret line="49" column="1" lean-forward="true" selection-start-line="49" selection-start-column="1" selection-end-line="49" selection-end-column="1" />
-          <folding>
-            <element signature="e#46#67#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2119,7 +1975,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="508">
           <caret line="70" column="36" lean-forward="false" selection-start-line="70" selection-start-column="36" selection-end-line="70" selection-end-column="36" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2135,19 +1990,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="132">
           <caret line="11" column="26" lean-forward="false" selection-start-line="11" selection-start-column="26" selection-end-line="11" selection-end-column="26" />
-          <folding>
-            <element signature="e#15#63#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/specific/QueryHelper.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="19" column="20" lean-forward="true" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
-          <folding>
-            <element signature="e#29#90#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="216">
+          <caret line="19" column="20" lean-forward="false" selection-start-line="19" selection-start-column="20" selection-end-line="19" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -2161,48 +2010,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/specific/AskQuery.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="56" column="3" lean-forward="true" selection-start-line="56" selection-start-column="3" selection-end-line="56" selection-end-column="3" />
-          <folding>
-            <element signature="e#29#63#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/specific/QueryFactory.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="556">
-          <caret line="313" column="34" lean-forward="false" selection-start-line="313" selection-start-column="34" selection-end-line="313" selection-end-column="34" />
-          <folding>
-            <element signature="e#29#78#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="624">
+          <caret line="56" column="3" lean-forward="false" selection-start-line="56" selection-start-column="3" selection-end-line="56" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestAskQueryDBpedia.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
+        <state relative-caret-position="240">
           <caret line="24" column="21" lean-forward="false" selection-start-line="24" selection-start-column="21" selection-end-line="24" selection-end-column="21" />
           <folding>
-            <element signature="e#15#49#0" expanded="true" />
+            <element signature="e#15#49#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestQueryFactory.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
+        <state relative-caret-position="540">
           <caret line="50" column="37" lean-forward="false" selection-start-line="50" selection-start-column="37" selection-end-line="50" selection-end-column="37" />
-          <folding />
+          <folding>
+            <element signature="e#15#49#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/core/interlinking/Interlink.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="11" column="32" lean-forward="true" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
+        <state relative-caret-position="108">
+          <caret line="11" column="32" lean-forward="false" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
           <folding>
-            <element signature="e#27#66#0" expanded="true" />
+            <element signature="e#27#66#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2211,16 +2050,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="156">
           <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="8" />
-          <folding />
+          <folding>
+            <element signature="e#57#81#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/interlink/TestInterlink.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
+        <state relative-caret-position="108">
           <caret line="12" column="84" lean-forward="false" selection-start-line="12" selection-start-column="84" selection-end-line="12" selection-end-column="84" />
           <folding>
-            <element signature="e#19#53#0" expanded="true" />
+            <element signature="e#19#53#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2229,7 +2070,145 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
           <caret line="27" column="36" lean-forward="false" selection-start-line="27" selection-start-column="36" selection-end-line="27" selection-end-column="36" />
+          <folding>
+            <element signature="e#23#71#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/output/pickles/DBpedia-prop-range-count.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/output/pickles/DBpedia-prop-strategies.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/output/pickles/DBpedia-propToTypeMapping.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="0" column="84638" lean-forward="false" selection-start-line="0" selection-start-column="84638" selection-end-line="0" selection-end-column="84638" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/preprocessing/ownOntologyPopularizer/TestProptypeToStrategyGeneratorDBpedia.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="49" column="1" lean-forward="true" selection-start-line="49" selection-start-column="1" selection-end-line="49" selection-end-column="1" />
+          <folding>
+            <element signature="e#46#67#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/Query.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="384">
+          <caret line="34" column="29" lean-forward="false" selection-start-line="34" selection-start-column="29" selection-end-line="34" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/globals/MyDatasets.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/com.typesafe.akka/akka-stream_2.11/srcs/akka-stream_2.11-2.4.17-sources.jar!/akka/stream/scaladsl/Flow.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="349" column="6" lean-forward="false" selection-start-line="349" selection-start-column="6" selection-end-line="349" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/specific/QueryFactory.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="652">
+          <caret line="293" column="6" lean-forward="false" selection-start-line="293" selection-start-column="6" selection-end-line="293" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/output/pickles/DBpedia-prop-domain-count.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="0" column="47612" lean-forward="false" selection-start-line="0" selection-start-column="47605" selection-end-line="0" selection-end-column="47612" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinder2.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="39" column="41" lean-forward="false" selection-start-line="39" selection-start-column="41" selection-end-line="39" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/feature/Feature.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/ranker/SimilarEntity.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="9" column="6" lean-forward="false" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/MultipleDatasetsSimFinder.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="576">
+          <caret line="48" column="63" lean-forward="false" selection-start-line="48" selection-start-column="63" selection-end-line="48" selection-end-column="63" />
+          <folding>
+            <element signature="e#26#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/displayer/Displayer.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="19" column="7" lean-forward="true" selection-start-line="19" selection-start-column="7" selection-end-line="19" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinderDBpedia.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="24" column="53" lean-forward="false" selection-start-line="24" selection-start-column="53" selection-end-line="24" selection-end-column="53" />
+          <folding>
+            <element signature="e#26#55#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1321">
+          <caret line="84" column="102" lean-forward="false" selection-start-line="84" selection-start-column="102" selection-end-line="84" selection-end-column="102" />
+          <folding>
+            <element signature="e#26#53#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

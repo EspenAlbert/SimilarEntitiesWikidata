@@ -10,9 +10,10 @@ object Displayer {
   def displayResult(result : List[SimilarEntity], topK : Int, entity : String) : Unit = {
     println(s"Most similar to $entity is: ")
     for((r, i) <- result.slice(0, topK).zipWithIndex) {
-      val label = Feature.findLabel(r.name)
-      println(s"Most similar #$i is: ${r.name} with label $label: with similarity score : ${r.score}")
+      println(s"Most similar #$i is: ${r.name} with similarity score : ${r.score}")
       try {
+        val label = Feature.findLabel(r.name)
+        println(s"Most similar #$i is: ${r.name} with label $label: with similarity score : ${r.score}")
         printFeatureInfo(r)
       } catch {
         case a : Throwable => Unit

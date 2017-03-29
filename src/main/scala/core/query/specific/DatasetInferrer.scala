@@ -20,7 +20,7 @@ object DatasetInferrer {
     }
       case KnowledgeGraph.dbPedia => {
         return patternForValueMatchDataset.findFirstIn(query) match {
-          case Some(s) => MyDatasets.ValueMatchDBpedia
+          case Some(s) => MyDatasets.valueMatchDBpedia
           case None => MyDatasets.DBpediaDS
           }
         }
