@@ -21,4 +21,5 @@ trait Strategy extends Ordered[Strategy]{
     else if(otherHasHeigherWeight < 0) return -1
     return 0
   }
+  val name : String
 }

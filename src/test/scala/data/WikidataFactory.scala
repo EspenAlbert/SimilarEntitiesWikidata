@@ -2,6 +2,7 @@ package data
 
 import core.globals.{KnowledgeGraph, MyDatasets, SimilarPropertyOntology}
 import core.rdf.GraphRDF
+import core.strategies.PropertyMatchStrategy
 
 /**
   * Created by espen on 16.03.17.
@@ -65,7 +66,10 @@ object WikidataFactory {
     val occupationValues = List(w + "Q33999", w + "Q386854", w +  "Q36834", w + "Q2405480", w + "Q488205", w + "Q10800557")
     val genderProp = w + "P21"
     val genderValue = w + "Q6581097"
+    val propertyMatchStrategyLifeStyle = PropertyMatchStrategy(lifestyleProp, true, rdfTypes, 200)
   }
+
+
   val johnLennon = w + "Q1203"
   val paulMcCartney = w + "Q2599"
   val georgeHarrison = w + "Q2643"

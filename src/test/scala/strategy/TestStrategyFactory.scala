@@ -2,7 +2,7 @@ package strategy
 
 import core.globals.KnowledgeGraph
 import core.query.specific.QueryFactory
-import core.strategies.{DirectLinkStrategy, PropertyMatchStrategy, StrategyFactory, ValueMatchStrategy}
+import core.strategies._
 import data.WikidataFactory
 import org.scalatest.FunSuite
 import tags.{ActiveSlowTag, ActiveTag, TestOnlyTag}
@@ -102,6 +102,13 @@ class TestStrategyFactory extends FunSuite{
     assert(expectedCount == actualCount)
     val cachedCount = StrategyFactory.valueIsAPotentialValueMatchFindCount(ringoStarr.genderValue, ringoStarr.genderProp, true).getOrElse(throw new Exception("Unable to find count from own database"))
     assert(cachedCount == actualCount)
+  }
+  test("Setup strategy factory", ActiveTag) {
+    val activeStrategies = List(DirectLinkStrategy.name)
+    StrategyFactory.setupStrategyFactory(activeStrategies)
+    StrategyFactory.getStrategyFactory.mapPropertyToStrategies.foreach{
+      case (prop, sList) => assert(sList.forall(strategyUri =>StrategyNameFactory.getNameFromStrategyURI(strategyUri) == DirectLinkStrategy.name))
+    }
   }
 
 }

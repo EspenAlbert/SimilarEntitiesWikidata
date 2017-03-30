@@ -11,7 +11,7 @@ import core.globals.PrimitiveDatatype.getYearFromDateFormat
 import similarityFinder.MyConfiguration
 /**
   * Created by Espen on 11.11.2016.
-  *///AlternativeLinkStrategy(property, Set() ++ filteredRange, true, logarithmicWeight(filteredRange.length))
+  */
 case class DateComparisonStrategy(property: String, value : String, dbCountProperty: Int ) extends Strategy{
   def otherHasSameTimeProperty(tuple : (String, String, String)) : Boolean = {
      tuple match {
@@ -46,4 +46,13 @@ case class DateComparisonStrategy(property: String, value : String, dbCountPrope
   override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): Map[String, Feature] = {
     return Map() //Not worth it at the moment
   }
+  val name = DateComparisonStrategy.name
+  override def toString: String = {
+    s"$name for : $property, weight=$weight" + super.toString
+  }
+}
+
+object DateComparisonStrategy {
+  val name = "DateComparisonStrategy"
+
 }

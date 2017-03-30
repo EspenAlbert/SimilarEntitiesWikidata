@@ -21,7 +21,7 @@ object MyDatasets{
   final val Wikidata = "ds"
   final val SimilarProperties = "similarProperties"
   final val ValueMatchWikidata = "valueMatchWikidata"
-  final val ResultsSimilarArtists = "resultsSimilarArtists"
+  final val resultsSimilarArtists = "resultsSimilarArtists"
 
 
 
@@ -43,5 +43,8 @@ object KnowledgeGraph extends Enumeration {
       case KnowledgeGraph.wikidata => SimilarPropertyOntology.w + "P31"
       case KnowledgeGraph.dbPedia => SimilarPropertyOntology.rdfType
     }
+  }
+  implicit def getString(knowledgeGraph: KnowledgeGraph) : String = {
+    return knowledgeGraph.toString
   }
 }

@@ -44,8 +44,14 @@ case class ValueMatchStrategy(property: String, isSubject: Boolean, value : Stri
       QueryFactory.objectsOfTypeWithPropertyAndSubject(property, value, rdfTypes)
     return entities.map(e=> e-> new ValueMatchFeature(property, FeatureType.valueMatch, 1, weight, value)).toMap
   }
+  val name = ValueMatchStrategy.name
   override def toString: String = {
-    s"ValueMatchStrategy for : $property isSubject=$isSubject value=$value, weight=$weight" + super.toString
+    s"$name for : $property isSubject=$isSubject value=$value, weight=$weight" + super.toString
   }
 
 }
+
+object ValueMatchStrategy {
+  val name = "ValueMatchStrategy"
+}
+

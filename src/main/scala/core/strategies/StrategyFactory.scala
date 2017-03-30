@@ -16,9 +16,9 @@ class StrategyFactory(implicit knowledgeGraph: KnowledgeGraph) {
   private val filenamePropToStrategies = s"$knowledgeGraph-prop-strategies"
   private val filenamePropToDomainCount = s"$knowledgeGraph-prop-domain-count"
   private val filenamePropToRangeCount = s"$knowledgeGraph-prop-range-count"
-  val mapPropertyToStrategies = convertPropertiesAndStrategiesToMap
-  val mapPropertyToDomainCounts = getDomainCounts
-  val mapPropertyToRangeCounts = getRangeCounts
+  var mapPropertyToStrategies = convertPropertiesAndStrategiesToMap
+  var mapPropertyToDomainCounts = getDomainCounts
+  var mapPropertyToRangeCounts = getRangeCounts
 
   private def getDomainCounts: Map[String, Int] = {
     if(StrategyFactory.forceRead) {
@@ -60,9 +60,34 @@ object StrategyFactory {
   var strategyFactoryWikidata: StrategyFactory = null
   var strategyFactoryDBpedia: StrategyFactory = null
 
-  def getStrategies(entity: String, rdfTypes: List[String], property: String, isSubject: Boolean, rangeOrDomain: List[String])(implicit knowledgeGraph: KnowledgeGraph): List[Strategy] = {
-//    println(s"About to find strategies for: $property with values: $rangeOrDomain")
+  def setupStrategyFactory(activeStrategies : List[String])(implicit knowledgeGraph: KnowledgeGraph): Unit = {
+    forceRead = true
+    val sFactory = getStrategyFactory(knowledgeGraph)
+    sFactory.mapPropertyToStrategies = sFactory.mapPropertyToStrategies.map{
+      case (key, strategies) => (key, strategies
+        .filter(strategyUri => activeStrategies.contains(StrategyNameFactory.getNameFromStrategyURI(strategyUri))))
+    }
+    forceRead = false
+  }
 
+  def getStrategyFactory(implicit knowledgeGraph: KnowledgeGraph) : StrategyFactory = {
+    knowledgeGraph match {
+      case KnowledgeGraph.wikidata => {
+        if (strategyFactoryWikidata == null) {
+          strategyFactoryWikidata = new StrategyFactory()
+        }
+        return strategyFactoryWikidata
+      }
+      case KnowledgeGraph.dbPedia => {
+        if (strategyFactoryDBpedia == null) {
+          strategyFactoryDBpedia = new StrategyFactory()
+        }
+        return strategyFactoryDBpedia
+      }
+    }
+  }
+
+  def getStrategies(entity: String, rdfTypes: List[String], property: String, isSubject: Boolean, rangeOrDomain: List[String])(implicit knowledgeGraph: KnowledgeGraph): List[Strategy] = {
     def getDomain = {
       if (isSubject) Nil else rangeOrDomain
     }
@@ -70,37 +95,15 @@ object StrategyFactory {
     def getRange = {
       if (isSubject) rangeOrDomain else Nil
     }
-
-    knowledgeGraph match {
-      case KnowledgeGraph.wikidata => {
-        if (strategyFactoryWikidata == null) {
-          strategyFactoryWikidata = new StrategyFactory()
-        }
-        if(property == KnowledgeGraph.getTypeProperty(knowledgeGraph)) return Nil
-        val foundStrategies = strategyFactoryWikidata.mapPropertyToStrategies.get(property) match {
-          case Some(strategyList) => strategyList.map(s => matchStrategyClassNameToStrategy(s, property, getDomain, getRange, entity, rdfTypes)(knowledgeGraph, strategyFactoryWikidata))
-            .filter(s => s.isDefined)
-            .flatMap(option => option.getOrElse(throw new Exception("not defined")))
-          case None => Nil
-        }
-//        println(s"Strategies for $property = $a")
-        return foundStrategies
-      }
-      case KnowledgeGraph.dbPedia => {
-        if(strategyFactoryDBpedia == null) {
-          strategyFactoryDBpedia = new StrategyFactory()
-        }
-        if(property == KnowledgeGraph.getTypeProperty(knowledgeGraph)) return Nil
-        val foundStrategies = strategyFactoryDBpedia.mapPropertyToStrategies.get(property) match {
-          case Some(strategyList) => strategyList.map(s => matchStrategyClassNameToStrategy(s, property, getDomain, getRange, entity, rdfTypes)(knowledgeGraph, strategyFactoryDBpedia))
-            .filter(s => s.isDefined)
-            .flatMap(option => option.getOrElse(throw new Exception("not defined")))
-          case None => Nil
-        }
-        //        println(s"Strategies for $property = $a")
-        return foundStrategies
-      }
+    val sFactory = getStrategyFactory(knowledgeGraph)
+    if (property == KnowledgeGraph.getTypeProperty(knowledgeGraph)) return Nil
+    val foundStrategies = sFactory.mapPropertyToStrategies.get(property) match {
+      case Some(strategyList) => strategyList.map(s => matchStrategyClassNameToStrategy(s, property, getDomain, getRange, entity, rdfTypes)(knowledgeGraph, sFactory))
+        .filter(s => s.isDefined)
+        .flatMap(option => option.getOrElse(throw new Exception("not defined")))
+      case None => Nil
     }
+    return foundStrategies
   }
 
   def getDomainAndRangeWithCorrectType(domain: List[String], range: List[String], rdfTypes: List[String])(implicit knowledgeGraph: KnowledgeGraph): (List[String], List[String]) = {

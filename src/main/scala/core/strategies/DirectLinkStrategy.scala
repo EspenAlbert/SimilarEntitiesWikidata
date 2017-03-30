@@ -36,8 +36,14 @@ case class DirectLinkStrategy(property: String, others : Set[String]) extends St
 //    return QueryFactoryV2.findList(statment)
   }
 
+  val name = DirectLinkStrategy.name
   override def toString: String = {
-    s"Direct Link for : $property, weight=$weight" + super.toString
+    s"$name for : $property, weight=$weight" + super.toString
   }
+
+}
+
+object DirectLinkStrategy {
+  val name = "DirectLinkStrategy"
 
 }

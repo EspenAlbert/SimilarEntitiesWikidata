@@ -21,5 +21,8 @@ object MyConfiguration {
   var alternativeLinkNegative = -0.1
   var maximumWeightPropertyMatch = log(SimilarPropertyOntology.maxCountForProperties / 100)
   val maxCountForValueMatchesToFindSimlars = 10000
+  def getConfigName : String = {
+    return ""
+  }
 
 }

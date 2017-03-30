@@ -42,8 +42,14 @@ case class PropertyMatchStrategy(property : String, isSubject : Boolean, rdfType
   private def generateFeatures(entities: List[String]): Map[String, Feature] = {
     return entities.map(e => e -> new Feature(property, FeatureType.sameProperty, 1, weight)).toMap
   }
+  val name = PropertyMatchStrategy.name
   override def toString: String = {
-    s"PropMatchStrategy for : $property isSubject=$isSubject, weight=$weight" + super.toString
+    s"$name for : $property isSubject=$isSubject, weight=$weight" + super.toString
   }
+
+}
+
+object PropertyMatchStrategy {
+  val name = "PropMatchStrategy"
 
 }
