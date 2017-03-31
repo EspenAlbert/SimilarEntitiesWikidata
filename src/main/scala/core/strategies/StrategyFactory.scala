@@ -1,7 +1,8 @@
 package core.strategies
 
-import core.globals.KnowledgeGraph
+import core.globals.{KnowledgeGraph, SimilarPropertyOntology}
 import core.globals.KnowledgeGraph.KnowledgeGraph
+import core.globals.SimilarPropertyOntology.SimilarPropertyOntology
 import core.query.specific.{AskQuery, QueryFactory, UpdateQueryFactory}
 import iAndO.dump.DumpObject
 import similarityFinder.MyConfiguration
@@ -216,6 +217,20 @@ object StrategyFactory {
         // Only one value
         val dbCount = strategyFactory.mapPropertyToDomainCounts(property)
         return Some(List(DateComparisonStrategy(property, range(0), dbCount)))
+      }
+      case a if a==SimilarPropertyOntology.searchDirectedL1Strategy => {
+        if(range.nonEmpty) return Some(List(SearchDirectedL1Strategy(property, range)))
+        else None
+      }
+      case a if a==SimilarPropertyOntology.searchDirectedL2Strategy => {
+        if(range.nonEmpty) return Some(List(SearchDirectedL2Strategy(property, range)))
+        else None
+      }
+      case a if a==SimilarPropertyOntology.searchUndirectedL1Strategy => {
+        return Some(List(SearchUndirectedL1Strategy(property, range ++ domain)))
+      }
+      case a if a==SimilarPropertyOntology.searchUndirectedL2Strategy => {
+        return Some(List(SearchUndirectedL2Strategy(property, range ++ domain)))
       }
       case _ => None
     }

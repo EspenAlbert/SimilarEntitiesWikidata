@@ -18,7 +18,7 @@ object SimilarPropertyOntology extends Enumeration{
   val rdfType = Value("http://www.w3.org/1999/02/22-rdf-syntax-ns#type")
   val rdfsSubclassOf = Value("http://www.w3.org/2000/01/rdf-schema#subClassOf")
   val spoBaseStrategy = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#Strategy")
-  val spo = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology")
+  val spo = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#")
   val spoCount = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#count")
   val domainCount = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#domainCount")
   val rangeCount = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#rangeCount")
@@ -30,24 +30,20 @@ object SimilarPropertyOntology extends Enumeration{
   val valueMatchProperty = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#ValueMatchProperty")
   val valueMatchValue = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#valueMatchValue")
   val valueMatchCount = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#valueMatchCount")
-  val valueMatchSubjectStrategy = Value(spo + "#ValueMatchSubjectStrategy")
-  val valueMatchObjectStrategy = Value(spo + "#ValueMatchObjectStrategy")
+  val valueMatchSubjectStrategy = Value(spo + "ValueMatchSubjectStrategy")
+  val valueMatchObjectStrategy = Value(spo + "ValueMatchObjectStrategy")
   val alternativeLinkStrategy = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#AlternativeLinkStrategy")
-  val directLinkStrategy = Value(spo + "#DirectLinkStrategy")
-  val dateTimeStrategy = Value(spo + "#TimeProperty")
-  val propertyMatchStrategy = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#PropertyMatchStrategy")
-  val basePropertyClassId = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#Property")
+  val directLinkStrategy = Value(spo + "DirectLinkStrategy")
+  val dateTimeStrategy = Value(spo + "TimeProperty")
+  val searchDirectedL1Strategy: SimilarPropertyOntology = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#SearchDirectedL1Strategy")
+  val searchDirectedL2Strategy: SimilarPropertyOntology = Value(spo + "SearchDirectedL2Strategy")
+  val searchUndirectedL1Strategy: SimilarPropertyOntology = Value(spo + "SearchUndirectedL1Strategy")
+  val searchUndirectedL2Strategy: SimilarPropertyOntology = Value(spo + "SearchUndirectedL2Strategy")
+  val propertyMatchStrategy: SimilarPropertyOntology = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#PropertyMatchStrategy")
+  val basePropertyClassId: SimilarPropertyOntology = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#Property")
 
-  def getFromRawString(value : String) : SimilarPropertyOntology = {
-    value match {
-      case "w" => return w
-      case "rdfType" => return rdfType
-      case "spo" => return spo
-      case a : String => throw new Exception("tried to get a namespace value from raw string" + value)
-    }
-    return null
-  }
-  implicit def getStringFromOptionsForResultQueryVariable(similarPropertyOntology: SimilarPropertyOntology) : String = {
+
+  implicit def getString(similarPropertyOntology: SimilarPropertyOntology) : String = {
     return similarPropertyOntology.toString
   }
 

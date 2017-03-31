@@ -1,5 +1,7 @@
 package core.strategies
 
+import core.globals.SimilarPropertyOntology
+
 /**
   * Created by espen on 30.03.17.
   */
@@ -12,6 +14,10 @@ object StrategyNameFactory {
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#PropertyMatchStrategy" => PropertyMatchStrategy.name
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#TimeProperty" => DateComparisonStrategy.name
       case "http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#AlternativeLinkStrategy" => "NOT USED.."
+      case a if a==SimilarPropertyOntology.searchDirectedL1Strategy => SearchDirectedL1Strategy.name
+      case a if a==SimilarPropertyOntology.searchDirectedL2Strategy => SearchDirectedL2Strategy.name
+      case a if a==SimilarPropertyOntology.searchUndirectedL1Strategy => SearchUndirectedL1Strategy.name
+      case a if a==SimilarPropertyOntology.searchUndirectedL2Strategy => SearchUndirectedL2Strategy.name
     }
   }
 

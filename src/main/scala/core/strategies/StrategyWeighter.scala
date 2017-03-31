@@ -19,6 +19,7 @@ object StrategyWeighter {
 //      case c : AlternativeLinkStrategy => logarithmicWeightForCount(c.others.size) * alternativeLinkNegative
       case d : DirectLinkStrategy => directLinkBoost * logarithmicWeightForCount(d.others.size)
       case e : DateComparisonStrategy => dateComparisonWeight * logarithmicWeightForCount(e.dbCountProperty)
+      case _ => 1
     }
   }
 

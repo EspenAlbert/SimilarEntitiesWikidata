@@ -22,12 +22,10 @@ object MyDatasets{
   final val SimilarProperties = "similarProperties"
   final val ValueMatchWikidata = "valueMatchWikidata"
   final val resultsSimilarArtists = "resultsSimilarArtists"
-
-
-
 }
 
 object KnowledgeGraph extends Enumeration {
+  val dbpResource = "http://dbpedia.org/resource/"
 
   type KnowledgeGraph = Value
   val wikidata: KnowledgeGraph = Value("wikidata")
@@ -42,6 +40,12 @@ object KnowledgeGraph extends Enumeration {
     knowledgeGraph match {
       case KnowledgeGraph.wikidata => SimilarPropertyOntology.w + "P31"
       case KnowledgeGraph.dbPedia => SimilarPropertyOntology.rdfType
+    }
+  }
+  def getDatasetEntityPrefix(knowledgeGraph: KnowledgeGraph): String = {
+    knowledgeGraph match {
+      case KnowledgeGraph.wikidata => SimilarPropertyOntology.w
+      case KnowledgeGraph.dbPedia => dbpResource
     }
   }
   implicit def getString(knowledgeGraph: KnowledgeGraph) : String = {

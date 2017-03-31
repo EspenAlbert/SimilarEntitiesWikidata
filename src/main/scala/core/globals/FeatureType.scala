@@ -15,6 +15,10 @@ object FeatureType extends Enumeration{
   val inANotInB = Value("In a not in b")
   val inBNotInA = Value("In b not in a")
   val directLinkMatch = Value("Direct link match")
+  val searchUndirectedL1 = Value("SearchUndirectedL1")
+  val searchUndirectedL2 = Value("SearchUndirectedL2")
+  val searchDirectedL1 = Value("SearchDirectedL1")
+  val searchDirectedL2 = Value("SearchDirectedL2")
 
   implicit def getStringValue(featureType: FeatureType) : String = {
     return featureType.toString
