@@ -29,6 +29,11 @@ class TestSimilarityFinder2  extends FunSuite{
 
   val ringoStarr= WikidataFactory.ringoStarr
   val ringoStarrSimFinder = new SimilarityFinder2(ringoStarr.id)
+  test("Find initial similars as set for ringo starr"){
+    val simEntities = ringoStarrSimFinder.findInitialEntitiesAsSet()
+    assert(simEntities.size > 1000)
+  }
+
   test("It should work!!") {
     val simEntities = ringoStarrSimFinder.findSimilarEntities()
     assert(simEntities.size == SimilarityFinder2.ENTITIES_AFTER_PRUNING)

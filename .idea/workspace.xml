@@ -2,18 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d206a159-edb1-49d5-8841-178f417096da" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/SearchDirectedL1Strategy.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/SearchDirectedL2Strategy.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/SearchUndirectedL1Strategy.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/SearchUndirectedL2Strategy.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/strategy/TestBaselineStrategies.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/globals/FeatureType.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/globals/FeatureType.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/globals/MyDatasets.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/globals/MyDatasets.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/globals/SimilarPropertyOntology.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/globals/SimilarPropertyOntology.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyFactory.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyFactory.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyNameFactory.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyNameFactory.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyWeighter.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyWeighter.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala" afterPath="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinder2.scala" afterPath="$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinder2.scala" />
     </list>
     <list id="d77b7471-7867-433b-9a10-b891ecadeee0" name="ARCHITECTURE REFACTORING. Summarized: 1. The SimpleRDF abstraction is removed. 2. Folder structure are changed to accomodate for both similarity finder and structure finder. A core package contains all the common logic. 3. Old unused files, or files using the (1) abstraction is removed." comment="" />
     <ignored path="SimilarEntitiesWikidata.iws" />
@@ -107,7 +98,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestBaselineStrategies.scala" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TestBaselineStrategies.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/scala/strategy/TestBaselineStrategies.scala">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="492">
@@ -115,6 +106,26 @@
               <folding>
                 <element signature="e#18#52#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="SimilarityFinder2.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="394">
+              <caret line="55" column="30" lean-forward="false" selection-start-line="55" selection-start-column="6" selection-end-line="55" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestSimilarityFinder2.scala" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinder2.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="40" column="3" lean-forward="true" selection-start-line="40" selection-start-column="3" selection-end-line="40" selection-end-column="3" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -141,31 +152,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SearchDirectedL1Strategy.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/SearchDirectedL1Strategy.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="27" column="1" lean-forward="true" selection-start-line="27" selection-start-column="1" selection-end-line="27" selection-end-column="1" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="SearchUndirectedL2Strategy.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/SearchUndirectedL2Strategy.scala">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="348">
               <caret line="33" column="7" lean-forward="false" selection-start-line="33" selection-start-column="7" selection-end-line="33" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="StrategyWeighter.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/StrategyWeighter.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -246,7 +237,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/scala/preprocessing/ownOntologyPopularizer/MapPropertiesToPropTypes.scala" />
         <option value="$PROJECT_DIR$/output/pickles/unknownDatatypesDBpedia" />
         <option value="$PROJECT_DIR$/src/test/scala/preprocessing/ownOntologyPopularizer/TestMapPropertiesToPropTypesDBpedia.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/preprocessing/ownOntologyPopularizer/attributesGenerator/PropTypeToStrategyCreator.scala" />
@@ -266,7 +256,6 @@
         <option value="$PROJECT_DIR$/src/test/scala/data/DBpediaFactory.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/interlinking/Interlink.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/rdf/GraphRDF.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/similarityFinder/TestMultipleDatasetsSimFinder.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/MultipleDatasetsSimFinder.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/strategies/Strategy.scala" />
@@ -297,6 +286,8 @@
         <option value="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyFactory.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyNameFactory.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/strategy/TestBaselineStrategies.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinder2.scala" />
       </list>
     </option>
   </component>
@@ -1277,26 +1268,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="ScalaTest.TestBaselineStrategies.SearchUndirectL2 should work">
-    <configuration default="false" name="TestStrategyFactory.Setup strategy factory" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="similarentitieswikidata" />
-      <setting name="path" value="strategy.TestStrategyFactory" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="Setup strategy factory" />
-      <setting name="testKind" value="Test name" />
-      <setting name="showProgressMessages" value="true" />
-      <setting name="useSbt" value="false" />
-      <setting name="useUiWithSbt" value="false" />
-      <classRegexps />
-      <testRegexps />
-      <envs />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="ScalaTest.TestSimilarityFinder2.Find initial similars as set for ringo starr">
     <configuration default="false" name="TestBaselineStrategies.SearchDirectL1 should work" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="similarentitieswikidata" />
@@ -1364,6 +1336,25 @@
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
       <setting name="testName" value="SearchUndirectL2 should work" />
+      <setting name="testKind" value="Test name" />
+      <setting name="showProgressMessages" value="true" />
+      <setting name="useSbt" value="false" />
+      <setting name="useUiWithSbt" value="false" />
+      <classRegexps />
+      <testRegexps />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestSimilarityFinder2.Find initial similars as set for ringo starr" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="similarentitieswikidata" />
+      <setting name="path" value="similarityFinder.TestSimilarityFinder2" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="Find initial similars as set for ringo starr" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <setting name="useSbt" value="false" />
@@ -1924,19 +1915,19 @@
       <item index="2" class="java.lang.String" itemvalue="SBT Task.Run all tests" />
       <item index="3" class="java.lang.String" itemvalue="Application.ReadDBpedia" />
       <item index="4" class="java.lang.String" itemvalue="SBT Task.Run all active tests" />
-      <item index="5" class="java.lang.String" itemvalue="ScalaTest.TestStrategyFactory.Setup strategy factory" />
-      <item index="6" class="java.lang.String" itemvalue="ScalaTest.TestBaselineStrategies.SearchDirectL1 should work" />
-      <item index="7" class="java.lang.String" itemvalue="ScalaTest.TestBaselineStrategies.SearchDirectL2 should work" />
-      <item index="8" class="java.lang.String" itemvalue="ScalaTest.TestBaselineStrategies.SearchUndirectedL1 should work" />
-      <item index="9" class="java.lang.String" itemvalue="ScalaTest.TestBaselineStrategies.SearchUndirectL2 should work" />
+      <item index="5" class="java.lang.String" itemvalue="ScalaTest.TestBaselineStrategies.SearchDirectL1 should work" />
+      <item index="6" class="java.lang.String" itemvalue="ScalaTest.TestBaselineStrategies.SearchDirectL2 should work" />
+      <item index="7" class="java.lang.String" itemvalue="ScalaTest.TestBaselineStrategies.SearchUndirectedL1 should work" />
+      <item index="8" class="java.lang.String" itemvalue="ScalaTest.TestBaselineStrategies.SearchUndirectL2 should work" />
+      <item index="9" class="java.lang.String" itemvalue="ScalaTest.TestSimilarityFinder2.Find initial similars as set for ringo starr" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="ScalaTest.TestBaselineStrategies.SearchUndirectL2 should work" />
-        <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestBaselineStrategies.SearchUndirectedL1 should work" />
-        <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestBaselineStrategies.SearchDirectL2 should work" />
-        <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestBaselineStrategies.SearchDirectL1 should work" />
-        <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestStrategyFactory.Setup strategy factory" />
+        <item index="0" class="java.lang.String" itemvalue="ScalaTest.TestSimilarityFinder2.Find initial similars as set for ringo starr" />
+        <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestBaselineStrategies.SearchUndirectL2 should work" />
+        <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestBaselineStrategies.SearchUndirectedL1 should work" />
+        <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestBaselineStrategies.SearchDirectL2 should work" />
+        <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestBaselineStrategies.SearchDirectL1 should work" />
       </list>
     </recent_temporary>
   </component>
@@ -1984,7 +1975,7 @@
       <workItem from="1490783727373" duration="8357000" />
       <workItem from="1490862945050" duration="2087000" />
       <workItem from="1490875817066" duration="16192000" />
-      <workItem from="1490941747707" duration="3317000" />
+      <workItem from="1490941747707" duration="4155000" />
     </task>
     <task id="LOCAL-00001" summary="SimilarityFinder tested for ringo starr on DBpedia.&#10;It is working!&#10;&#10;Just started working on the combined similarity finder.">
       <created>1490775699677</created>
@@ -2007,7 +1998,14 @@
       <option name="project" value="LOCAL" />
       <updated>1490899580647</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Implemented: Implement BFS L=1 and L=2 directed/undirected. &#10;Next up: Adjust the similarityFinder a little bit to only find similar entities (discard features)&#10;And finally test suite for checking impact of different KGs and strategies.">
+      <created>1490945096960</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1490945096960</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -2035,8 +2033,8 @@
     <history-entry file="TestBaselineStrategies_SearchUndirectedL1_should_work - 2017.03.31 at 09h 21m 32s.xml">
       <configuration name="TestBaselineStrategies.SearchUndirectedL1 should work" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestStrategyFactory_Setup_strategy_factory - 2017.03.30 at 20h 42m 31s.xml">
-      <configuration name="TestStrategyFactory.Setup strategy factory" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestSimilarityFinder2_Find_initial_similars_as_set_for_ringo_starr - 2017.03.31 at 09h 37m 52s.xml">
+      <configuration name="TestSimilarityFinder2.Find initial similars as set for ringo starr" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
     <history-entry file="TestStrategyFactory_Value_match_creates_one_strategy_for_each_value_in_the_range - 2017.03.30 at 20h 20m 46s.xml">
       <configuration name="TestStrategyFactory.Value match creates one strategy for each value in the range" configurationId="ScalaTestRunConfiguration" />
@@ -2044,7 +2042,7 @@
   </component>
   <component name="TimeTrackingManager">
     <option name="enabled" value="true" />
-    <option name="totallyTimeSpent" value="42550000" />
+    <option name="totallyTimeSpent" value="43388000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -2159,7 +2157,8 @@
     <MESSAGE value="SimilarityFinder tested for ringo starr on DBpedia.&#10;It is working!&#10;&#10;Just started working on the combined similarity finder." />
     <MESSAGE value="Combined similarity finder is working.&#10;Although I haven't selected which data to save yet.&#10;&#10;Next up: Set up experiments to value feature importance, equation, cheap strategies, etc." />
     <MESSAGE value="Shift in focus:&#10;For now only concerned with finding the initial similar entities. &#10;Setup for storing results and calculating recall and setting strategy factory have been implemented. &#10;&#10;Next up: Implement BFS L=1 and L=2 directed/undirected. &#10;Adjust the similarityFinder a little bit to only find similar entities (discard features)&#10;And finally test suite for checking impact of different KGs and strategies." />
-    <option name="LAST_COMMIT_MESSAGE" value="Shift in focus:&#10;For now only concerned with finding the initial similar entities. &#10;Setup for storing results and calculating recall and setting strategy factory have been implemented. &#10;&#10;Next up: Implement BFS L=1 and L=2 directed/undirected. &#10;Adjust the similarityFinder a little bit to only find similar entities (discard features)&#10;And finally test suite for checking impact of different KGs and strategies." />
+    <MESSAGE value="Implemented: Implement BFS L=1 and L=2 directed/undirected. &#10;Next up: Adjust the similarityFinder a little bit to only find similar entities (discard features)&#10;And finally test suite for checking impact of different KGs and strategies." />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented: Implement BFS L=1 and L=2 directed/undirected. &#10;Next up: Adjust the similarityFinder a little bit to only find similar entities (discard features)&#10;And finally test suite for checking impact of different KGs and strategies." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2227,13 +2226,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="227">
           <caret line="0" column="47612" lean-forward="false" selection-start-line="0" selection-start-column="47605" selection-end-line="0" selection-end-column="47612" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinder2.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="39" column="41" lean-forward="false" selection-start-line="39" selection-start-column="41" selection-end-line="39" selection-end-column="41" />
         </state>
       </provider>
     </entry>
@@ -2307,13 +2299,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="458">
           <caret line="84" column="56" lean-forward="true" selection-start-line="84" selection-start-column="56" selection-end-line="84" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="82" column="6" lean-forward="false" selection-start-line="82" selection-start-column="6" selection-end-line="82" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -2585,6 +2570,22 @@
           <folding>
             <element signature="e#18#52#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="394">
+          <caret line="55" column="30" lean-forward="false" selection-start-line="55" selection-start-column="6" selection-end-line="55" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinder2.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="40" column="3" lean-forward="true" selection-start-line="40" selection-start-column="3" selection-end-line="40" selection-end-column="3" />
+          <folding />
         </state>
       </provider>
     </entry>

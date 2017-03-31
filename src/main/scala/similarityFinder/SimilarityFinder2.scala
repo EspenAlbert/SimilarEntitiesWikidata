@@ -52,6 +52,13 @@ class SimilarityFinder2(qEntity : String)(implicit val knowledgeGraph: Knowledge
   println("In constructor")
 
   var expensiveStrategyList : Seq[Strategy] = null
+
+  def findInitialEntitiesAsSet() : Set[String] = {
+    val (cheapStrategies, expensiveStrategies) = getStrategiesCheapAndExpensive()
+    val execution = executeCheapStrategiesGraphNoFeatures(cheapStrategies).run()
+    return Await.result(execution, 15 minutes)
+  }
+
   def findInitialEntities(): List[SimilarEntity] = {
     val (cheapStrategies, expensiveStrategies) = getStrategiesCheapAndExpensive()
     expensiveStrategyList = expensiveStrategies
@@ -120,7 +127,17 @@ class SimilarityFinder2(qEntity : String)(implicit val knowledgeGraph: Knowledge
       ClosedShape
     })
   }
+  def foldSimilarEntitiesSet : Sink[Map[String, Feature], Future[Set[String]]] = Sink.fold[Set[String], Map[String, Feature]](Set())((acc, nextMap) => acc ++ nextMap.keySet)
 
+  def executeCheapStrategiesGraphNoFeatures(cheapStrategies : Seq[Strategy]): RunnableGraph[Future[Set[String]]] = {
+    val source: Source[Strategy, NotUsed] = sourceStrategies(cheapStrategies)
+    return RunnableGraph.fromGraph(GraphDSL.create(foldSimilarEntitiesSet){implicit b =>
+      sink =>
+        source ~> executeCheapStrategies ~> sink.in
+        ClosedShape
+
+    })
+  }
   private def sourceStrategies(strategies : Seq[Strategy]): Source[Strategy, NotUsed] = {
     return Source.fromIterator(() => strategies.iterator)
   }
