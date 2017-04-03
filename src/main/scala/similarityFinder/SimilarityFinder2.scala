@@ -24,24 +24,15 @@ import scala.collection.mutable.ListBuffer
 object SimilarityFinder2 {
   val thresholdStrategyWeight = 3.25
   val ENTITIES_AFTER_PRUNING = 1000
-  val thresholdCountValueMatch = 2000
   def isACheapStrategy(strategy: Strategy) : Boolean= {
     strategy match {
       case a : DirectLinkStrategy => true
-      case b : ValueMatchStrategy if(b.dbCount < thresholdCountValueMatch && b.property != SimilarPropertyOntology.wikiPageWikiLink.toString) => true
-      case c : PropertyMatchStrategy if(c.dbCount < 2000) => true
+      case b : ValueMatchStrategy if(b.dbCount < MyConfiguration.thresholdCountCheapStrategy && b.property != SimilarPropertyOntology.wikiPageWikiLink.toString) => true
+      case c : PropertyMatchStrategy if(c.dbCount < MyConfiguration.thresholdCountCheapStrategy) => true
       case a @ (_:SearchUndirectedL1Strategy | _:SearchDirectedL1Strategy| _: SearchDirectedL2Strategy | _:SearchUndirectedL2Strategy) => true
       case _ => false
     }
   }
-  def onlyDirectLinkStrategies(strategy: Strategy) : Boolean = {
-    strategy match {
-      case a : DirectLinkStrategy => true
-      case _ => false
-    }
-  }
-
-
 }
 class SimilarityFinder2(qEntity : String,systemParam: ActorSystem = null, materializerParam: ActorMaterializer = null)(implicit val knowledgeGraph: KnowledgeGraph) {
 

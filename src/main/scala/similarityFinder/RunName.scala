@@ -23,7 +23,7 @@ object RunName {
   def getRunName(strategies : List[String])(implicit knowledgeGraph: KnowledgeGraph): String = {
     val strategiesInSortedOrder = strategies.map(s => (getStrategyOrder(s), s)).sortBy[Int](_._1)
     val name : String = knowledgeGraph + "-" +  strategiesInSortedOrder.map(_._2).mkString("-")
-    return ResultsSimilarArtistsGlobals.base + name + "-" + MyConfiguration.getConfigName
+    return ResultsSimilarArtistsGlobals.base + name + "-" + MyConfiguration.getConfigName(strategies)
   }
 
 }

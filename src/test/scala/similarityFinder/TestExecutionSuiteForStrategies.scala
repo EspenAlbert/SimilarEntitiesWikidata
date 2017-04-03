@@ -21,17 +21,39 @@ class TestExecutionSuiteForStrategies extends FunSuite{
     StrategyFactory.setupStrategyFactory(strategies)(knowledgeGraph)
     UpdateQueryFactory.addNewRun(runName)
   }
+  test("Already existing strategies with config") {
+    val strategies = List(
+      DirectLinkStrategy.name,
+      ValueMatchStrategy.name,
+      PropertyMatchStrategy.name
+    )
+    val thresholdCounts = List(1000, 3000, 10000)
+    val useRdfType = List(true, false)
+    for(s<-strategies;c<-thresholdCounts; t<-useRdfType) {
+      MyConfiguration.useRdfType = t
+      MyConfiguration.thresholdCountCheapStrategy = c
+      executeStrategiesOnDatasets(List(s))
+    }
+
+  }
   test("Baseline search directed/undirected L=1,2 on dataset") {
     val strategies = List(
 //      SearchDirectedL1Strategy.name
 //      SearchDirectedL2Strategy.name
 //      SearchUndirectedL1Strategy.name
-      SearchUndirectedL2Strategy.name
+//      SearchUndirectedL2Strategy.name
+        DirectLinkStrategy.name
     )
     val knowledgeGraphs = List(
       KnowledgeGraph.wikidata
 //      KnowledgeGraph.dbPedia
     )
+    executeStrategiesOnDatasets(strategies, knowledgeGraphs)
+//    ResultHandler.calculateRecall
+//
+  }
+
+  private def executeStrategiesOnDatasets(strategies: List[String], knowledgeGraphs: List[KnowledgeGraph]= List(KnowledgeGraph.wikidata, KnowledgeGraph.dbPedia)) = {
     val dataset = ArtistDatasetReader.getDatasetFromFile()
     val dbPediaDataset = ArtistDatasetReader.getDatasetDBpediaFromFile()
     val datasetSize: Int = dataset.keys.size
@@ -45,9 +67,8 @@ class TestExecutionSuiteForStrategies extends FunSuite{
       println(s"starting run: $runName")
       executeRunOnDataset(runName, ds, datasetSize, kg)
     }
-//    ResultHandler.calculateRecall
-//
   }
+
   def executeRunOnDataset(runName: String, dataset: Map[String, List[String]], datasetSize : Int, knowledgeGraph: KnowledgeGraph): Unit = {
     for(((qEntity, similars), i) <- dataset.zipWithIndex) {
       val startTime = System.currentTimeMillis()

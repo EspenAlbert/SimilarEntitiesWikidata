@@ -4,6 +4,9 @@
     <list default="true" id="d206a159-edb1-49d5-8841-178f417096da" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/similarityFinder/MyConfiguration.scala" afterPath="$PROJECT_DIR$/src/main/scala/similarityFinder/MyConfiguration.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/similarityFinder/RunName.scala" afterPath="$PROJECT_DIR$/src/main/scala/similarityFinder/RunName.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala" afterPath="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/similarityFinder/TestExecutionSuiteForStrategies.scala" afterPath="$PROJECT_DIR$/src/test/scala/similarityFinder/TestExecutionSuiteForStrategies.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/similarityFinder/TestMyConfiguration.scala" afterPath="$PROJECT_DIR$/src/test/scala/similarityFinder/TestMyConfiguration.scala" />
     </list>
     <list id="d77b7471-7867-433b-9a10-b891ecadeee0" name="ARCHITECTURE REFACTORING. Summarized: 1. The SimpleRDF abstraction is removed. 2. Folder structure are changed to accomodate for both similarity finder and structure finder. A core package contains all the common logic. 3. Old unused files, or files using the (1) abstraction is removed." comment="" />
@@ -53,10 +56,22 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="TestExecutionSuiteForStrategies.scala" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestExecutionSuiteForStrategies.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="291">
+              <caret line="34" column="42" lean-forward="true" selection-start-line="34" selection-start-column="42" selection-end-line="34" selection-end-column="42" />
+              <folding>
+                <element signature="e#26#55#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="StrategyFactory.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/StrategyFactory.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="440">
+            <state relative-caret-position="1608">
               <caret line="145" column="12" lean-forward="false" selection-start-line="145" selection-start-column="12" selection-end-line="145" selection-end-column="12" />
               <folding>
                 <element signature="e#25#86#0" expanded="true" />
@@ -68,11 +83,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestMyConfiguration.scala" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TestMyConfiguration.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestMyConfiguration.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="720">
-              <caret line="60" column="14" lean-forward="false" selection-start-line="60" selection-start-column="14" selection-end-line="60" selection-end-column="14" />
+            <state relative-caret-position="816">
+              <caret line="82" column="62" lean-forward="true" selection-start-line="82" selection-start-column="62" selection-end-line="82" selection-end-column="62" />
               <folding>
                 <element signature="e#26#87#0" expanded="true" />
               </folding>
@@ -83,8 +98,20 @@
       <file leaf-file-name="MyConfiguration.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/MyConfiguration.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="26" column="37" lean-forward="false" selection-start-line="26" selection-start-column="37" selection-end-line="26" selection-end-column="37" />
+            <state relative-caret-position="480">
+              <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+              <folding>
+                <element signature="e#26#52#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="RunName.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/RunName.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="23" column="28" lean-forward="true" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -112,6 +139,16 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="SimilarityFinder2.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="32" column="21" lean-forward="true" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="Prettifier.scala" pinned="false" current-in-tab="false">
         <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalactic/scalactic_2.11/srcs/scalactic_2.11-3.0.1-sources.jar!/org/scalactic/Prettifier.scala">
           <provider selected="true" editor-type-id="text-editor">
@@ -125,41 +162,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="QueryFactory.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/specific/QueryFactory.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="312">
-              <caret line="340" column="12" lean-forward="true" selection-start-line="340" selection-start-column="12" selection-end-line="340" selection-end-column="12" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Query.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/Query.scala">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="84">
               <caret line="10" column="68" lean-forward="true" selection-start-line="10" selection-start-column="68" selection-end-line="10" selection-end-column="68" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="FindSomething.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/FindSomething.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="11" column="6" lean-forward="false" selection-start-line="11" selection-start-column="6" selection-end-line="11" selection-end-column="6" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="QueryHelper.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/specific/QueryHelper.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="15" column="6" lean-forward="false" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
               <folding />
             </state>
           </provider>
@@ -268,7 +275,6 @@
         <option value="$PROJECT_DIR$/src/test/scala/strategy/TestBaselineStrategies.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinder2.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/similarityFinder/TestRunName.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/RunName.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/core/globals/TestResultsSimilarArtistsGlobals.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/dataset/TestArtistDataset.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/iAndO/dataset/ArtistDatasetReader.scala" />
@@ -281,16 +287,17 @@
         <option value="$PROJECT_DIR$/src/main/scala/iAndO/readRdf/ReadWikidata.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/scalaTestPlay/TestScalaTestPlay.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/rdf/GraphRDF.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/similarityFinder/TestExecutionSuiteForStrategies.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyFactory.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/strategies/PropertyMatchStrategy.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/strategies/DirectLinkStrategy.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/query/specific/QueryFactory.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/strategies/ValueMatchStrategy.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/feature/Feature.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/RunName.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/similarityFinder/TestMyConfiguration.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/MyConfiguration.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/similarityFinder/TestExecutionSuiteForStrategies.scala" />
       </list>
     </option>
   </component>
@@ -1377,45 +1384,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="ScalaTest.TestMyConfiguration.The runName should be set when default configuration is not set">
-    <configuration default="false" name="TestMyConfiguration.The beatles should be one of the similars when myConfiguration useRdfTypes=true" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="similarentitieswikidata" />
-      <setting name="path" value="similarityFinder.TestMyConfiguration" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="The beatles should be one of the similars when myConfiguration useRdfTypes=true" />
-      <setting name="testKind" value="Test name" />
-      <setting name="showProgressMessages" value="true" />
-      <setting name="useSbt" value="false" />
-      <setting name="useUiWithSbt" value="false" />
-      <classRegexps />
-      <testRegexps />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="TestMyConfiguration.John Lennon should be one of the similars when myConfiguration useRdfTypes=true or useRdfTypes=false" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="similarentitieswikidata" />
-      <setting name="path" value="similarityFinder.TestMyConfiguration" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="John Lennon should be one of the similars when myConfiguration useRdfTypes=true or useRdfTypes=false" />
-      <setting name="testKind" value="Test name" />
-      <setting name="showProgressMessages" value="true" />
-      <setting name="useSbt" value="false" />
-      <setting name="useUiWithSbt" value="false" />
-      <classRegexps />
-      <testRegexps />
-      <envs />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="ScalaTest.TestMyConfiguration.The runName should reflect the count when a property or valuematch strategy is being used">
     <configuration default="false" name="TestMyConfiguration.The beatles should be one of the similars when myConfiguration useRdfTypes=false" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="similarentitieswikidata" />
@@ -1464,6 +1433,44 @@
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
       <setting name="testName" value="The runName should be set when default configuration is not set" />
+      <setting name="testKind" value="Test name" />
+      <setting name="showProgressMessages" value="true" />
+      <setting name="useSbt" value="false" />
+      <setting name="useUiWithSbt" value="false" />
+      <classRegexps />
+      <testRegexps />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestExecutionSuiteForStrategies.Baseline search directed/undirected L=1,2 on dataset" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="similarentitieswikidata" />
+      <setting name="path" value="similarityFinder.TestExecutionSuiteForStrategies" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="Baseline search directed/undirected L=1,2 on dataset" />
+      <setting name="testKind" value="Test name" />
+      <setting name="showProgressMessages" value="true" />
+      <setting name="useSbt" value="false" />
+      <setting name="useUiWithSbt" value="false" />
+      <classRegexps />
+      <testRegexps />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestMyConfiguration.The runName should reflect the count when a property or valuematch strategy is being used" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="similarentitieswikidata" />
+      <setting name="path" value="similarityFinder.TestMyConfiguration" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="The runName should reflect the count when a property or valuematch strategy is being used" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <setting name="useSbt" value="false" />
@@ -2024,19 +2031,19 @@
       <item index="2" class="java.lang.String" itemvalue="SBT Task.Run all tests" />
       <item index="3" class="java.lang.String" itemvalue="Application.ReadDBpedia" />
       <item index="4" class="java.lang.String" itemvalue="SBT Task.Run all active tests" />
-      <item index="5" class="java.lang.String" itemvalue="ScalaTest.TestMyConfiguration.The beatles should be one of the similars when myConfiguration useRdfTypes=true" />
-      <item index="6" class="java.lang.String" itemvalue="ScalaTest.TestMyConfiguration.John Lennon should be one of the similars when myConfiguration useRdfTypes=true or useRdfTypes=false" />
-      <item index="7" class="java.lang.String" itemvalue="ScalaTest.TestMyConfiguration.The beatles should be one of the similars when myConfiguration useRdfTypes=false" />
-      <item index="8" class="java.lang.String" itemvalue="ScalaTest.TestMyConfiguration.Property match without rdf types should work" />
-      <item index="9" class="java.lang.String" itemvalue="ScalaTest.TestMyConfiguration.The runName should be set when default configuration is not set" />
+      <item index="5" class="java.lang.String" itemvalue="ScalaTest.TestMyConfiguration.The beatles should be one of the similars when myConfiguration useRdfTypes=false" />
+      <item index="6" class="java.lang.String" itemvalue="ScalaTest.TestMyConfiguration.Property match without rdf types should work" />
+      <item index="7" class="java.lang.String" itemvalue="ScalaTest.TestMyConfiguration.The runName should be set when default configuration is not set" />
+      <item index="8" class="java.lang.String" itemvalue="ScalaTest.TestExecutionSuiteForStrategies.Baseline search directed/undirected L=1,2 on dataset" />
+      <item index="9" class="java.lang.String" itemvalue="ScalaTest.TestMyConfiguration.The runName should reflect the count when a property or valuematch strategy is being used" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="ScalaTest.TestMyConfiguration.The runName should be set when default configuration is not set" />
-        <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestMyConfiguration.Property match without rdf types should work" />
-        <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestMyConfiguration.The beatles should be one of the similars when myConfiguration useRdfTypes=false" />
-        <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestMyConfiguration.John Lennon should be one of the similars when myConfiguration useRdfTypes=true or useRdfTypes=false" />
-        <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestMyConfiguration.The beatles should be one of the similars when myConfiguration useRdfTypes=true" />
+        <item index="0" class="java.lang.String" itemvalue="ScalaTest.TestMyConfiguration.The runName should reflect the count when a property or valuematch strategy is being used" />
+        <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestExecutionSuiteForStrategies.Baseline search directed/undirected L=1,2 on dataset" />
+        <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestMyConfiguration.The runName should be set when default configuration is not set" />
+        <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestMyConfiguration.Property match without rdf types should work" />
+        <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestMyConfiguration.The beatles should be one of the similars when myConfiguration useRdfTypes=false" />
       </list>
     </recent_temporary>
   </component>
@@ -2086,7 +2093,7 @@
       <workItem from="1490875817066" duration="16192000" />
       <workItem from="1490941747707" duration="20734000" />
       <workItem from="1491214185977" duration="3211000" />
-      <workItem from="1491223703962" duration="6044000" />
+      <workItem from="1491223703962" duration="8292000" />
     </task>
     <task id="LOCAL-00001" summary="SimilarityFinder tested for ringo starr on DBpedia.&#10;It is working!&#10;&#10;Just started working on the combined similarity finder.">
       <created>1490775699677</created>
@@ -2137,21 +2144,19 @@
       <option name="project" value="LOCAL" />
       <updated>1491233264018</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Added a runName when config useRdfTypes">
+      <created>1491233434063</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1491233434063</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="TestMyConfiguration_Property_match_without_rdf_types_should_work - 2017.04.03 at 17h 16m 15s.xml">
-      <configuration name="TestMyConfiguration.Property match without rdf types should work" configurationId="ScalaTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestMyConfiguration_Property_match_without_rdf_types_should_work - 2017.04.03 at 17h 16m 43s.xml">
-      <configuration name="TestMyConfiguration.Property match without rdf types should work" configurationId="ScalaTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestMyConfiguration_Property_match_without_rdf_types_should_work - 2017.04.03 at 17h 19m 40s.xml">
-      <configuration name="TestMyConfiguration.Property match without rdf types should work" configurationId="ScalaTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestMyConfiguration_Property_match_without_rdf_types_should_work - 2017.04.03 at 17h 23m 01s.xml">
-      <configuration name="TestMyConfiguration.Property match without rdf types should work" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestExecutionSuiteForStrategies_Baseline_search_directed_undirected_L=1,2_on_dataset - 2017.04.03 at 17h 35m 35s.xml">
+      <configuration name="TestExecutionSuiteForStrategies.Baseline search directed/undirected L=1,2 on dataset" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
     <history-entry file="TestMyConfiguration_Property_match_without_rdf_types_should_work - 2017.04.03 at 17h 23m 18s.xml">
       <configuration name="TestMyConfiguration.Property match without rdf types should work" configurationId="ScalaTestRunConfiguration" />
@@ -2171,10 +2176,19 @@
     <history-entry file="TestMyConfiguration_The_runName_should_be_set_when_default_configuration_is_not_set - 2017.04.03 at 17h 30m 08s.xml">
       <configuration name="TestMyConfiguration.The runName should be set when default configuration is not set" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
+    <history-entry file="TestMyConfiguration_The_runName_should_reflect_the_count_when_a_property_or_valuematch_strategy_is_being_used - 2017.04.03 at 18h 36m 02s.xml">
+      <configuration name="TestMyConfiguration.The runName should reflect the count when a property or valuematch strategy is being used" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestMyConfiguration_The_runName_should_reflect_the_count_when_a_property_or_valuematch_strategy_is_being_used - 2017.04.03 at 18h 36m 43s.xml">
+      <configuration name="TestMyConfiguration.The runName should reflect the count when a property or valuematch strategy is being used" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
+    <history-entry file="TestMyConfiguration_The_runName_should_reflect_the_count_when_a_property_or_valuematch_strategy_is_being_used - 2017.04.03 at 18h 39m 54s.xml">
+      <configuration name="TestMyConfiguration.The runName should reflect the count when a property or valuematch strategy is being used" configurationId="ScalaTestRunConfiguration" />
+    </history-entry>
   </component>
   <component name="TimeTrackingManager">
     <option name="enabled" value="true" />
-    <option name="totallyTimeSpent" value="69222000" />
+    <option name="totallyTimeSpent" value="71470000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -2293,7 +2307,8 @@
     <MESSAGE value="Implemented: Adjust the similarityFinder a little bit to only find similar entities (discard features)&#10;Next up: Test suite for checking impact of different KGs and strategies." />
     <MESSAGE value="Implemented:Test suite for checking impact of different KGs and strategies.&#10;Small issue: Seems like I am running into some memory error when running the test&#10;Have so far only been able to test for DirectLinks L=1 on Wikidata." />
     <MESSAGE value="Seems like I am running into some memory error when running the test, most likely fixed by pulling the actorSystem and materializer up to the test. &#10;Refactored strategies to not use rdf:type by default." />
-    <option name="LAST_COMMIT_MESSAGE" value="Seems like I am running into some memory error when running the test, most likely fixed by pulling the actorSystem and materializer up to the test. &#10;Refactored strategies to not use rdf:type by default." />
+    <MESSAGE value="Added a runName when config useRdfTypes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added a runName when config useRdfTypes" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2360,13 +2375,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="348">
           <caret line="33" column="7" lean-forward="false" selection-start-line="33" selection-start-column="7" selection-end-line="33" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/RunName.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="22" column="6" lean-forward="false" selection-start-line="22" selection-start-column="6" selection-end-line="22" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -2585,16 +2593,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="732">
-          <caret line="81" column="25" lean-forward="false" selection-start-line="81" selection-start-column="25" selection-end-line="81" selection-end-column="25" />
-          <folding>
-            <element signature="e#26#53#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/SearchDirectedL2Strategy.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="384">
@@ -2610,16 +2608,6 @@
         <state relative-caret-position="843">
           <caret line="91" column="4" lean-forward="true" selection-start-line="91" selection-start-column="4" selection-end-line="91" selection-end-column="4" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestExecutionSuiteForStrategies.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="29" column="5" lean-forward="true" selection-start-line="29" selection-start-column="5" selection-end-line="29" selection-end-column="5" />
-          <folding>
-            <element signature="e#26#55#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2670,19 +2658,6 @@
         <state relative-caret-position="639">
           <caret line="83" column="4" lean-forward="false" selection-start-line="83" selection-start-column="4" selection-end-line="83" selection-end-column="4" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/StrategyFactory.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="440">
-          <caret line="145" column="12" lean-forward="false" selection-start-line="145" selection-start-column="12" selection-end-line="145" selection-end-column="12" />
-          <folding>
-            <element signature="e#25#86#0" expanded="true" />
-            <element signature="e#5751#5888#0" expanded="false" />
-            <element signature="e#7840#7889#0" expanded="false" />
-            <element signature="e#9641#9690#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2747,20 +2722,61 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/StrategyFactory.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1608">
+          <caret line="145" column="12" lean-forward="false" selection-start-line="145" selection-start-column="12" selection-end-line="145" selection-end-column="12" />
+          <folding>
+            <element signature="e#25#86#0" expanded="true" />
+            <element signature="e#5751#5888#0" expanded="false" />
+            <element signature="e#7840#7889#0" expanded="false" />
+            <element signature="e#9641#9690#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="32" column="21" lean-forward="true" selection-start-line="32" selection-start-column="21" selection-end-line="32" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/RunName.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="23" column="28" lean-forward="true" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/MyConfiguration.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="26" column="37" lean-forward="false" selection-start-line="26" selection-start-column="37" selection-end-line="26" selection-end-column="37" />
-          <folding />
+        <state relative-caret-position="480">
+          <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding>
+            <element signature="e#26#52#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestMyConfiguration.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="720">
-          <caret line="60" column="14" lean-forward="false" selection-start-line="60" selection-start-column="14" selection-end-line="60" selection-end-column="14" />
+        <state relative-caret-position="816">
+          <caret line="82" column="62" lean-forward="true" selection-start-line="82" selection-start-column="62" selection-end-line="82" selection-end-column="62" />
           <folding>
             <element signature="e#26#87#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestExecutionSuiteForStrategies.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="291">
+          <caret line="34" column="42" lean-forward="true" selection-start-line="34" selection-start-column="42" selection-end-line="34" selection-end-column="42" />
+          <folding>
+            <element signature="e#26#55#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -61,5 +61,29 @@ class TestMyConfiguration extends FunSuite{
     MyConfiguration.useRdfType = true
     assert(RunName.getRunName(List(DirectLinkStrategy.name)).endsWith("UseRdfType"))
   }
+  test("The runName should reflect the count when a property or valuematch strategy is being used", ActiveTag) {
+    MyConfiguration.useRdfType = true
+    val valueMatch = List(ValueMatchStrategy.name)
+    assert(RunName.getRunName(valueMatch).endsWith("UseRdfType-1000"))
+    MyConfiguration.thresholdCountCheapStrategy = 3000
+    assert(RunName.getRunName(valueMatch).endsWith("UseRdfType-3000"))
+    MyConfiguration.thresholdCountCheapStrategy = 10000
+    assert(RunName.getRunName(valueMatch).endsWith("UseRdfType-10000"))
+    MyConfiguration.thresholdCountCheapStrategy = 1000
+    val propertyMatch = List(PropertyMatchStrategy.name)
+    assert(RunName.getRunName(propertyMatch).endsWith("UseRdfType-1000"))
+    MyConfiguration.thresholdCountCheapStrategy = 3000
+    assert(RunName.getRunName(propertyMatch).endsWith("UseRdfType-3000"))
+    MyConfiguration.thresholdCountCheapStrategy = 10000
+    assert(RunName.getRunName(propertyMatch).endsWith("UseRdfType-10000"))
+    MyConfiguration.useRdfType = false
+    MyConfiguration.thresholdCountCheapStrategy = 1000
+    assert(RunName.getRunName(propertyMatch).endsWith("1000"))
+    MyConfiguration.thresholdCountCheapStrategy = 3000
+    assert(RunName.getRunName(propertyMatch).endsWith("3000"))
+    MyConfiguration.thresholdCountCheapStrategy = 10000
+    assert(RunName.getRunName(propertyMatch).endsWith("10000"))
+
+  }
 
 }
