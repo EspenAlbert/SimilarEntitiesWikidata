@@ -57,5 +57,9 @@ class TestMyConfiguration extends FunSuite{
     val actualSimilarsWithType = strategy.findSimilars()
     assert(!actualSimilarsWithType.keySet.contains(vegetarian))
   }
+  test("The runName should be set when default configuration is not set", ActiveTag) {
+    MyConfiguration.useRdfType = true
+    assert(RunName.getRunName(List(DirectLinkStrategy.name)).endsWith("UseRdfType"))
+  }
 
 }
