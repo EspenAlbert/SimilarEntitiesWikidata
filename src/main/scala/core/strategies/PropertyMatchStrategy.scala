@@ -5,6 +5,7 @@ import core.globals.FeatureType
 import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.query.specific.QueryFactory
 import core.rdf.GraphRDF
+import similarityFinder.MyConfiguration
 
 import scala.collection.mutable
 /**
@@ -35,8 +36,11 @@ case class PropertyMatchStrategy(property : String, isSubject : Boolean, rdfType
 
   override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): Map[String, Feature] = {
 //    println(s"Finding similars for property : $property")
-    val entities = if(isSubject) QueryFactory.findSubjectsOfTypeForProperty(property, rdfTypes)
-    else QueryFactory.findObjectsOfTypeForProperty(property, rdfTypes)
+    val entities = MyConfiguration.useRdfType match{
+      case true => if(isSubject) QueryFactory.findSubjectsOfTypeForProperty(property, rdfTypes)
+      else QueryFactory.findObjectsOfTypeForProperty(property, rdfTypes)
+      case false => if(isSubject) QueryFactory.findSubjectsOfProperty(property) else QueryFactory.findObjectsOfProperty(property)
+    }
     return generateFeatures(entities)
   }
   private def generateFeatures(entities: List[String]): Map[String, Feature] = {

@@ -5,6 +5,7 @@ import core.globals.FeatureType
 import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.query.specific.QueryFactory
 import core.rdf.GraphRDF
+import similarityFinder.MyConfiguration
 
 import scala.collection.mutable
 
@@ -40,8 +41,12 @@ case class ValueMatchStrategy(property: String, isSubject: Boolean, value : Stri
 
   override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): Map[String, Feature] = {
 //    println(s"Finding similars for property (cheap strategy) : $property")
-    val entities = if(isSubject) QueryFactory.subjectsOfTypeWithPropertyAndValue(property, value, rdfTypes) else
-      QueryFactory.objectsOfTypeWithPropertyAndSubject(property, value, rdfTypes)
+    val entities = MyConfiguration.useRdfType match {
+      case true => if (isSubject) QueryFactory.subjectsOfTypeWithPropertyAndValue(property, value, rdfTypes) else
+        QueryFactory.objectsOfTypeWithPropertyAndSubject(property, value, rdfTypes)
+      case false => if (isSubject) QueryFactory.subjectsWithPropertyAndValue(property, value) else
+        QueryFactory.objectsWithPropertyAndSubject(property, value)
+    }
     return entities.map(e=> e-> new ValueMatchFeature(property, FeatureType.valueMatch, 1, weight, value)).toMap
   }
   val name = ValueMatchStrategy.name

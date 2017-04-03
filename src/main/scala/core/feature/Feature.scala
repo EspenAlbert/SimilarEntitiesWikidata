@@ -24,7 +24,7 @@ class Feature(property : String, featureType : FeatureType, count : Int, weight 
 
   override def toString: String = {
     val label = Feature.findLabel(property)
-    println(label)
+//    println(label)
     return s"Feature for $property with label: $label with $featureType had value: $count * $weight"
   }
 
@@ -33,6 +33,7 @@ class Feature(property : String, featureType : FeatureType, count : Int, weight 
 
 object Feature {
   def findLabel(id : String) : String = {
+    println(s"Finding label online for id: $id")
     val commonPrefixes = "PREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
     val labelQuery = new QueryForOnlineWikidata(() => commonPrefixes + s"select ?label \n where { <$id> rdfs:label ?label . \n filter(lang(?label) = 'en')\n }")
     labelQuery.executeRaw()

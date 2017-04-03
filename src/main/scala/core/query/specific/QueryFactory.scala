@@ -12,6 +12,31 @@ import scala.util.Try
   */
 object QueryFactory {
 
+
+  def findSubjectsOfProperty(property: String)(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
+    val queryString =
+      s"""
+         |SELECT ?s
+         |WHERE {
+         |  ?s <$property> ?o
+         |}
+        """.stripMargin
+    val query = executeQuery(queryString)
+    return query.getResults("s")
+  }
+  def findObjectsOfProperty(property: String)(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
+    val queryString =
+      s"""
+         |SELECT ?o
+         |WHERE {
+         |  ?s <$property> ?o
+         |}
+        """.stripMargin
+    val query = executeQuery(queryString)
+    return query.getResults("o")
+  }
+
+
   def singleSubjectWithPropertyAndValue(musicbrainzIdPropertyName: String, objectValue: String)(implicit knowledgeGraph: KnowledgeGraph) : String = {
     val queryString =
       s"""
@@ -83,6 +108,19 @@ object QueryFactory {
     val objects = query.getResults("o")
     return objects
   }
+  def objectsWithPropertyAndSubject(property: String, subject: String)(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
+    val queryString =
+      s"""
+         |SELECT ?o
+         |WHERE {
+         |  <$subject> <$property> ?o .
+         |}
+        """.stripMargin
+    val query = executeQuery(queryString)
+    val objects = query.getResults("o")
+    return objects
+
+  }
   def subjectsOfTypeWithPropertyAndValue(property: String, objectValue: String, rdfTypes: List[String])(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
     val queryString =
       s"""
@@ -97,6 +135,18 @@ object QueryFactory {
     return subjects
   }
 
+  def subjectsWithPropertyAndValue(property: String, value: String)(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
+    val queryString =
+      s"""
+         |SELECT ?s
+         |WHERE {
+         |  ?s <$property> <$value> .
+         |}
+        """.stripMargin
+    val query = executeQuery(queryString)
+    val subjects = query.getResults("s")
+    return subjects
+  }
 
   def findObjectsOfTypeForProperty(property: String, rdfTypes: List[String])(implicit knowledgeGraph : KnowledgeGraph)  : List[String] = {
     val queryString =

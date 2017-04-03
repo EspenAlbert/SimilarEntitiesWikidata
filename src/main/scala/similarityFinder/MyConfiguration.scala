@@ -7,6 +7,8 @@ import core.globals.SimilarPropertyOntology
   * Created by Espen on 14.11.2016.
   */
 object MyConfiguration {
+  var useRdfType: Boolean = false
+
   var doScaling = false
   val globalInBNotInAActive = false
   val inANotInBActive = false

@@ -43,11 +43,11 @@ object SimilarityFinder2 {
 
 
 }
-class SimilarityFinder2(qEntity : String)(implicit val knowledgeGraph: KnowledgeGraph) {
+class SimilarityFinder2(qEntity : String,systemParam: ActorSystem = null, materializerParam: ActorMaterializer = null)(implicit val knowledgeGraph: KnowledgeGraph) {
 
 
-  implicit val system = ActorSystem("my-system")
-  implicit val materializer = ActorMaterializer(ActorMaterializerSettings(system).withInputBuffer(2048, 2048))
+  implicit val system = if(systemParam == null) ActorSystem("my-system") else systemParam
+  implicit val materializer = if(materializerParam == null) ActorMaterializer(ActorMaterializerSettings(system).withInputBuffer(2048, 2048)) else materializerParam
 
   val qEntityGraph = new GraphRDF(qEntity)
   var expensiveStrategyList : Seq[Strategy] = null
