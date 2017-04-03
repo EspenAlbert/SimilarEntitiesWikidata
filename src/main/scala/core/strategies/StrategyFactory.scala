@@ -61,7 +61,7 @@ object StrategyFactory {
   var strategyFactoryWikidata: StrategyFactory = null
   var strategyFactoryDBpedia: StrategyFactory = null
 
-  def setupStrategyFactory(activeStrategies : List[String])(implicit knowledgeGraph: KnowledgeGraph): Unit = {
+  def setupStrategyFactory(activeStrategies : Seq[String])(implicit knowledgeGraph: KnowledgeGraph): Unit = {
     forceRead = true
     val sFactory = getStrategyFactory(knowledgeGraph)
     sFactory.mapPropertyToStrategies = sFactory.mapPropertyToStrategies.map{
@@ -218,18 +218,18 @@ object StrategyFactory {
         val dbCount = strategyFactory.mapPropertyToDomainCounts(property)
         return Some(List(DateComparisonStrategy(property, range(0), dbCount)))
       }
-      case a if a==SimilarPropertyOntology.searchDirectedL1Strategy => {
+      case a if a==SimilarPropertyOntology.searchDirectedL1Strategy.toString => {
         if(range.nonEmpty) return Some(List(SearchDirectedL1Strategy(property, range)))
         else None
       }
-      case a if a==SimilarPropertyOntology.searchDirectedL2Strategy => {
+      case a if a==SimilarPropertyOntology.searchDirectedL2Strategy.toString => {
         if(range.nonEmpty) return Some(List(SearchDirectedL2Strategy(property, range)))
         else None
       }
-      case a if a==SimilarPropertyOntology.searchUndirectedL1Strategy => {
+      case a if a==SimilarPropertyOntology.searchUndirectedL1Strategy.toString => {
         return Some(List(SearchUndirectedL1Strategy(property, range ++ domain)))
       }
-      case a if a==SimilarPropertyOntology.searchUndirectedL2Strategy => {
+      case a if a==SimilarPropertyOntology.searchUndirectedL2Strategy.toString => {
         return Some(List(SearchUndirectedL2Strategy(property, range ++ domain)))
       }
       case _ => None

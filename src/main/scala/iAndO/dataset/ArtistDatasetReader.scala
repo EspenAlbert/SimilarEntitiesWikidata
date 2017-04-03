@@ -1,12 +1,14 @@
 package iAndO.dataset
 
-import core.globals.KnowledgeGraph
+import core.globals.{KnowledgeGraph, SimilarPropertyOntology}
+import core.interlinking.Interlink
 import core.query.specific.QueryFactory
 import iAndO.dump.DumpObject
 
 import scala.collection.mutable
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
 import scala.io.Source
+import scala.util.{Failure, Success}
 
 /**
   * Created by Espen on 08.11.2016.
@@ -54,7 +56,34 @@ object ArtistDatasetReader {
     println("Making on average :", totalValues.toFloat / myMap.keys.size , " similars per entity")
     val uniqueArtists = Set[String]() ++ myMap.keys.toSet ++ myMap.values.flatten.toSet
     println(s"Unique artists: ${uniqueArtists.size}")
+
     return myMap
+  }
+  def convertDatasetToDBpediaIds(wikidataMap : Map[String, List[String]]) : Map[String, List[String]] = {
+    val prefixDBpedia = KnowledgeGraph.getDatasetEntityPrefix(KnowledgeGraph.dbPedia)
+    val dbpediaMap = for {
+      (artist, similars) <- wikidataMap
+      artistId = decodeWikidataId(artist)
+      similarsIDs = similars.map(decodeWikidataId(_))
+    }yield (artistId, similarsIDs)
+    return dbpediaMap.toMap
+  }
+
+  private def decodeWikidataId(artist: String): String = {
+    //NOT FOUND in DBpedia
+    val NotFoundDBpedia : String = SimilarPropertyOntology.w + "Q4570669"
+    return QueryFactory.findIdDBpediaFromWikidataId(artist) match {
+      case Success(id) => id
+      case Failure(_) => artist match {
+        case NotFoundDBpedia => return KnowledgeGraph.getDatasetEntityPrefix(KnowledgeGraph.dbPedia) + "Tara_MacLean"
+      }
+    }
+  }
+
+  val dbPediaFilename = "DBpedia-tenMostSimilarArtists"
+  def getDatasetDBpediaFromFile() : Map[String, List[String]] = {
+    val map = DumpObject.getStringMap(dbPediaFilename)
+    return map
   }
 
   def isUri(value : String) : Boolean = {

@@ -25,5 +25,11 @@ class TestScalaTestPlay extends FunSuite{
     val f = fixture
     assert(f.buffer.isEmpty)
   }
+  test("iterating over null should work"){
+    var eIsObject : (List[String], List[String]) = (Nil, Nil)
+    for(a <- eIsObject._1) {
+      println(a)
+    }
+  }
 
 }

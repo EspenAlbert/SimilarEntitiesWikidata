@@ -63,7 +63,7 @@ class TestResultsSimilarArtistsGlobals extends FunSuite{
   val wd = WikidataFactory
   val starr = wd.ringoStarr
   implicit val knowledgeGraph = KnowledgeGraph.wikidata
-  val runName = RunName.getRunName(List(starr.propertyMatchStrategyLifeStyle)) + "Test"
+  val runName = RunName.getRunName(List(PropertyMatchStrategy.name)) + "Test"
   test("Should be able to add a similarResult", ActiveTag) {
     val start = System.currentTimeMillis()
     val qEntity = starr.id

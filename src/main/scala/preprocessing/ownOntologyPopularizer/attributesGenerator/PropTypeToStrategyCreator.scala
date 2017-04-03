@@ -60,4 +60,14 @@ object PropTypeToStrategyCreator {
     }
     (propToDomainCount, propToRangeCount, sameTypePossibleProps, sharableDomainProps, sharableRangeProps, dateProperties)
   }
+  def addStrategyForAllItemProperties(propertiesToPropTypeMap: Map[String, PropertyType], strategyURI : String)(implicit knowledgeGraph: KnowledgeGraph) = {
+    val dataset = KnowledgeGraph.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph)
+    (for{
+      (propName, ItemPropertyType()) <- propertiesToPropTypeMap
+    }yield propName ).foreach( p =>
+      UpdateQueryFactory.addStatements(List(s"<$p> <${SimilarPropertyOntology.rdfType}> <$strategyURI> ."), dataset)
+    )
+
+
+  }
 }

@@ -47,4 +47,10 @@ class TestProptypeToStrategyGeneratorDBpedia extends FunSuite{
     val strategies = dbPediaStrategyFactory.mapPropertyToStrategies.getOrElse(directLinkAndBothValueMatches, throw new Exception(s"Couldn't find the strategy for ${directLinkAndBothValueMatches} created from the DB.."))
     assert(strategies.size > strategyCountGreaterThan)
   }
+  test("Baseline strategy creation for all item properties dbPedia", ActiveOnceTag) {
+    val propToType = DumpObject.readJsonMapStringPropertyType(DBpediaFactory.propToTypeFilename)
+    val strategyURIs = List[String](SimilarPropertyOntology.searchDirectedL1Strategy, SimilarPropertyOntology.searchDirectedL2Strategy,
+      SimilarPropertyOntology.searchUndirectedL1Strategy, SimilarPropertyOntology.searchUndirectedL2Strategy)
+    strategyURIs.foreach(sURI => addStrategyForAllItemProperties(propToType, sURI))
+  }
 }

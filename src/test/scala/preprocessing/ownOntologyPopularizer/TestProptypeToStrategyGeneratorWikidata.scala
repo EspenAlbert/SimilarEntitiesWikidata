@@ -53,5 +53,11 @@ class TestProptypeToStrategyGeneratorWikidata extends FunSuite{
     val propToType = DumpObject.readJsonMapStringPropertyType("wikidata-propToTypeMapping")
     generateMetaStatementKnowledgeAndStrategiesForProperties(propToType)
   }
+  test("Baseline strategy creation for all item properties", ActiveOnceTag) {
+    val propToType = DumpObject.readJsonMapStringPropertyType("wikidata-propToTypeMapping")
+    val strategyURIs = List[String](SimilarPropertyOntology.searchDirectedL1Strategy, SimilarPropertyOntology.searchDirectedL2Strategy,
+    SimilarPropertyOntology.searchUndirectedL1Strategy, SimilarPropertyOntology.searchUndirectedL2Strategy)
+    strategyURIs.foreach(sURI => addStrategyForAllItemProperties(propToType, sURI))
+  }
 
 }

@@ -30,6 +30,7 @@ object SimilarityFinder2 {
       case a : DirectLinkStrategy => true
       case b : ValueMatchStrategy if(b.dbCount < thresholdCountValueMatch && b.property != SimilarPropertyOntology.wikiPageWikiLink.toString) => true
       case c : PropertyMatchStrategy if(c.dbCount < 2000) => true
+      case a @ (_:SearchUndirectedL1Strategy | _:SearchDirectedL1Strategy| _: SearchDirectedL2Strategy | _:SearchUndirectedL2Strategy) => true
       case _ => false
     }
   }
@@ -49,8 +50,6 @@ class SimilarityFinder2(qEntity : String)(implicit val knowledgeGraph: Knowledge
   implicit val materializer = ActorMaterializer(ActorMaterializerSettings(system).withInputBuffer(2048, 2048))
 
   val qEntityGraph = new GraphRDF(qEntity)
-  println("In constructor")
-
   var expensiveStrategyList : Seq[Strategy] = null
 
   def findInitialEntitiesAsSet() : Set[String] = {

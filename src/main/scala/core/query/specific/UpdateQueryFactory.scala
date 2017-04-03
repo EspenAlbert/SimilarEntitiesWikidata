@@ -24,7 +24,8 @@ object UpdateQueryFactory {
     return s"""insert { <$qEntity> <${ResultsSimilarArtistsGlobals.similar}> [ <${ResultsSimilarArtistsGlobals.ranking}> "$ranking";\n""" +
       s"""<${ResultsSimilarArtistsGlobals.foundEntity}> <${foundEntity}> ; \n <${ResultsSimilarArtistsGlobals.simScore}> "${simScore}" ] } where {}"""
   }
-  def addNewRun(runName: String): Unit ={
+  def addNewRun(runName: String, cleanFirst : Boolean = true): Unit ={
+    if(cleanFirst) cleanDatasetWhere(MyDatasets.resultsSimilarArtists, s"<$runName> ?p ?o")
     val insertQuery = s"""insert { <$runName> <${SimilarPropertyOntology.rdfType}> <${ResultsSimilarArtistsGlobals.runType}>} where {}"""
     QueryLocalServer.updateLocalData(insertQuery, MyDatasets.resultsSimilarArtists)
   }

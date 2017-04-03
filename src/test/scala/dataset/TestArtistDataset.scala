@@ -1,7 +1,9 @@
 package dataset
 
 import core.feature.Feature
+import core.globals.KnowledgeGraph
 import iAndO.dataset.ArtistDatasetReader
+import iAndO.dump.DumpObject
 import org.scalatest.FunSuite
 import tags.{ActiveSlowTag, ActiveTag, TestOnlyTag}
 
@@ -26,6 +28,18 @@ class TestArtistDataset extends FunSuite{
     printStats(dataset, rihanna)
 //    assert(dataset.keys.toList.length == 2363)
   }
+  test("get dataset with dbpedia ids", ActiveSlowTag) {
+    val dataset = ArtistDatasetReader.getDatasetFromFile()
+    val dbPediaDS = ArtistDatasetReader.convertDatasetToDBpediaIds(dataset)
+    DumpObject.dumpJsonMapStringListString(dbPediaDS, KnowledgeGraph.dbPedia + "-tenMostSimilarArtists")
+  }
+
+  test("get dataset with dbpedia ids from file", ActiveSlowTag) {
+    val dataset = ArtistDatasetReader.getDatasetDBpediaFromFile()
+    val datasetWd = ArtistDatasetReader.getDatasetFromFile()
+    assert(dataset.size == datasetWd.size)
+  }
+
 
 
 

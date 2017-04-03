@@ -67,4 +67,5 @@ class TestMapPropertiesToPropTypesWikidata extends FunSuite{
     println(m)
     m.values.foreach(p => assert(p.isInstanceOf[DateTimePropertyType]))
   }
+
 }
