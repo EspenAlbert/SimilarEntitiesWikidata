@@ -73,5 +73,15 @@ object QueryFactorySimilarityResult {
        """.stripMargin
     return executeQuery(findRuns).getResults("s")
   }
+  def findStatementCountEntity(entity : String) : Int = {
+    val findStatementCount =
+      s"""
+         |select ?o
+         |where {
+         |  <$entity> <${ResultsSimilarArtistsGlobals.statementCount}> ?o .
+         |}
+       """.stripMargin
+    return executeQuery(findStatementCount).getResults("o")(0)
+  }
 
 }
