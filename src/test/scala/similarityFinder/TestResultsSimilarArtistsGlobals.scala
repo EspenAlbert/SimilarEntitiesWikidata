@@ -1,13 +1,13 @@
-package core.globals
+package similarityFinder
 
+import core.globals.{KnowledgeGraph, MyDatasets, ResultsSimilarArtistsGlobals}
 import core.query.Query
 import core.query.specific.UpdateQueryFactory
 import core.strategies.PropertyMatchStrategy
 import data.WikidataFactory
 import org.scalatest.FunSuite
-import similarityFinder.RunName
 import similarityFinder.displayer.{QueryFactorySimilarityResult, ResultHandler}
-import tags.ActiveTag
+import tags.{ActiveSlowTag, ActiveTag}
 
 /**
   * Created by espen on 06.02.17.
@@ -49,7 +49,7 @@ class TestResultsSimilarArtistsGlobals extends FunSuite{
     val queryString: String = queryForFindingStatementCount(eltonJohn)
     val query = new Query(() => queryString, MyDatasets.resultsSimilarArtists)
     query.execute()
-    assert(count == query.getResults("c")(0).toInt)
+    assert(count == query.getResults("c")(0))
 
   }
 
@@ -71,17 +71,19 @@ class TestResultsSimilarArtistsGlobals extends FunSuite{
     val sutcliffe = wd.stuartSutcliffe
     val notRecalled = List(sutcliffe)
     val foundEntities = 1000
+    val hadTimeout1 = false
     val execTime = System.currentTimeMillis() - start
     UpdateQueryFactory.cleanDatasetWhere(MyDatasets.resultsSimilarArtists, s"<$runName> ?p ?o")
-    UpdateQueryFactory.addFindSimilarResult(runName,qEntity, recalled, notRecalled, execTime.toInt, foundEntities)
+    UpdateQueryFactory.addFindSimilarResult(runName,qEntity, recalled, notRecalled, execTime.toInt, foundEntities, hadTimeout1)
     val actualFromDB = QueryFactorySimilarityResult.findResultsForRun(runName).head
     actualFromDB match {
-      case (entity, (lRecalled, lNotRecalled, eTime, fECount)) => {
+      case (entity, (lRecalled, lNotRecalled, eTime, fECount, hadTimeout)) => {
         assert(entity == qEntity)
         assert(lRecalled == recalled)
         assert(notRecalled == lNotRecalled)
         assert(execTime == eTime)
         assert(foundEntities == fECount)
+        assert(hadTimeout1 == hadTimeout)
       }}
   }
   test("Adding a new run should work", ActiveTag) {
@@ -89,8 +91,27 @@ class TestResultsSimilarArtistsGlobals extends FunSuite{
     val runs = QueryFactorySimilarityResult.findAllRuns()
     assert(runs.contains(runName))
   }
-  test("Calculating recalls should work", ActiveTag) {
-    ResultHandler.calculateRecall
+  test("Calculating recalls should work", ActiveSlowTag) {
+    ResultHandler.calculateRecall()
+  }
+  test("Calculating stats for a specific run should work", ActiveTag) {
+    val runName = "http://www.espenalbert.com/rdf/resultsSimilarArtists#wikidata-SearchUndirectedL2Strategy--SampleRun"
+    val timeouts = 5
+    val queriesCount = 10
+    val percentTimedOut = BigDecimal((timeouts.toDouble / queriesCount)*100).setScale(2, BigDecimal.RoundingMode.HALF_UP).toInt
+    assert(percentTimedOut==50)
+    ResultHandler.calculateRecall(runName)
+    QueryFactorySimilarityResult.findStatsForRun(runName) match {
+      case (r, p, execTime, statementCount, percentTimeout) => {
+        assert(r > 0.1)
+        assert(p < 0.9)
+        assert(execTime > 1000)
+        assert(statementCount > 1000)
+        assert(percentTimeout > 90)
+      }
+    }
+
+
   }
 
 }

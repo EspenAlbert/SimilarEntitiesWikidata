@@ -1,10 +1,13 @@
 package query
 
+import java.net.SocketTimeoutException
+
 import core.globals.KnowledgeGraph
 import core.query.specific.AskQuery
 import org.scalatest.FunSuite
 import core.query.specific.QueryFactory._
 import data.WikidataFactory
+import similarityFinder.MyConfiguration
 import tags.{ActiveSlowTag, ActiveTag}
 /**
   * Created by espen on 20.02.17.

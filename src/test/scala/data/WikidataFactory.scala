@@ -67,6 +67,8 @@ object WikidataFactory {
     val genderProp = w + "P21"
     val genderValue = w + "Q6581097"
     val propertyMatchStrategyLifeStyle = PropertyMatchStrategy(lifestyleProp, true, rdfTypes, 200)
+    val countryOfCitizenShipValue = w + "Q145"
+    val countryOfCitizenShipProperty = w + "P27"
   }
 
 

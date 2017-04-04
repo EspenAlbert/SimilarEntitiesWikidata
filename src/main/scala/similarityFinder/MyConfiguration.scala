@@ -11,8 +11,8 @@ import scala.collection.mutable.ListBuffer
   */
 object MyConfiguration {
 
+  val verbose = false
   var useRdfType: Boolean = false
-
   var doScaling = false
   val globalInBNotInAActive = false
   val inANotInBActive = false

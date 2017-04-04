@@ -2,7 +2,7 @@ package similarityFinder
 
 import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer, ActorMaterializerSettings}
-import core.globals.KnowledgeGraph
+import core.globals.{KnowledgeGraph, SimilarPropertyOntology}
 import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.query.specific.UpdateQueryFactory
 import core.strategies._
@@ -23,16 +23,16 @@ class TestExecutionSuiteForStrategies extends FunSuite{
   }
   test("Already existing strategies with config") {
     val strategies = List(
-      DirectLinkStrategy.name,
-      ValueMatchStrategy.name,
-      PropertyMatchStrategy.name
+//      DirectLinkStrategy.name,
+      PropertyMatchStrategy.name,
+      ValueMatchStrategy.name
     )
     val thresholdCounts = List(1000, 3000, 10000)
     val useRdfType = List(true, false)
     for(s<-strategies;c<-thresholdCounts; t<-useRdfType) {
       MyConfiguration.useRdfType = t
       MyConfiguration.thresholdCountCheapStrategy = c
-      executeStrategiesOnDatasets(List(s))
+      executeStrategiesOnDatasets(List(s), List(KnowledgeGraph.wikidata), false)
     }
 
   }
@@ -41,8 +41,8 @@ class TestExecutionSuiteForStrategies extends FunSuite{
 //      SearchDirectedL1Strategy.name
 //      SearchDirectedL2Strategy.name
 //      SearchUndirectedL1Strategy.name
-//      SearchUndirectedL2Strategy.name
-        DirectLinkStrategy.name
+      SearchUndirectedL2Strategy.name
+//        DirectLinkStrategy.name
     )
     val knowledgeGraphs = List(
       KnowledgeGraph.wikidata
@@ -53,15 +53,15 @@ class TestExecutionSuiteForStrategies extends FunSuite{
 //
   }
 
-  private def executeStrategiesOnDatasets(strategies: List[String], knowledgeGraphs: List[KnowledgeGraph]= List(KnowledgeGraph.wikidata, KnowledgeGraph.dbPedia)) = {
-    val dataset = ArtistDatasetReader.getDatasetFromFile()
-    val dbPediaDataset = ArtistDatasetReader.getDatasetDBpediaFromFile()
+  private def executeStrategiesOnDatasets(strategies: List[String], knowledgeGraphs: List[KnowledgeGraph]= List(KnowledgeGraph.wikidata, KnowledgeGraph.dbPedia), reducedSize : Boolean = true) = {
+    val dataset = if(reducedSize) ArtistDatasetReader.getDatasetFromFile().take(100) else ArtistDatasetReader.getDatasetFromFile()
+    val dbPediaDataset = if(reducedSize) ArtistDatasetReader.getDatasetDBpediaFromFile().take(100) else ArtistDatasetReader.getDatasetDBpediaFromFile()
     val datasetSize: Int = dataset.keys.size
     for {
       strategy <- strategies
       kg <- knowledgeGraphs
       ds = if (kg == KnowledgeGraph.dbPedia) dbPediaDataset else dataset
-      runName = RunName.getRunName(List(strategy))(kg)
+      runName = if(reducedSize) RunName.getRunName(List(strategy))(kg) + "-SampleRun" else RunName.getRunName(List(strategy))(kg)
     } {
       setupRun(kg, runName, strategy)
       println(s"starting run: $runName")
@@ -70,14 +70,16 @@ class TestExecutionSuiteForStrategies extends FunSuite{
   }
 
   def executeRunOnDataset(runName: String, dataset: Map[String, List[String]], datasetSize : Int, knowledgeGraph: KnowledgeGraph): Unit = {
+    val hadTimeoutEntity = KnowledgeGraph.getDatasetEntityPrefix(knowledgeGraph) + SimilarPropertyOntology.timeoutElement
     for(((qEntity, similars), i) <- dataset.zipWithIndex) {
       val startTime = System.currentTimeMillis()
-      val res = new SimilarityFinder2(qEntity)(knowledgeGraph).findInitialEntitiesAsSet()
+      val res = new SimilarityFinder2(qEntity, systemParam = system, materializerParam = materializer)(knowledgeGraph).findInitialEntitiesAsSet()
       val execTime = System.currentTimeMillis() - startTime
       val recalled = similars.filter(res.contains)
       val notRecalled = similars.filterNot(recalled.contains(_))
       val foundEntitiesCount = res.size
-      UpdateQueryFactory.addFindSimilarResult(runName, qEntity, recalled, notRecalled, execTime.toInt, foundEntitiesCount)
+      val hadTimeout = res.contains(hadTimeoutEntity)
+      UpdateQueryFactory.addFindSimilarResult(runName, qEntity, recalled, notRecalled, execTime.toInt, foundEntitiesCount, hadTimeout)
       println(s"Finished $i of $datasetSize for $runName")
     }
   }

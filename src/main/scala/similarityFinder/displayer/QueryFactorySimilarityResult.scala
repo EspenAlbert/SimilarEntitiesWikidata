@@ -2,6 +2,7 @@ package similarityFinder.displayer
 
 import core.globals.{MyDatasets, ResultsSimilarArtistsGlobals, SimilarPropertyOntology}
 import core.query.Query
+import core.query.specific.UpdateQueryFactory.{datatypeDouble, datatypeInteger}
 import core.query.variables.ResultVariable
 
 /**
@@ -13,7 +14,7 @@ object QueryFactorySimilarityResult {
     query.execute()
     query
   }
-  private def findResultsForEntityForRun(runName: String, entity : String): (List[String], List[String], Int, Int) = {
+  private def findResultsForEntityForRun(runName: String, entity : String): (List[String], List[String], Int, Int, Boolean) = {
     val recalledQuery =
       s"""
          |select ?r
@@ -34,12 +35,13 @@ object QueryFactorySimilarityResult {
        """.stripMargin
     val timeAndEntityCountQuery =
       s"""
-         |select ?eT ?feT
+         |select ?eT ?feT ?hT
          |where {
          |  <$runName> <${ResultsSimilarArtistsGlobals.qEntityResult}> ?o .
          |  ?o <${ResultsSimilarArtistsGlobals.qEntity}> <$entity> .
          |  ?o <${ResultsSimilarArtistsGlobals.execTime}> ?eT .
          |  ?o <${ResultsSimilarArtistsGlobals.foundEntitiesCount}> ?feT .
+         |  ?o <${ResultsSimilarArtistsGlobals.hadTimeout}> ?hT .
          |}
          """.stripMargin
     val recalled : List[String] = executeQuery(recalledQuery).getResults("r")
@@ -47,11 +49,12 @@ object QueryFactorySimilarityResult {
     val timeAndEntityCount =  executeQuery(timeAndEntityCountQuery)
     val execTime : Int = timeAndEntityCount.getResults("eT")(0)
     val foundEntitiesCount : Int = timeAndEntityCount.getResults("feT")(0)
-    return (recalled, notRecalled, execTime, foundEntitiesCount)
+    val hadTimeout : Boolean = timeAndEntityCount.getResults("hT")(0)
+    return (recalled, notRecalled, execTime, foundEntitiesCount, hadTimeout)
   }
 
   //Want Map[qEntity,(Recalled, notRecalled, time, foundEntitiesCount)
-  def findResultsForRun(runName : String): List[(String, (List[String], List[String], Int, Int))] = {
+  def findResultsForRun(runName : String): List[(String, (List[String], List[String], Int, Int, Boolean))] = {
     val findAllQEntities =
       s"""
          |select ?qE
@@ -83,5 +86,19 @@ object QueryFactorySimilarityResult {
        """.stripMargin
     return executeQuery(findStatementCount).getResults("o")(0)
   }
+  def findStatsForRun(runName : String) : (Double, Double, Int, Int, Int) = {
+      val query =
+        s"""
+           |select * where { <${runName}> <${ResultsSimilarArtistsGlobals.recall}> ?r ;
+           |                      <${ResultsSimilarArtistsGlobals.precision}> ?p ;
+           |                      <${ResultsSimilarArtistsGlobals.avgExecTime}> ?eT ;
+           |                      <${ResultsSimilarArtistsGlobals.avgFoundEntities}> ?afe ;
+           |                      <${ResultsSimilarArtistsGlobals.percentTimeout}> ?pT .
+           |}
+      """.stripMargin
+    val executed= executeQuery(query)
+    return (executed.getResults("r")(0), executed.getResults("p")(0), executed.getResults("eT")(0), executed.getResults("afe")(0), executed.getResults("pT")(0))
+    }
 
-}
+
+  }

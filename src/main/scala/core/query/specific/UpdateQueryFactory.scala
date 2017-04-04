@@ -8,7 +8,20 @@ import jenaQuerier.QueryLocalServer
   * Created by Espen on 01.12.2016.
   */
 object UpdateQueryFactory {
-
+  val datatypeInteger = """^^<http://www.w3.org/2001/XMLSchema#integer>"""
+  val datatypeDouble = """^^<http://www.w3.org/2001/XMLSchema#double>"""
+  def addStatsForRun(stats: (String, Double, Double, Int, Int, Int)): Unit = {
+    val query =
+      s"""
+       |insert { <${stats._1}> <${ResultsSimilarArtistsGlobals.recall}> "${stats._2}"$datatypeDouble;
+       |                      <${ResultsSimilarArtistsGlobals.precision}> "${stats._3}"$datatypeDouble;
+       |                      <${ResultsSimilarArtistsGlobals.avgExecTime}> "${stats._4}"$datatypeInteger;
+       |                      <${ResultsSimilarArtistsGlobals.avgFoundEntities}> "${stats._5}"$datatypeInteger;
+       |                      <${ResultsSimilarArtistsGlobals.percentTimeout}> "${stats._6}"$datatypeInteger;
+       |                        } where {}
+      """.stripMargin
+    QueryLocalServer.updateLocalData(query, MyDatasets.resultsSimilarArtists)
+  }
   def updateValueCount(propertyAsFullString: String, entity: String, count: Int)(implicit knowledgeGraph: KnowledgeGraph) = {
     val updateQuery = s"insert { <$propertyAsFullString> <${SimilarPropertyOntology.valueMatchProperty}> [ <${SimilarPropertyOntology.valueMatchValue}> <$entity>;\n" +
       s"""<${SimilarPropertyOntology.valueMatchCount}> "%d" ] } where {}""".format(count)
@@ -29,22 +42,24 @@ object UpdateQueryFactory {
     val insertQuery = s"""insert { <$runName> <${SimilarPropertyOntology.rdfType}> <${ResultsSimilarArtistsGlobals.runType}>} where {}"""
     QueryLocalServer.updateLocalData(insertQuery, MyDatasets.resultsSimilarArtists)
   }
-  def addFindSimilarResult(runName: String, qEntity: String, recalled: List[String], notRecalled : List[String], execTime2: Int, foundEntitiesCount: Int): Unit ={
-    QueryLocalServer.updateLocalData(addFindSimilarResultQuery(runName, qEntity, recalled, notRecalled, execTime2, foundEntitiesCount), MyDatasets.resultsSimilarArtists)
+  def addFindSimilarResult(runName: String, qEntity: String, recalled: List[String], notRecalled : List[String], execTime2: Int, foundEntitiesCount: Int, hadTimeout: Boolean): Unit ={
+    QueryLocalServer.updateLocalData(addFindSimilarResultQuery(runName, qEntity, recalled, notRecalled, execTime2, foundEntitiesCount, hadTimeout), MyDatasets.resultsSimilarArtists)
   }
-  def addFindSimilarResultQuery(runName: String, qEntity: String, recalled: List[String], notRecalled : List[String], execTime2: Int, foundEntitiesCount: Int) : String = {
+  def addFindSimilarResultQuery(runName: String, qEntity: String, recalled: List[String], notRecalled : List[String], execTime2: Int, foundEntitiesCount: Int, hadTimeout: Boolean) : String = {
     val recalledInsert = recalled.map(s=> s"<${ResultsSimilarArtistsGlobals.recalled}> <$s>;").mkString("\n")
     val notRecalledInsert = notRecalled.map(s=> s"<${ResultsSimilarArtistsGlobals.notRecalled}> <$s>;").mkString("\n")
     return s"""
               |insert { <$runName> <${ResultsSimilarArtistsGlobals.qEntityResult}> [
               | <${ResultsSimilarArtistsGlobals.qEntity}> <$qEntity>;
-              | <${ResultsSimilarArtistsGlobals.execTime}> "$execTime2"^^<http://www.w3.org/2001/XMLSchema#integer> ;
+              | <${ResultsSimilarArtistsGlobals.execTime}> "$execTime2"$datatypeInteger ;
               | <${ResultsSimilarArtistsGlobals.foundEntitiesCount}> "${foundEntitiesCount}";
+              | <${ResultsSimilarArtistsGlobals.hadTimeout}> "${hadTimeout}"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
               |  ${recalledInsert}
               |  ${notRecalledInsert}
               | ] } where {}
               |""".stripMargin
   }
+
   def cleanDataset(dataset : String): Unit = {
     QueryLocalServer.deleteLocalData(dataset)
   }

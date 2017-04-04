@@ -20,6 +20,12 @@ object ResultsSimilarArtistsGlobals extends Enumeration{
   val notRecalled= Value("http://www.espenalbert.com/rdf/resultsSimilarArtists#notRecalled")
   val qEntity= Value("http://www.espenalbert.com/rdf/resultsSimilarArtists#qEntity")
   val qEntityResult= Value("http://www.espenalbert.com/rdf/resultsSimilarArtists#qEntityResult")
+  val hadTimeout = Value("http://www.espenalbert.com/rdf/resultsSimilarArtists#hadTimeout")
+  val recall = Value("http://www.espenalbert.com/rdf/resultsSimilarArtists#recall")
+  val precision = Value("http://www.espenalbert.com/rdf/resultsSimilarArtists#precision")
+  val avgExecTime = Value("http://www.espenalbert.com/rdf/resultsSimilarArtists#avgExecTime")
+  val avgFoundEntities = Value("http://www.espenalbert.com/rdf/resultsSimilarArtists#avgFoundEntities")
+  val percentTimeout = Value("http://www.espenalbert.com/rdf/resultsSimilarArtists#percentTimeout")
 
   implicit def getStringFromOptionsForResultQueryVariable(similarPropertyOntology: ResultsSimilarArtistGlobals) : String = {
     return similarPropertyOntology.toString

@@ -41,6 +41,9 @@ object SimilarPropertyOntology extends Enumeration{
   val searchUndirectedL2Strategy: SimilarPropertyOntology = Value(spo + "SearchUndirectedL2Strategy")
   val propertyMatchStrategy: SimilarPropertyOntology = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#PropertyMatchStrategy")
   val basePropertyClassId: SimilarPropertyOntology = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#Property")
+  val datatypeBoolean = Value("http://www.w3.org/2001/XMLSchema#boolean")
+  val datatypeDouble = Value("http://www.w3.org/2001/XMLSchema#double")
+  val timeoutElement = Value("TIMEOUT")
 
 
   implicit def getString(similarPropertyOntology: SimilarPropertyOntology) : String = {

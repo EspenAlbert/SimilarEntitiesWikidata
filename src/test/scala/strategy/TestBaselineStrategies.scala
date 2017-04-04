@@ -1,10 +1,11 @@
 package strategy
 
-import core.globals.KnowledgeGraph
+import core.globals.{KnowledgeGraph, SimilarPropertyOntology}
 import core.strategies.{SearchDirectedL1Strategy, SearchDirectedL2Strategy, SearchUndirectedL1Strategy, SearchUndirectedL2Strategy}
 import data.WikidataFactory
 import org.scalatest.FunSuite
-import tags.ActiveTag
+import similarityFinder.{MyConfiguration, SimilarityFinder2}
+import tags.{ActiveSlowTag, ActiveTag}
 
 /**
   * Created by espen on 31.03.17.
@@ -41,5 +42,18 @@ class TestBaselineStrategies extends FunSuite{
     val actualSimilars = strategyUndirected.findSimilars().keySet
     assert(expectedSimilarsL1.size + expectedSimilarsDirected.size < actualSimilars.size)
   }
+  test("Search undirected timeout should not kill", ActiveSlowTag) {
+    val strategyUndirected = SearchUndirectedL2Strategy(rStarr.countryOfCitizenShipProperty, List(rStarr.countryOfCitizenShipValue))
+    val similars = strategyUndirected.findSimilars()
+    assert(similars.keySet.contains(SimilarPropertyOntology.w.toString + SimilarPropertyOntology.timeoutElement))
+  }
+  test("BFS search for ringo starr should work") {
+    val simFinder = new SimilarityFinder2(rStarr.id)
+    val simEntities = simFinder.findInitialEntitiesAsSet()
+    println(simEntities.take(100))
+    assert(simEntities.size > 100)
+    println(s"# entities found: ${simEntities.size}")
+  }
+
 
 }
