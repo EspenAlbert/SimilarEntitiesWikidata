@@ -363,6 +363,67 @@ object QueryFactory {
     val query = executeQuery(queryString, MyDatasets.interlinkDBpediaWikidata)(null)
     return Try(query.getResults("o")(0))
   }
+  def findObjectsHavingMoreThanXStatementsOfPropertyWithType(countThreshold: Int, property : String, subjectType: String)(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
+    val typeProperty = KnowledgeGraph.getTypeProperty(knowledgeGraph)
+    val subclassProperty = KnowledgeGraph.getSubclassProperty(knowledgeGraph)
+    val queryString =
+      s"""
+        |select ?o (count(?s) as ?c)
+        |where {
+        |  ?s <$property> ?o .
+        |  #?s <$typeProperty>|(<$typeProperty>/<$subclassProperty>) <$subjectType> .
+        |  ?s <$typeProperty> ?oT .
+        |  ?oT <$subclassProperty> ?sT .
+        |  filter(?oT = <$subjectType> || ?sT = <$subjectType>)
+        |}
+        |Group by ?o
+        |Having (?c > $countThreshold)
+      """.stripMargin
+    return executeQuery(queryString).getResults("o")
+  }
+  def findObjectsHavingMoreThanXStatementsOfPropertyWhereSubjectsAgainHaveObjectValue(thresholdCount : Int, property : String, subjectPropertyValuePair : (String, String))(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
+    val queryString =
+      s"""
+        |SELECT ?o (COUNT(?s) AS ?c) WHERE   {
+        |  ?s <$property> ?o .
+        |  ?s <${subjectPropertyValuePair._1}> <${subjectPropertyValuePair._2}>.
+        |} GROUP BY ?o HAVING ( ?c > ${thresholdCount} ) Order by desc(?c)
+      """.stripMargin
+    return executeQuery(queryString).getResults("o")
+  }
+  def findMostCommonTypesOneStepUpInHierarchyForPropertyAndObject(property: String, objectEntity: String)(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
+    val typeProperty = KnowledgeGraph.getTypeProperty(knowledgeGraph)
+    val subclassProperty = KnowledgeGraph.getSubclassProperty(knowledgeGraph)
+    val queryString =
+      s"""
+        |SELECT  ?t (COUNT(?s) AS ?c) WHERE   {
+        |  ?s  <$property>  <$objectEntity> .
+        |  ?s <$typeProperty>|(<$typeProperty>/<$subclassProperty>) ?t .
+        |} GROUP BY ?t HAVING ( ?c > 1 ) Order by desc(?c)
+        |
+      """.stripMargin
+    return executeQuery(queryString).getResults("t")
+  }
+  def findPropertyObjectPairsCountsForSubjectsHavingEntityAsObjectForProperty(property: String, objectEntity : String)(implicit knowledgeGraph : KnowledgeGraph) : List[(String, String, Int)] = {
+    val prefix = KnowledgeGraph.getDatasetEntityPrefix(knowledgeGraph)
+    val queryString =
+      s"""
+        |select ?p ?o (count(?o) as ?oc)
+        |where {
+        |  ?s <$property> <$objectEntity> .
+        |  ?s ?p ?o .
+        |  filter(strstarts(str(?o), "$prefix"))
+        |}
+        |Group by ?o ?p
+        |Having (?oc > 1)
+        |Order by desc(?oc)
+      """.stripMargin
+    val query = executeQuery(queryString)
+    val counts : List[Int] = query.getResults("oc")
+    val objects : List[String] = query.getResults("o")
+    val properties : List[String] = query.getResults("p")
+    return (for(i <- 0 until objects.size)yield(properties(i), objects(i), counts(i))).toList
+  }
 
 
 

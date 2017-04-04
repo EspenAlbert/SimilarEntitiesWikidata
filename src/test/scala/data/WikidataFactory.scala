@@ -9,6 +9,7 @@ import core.strategies.PropertyMatchStrategy
   */
 object WikidataFactory {
 
+
   val countMaleGender = 2645899
 
   val domainCountGender = 1405976
@@ -69,6 +70,14 @@ object WikidataFactory {
     val propertyMatchStrategyLifeStyle = PropertyMatchStrategy(lifestyleProp, true, rdfTypes, 200)
     val countryOfCitizenShipValue = w + "Q145"
     val countryOfCitizenShipProperty = w + "P27"
+    val performedByMostCommonTypes = List(w + "Q2188189", w + "Q482994", w + "Q2031291")
+    val performerSubjectsMostPopularObjects = List(
+      (w + "P407", w + "Q1860", 28),
+      (w + "P31", w + "Q482994", 19),
+      (w + "P136", w + "Q11399", 11),
+      (w + "P264", w + "Q1273666", 4)
+    )
+    val otherPerformersWithMoreThan2RockMusicPerformances = List(w + "Q11036", w + "Q212533", w + "Q1052727", w + "Q2382329")
   }
 
 
@@ -82,6 +91,9 @@ object WikidataFactory {
     val id = w + "Q1299"
   }
   val placeOfBirthProp = w + "P19"
+
+  val genre = w + "P136"
+  val rockMusicGenre = w + "Q11399"
 
   def obamaSubjectStatements: List[(String, String, String)] = {
     val p1o = List(w + "Q380782", w + "Q1379733")

@@ -40,29 +40,58 @@ class TestQueryFactory extends FunSuite{
     println(maxDate)
     println(maxDate2)
   }
+  private val wd = WikidataFactory
+  private val ringoStarr = wd.ringoStarr
   test("find subject count for male gender", ActiveTag) {
-    val expectedCount = WikidataFactory.countMaleGender
-    val actualCount = findCountForPropertyWithValue(WikidataFactory.ringoStarr.genderProp, WikidataFactory.ringoStarr.genderValue)
+    val expectedCount = wd.countMaleGender
+    val actualCount = findCountForPropertyWithValue(ringoStarr.genderProp, ringoStarr.genderValue)
     assert(expectedCount == actualCount.getOrElse(throw new Exception("Failed to find count")))
   }
   test("find value count for subject=Ringo starr property = occupation", ActiveTag) {
-    val expectedCount = WikidataFactory.ringoStarr.occupationValues.length
-    val actualCount = findCountForPropertyWithSubject(WikidataFactory.ringoStarr.occupationProp, WikidataFactory.ringoStarr.id)
+    val expectedCount = ringoStarr.occupationValues.length
+    val actualCount = findCountForPropertyWithSubject(ringoStarr.occupationProp, ringoStarr.id)
     assert(expectedCount == actualCount.getOrElse(throw new Exception("Failed to find count")))
   }
   test("find members of the beatles (subjectsOfTypeWithPropertyAndValue)", ActiveTag) {
-    val beatles = WikidataFactory.theBeatles
+    val beatles = wd.theBeatles
     val expectedMembers = beatles.members
-    val ringoStarr = WikidataFactory.ringoStarr
     val actualMembers = subjectsOfTypeWithPropertyAndValue(ringoStarr.memberOfProp, beatles.id, ringoStarr.rdfTypes)
     actualMembers.foreach(m => assert(expectedMembers.contains(m)))
     expectedMembers.foreach(m => assert(actualMembers.contains(m)))
   }
   test("findObjectsOfTypeForProperty where the type is kommune in norway, P19 = place of birth", ActiveSlowTag) {
-    val (_, types) = WikidataFactory.kristiansandAndTypes()
+    val (_, types) = wd.kristiansandAndTypes()
     val expectedTypes = types.tail //Commune in norway
-    val objects = findObjectsOfTypeForProperty(WikidataFactory.placeOfBirthProp, expectedTypes)
+    val objects = findObjectsOfTypeForProperty(wd.placeOfBirthProp, expectedTypes)
     objects.foreach(o => AskQuery.subjectHasType(o, expectedTypes))
+  }
+  test("findObjectsHavingMoreThanXStatementsOfProperty", ActiveTag) {
+    val songCountThreshold = 50
+    val property = ringoStarr.performerProp
+    ringoStarr.performedByMostCommonTypes.foreach(pByType => {
+      val moreThan50PerformancesEntities = findObjectsHavingMoreThanXStatementsOfPropertyWithType(5, property, pByType)
+      assert(moreThan50PerformancesEntities.contains(ringoStarr.id))
+    })
+  }
+  test("findObjectsHavingMoreThanXStatementsOfPropertyWhereSubjectsAgainHaveObjectValue", ActiveTag) {
+    val thresholdCount = 2
+    val expected = ringoStarr.otherPerformersWithMoreThan2RockMusicPerformances
+    val actual = findObjectsHavingMoreThanXStatementsOfPropertyWhereSubjectsAgainHaveObjectValue(thresholdCount, ringoStarr.performerProp, (wd.genre, wd.rockMusicGenre))
+    expected.foreach(performer => {
+      assert(actual.contains(performer))
+    })
+  }
+  test("findMostCommonTypesOneStepUpInHierarchyForPropertyAndObject", ActiveTag) {
+    val expected = ringoStarr.performedByMostCommonTypes
+    val actual = findMostCommonTypesOneStepUpInHierarchyForPropertyAndObject(ringoStarr.performerProp, ringoStarr.id)
+    expected.foreach(s => assert(actual.contains(s)))
+  }
+  test("Find object counts for subjects with entity as object", ActiveTag) {
+    val actual = findPropertyObjectPairsCountsForSubjectsHavingEntityAsObjectForProperty(ringoStarr.performerProp, ringoStarr.id)
+    val expected = ringoStarr.performerSubjectsMostPopularObjects
+    expected.foreach(tripple => {
+      assert(actual.contains(tripple))
+    })
   }
 
 }

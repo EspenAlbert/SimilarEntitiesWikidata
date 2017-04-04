@@ -54,8 +54,8 @@ class TestExecutionSuiteForStrategies extends FunSuite{
   }
 
   private def executeStrategiesOnDatasets(strategies: List[String], knowledgeGraphs: List[KnowledgeGraph]= List(KnowledgeGraph.wikidata, KnowledgeGraph.dbPedia), reducedSize : Boolean = true) = {
-    val dataset = if(reducedSize) ArtistDatasetReader.getDatasetFromFile().take(100) else ArtistDatasetReader.getDatasetFromFile()
-    val dbPediaDataset = if(reducedSize) ArtistDatasetReader.getDatasetDBpediaFromFile().take(100) else ArtistDatasetReader.getDatasetDBpediaFromFile()
+    val dataset = if(reducedSize) ArtistDatasetReader.getDatasetSampleWikidata() else ArtistDatasetReader.getDatasetFromFile()
+    val dbPediaDataset = if(reducedSize) ArtistDatasetReader.getDatasetSampleDBpedia() else ArtistDatasetReader.getDatasetDBpediaFromFile()
     val datasetSize: Int = dataset.keys.size
     for {
       strategy <- strategies

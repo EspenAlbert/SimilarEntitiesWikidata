@@ -53,4 +53,10 @@ class TestProptypeToStrategyGeneratorDBpedia extends FunSuite{
       SimilarPropertyOntology.searchUndirectedL1Strategy, SimilarPropertyOntology.searchUndirectedL2Strategy)
     strategyURIs.foreach(sURI => addStrategyForAllItemProperties(propToType, sURI))
   }
+  test("AggregatorStrategy for all item properties dbpedia", ActiveOnceTag) {
+    val propToType = DumpObject.readJsonMapStringPropertyType("wikidata-propToTypeMapping")
+    val strategyURI : String = SimilarPropertyOntology.aggregatorStrategy
+    addStrategyForAllItemProperties(propToType, strategyURI)
+  }
+
 }

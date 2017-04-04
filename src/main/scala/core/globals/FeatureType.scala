@@ -19,6 +19,7 @@ object FeatureType extends Enumeration{
   val searchUndirectedL2 = Value("SearchUndirectedL2")
   val searchDirectedL1 = Value("SearchDirectedL1")
   val searchDirectedL2 = Value("SearchDirectedL2")
+  val aggregateFeature = Value("Aggregate")
 
   implicit def getStringValue(featureType: FeatureType) : String = {
     return featureType.toString

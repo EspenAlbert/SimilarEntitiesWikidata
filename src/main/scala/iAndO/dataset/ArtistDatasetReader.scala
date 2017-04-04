@@ -15,6 +15,8 @@ import scala.util.{Failure, Success}
   */
 object ArtistDatasetReader {
   final val filename = "tenMostSimilarArtists"
+  val sampleNameWikidata = "tenMostSimilarArtists-sample-" + KnowledgeGraph.wikidata
+  val sampleNameDBpedia = "tenMostSimilarArtists-sample-" + KnowledgeGraph.dbPedia
   private def findWikidataId(objectValue: String, musicbrainzIdPropertyName : String): Option[String]= {
     if(failedIds.exists( _ == objectValue)) return None
     try {
@@ -58,6 +60,12 @@ object ArtistDatasetReader {
     println(s"Unique artists: ${uniqueArtists.size}")
 
     return myMap
+  }
+  def getDatasetSampleWikidata(): Map[String, List[String]] = {
+    return DumpObject.getStringMap(sampleNameWikidata)
+  }
+  def getDatasetSampleDBpedia(): Map[String, List[String]] = {
+    return DumpObject.getStringMap(sampleNameDBpedia)
   }
   def convertDatasetToDBpediaIds(wikidataMap : Map[String, List[String]]) : Map[String, List[String]] = {
     val prefixDBpedia = KnowledgeGraph.getDatasetEntityPrefix(KnowledgeGraph.dbPedia)

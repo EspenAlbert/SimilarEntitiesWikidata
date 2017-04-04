@@ -30,6 +30,7 @@ object SimilarityFinder2 {
       case b : ValueMatchStrategy if(b.dbCount < MyConfiguration.thresholdCountCheapStrategy && b.property != SimilarPropertyOntology.wikiPageWikiLink.toString) => true
       case c : PropertyMatchStrategy if(c.dbCount < MyConfiguration.thresholdCountCheapStrategy) => true
       case a @ (_:SearchUndirectedL1Strategy | _:SearchDirectedL1Strategy| _: SearchDirectedL2Strategy | _:SearchUndirectedL2Strategy) => true
+      case a : AggregatorStrategy => true
       case _ => false
     }
   }

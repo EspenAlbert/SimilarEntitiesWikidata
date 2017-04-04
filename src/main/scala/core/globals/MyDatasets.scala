@@ -25,7 +25,16 @@ object MyDatasets{
 }
 
 object KnowledgeGraph extends Enumeration {
+  def getSubclassProperty(knowledgeGraph: KnowledgeGraph) : String = {
+    knowledgeGraph match {
+      case KnowledgeGraph.wikidata => return subclassOfPropertyWikidata
+      case KnowledgeGraph.dbPedia => return SimilarPropertyOntology.rdfsSubclassOf
+    }
+  }
+
   val dbpResource = "http://dbpedia.org/resource/"
+  val typePropertyWikidata = SimilarPropertyOntology.w + "P31"
+  val subclassOfPropertyWikidata = SimilarPropertyOntology.w + "P279"
 
   type KnowledgeGraph = Value
   val wikidata: KnowledgeGraph = Value("wikidata")
@@ -38,7 +47,7 @@ object KnowledgeGraph extends Enumeration {
   }
   def getTypeProperty(knowledgeGraph: KnowledgeGraph) : String = {
     knowledgeGraph match {
-      case KnowledgeGraph.wikidata => SimilarPropertyOntology.w + "P31"
+      case KnowledgeGraph.wikidata => typePropertyWikidata
       case KnowledgeGraph.dbPedia => SimilarPropertyOntology.rdfType
     }
   }
