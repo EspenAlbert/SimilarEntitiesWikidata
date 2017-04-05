@@ -52,6 +52,14 @@ class TestExecutionSuiteForStrategies extends FunSuite{
 //    ResultHandler.calculateRecall
 //
   }
+  test("Aggregator strategy") {
+    val strategies = List(AggregatorStrategy.name)
+    val thresholdCounts = List(500, 1000, 3000, 10000)
+    for(s<-strategies;c<-thresholdCounts) {
+      MyConfiguration.thresholdCountCheapStrategy = c
+      executeStrategiesOnDatasets(List(s), List(KnowledgeGraph.wikidata), true)
+    }
+  }
 
   private def executeStrategiesOnDatasets(strategies: List[String], knowledgeGraphs: List[KnowledgeGraph]= List(KnowledgeGraph.wikidata, KnowledgeGraph.dbPedia), reducedSize : Boolean = true) = {
     val dataset = if(reducedSize) ArtistDatasetReader.getDatasetSampleWikidata() else ArtistDatasetReader.getDatasetFromFile()

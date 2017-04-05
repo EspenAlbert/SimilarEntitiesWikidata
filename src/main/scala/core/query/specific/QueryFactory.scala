@@ -391,6 +391,16 @@ object QueryFactory {
       """.stripMargin
     return executeQuery(queryString).getResults("o")
   }
+  def findSubjectsHavingMoreThanXStatementsOfPropertyWhereSubjectsAgainHaveObjectValue(thresholdCount: Int, property: String, subjectPropertyValuePair: (String, String))(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
+    val queryString =
+      s"""
+         |SELECT ?s (COUNT(?o) AS ?c) WHERE   {
+         |  ?s <$property> ?o .
+         |  ?o <${subjectPropertyValuePair._1}> <${subjectPropertyValuePair._2}>.
+         |} GROUP BY ?s HAVING ( ?c > ${thresholdCount} ) Order by desc(?c)
+      """.stripMargin
+    return executeQuery(queryString).getResults("s")
+  }
   def findMostCommonTypesOneStepUpInHierarchyForPropertyAndObject(property: String, objectEntity: String)(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
     val typeProperty = KnowledgeGraph.getTypeProperty(knowledgeGraph)
     val subclassProperty = KnowledgeGraph.getSubclassProperty(knowledgeGraph)
@@ -417,6 +427,26 @@ object QueryFactory {
         |Group by ?o ?p
         |Having (?oc > 1)
         |Order by desc(?oc)
+      """.stripMargin
+    val query = executeQuery(queryString)
+    val counts : List[Int] = query.getResults("oc")
+    val objects : List[String] = query.getResults("o")
+    val properties : List[String] = query.getResults("p")
+    return (for(i <- 0 until objects.size)yield(properties(i), objects(i), counts(i))).toList
+  }
+  def findPropertyObjectPairsCountsForObjectsHavingEntityAsSubjectForProperty(property: String, subject : String)(implicit knowledgeGraph : KnowledgeGraph) : List[(String, String, Int)] = {
+    val prefix = KnowledgeGraph.getDatasetEntityPrefix(knowledgeGraph)
+    val queryString =
+      s"""
+         |select ?p ?o (count(?o) as ?oc)
+         |where {
+         |  <$subject> <$property> ?oE .
+         |  ?oE ?p ?o .
+         |  filter(strstarts(str(?o), "$prefix"))
+         |}
+         |Group by ?o ?p
+         |Having (?oc > 1)
+         |Order by desc(?oc)
       """.stripMargin
     val query = executeQuery(queryString)
     val counts : List[Int] = query.getResults("oc")

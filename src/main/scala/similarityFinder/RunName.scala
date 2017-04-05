@@ -18,6 +18,7 @@ object RunName {
     case SearchDirectedL2Strategy.name => 6
     case SearchUndirectedL1Strategy.name => 7
     case SearchUndirectedL2Strategy.name => 8
+    case AggregatorStrategy.name => 9
   }
 
   def getRunName(strategies : List[String])(implicit knowledgeGraph: KnowledgeGraph): String = {

@@ -41,14 +41,17 @@ case class AggregatorStrategy(entity : String, property: String, isSubject: Bool
   }
 
   override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): Map[String, Feature] = {
-    val propertyValueCounts = QueryFactory.findPropertyObjectPairsCountsForSubjectsHavingEntityAsObjectForProperty(property, entity).filterNot(_._2 == entity)
+    val propertyValueCounts = if(isSubject) QueryFactory.findPropertyObjectPairsCountsForObjectsHavingEntityAsSubjectForProperty(property, entity) else
+      QueryFactory.findPropertyObjectPairsCountsForSubjectsHavingEntityAsObjectForProperty(property, entity).filterNot(_._2 == entity)
     val similars = mutable.HashSet[String]()
     for{
       (subjectProperty, objectValue, count) <- propertyValueCounts
       vmCount <-StrategyFactory.valueIsAPotentialValueMatchFindCount(objectValue, subjectProperty, true)
       thresholdCount <- (2 to count+2).find(c => (vmCount / c) < MyConfiguration.thresholdCountCheapStrategy)
     }{
-      similars ++= QueryFactory.findObjectsHavingMoreThanXStatementsOfPropertyWhereSubjectsAgainHaveObjectValue(thresholdCount, property, (subjectProperty, objectValue))
+      val addedSimilars = if (isSubject) QueryFactory.findSubjectsHavingMoreThanXStatementsOfPropertyWhereSubjectsAgainHaveObjectValue(thresholdCount, property, (subjectProperty, objectValue)) else
+        QueryFactory.findObjectsHavingMoreThanXStatementsOfPropertyWhereSubjectsAgainHaveObjectValue(thresholdCount, property, (subjectProperty, objectValue))
+      similars ++= addedSimilars
       //TODO: Add switch on and off for type restriction
     }
     return similars.map(_ -> new Feature(property, FeatureType.aggregateFeature, 1, weight)).toMap

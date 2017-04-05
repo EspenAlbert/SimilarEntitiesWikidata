@@ -17,6 +17,8 @@ object WikidataFactory {
 
   implicit val knowledgeGraph = KnowledgeGraph.wikidata
   val w = "http://www.wikidata.org/entity/"
+  val typeProperty = w + "P31"
+  val professionType = w + "Q28640"
   val directLinkProperty = w + "P1393"
   val itemProperty = w + "P1026"
   val valueMatchObject = w + "P1072"
@@ -78,6 +80,13 @@ object WikidataFactory {
       (w + "P264", w + "Q1273666", 4)
     )
     val otherPerformersWithMoreThan2RockMusicPerformances = List(w + "Q11036", w + "Q212533", w + "Q1052727", w + "Q2382329")
+    val occupationPropsMostPopularObjects = List(
+      (w + "P31", w + "Q28640", 5),
+      (w + "P1424", w + "Q18821574", 2),
+      (w + "P279", w + "Q33999", 2)
+    )
+    val recordLabelProp = w + "P264"
+    val recordLabelValues = List(w + "Q213710")
   }
 
 

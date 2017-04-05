@@ -93,5 +93,14 @@ class TestQueryFactory extends FunSuite{
       assert(actual.contains(tripple))
     })
   }
+  test("findPropertyObjectPairsCountsForObjectsHavingEntityAsSubjectForProperty, the occupations for ringo starrs most popular objects", ActiveTag) {
+    val actual = findPropertyObjectPairsCountsForObjectsHavingEntityAsSubjectForProperty(ringoStarr.occupationProp, ringoStarr.id)
+    val expected = ringoStarr.occupationPropsMostPopularObjects
+    assert(actual == expected)
+  }
+  test("findSubjectsHavingMoreThanXStatementsOfPropertyWhereSubjectsAgainHaveObjectValue, other people having more than 4 occupations", ActiveSlowTag) {
+    val actual = findSubjectsHavingMoreThanXStatementsOfPropertyWhereSubjectsAgainHaveObjectValue(4, ringoStarr.occupationProp, (wd.typeProperty, wd.professionType))
+    assert(actual.contains(ringoStarr.id))
+  }
 
 }

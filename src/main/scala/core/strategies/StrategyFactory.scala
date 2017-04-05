@@ -232,6 +232,16 @@ object StrategyFactory {
       case a if a==SimilarPropertyOntology.searchUndirectedL2Strategy.toString => {
         return Some(List(SearchUndirectedL2Strategy(property, range ++ domain)))
       }
+      case a if a==SimilarPropertyOntology.aggregatorStrategy.toString => {
+        val strategies = ArrayBuffer[Strategy]()
+        if(domain.size > 1){
+          strategies += AggregatorStrategy(entity, property, false, domain, rdfTypes)
+        }
+        if(range.size > 1){
+          strategies += AggregatorStrategy(entity, property, true, range, rdfTypes)
+        }
+        return Some(strategies.toList)
+      }
       case _ => None
     }
   }
