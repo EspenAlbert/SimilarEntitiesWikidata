@@ -5,6 +5,7 @@ import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.globals.SimilarPropertyOntology.SimilarPropertyOntology
 import core.query.specific.{AskQuery, QueryFactory, UpdateQueryFactory}
 import iAndO.dump.DumpObject
+import preprocessing.ownOntologyPopularizer.IsDescriptivePropertyClassifier
 import similarityFinder.MyConfiguration
 
 import scala.collection.mutable.{ArrayBuffer, ListBuffer}
@@ -17,10 +18,22 @@ class StrategyFactory(implicit knowledgeGraph: KnowledgeGraph) {
   private val filenamePropToStrategies = s"$knowledgeGraph-prop-strategies"
   private val filenamePropToDomainCount = s"$knowledgeGraph-prop-domain-count"
   private val filenamePropToRangeCount = s"$knowledgeGraph-prop-range-count"
+  private val filenamePropToIsDescriptive = s"$knowledgeGraph-prop-is-descriptive"
   var mapPropertyToStrategies = convertPropertiesAndStrategiesToMap
   var mapPropertyToDomainCounts = getDomainCounts
   var mapPropertyToRangeCounts = getRangeCounts
+  var mapPropertyToIsDescriptive = getIsDescriptive
 
+  private def getIsDescriptive: Map[String, Boolean] = {
+    if(StrategyFactory.forceRead) {
+      val (properties, isDescriptive) = QueryFactory.findIsDescriptive()
+      val mapped = properties.zip(isDescriptive).toMap
+      DumpObject.dumpMapStringBoolean(mapped, filenamePropToIsDescriptive)
+      return mapped
+    } else {
+      DumpObject.getMapStringBoolean(filenamePropToIsDescriptive)
+    }
+  }
   private def getDomainCounts: Map[String, Int] = {
     if(StrategyFactory.forceRead) {
       val (properties, strategies) = QueryFactory.findAllDomainCounts()

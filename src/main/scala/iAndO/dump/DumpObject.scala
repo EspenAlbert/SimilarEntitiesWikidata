@@ -13,6 +13,16 @@ import scala.collection.mutable
   */
 
 object DumpObject {
+  def dumpMapStringBoolean(dumpObject: Map[String, Boolean], filename: String) = {
+    val json = JacksMapper.writeValueAsString[Map[String, Boolean]](dumpObject)
+    val fullFilename: String = picklePath + filename + ".txt"
+    FileUtils.write(new File(fullFilename), json)
+  }
+  def getMapStringBoolean(filename: String): Map[String, Boolean] = {
+    val json = FileUtils.readFileToString(new File(picklePath + filename + ".txt"))
+    return JacksMapper.readValue[Map[String, Boolean]](json)
+  }
+
   def dumpMapStringInt(dumpObject: Map[String, Int], filename: String) = {
     val json = JacksMapper.writeValueAsString[Map[String, Int]](dumpObject)
     val fullFilename: String = picklePath + filename + ".txt"

@@ -1,10 +1,11 @@
 package query
 
 import core.globals.{KnowledgeGraph, MyDatasets}
-import core.query.specific.AskQuery
+import core.query.specific.{AskQuery, QueryFactory}
 import org.scalatest.FunSuite
 import tags.ActiveTag
 import core.query.specific.UpdateQueryFactory._
+import data.WikidataFactory
 /**
   * Created by espen on 20.03.17.
   */
@@ -20,6 +21,14 @@ class TestUpdateQueryFactory extends FunSuite{
   }
   test("clean dataset") {
     cleanDataset(MyDatasets.dsWikidata)
+  }
+  test("addIsDescriptive") {
+    implicit val knowledgeGraph = KnowledgeGraph.wikidata
+    val genderProp = WikidataFactory.ringoStarr.genderProp
+    addIsDescriptive(genderProp, true)
+    val (props, isDescriptive) = QueryFactory.findIsDescriptive
+    val index = props.indexWhere(_ == genderProp)
+    assert(isDescriptive(index))
   }
 
 }

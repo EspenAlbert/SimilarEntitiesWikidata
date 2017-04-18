@@ -29,6 +29,10 @@ class TestAskQueryWikidata extends FunSuite{
     assert(subjectHasType(graphKristiansand.entity, typesKristiansand))
     assert(!subjectHasType(graphKristiansand.entity, List(WikidataFactory.human)))
   }
+  test("maxCountSameSubject", ActiveTag) {
+    assert(!maxCountSameSubject(WikidataFactory.ringoStarr.spouseProp))
+    assert(maxCountSameSubject(WikidataFactory.ringoStarr.countryOfCitizenShipProperty))
+  }
 
 
 }

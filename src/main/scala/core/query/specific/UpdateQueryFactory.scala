@@ -1,7 +1,7 @@
 package core.query.specific
 
 import core.globals.KnowledgeGraph.KnowledgeGraph
-import core.globals.{MyDatasets, ResultsSimilarArtistsGlobals, SimilarPropertyOntology}
+import core.globals.{KnowledgeGraph, MyDatasets, ResultsSimilarArtistsGlobals, SimilarPropertyOntology}
 import jenaQuerier.QueryLocalServer
 
 /**
@@ -10,6 +10,7 @@ import jenaQuerier.QueryLocalServer
 object UpdateQueryFactory {
   val datatypeInteger = """^^<http://www.w3.org/2001/XMLSchema#integer>"""
   val datatypeDouble = """^^<http://www.w3.org/2001/XMLSchema#double>"""
+  val datatypeBoolean = SimilarPropertyOntology.datatypeBoolean
   def addStatsForRun(stats: (String, Double, Double, Int, Int, Int)): Unit = {
     val query =
       s"""
@@ -71,5 +72,14 @@ object UpdateQueryFactory {
   }
   def addStatements(statements: Iterable[String], dataset: String = MyDatasets.DsBig) = {
     QueryLocalServer.updateLocalData("insert { \n %s } \n where {}".format(statements.mkString("\n")), dataset)
+  }
+  def addIsDescriptive(property : String, isDescriptive: Boolean)(implicit knowledgeGraph: KnowledgeGraph) = {
+    val dataset = KnowledgeGraph.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph)
+    val query =
+      s"""
+       |insert { <$property> <${SimilarPropertyOntology.isDescriptive}> "$isDescriptive"^^<$datatypeBoolean>} where {}
+
+    """.stripMargin
+    QueryLocalServer.updateLocalData(query,dataset)
   }
 }

@@ -10,6 +10,20 @@ import scala.util.{Failure, Success, Try}
   * Created by Espen on 08.11.2016.
   */
 object AskQuery {
+  def maxCountSameSubject(property: String)(implicit knowledgeGraph: KnowledgeGraph): Boolean = {
+    val askQuery =
+      s"""
+         |ask {select ?o (COUNT(?s) AS ?c)
+         |WHERE   {
+         |  ?s  <$property>  ?o .
+         |}
+         |GROUP BY ?o
+         |HAVING ( ?c > 99 )
+         |}
+        """.stripMargin
+    return QueryLocalServer.ask(askQuery, DatasetInferrer.getDataset(askQuery))
+  }
+
   def subjectHasType(subject: String, rdfTypes: List[String])(implicit knowledgeGraph: KnowledgeGraph) : Boolean = {
     if(!subject.startsWith("http")) return false
     val askQuery =

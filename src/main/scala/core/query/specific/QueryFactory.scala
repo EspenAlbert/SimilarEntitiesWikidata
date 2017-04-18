@@ -11,6 +11,20 @@ import scala.util.Try
   * Created by espen on 17.02.17.
   */
 object QueryFactory {
+  def findIsDescriptive()(implicit knowledgeGraph: KnowledgeGraph) : (List[String], List[Boolean]) = {
+    val queryString =
+      s"""
+         |SELECT *
+         |WHERE {
+         |  ?property <${SimilarPropertyOntology.isDescriptive}> ?isDescriptive
+         |}
+        """.stripMargin
+    val query = executeQuery(queryString, KnowledgeGraph.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
+    val properties = query.getResults("property")
+    val strategies = query.getResults("isDescriptive")
+
+    return (properties,strategies)
+  }
 
 
   def findSubjectsOfProperty(property: String)(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {

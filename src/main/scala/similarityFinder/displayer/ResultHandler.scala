@@ -15,13 +15,19 @@ object ResultHandler {
       case Failure(e) => false
     }
   }
+  def notInvalid(run: String) : Boolean = {
+    Try(QueryFactorySimilarityResult.findResultsForRun(run)) match {
+      case Success(_) => true
+      case Failure(_) => false
+    }
+  }
 
   def calculateRecall(runName : String*): Unit = {
     val runs = if(runName == Seq()) QueryFactorySimilarityResult.findAllRuns() else runName
     val (calculatedRuns, notCalculatedRuns) = runs.partition(statsExist)
     println(s"Already calculated: $calculatedRuns")
     val v = for{
-      r <- notCalculatedRuns
+      r <- notCalculatedRuns.filter(notInvalid)//.filter(_.endsWith("SampleRun"))
       (qEntity, (recalled, notRecalled, execTime, foundEntitiesCount, hadTimeout)) <- QueryFactorySimilarityResult.findResultsForRun(r)
       found = recalled.size
       total = recalled.size + notRecalled.size
@@ -45,7 +51,7 @@ object ResultHandler {
     println(statsColumns)
     println(statsForRuns.mkString("\n"))
     statsForRuns.foreach(stat => UpdateQueryFactory.addStatsForRun(stat))
-    calculatedRuns.foreach(runName => println(QueryFactorySimilarityResult.findStatsForRun(runName)))
+    calculatedRuns.foreach(runName => println(runName, QueryFactorySimilarityResult.findStatsForRun(runName)))
   }
 
 }
