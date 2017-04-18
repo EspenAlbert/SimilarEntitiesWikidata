@@ -64,5 +64,11 @@ class TestProptypeToStrategyGeneratorWikidata extends FunSuite{
     val strategyURI : String = SimilarPropertyOntology.aggregatorStrategy
     addStrategyForAllItemProperties(propToType, strategyURI)
   }
+  test("ExpandNodeStrategy for all item properties", ActiveOnceTag) {
+    val propToType = DumpObject.readJsonMapStringPropertyType("wikidata-propToTypeMapping")
+    val strategyURI : String = SimilarPropertyOntology.expandNodeStrategy
+    addStrategyForAllItemProperties(propToType, strategyURI)
+  }
+
 
 }

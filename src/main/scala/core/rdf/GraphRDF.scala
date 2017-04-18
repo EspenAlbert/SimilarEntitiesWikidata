@@ -38,7 +38,6 @@ class GraphRDF(val entity : String)(implicit val knowledgeGraph: KnowledgeGraph)
       .++(for ((property, objectValue) <- eIsSubject._2 zip eIsSubject._1) yield (entity, property, objectValue))
     return statements
   }
-  val executionIsDone = true
   def isType(s: (String, String, String)): Boolean = {
     s match {
       case (s, "http://www.wikidata.org/entity/P31", o) => true
@@ -47,8 +46,8 @@ class GraphRDF(val entity : String)(implicit val knowledgeGraph: KnowledgeGraph)
     }
   }
 
-  def getTypes : List[String] = {
-    return statementsList.filter((s) => isType(s)).map(_._3)
+  lazy val getTypes : List[String] = {
+    statementsList.filter((s) => isType(s)).map(_._3)
   }
   def getStatementCountWithoutTypeStatements : Int = {
     return statementsList.size - getTypes.size

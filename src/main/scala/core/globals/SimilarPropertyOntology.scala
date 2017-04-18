@@ -42,6 +42,7 @@ object SimilarPropertyOntology extends Enumeration{
   val propertyMatchStrategy: SimilarPropertyOntology = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#PropertyMatchStrategy")
   val basePropertyClassId: SimilarPropertyOntology = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#Property")
   val aggregatorStrategy = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#AggregatorStrategy")
+  val expandNodeStrategy = Value("http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#expandNodeStrategy")
   val datatypeBoolean = Value("http://www.w3.org/2001/XMLSchema#boolean")
   val datatypeDouble = Value("http://www.w3.org/2001/XMLSchema#double")
   val timeoutElement = Value("TIMEOUT")

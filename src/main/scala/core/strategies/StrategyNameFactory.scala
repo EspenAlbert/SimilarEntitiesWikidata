@@ -19,6 +19,7 @@ object StrategyNameFactory {
       case a if a==SimilarPropertyOntology.searchUndirectedL1Strategy.toString => SearchUndirectedL1Strategy.name
       case a if a==SimilarPropertyOntology.searchUndirectedL2Strategy.toString => SearchUndirectedL2Strategy.name
       case a if a==SimilarPropertyOntology.aggregatorStrategy.toString => AggregatorStrategy.name
+      case a if a==SimilarPropertyOntology.expandNodeStrategy.toString => ExpandNodeStrategy.name
     }
   }
 

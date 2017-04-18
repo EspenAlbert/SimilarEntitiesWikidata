@@ -31,6 +31,7 @@ object SimilarityFinder2 {
       case c : PropertyMatchStrategy if(c.dbCount < MyConfiguration.thresholdCountCheapStrategy) => true
       case a @ (_:SearchUndirectedL1Strategy | _:SearchDirectedL1Strategy| _: SearchDirectedL2Strategy | _:SearchUndirectedL2Strategy) => true
       case a : AggregatorStrategy => true
+      case a : ExpandNodeStrategy => true
       case _ => false
     }
   }

@@ -26,7 +26,17 @@ object QueryFactory {
     return (properties,strategies)
   }
 
-
+  def findDistinctPropertiesWhereObject(objectValue: String)(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
+    val queryString =
+      s"""
+         |SELECT distinct ?p
+         |WHERE {
+         |  ?s ?p <$objectValue>
+         |}
+        """.stripMargin
+    val query = executeQuery(queryString)
+    return query.getResults("p")
+  }
   def findSubjectsOfProperty(property: String)(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
     val queryString =
       s"""

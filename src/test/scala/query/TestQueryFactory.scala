@@ -102,5 +102,10 @@ class TestQueryFactory extends FunSuite{
     val actual = findSubjectsHavingMoreThanXStatementsOfPropertyWhereSubjectsAgainHaveObjectValue(4, ringoStarr.occupationProp, (wd.typeProperty, wd.professionType))
     assert(actual.contains(ringoStarr.id))
   }
+  test("findDistinctPropertiesWhereObject for ringo starr", ActiveTag) {
+    val actual = findDistinctPropertiesWhereObject(ringoStarr.id)
+    val expected = List(ringoStarr.performerProp, ringoStarr.spouseProp)
+    assert(expected.forall(actual.contains(_)))
+  }
 
 }

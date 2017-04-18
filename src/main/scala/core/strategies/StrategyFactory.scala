@@ -70,6 +70,7 @@ class StrategyFactory(implicit knowledgeGraph: KnowledgeGraph) {
   }
 }
 object StrategyFactory {
+
   var forceRead = false
   var strategyFactoryWikidata: StrategyFactory = null
   var strategyFactoryDBpedia: StrategyFactory = null
@@ -84,6 +85,22 @@ object StrategyFactory {
     forceRead = false
   }
 
+  def isDescriptive(prop: String)(implicit knowledgeGraph: KnowledgeGraph) : Boolean = {
+    getStrategyFactory.mapPropertyToIsDescriptive.get(prop) match {
+      case Some(isDescriptive) => isDescriptive
+      case None => {
+        """P\d+q$""".r.findFirstIn(prop) match {
+          case Some(a) => {
+            val correctPropertyName = s"${KnowledgeGraph.getDatasetEntityPrefix(knowledgeGraph)}${a.init}"
+            getStrategyFactory.mapPropertyToIsDescriptive(correctPropertyName)
+          }
+          case None => false
+        }
+        false
+      }
+
+    }
+  }
   def getStrategyFactory(implicit knowledgeGraph: KnowledgeGraph) : StrategyFactory = {
     knowledgeGraph match {
       case KnowledgeGraph.wikidata => {
@@ -117,7 +134,7 @@ object StrategyFactory {
         .flatMap(option => option.getOrElse(throw new Exception("not defined")))
       case None => Nil
     }
-    return foundStrategies
+      return foundStrategies
   }
 
   def getDomainAndRangeWithCorrectType(domain: List[String], range: List[String], rdfTypes: List[String])(implicit knowledgeGraph: KnowledgeGraph): (List[String], List[String]) = {
@@ -245,6 +262,9 @@ object StrategyFactory {
       case a if a==SimilarPropertyOntology.searchUndirectedL2Strategy.toString => {
         return Some(List(SearchUndirectedL2Strategy(property, range ++ domain)))
       }
+      case a if a==SimilarPropertyOntology.expandNodeStrategy.toString => {
+        return Some(List(ExpandNodeStrategy(property, range ++ domain, rdfTypes)))
+      }
       case a if a==SimilarPropertyOntology.aggregatorStrategy.toString => {
         val strategies = ArrayBuffer[Strategy]()
         if(domain.size > 1){
@@ -259,12 +279,12 @@ object StrategyFactory {
     }
   }
 
-  def valueIsAPotentialValueMatchFindCount(value: String, property: String, isSubject: Boolean)(implicit knowledgeGraph: KnowledgeGraph): Option[Int] = {
+  def valueIsAPotentialValueMatchFindCount(value: String, property: String, valueIsSubject: Boolean)(implicit knowledgeGraph: KnowledgeGraph): Option[Int] = {
     if(!value.startsWith("http")) return None
     QueryFactory.getValueMatchFromExistingDb(value, property) match {
       case Some(s) => return Some(s)
       case None => {
-        val countFromDs = if (isSubject) QueryFactory.findCountForPropertyWithValue(property, value) else
+        val countFromDs = if (!valueIsSubject) QueryFactory.findCountForPropertyWithValue(property, value) else
           QueryFactory.findCountForPropertyWithSubject(property, value)
         countFromDs match {
           case Success(count) => {
@@ -272,7 +292,7 @@ object StrategyFactory {
             return Some(count)
           }
           case Failure(m) => {
-            println(s"Unable to find count for: $property with value: $value isSubject: $isSubject\n Failure message: $m")
+            println(s"Unable to find count for: $property with value: $value isSubject: $valueIsSubject\n Failure message: $m")
             return None
           }
         }
