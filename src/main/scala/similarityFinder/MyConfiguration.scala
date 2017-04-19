@@ -2,7 +2,7 @@ package similarityFinder
 
 import breeze.numerics.log
 import core.globals.SimilarPropertyOntology
-import core.strategies.{AggregatorStrategy, DirectLinkStrategy, PropertyMatchStrategy, ValueMatchStrategy}
+import core.strategies._
 
 import scala.collection.mutable.ListBuffer
 
@@ -12,7 +12,7 @@ import scala.collection.mutable.ListBuffer
 object MyConfiguration {
 
   val thresholdForBeingDescriptiveProperty = 3
-  val verbose = false
+  val verbose = true
   var useRdfType: Boolean = false
   var doScaling = false
   val globalInBNotInAActive = false
@@ -30,7 +30,7 @@ object MyConfiguration {
   var thresholdCountCheapStrategy = 1000
 
   def getConfigName(strategies : List[String]) : String = {
-    val strategiesWithConfig = List(AggregatorStrategy.name, ValueMatchStrategy.name, DirectLinkStrategy.name, PropertyMatchStrategy.name)
+    val strategiesWithConfig = List(AggregatorStrategy.name, ValueMatchStrategy.name, DirectLinkStrategy.name, PropertyMatchStrategy.name, ExpandNodeStrategy.name)
     if(!strategies.forall(strategiesWithConfig.contains)) return ""
     var names = ListBuffer[String]()
     if(useRdfType) names += "UseRdfType"

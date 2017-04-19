@@ -8,6 +8,7 @@ import jenaQuerier.QueryLocalServer
   * Created by Espen on 01.12.2016.
   */
 object UpdateQueryFactory {
+
   val datatypeInteger = """^^<http://www.w3.org/2001/XMLSchema#integer>"""
   val datatypeDouble = """^^<http://www.w3.org/2001/XMLSchema#double>"""
   val datatypeBoolean = SimilarPropertyOntology.datatypeBoolean
@@ -78,6 +79,17 @@ object UpdateQueryFactory {
     val query =
       s"""
        |insert { <$property> <${SimilarPropertyOntology.isDescriptive}> "$isDescriptive"^^<$datatypeBoolean>} where {}
+
+    """.stripMargin
+    QueryLocalServer.updateLocalData(query,dataset)
+  }
+  def addDomainAndRangeTypesForProperty(domains: List[String], ranges: List[String], property: String)(implicit knowledgeGraph: KnowledgeGraph): Unit = {
+    val dataset = KnowledgeGraph.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph)
+    val domainStatements = domains.map(d => s"<$d> <${SimilarPropertyOntology.isDomainType}> <$property> .").mkString("\n")
+    val rangeStatements = ranges.map(r => s"<$r> <${SimilarPropertyOntology.isRangeType}> <$property> .").mkString("\n")
+    val query =
+      s"""
+         |insert { $domainStatements $rangeStatements} where {}
 
     """.stripMargin
     QueryLocalServer.updateLocalData(query,dataset)

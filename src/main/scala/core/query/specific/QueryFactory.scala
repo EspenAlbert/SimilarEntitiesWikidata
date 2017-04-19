@@ -11,6 +11,55 @@ import scala.util.Try
   * Created by espen on 17.02.17.
   */
 object QueryFactory {
+  def findRangeTypesForPropertyLocally(property: String)(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
+    val queryString =
+      s"""
+         |SELECT ?s
+         |WHERE {
+         |  ?s <${SimilarPropertyOntology.isRangeType}> <$property> .
+         |}
+        """.stripMargin
+    val query = executeQuery(queryString, KnowledgeGraph.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
+    return query.getResults("s")
+  }
+
+  def findDomainTypesForPropertyLocally(property: String)(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
+    val queryString =
+      s"""
+         |SELECT ?s
+         |WHERE {
+         |  ?s <${SimilarPropertyOntology.isDomainType}> <$property> .
+         |}
+        """.stripMargin
+    val query = executeQuery(queryString, KnowledgeGraph.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
+    return query.getResults("s")
+  }
+
+
+  def findDomainTypesForProperty(property: String)(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
+    val queryString =
+      s"""
+         |SELECT distinct ?t
+         |WHERE {
+         |  ?s <$property> ?o .
+         |  ?s <${KnowledgeGraph.getTypeProperty(knowledgeGraph)}> ?t
+         |}
+        """.stripMargin
+    val query = executeQuery(queryString)
+    return query.getResults("t")
+  }
+  def findRangeTypesForProperty(property: String)(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
+    val queryString =
+      s"""
+         |SELECT distinct ?t
+         |WHERE {
+         |  ?s <$property> ?o .
+         |  ?o <${KnowledgeGraph.getTypeProperty(knowledgeGraph)}> ?t
+         |}
+        """.stripMargin
+    val query = executeQuery(queryString)
+    return query.getResults("t")
+  }
   def findIsDescriptive()(implicit knowledgeGraph: KnowledgeGraph) : (List[String], List[Boolean]) = {
     val queryString =
       s"""

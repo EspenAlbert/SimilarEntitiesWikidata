@@ -48,7 +48,7 @@ class TestExecutionSuiteForStrategies extends FunSuite{
       KnowledgeGraph.wikidata
 //      KnowledgeGraph.dbPedia
     )
-    executeStrategiesOnDatasets(strategies, knowledgeGraphs)
+    executeStrategiesOnDatasets(strategies, knowledgeGraphs, true)
 //    ResultHandler.calculateRecall
 //
   }

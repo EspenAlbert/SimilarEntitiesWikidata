@@ -47,6 +47,8 @@ object SimilarPropertyOntology extends Enumeration{
   val datatypeDouble = Value("http://www.w3.org/2001/XMLSchema#double")
   val timeoutElement = Value("TIMEOUT")
   val isDescriptive: SimilarPropertyOntology = Value(spo + "isDescriptiveProperty")
+  val isDomainType: SimilarPropertyOntology = Value(spo + "isDomainType")
+  val isRangeType : SimilarPropertyOntology = Value(spo + "isRangeType")
 
 
   implicit def getString(similarPropertyOntology: SimilarPropertyOntology) : String = {

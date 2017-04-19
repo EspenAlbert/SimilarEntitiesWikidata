@@ -25,6 +25,7 @@ object MyDatasets{
 }
 
 object KnowledgeGraph extends Enumeration {
+
   def getSubclassProperty(knowledgeGraph: KnowledgeGraph) : String = {
     knowledgeGraph match {
       case KnowledgeGraph.wikidata => return subclassOfPropertyWikidata
@@ -55,6 +56,12 @@ object KnowledgeGraph extends Enumeration {
     knowledgeGraph match {
       case KnowledgeGraph.wikidata => SimilarPropertyOntology.w
       case KnowledgeGraph.dbPedia => dbpResource
+    }
+  }
+  def getMapPropToPropTypeFilename(knowledgeGraph: KnowledgeGraph) : String = {
+    knowledgeGraph match {
+      case KnowledgeGraph.wikidata => "wikidata-propToTypeMapping"
+      case KnowledgeGraph.dbPedia => "DBpedia-propToTypeMapping"
     }
   }
   implicit def getString(knowledgeGraph: KnowledgeGraph) : String = {

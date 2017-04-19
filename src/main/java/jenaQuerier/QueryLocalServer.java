@@ -71,11 +71,7 @@ public class QueryLocalServer {
         QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/" + dataset +"/query", queryString);
         try {
             ResultSet results = qexec.execSelect();
-//            System.out.println("done executing query");
-
             ResultSetFormatter.out(outputStream, results, query);
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
         } finally {
             qexec.close();
 
