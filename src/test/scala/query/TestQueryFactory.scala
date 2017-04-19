@@ -6,6 +6,7 @@ import core.globals.KnowledgeGraph
 import core.query.specific.AskQuery
 import org.scalatest.FunSuite
 import core.query.specific.QueryFactory._
+import core.strategies.ExpandNodeStrategy
 import data.WikidataFactory
 import similarityFinder.MyConfiguration
 import tags.{ActiveSlowTag, ActiveTag}
@@ -127,6 +128,29 @@ class TestQueryFactory extends FunSuite{
     val rangeProps = List(w + "P19")
     val actuals = findOrderedCountForTypes(domainProps, rangeProps).take(10)
     expected.foreach(e => assert(actuals.contains(e)))
+  }
+  test("objectsWithPropertyAndSubject", ActiveTag) {
+    MyConfiguration.useMustHaveProperty = true
+    ExpandNodeStrategy.mustHaveProperty = ringoStarr.performerProp
+    ExpandNodeStrategy.mustHavePropertyIsSubject = false
+    val objects = objectsWithPropertyAndSubject(ringoStarr.spouseProp, ringoStarr.id)
+    assert(objects.head == "http://www.wikidata.org/entity/Q233993")
+    MyConfiguration.useMustHaveProperty = false
+    val objectsWithoutRequirement = objectsWithPropertyAndSubject(ringoStarr.spouseProp, ringoStarr.id)
+    assert(objectsWithoutRequirement == ringoStarr.spouseValues)
+  }
+  test("subjectsWithPropertyAndValue", ActiveTag) {
+    MyConfiguration.useMustHaveProperty = true
+    ExpandNodeStrategy.mustHaveProperty = ringoStarr.spouseProp
+    ExpandNodeStrategy.mustHavePropertyIsSubject = true
+    val subjects =subjectsWithPropertyAndValue(ringoStarr.memberOfProp, ringoStarr.memberOfValue)
+    assert(!subjects.contains(wd.peteBest))
+    MyConfiguration.useMustHaveProperty = false
+    val subjectsNoRestriction =subjectsWithPropertyAndValue(ringoStarr.memberOfProp, ringoStarr.memberOfValue)
+    assert(wd.theBeatles.members.forall(subjectsNoRestriction.contains(_)))
+    println(subjects)
+    println(subjectsNoRestriction)
+
   }
 
 }

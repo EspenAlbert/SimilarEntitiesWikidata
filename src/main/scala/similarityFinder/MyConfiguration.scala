@@ -12,6 +12,7 @@ import scala.collection.mutable.ListBuffer
 object MyConfiguration {
 
 
+  var useMustHaveProperty: Boolean = false
   var numberOfComparableTypes = 10
   var filterOnRdfType = false
   val thresholdForBeingDescriptiveProperty = 3

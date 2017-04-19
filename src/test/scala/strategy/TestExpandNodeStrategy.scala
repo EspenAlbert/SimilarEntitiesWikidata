@@ -43,4 +43,16 @@ class TestExpandNodeStrategy extends FunSuite{
     val foundEntitiesWithFilter = simFinderWithFilter.findInitialEntitiesAsSet()
     assert(foundEntitiesWithFilter.size > 100 && foundEntitiesWithFilter.size < foundEntities.size)
   }
+  test("Similarity generation with useMustHaveProperty for rStarr", ActiveSlowTag) {
+    MyConfiguration.filterOnRdfType = false
+    StrategyFactory.setupStrategyFactory(List(ExpandNodeStrategy.name))
+    val simFinder = new SimilarityFinder2(rStarr.id, useFilteringGraphRDF = true)
+    val foundEntities = simFinder.findInitialEntitiesAsSet()
+    assert(foundEntities.size > 100)
+    MyConfiguration.useMustHaveProperty = true
+    StrategyFactory.setupStrategyFactory(List(ExpandNodeStrategy.name))
+    val simFinderWithFilter = new SimilarityFinder2(rStarr.id, useFilteringGraphRDF = true)
+    val foundEntitiesWithFilter = simFinderWithFilter.findInitialEntitiesAsSet()
+    assert(foundEntitiesWithFilter.size > 100 && foundEntitiesWithFilter.size < foundEntities.size)
+  }
 }

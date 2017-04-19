@@ -62,4 +62,6 @@ case class ExpandNodeStrategy (property : String, values : List[String], types: 
 
 object ExpandNodeStrategy {
   val name: String = "ExpandNodeStrategy"
+  var mustHaveProperty : String = ""
+  var mustHavePropertyIsSubject : Boolean = true
 }

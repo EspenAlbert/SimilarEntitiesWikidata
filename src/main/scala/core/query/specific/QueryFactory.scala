@@ -3,6 +3,8 @@ package core.query.specific
 import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.globals.{KnowledgeGraph, MyDatasets, PrimitiveDatatype, SimilarPropertyOntology}
 import core.query.Query
+import core.strategies.ExpandNodeStrategy
+import similarityFinder.MyConfiguration
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Try
@@ -183,53 +185,77 @@ object QueryFactory {
   }
 
 
-  def objectsOfTypeWithPropertyAndSubject(property: String, subject: String, rdfTypes: List[String])(implicit knowledgeGraph : KnowledgeGraph): List[String] = {
+  def objectsOfTypeWithPropertyAndSubject(property: String, subject: String, rdfTypes: List[String], useMustHaveProperty : Boolean = MyConfiguration.useMustHaveProperty)(implicit knowledgeGraph : KnowledgeGraph): List[String] = {
+    val extraFilter = findExtraFilter(useMustHaveProperty, "o")
     val queryString =
       s"""
          |SELECT ?o
          |WHERE {
          |  <$subject> <$property> ?o .
+         |  $extraFilter
          |${QueryHelper.getSameTypeFilterForQueryVariable("o", rdfTypes)}
          |}
+         |Group by ?o
         """.stripMargin
     val query = executeQuery(queryString)
     val objects = query.getResults("o")
     return objects
   }
-  def objectsWithPropertyAndSubject(property: String, subject: String)(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
+
+  def findExtraFilter(useMustHaveProperty: Boolean, queryVariable : String) : String = {
+    if(!useMustHaveProperty) return ""
+    if(ExpandNodeStrategy.mustHaveProperty == "") return ""
+    if(ExpandNodeStrategy.mustHavePropertyIsSubject) s"?$queryVariable <${ExpandNodeStrategy.mustHaveProperty}> ?dontMatter ."
+    else {
+      s"?dontMatter <${ExpandNodeStrategy.mustHaveProperty}> ?$queryVariable ."
+    }
+
+  }
+
+  def objectsWithPropertyAndSubject(property: String, subject: String, useMustHaveProperty : Boolean = MyConfiguration.useMustHaveProperty)(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
+    val extraFilter = findExtraFilter(useMustHaveProperty, "o")
     val queryString =
       s"""
          |SELECT ?o
          |WHERE {
          |  <$subject> <$property> ?o .
+         |  $extraFilter
          |}
+         |Group by ?o
         """.stripMargin
     val query = executeQuery(queryString)
     val objects = query.getResults("o")
     return objects
 
   }
-  def subjectsOfTypeWithPropertyAndValue(property: String, objectValue: String, rdfTypes: List[String])(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
+  def subjectsOfTypeWithPropertyAndValue(property: String, objectValue: String, rdfTypes: List[String], useMustHaveProperty : Boolean = MyConfiguration.useMustHaveProperty)(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
+    val extraFilter = findExtraFilter(useMustHaveProperty, "s")
     val queryString =
       s"""
          |SELECT ?s
          |WHERE {
          |  ?s <$property> <$objectValue> .
+         |  $extraFilter
          |${QueryHelper.getSameTypeFilterForQueryVariable("s", rdfTypes)}
          |}
+         |Group by ?s
         """.stripMargin
     val query = executeQuery(queryString)
     val subjects = query.getResults("s")
     return subjects
   }
 
-  def subjectsWithPropertyAndValue(property: String, value: String)(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
+  def subjectsWithPropertyAndValue(property: String, value: String, useMustHaveProperty : Boolean = MyConfiguration.useMustHaveProperty)(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
+
+    val extraFilter = findExtraFilter(useMustHaveProperty, "s")
     val queryString =
       s"""
          |SELECT ?s
          |WHERE {
          |  ?s <$property> <$value> .
+         |  $extraFilter
          |}
+         |Group by ?s
         """.stripMargin
     val query = executeQuery(queryString)
     val subjects = query.getResults("s")

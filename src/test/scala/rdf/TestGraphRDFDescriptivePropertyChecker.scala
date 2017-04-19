@@ -2,6 +2,7 @@ package rdf
 
 import core.globals.KnowledgeGraph
 import core.rdf.{GraphRDF, GraphRDFDescriptivePropertyChecker}
+import core.strategies.ExpandNodeStrategy
 import data.WikidataFactory
 import org.scalatest.FunSuite
 import similarityFinder.MyConfiguration
@@ -33,6 +34,18 @@ class TestGraphRDFDescriptivePropertyChecker extends FunSuite{
     val graphRDF = new GraphRDFDescriptivePropertyChecker(rStarr.id)
     assert(graphRDF.getTypes.contains(wd.human))
     assert(graphRDF.getTypes.contains(wd.band), "Didn't contain rock band among comparable types!")
+  }
+  test("findMaxCount", ActiveTag) {
+    val testList = List("a", "a", "a", "b") ++ List.fill(10)("c")
+    assert(GraphRDFDescriptivePropertyChecker.findMaxCount(testList)._1 == "c")
+  }
+  test("findMaxCount ringo starr should be the performer property", ActiveTag) {
+    MyConfiguration.useMustHaveProperty = true
+    val expected = rStarr.performerProp
+    val graphRDF = new GraphRDFDescriptivePropertyChecker(rStarr.id)
+    val doesntMatter = graphRDF.getTypes
+    assert(ExpandNodeStrategy.mustHaveProperty == expected)
+    assert(!ExpandNodeStrategy.mustHavePropertyIsSubject)
   }
 
 }

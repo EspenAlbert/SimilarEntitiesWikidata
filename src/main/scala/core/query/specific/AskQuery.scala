@@ -99,8 +99,9 @@ object AskQuery {
 
   }
 
-  def ask(f : () => String)(implicit knowledgeGraph: KnowledgeGraph) : Boolean = {
-    return QueryLocalServer.ask(s"ask WHERE {${f()} }", DatasetInferrer.getDataset(f()))
+  def ask(f : () => String, ds : String = "")(implicit knowledgeGraph: KnowledgeGraph) : Boolean = {
+    val dataset = if(ds!= "") ds else DatasetInferrer.getDataset(f())
+    return QueryLocalServer.ask(s"ask WHERE {${f()} }", dataset)
   }
 
 
