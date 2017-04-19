@@ -15,7 +15,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
   */
 class GraphRDF(val entity : String)(implicit val knowledgeGraph: KnowledgeGraph) {
 
-  val entityIsObjectStatements = Future{
+  lazy val entityIsObjectStatements = Future{
     QueryFactory.findSubjectsAndProperties(entity)
   }
   val entityIsSubjectStatments = Future{

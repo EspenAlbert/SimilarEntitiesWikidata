@@ -25,10 +25,10 @@ class TestExpandNodeStrategy extends FunSuite{
     assert(similarsFound.contains(anExpectedSimilar))
     assert(!similarsFound.contains(unexpectedSimilar))
   }
-//  test("Similarity generation for rStarr", ActiveSlowTag) {
-//    StrategyFactory.setupStrategyFactory(List(AggregatorStrategy.name))
-//    val simFinder = new SimilarityFinder2(rStarr.id)
-//    val foundEntities = simFinder.findInitialEntitiesAsSet()
-//    assert(foundEntities.size > 100)
-//  }
+  test("Similarity generation for rStarr", ActiveSlowTag) {
+    StrategyFactory.setupStrategyFactory(List(ExpandNodeStrategy.name))
+    val simFinder = new SimilarityFinder2(rStarr.id, useFilteringGraphRDF = true)
+    val foundEntities = simFinder.findInitialEntitiesAsSet()
+    assert(foundEntities.size > 100)
+  }
 }

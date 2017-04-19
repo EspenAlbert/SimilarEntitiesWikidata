@@ -92,7 +92,10 @@ object StrategyFactory {
         """P\d+q$""".r.findFirstIn(prop) match {
           case Some(a) => {
             val correctPropertyName = s"${KnowledgeGraph.getDatasetEntityPrefix(knowledgeGraph)}${a.init}"
-            getStrategyFactory.mapPropertyToIsDescriptive(correctPropertyName)
+            getStrategyFactory.mapPropertyToIsDescriptive.get(correctPropertyName) match {
+              case Some(b) => b
+              case None => false
+            }
           }
           case None => false
         }

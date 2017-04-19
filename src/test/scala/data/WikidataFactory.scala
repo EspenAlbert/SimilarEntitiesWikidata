@@ -48,6 +48,7 @@ object WikidataFactory {
       case e => List(e)
     }
   }
+  val headOfGovernment = w + "P6"
   val davidCameron = w + "Q192"
   val obama = w + "Q76"
   val human = w + "Q5"

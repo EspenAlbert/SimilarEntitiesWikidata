@@ -6,7 +6,7 @@ import akka.stream.{ActorMaterializer, ActorMaterializerSettings, ClosedShape}
 import akka.stream.scaladsl.{Broadcast, Flow, GraphDSL, Merge, Partition, RunnableGraph, Sink, Source, Unzip, UnzipWith, Zip}
 import core.feature.Feature
 import core.globals.KnowledgeGraph.KnowledgeGraph
-import core.rdf.GraphRDF
+import core.rdf.{GraphRDF, GraphRDFDescriptivePropertyChecker}
 import core.strategies._
 import shapeless.ops.hlist.ZipWith
 import similarityFinder.displayer.Displayer
@@ -36,13 +36,13 @@ object SimilarityFinder2 {
     }
   }
 }
-class SimilarityFinder2(qEntity : String,systemParam: ActorSystem = null, materializerParam: ActorMaterializer = null)(implicit val knowledgeGraph: KnowledgeGraph) {
+class SimilarityFinder2(qEntity : String,systemParam: ActorSystem = null, materializerParam: ActorMaterializer = null, useFilteringGraphRDF: Boolean = false)(implicit val knowledgeGraph: KnowledgeGraph) {
 
 
   implicit val system = if(systemParam == null) ActorSystem("my-system") else systemParam
   implicit val materializer = if(materializerParam == null) ActorMaterializer(ActorMaterializerSettings(system).withInputBuffer(2048, 2048)) else materializerParam
 
-  val qEntityGraph = new GraphRDF(qEntity)
+  val qEntityGraph = if(useFilteringGraphRDF) new GraphRDFDescriptivePropertyChecker(qEntity) else new GraphRDF(qEntity)
   var expensiveStrategyList : Seq[Strategy] = null
 
   def findInitialEntitiesAsSet() : Set[String] = {
