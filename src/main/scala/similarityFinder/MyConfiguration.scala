@@ -11,6 +11,9 @@ import scala.collection.mutable.ListBuffer
   */
 object MyConfiguration {
 
+
+  var numberOfComparableTypes = 10
+  var filterOnRdfType = false
   val thresholdForBeingDescriptiveProperty = 3
   val verbose = true
   var useRdfType: Boolean = false

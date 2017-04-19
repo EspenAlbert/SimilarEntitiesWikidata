@@ -120,5 +120,13 @@ class TestQueryFactory extends FunSuite{
     assert(expected.forall(actual.contains(_)))
     assert(notExpected.forall(!actual.contains(_)))
   }
+  test("findOrderedCountForTypes", ActiveTag) {
+    val expected = List("http://www.wikidata.org/entity/Q15632617", "http://www.wikidata.org/entity/Q5", "http://www.wikidata.org/entity/Q188784")
+    val w = wd.w
+    val domainProps = List(w + "P21", w + "P26", w + "P40", w + "P19")
+    val rangeProps = List(w + "P19")
+    val actuals = findOrderedCountForTypes(domainProps, rangeProps).take(10)
+    expected.foreach(e => assert(actuals.contains(e)))
+  }
 
 }

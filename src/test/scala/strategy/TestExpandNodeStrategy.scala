@@ -5,7 +5,7 @@ import core.rdf.GraphRDF
 import core.strategies.{AggregatorStrategy, ExpandNodeStrategy, StrategyFactory}
 import data.WikidataFactory
 import org.scalatest.FunSuite
-import similarityFinder.SimilarityFinder2
+import similarityFinder.{MyConfiguration, SimilarityFinder2}
 import tags.ActiveSlowTag
 
 /**
@@ -30,5 +30,17 @@ class TestExpandNodeStrategy extends FunSuite{
     val simFinder = new SimilarityFinder2(rStarr.id, useFilteringGraphRDF = true)
     val foundEntities = simFinder.findInitialEntitiesAsSet()
     assert(foundEntities.size > 100)
+  }
+  test("Similarity generation with filtering for rStarr", ActiveSlowTag) {
+    MyConfiguration.filterOnRdfType = false
+    StrategyFactory.setupStrategyFactory(List(ExpandNodeStrategy.name))
+    val simFinder = new SimilarityFinder2(rStarr.id, useFilteringGraphRDF = true)
+    val foundEntities = simFinder.findInitialEntitiesAsSet()
+    assert(foundEntities.size > 100)
+    MyConfiguration.filterOnRdfType = true
+    StrategyFactory.setupStrategyFactory(List(ExpandNodeStrategy.name))
+    val simFinderWithFilter = new SimilarityFinder2(rStarr.id, useFilteringGraphRDF = true)
+    val foundEntitiesWithFilter = simFinderWithFilter.findInitialEntitiesAsSet()
+    assert(foundEntitiesWithFilter.size > 100 && foundEntitiesWithFilter.size < foundEntities.size)
   }
 }

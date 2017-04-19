@@ -24,18 +24,38 @@ case class ExpandNodeStrategy (property : String, values : List[String], types: 
         propertiesWhereObject = QueryFactory.findDistinctPropertiesWhereObject(entity)
         prop <- propertiesWhereObject
         if (!StrategyFactory.isDescriptive(prop) || StrategyFactory.valueIsAPotentialValueMatchFindCount(entity, prop, false).get < MyConfiguration.thresholdCountCheapStrategy)
-        otherEntities = QueryFactory.subjectsWithPropertyAndValue(prop, entity)
+        otherEntities = findSubjectsWhereEntityIsObjectForProperty(entity, prop)
       } yield otherEntities
     }.flatten
     val l2ValuesObjects = l1Values.keys.flatMap(QueryFactory.findPropertiesAndObjects(_)._1)
+    if(MyConfiguration.filterOnRdfType) return (StrategyFactory.getDomainAndRangeWithCorrectType(l1Values.keys.toList, Nil, types)._1 ++ l2ValuesObjects ++ l2Subjects).map(e => e ->feature).toMap
     return l1Values ++ filterOnlyEntities(prefix, l2ValuesObjects) ++ filterOnlyEntities(prefix, l2Subjects)
+  }
+
+  private def findSubjectsWhereEntityIsObjectForProperty(entity: String, property : String)(implicit knowledgeGraph: KnowledgeGraph) = {
+    MyConfiguration.filterOnRdfType match {
+      case false=> QueryFactory.subjectsWithPropertyAndValue(property, entity)
+      case true => {
+        QueryFactory.subjectsOfTypeWithPropertyAndValue(property, entity, types)
+      }
+    }
+  }
+  private def findObjectsWhereEntityIsSubjectForProperty(entity: String, property : String)(implicit knowledgeGraph: KnowledgeGraph) = {
+    MyConfiguration.filterOnRdfType match {
+      case false=> QueryFactory.objectsWithPropertyAndSubject(property, entity)
+      case true => {
+        QueryFactory.objectsOfTypeWithPropertyAndSubject(property, entity, types)
+      }
+    }
   }
 
   private def filterOnlyEntities(prefix: String, values : Iterable[String]): Map[String, Feature] = {
     return values.filter(_.startsWith(prefix))
-      .map(e => (e -> new Feature(property, FeatureType.searchExpandNode, 1, weight)))
+      .map(e => (e -> feature))
       .toMap
   }
+
+  val feature = new Feature(property, FeatureType.searchExpandNode, 1, weight)
 
   override val name: String = ExpandNodeStrategy.name
 }

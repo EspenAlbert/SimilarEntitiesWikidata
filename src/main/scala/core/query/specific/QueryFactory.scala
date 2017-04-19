@@ -11,6 +11,21 @@ import scala.util.Try
   * Created by espen on 17.02.17.
   */
 object QueryFactory {
+  def findOrderedCountForTypes(isDomainProperties: List[String], isRangeProperties: List[String])(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
+    val typesIsDomainOfProperties = isDomainProperties.map(p => s"{?s <${SimilarPropertyOntology.isDomainType}> <$p> }").mkString("UNION")
+    val typesIsRangeOfProperties = isRangeProperties.map(p => s"{?s <${SimilarPropertyOntology.isRangeType}> <$p> }").mkString("UNION")
+    val queryString =
+      s"""
+         |select ?s (count(?s) as ?c)
+         |where {
+         |  $typesIsDomainOfProperties UNION $typesIsRangeOfProperties
+         |}Group by ?s
+         |Order by desc(?c)
+        """.stripMargin
+    val query = executeQuery(queryString, KnowledgeGraph.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
+    return query.getResults("s")
+  }
+
   def findRangeTypesForPropertyLocally(property: String)(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
     val queryString =
       s"""

@@ -20,6 +20,7 @@ object TypeDomainAndRangeCreator {
       kg <- knowledgeGraphs
       properties = IOFactory.getAllItemProperties(kg)
       p <- properties
+      if p != KnowledgeGraph.getTypeProperty(kg)
     } {
       findAndStoreDomainAndRangeTypesForProperty(p)(kg)
     }
