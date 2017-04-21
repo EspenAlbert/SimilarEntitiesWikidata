@@ -9,21 +9,13 @@ import core.query.variables.ResultVariable
   * Created by espen on 30.03.17.
   */
 object QueryFactorySimilarityResult {
+
   private def executeQuery(queryString: String): Query = {
     val query = new Query(() => queryString, MyDatasets.resultsSimilarArtists)
     query.execute()
     query
   }
   private def findResultsForEntityForRun(runName: String, entity : String): (List[String], List[String], Int, Int, Boolean) = {
-    val recalledQuery =
-      s"""
-         |select ?r
-         |where {
-         |  <$runName> <${ResultsSimilarArtistsGlobals.qEntityResult}> ?o .
-         |  ?o <${ResultsSimilarArtistsGlobals.qEntity}> <$entity> .
-         |  ?o <${ResultsSimilarArtistsGlobals.recalled}> ?r .
-         |}
-       """.stripMargin
     val notRecalledQuery =
       s"""
          |select ?nR
@@ -44,13 +36,44 @@ object QueryFactorySimilarityResult {
          |  ?o <${ResultsSimilarArtistsGlobals.hadTimeout}> ?hT .
          |}
          """.stripMargin
-    val recalled : List[String] = executeQuery(recalledQuery).getResults("r")
+    val recalled: List[String] = findRecalledEntities(runName, entity)
     val notRecalled : List[String] = executeQuery(notRecalledQuery).getResults("nR")
     val timeAndEntityCount =  executeQuery(timeAndEntityCountQuery)
     val execTime : Int = timeAndEntityCount.getResults("eT")(0)
     val foundEntitiesCount : Int = timeAndEntityCount.getResults("feT")(0)
     val hadTimeout : Boolean = timeAndEntityCount.getResults("hT")(0)
     return (recalled, notRecalled, execTime, foundEntitiesCount, hadTimeout)
+  }
+  def findFeatures(runName: String, qEntity: String, recalledEntity: String) : (List[String], List[Double]) = {
+    val queryString =
+      recalledQuery(runName, qEntity).init +
+      s"""
+         |?bR <${ResultsSimilarArtistsGlobals.featureFound}> ?fF .
+         |?fF <${ResultsSimilarArtistsGlobals.featureName}> ?fN .
+         |?fF <${ResultsSimilarArtistsGlobals.featureWeight}> ?fW .}""".stripMargin
+    val correctSelect = queryString.replace("select ?r", "select ?fN ?fW")
+    val correctSelectWithRecalled = correctSelect.replace("?r", s"<$recalledEntity>")
+    val query = executeQuery(correctSelectWithRecalled)
+    (query.getResults("fN"), query.getResults("fW"))
+
+  }
+
+  private def recalledQuery(runName: String, qEntity: String) : String = {
+    val recalledQuery =
+      s"""
+         |select ?r
+         |where {
+         |  <$runName> <${ResultsSimilarArtistsGlobals.qEntityResult}> ?o .
+         |  ?o <${ResultsSimilarArtistsGlobals.qEntity}> <$qEntity> .
+         |  ?o <${ResultsSimilarArtistsGlobals.recalled}> ?bR .
+         |  ?bR <${ResultsSimilarArtistsGlobals.entityRelation}> ?r .
+         |}""".stripMargin
+    recalledQuery
+  }
+
+  def findRecalledEntities(runName: String, qEntity: String) : List[String]= {
+    val recalled: List[String] = executeQuery(recalledQuery(runName, qEntity)).getResults("r")
+    recalled
   }
 
   //Want Map[qEntity,(Recalled, notRecalled, time, foundEntitiesCount)

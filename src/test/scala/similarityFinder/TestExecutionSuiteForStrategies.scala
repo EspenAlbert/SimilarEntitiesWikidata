@@ -45,8 +45,8 @@ class TestExecutionSuiteForStrategies extends FunSuite{
 //        DirectLinkStrategy.name
     )
     val knowledgeGraphs = List(
-      KnowledgeGraph.wikidata
-//      KnowledgeGraph.dbPedia
+//      KnowledgeGraph.wikidata
+      KnowledgeGraph.dbPedia
     )
     executeStrategiesOnDatasets(strategies, knowledgeGraphs, true)
 //    ResultHandler.calculateRecall
@@ -62,10 +62,16 @@ class TestExecutionSuiteForStrategies extends FunSuite{
   }
   test("Expand Node Strategy") {
     val strategies = List(ExpandNodeStrategy.name)
-    val thresholdCounts = List(500, 1000, 3000, 10000)
+//    val thresholdCounts = List(500, 1000, 3000, 10000)
+    val thresholdCounts = List(10000)
     for(s<-strategies;c<-thresholdCounts) {
       MyConfiguration.thresholdCountCheapStrategy = c
+//      MyConfiguration.filterOnRdfType = true
+//      executeStrategiesOnDatasets(List(s), List(KnowledgeGraph.wikidata), true)
+//      MyConfiguration.useMustHaveProperty = true
       executeStrategiesOnDatasets(List(s), List(KnowledgeGraph.wikidata), true)
+//      MyConfiguration.filterOnRdfType = false
+//      executeStrategiesOnDatasets(List(s), List(KnowledgeGraph.wikidata), true)
     }
   }
 

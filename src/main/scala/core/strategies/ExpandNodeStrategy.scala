@@ -23,11 +23,11 @@ case class ExpandNodeStrategy (property : String, values : List[String], types: 
         entity <- l1Values.keys
         propertiesWhereObject = QueryFactory.findDistinctPropertiesWhereObject(entity)
         prop <- propertiesWhereObject
-        if (!StrategyFactory.isDescriptive(prop) || StrategyFactory.valueIsAPotentialValueMatchFindCount(entity, prop, false).get < MyConfiguration.thresholdCountCheapStrategy)
+        if !StrategyFactory.isDescriptive(prop) || StrategyFactory.valueIsAPotentialValueMatchFindCount(entity, prop, false).get < MyConfiguration.thresholdCountCheapStrategy
         otherEntities = findSubjectsWhereEntityIsObjectForProperty(entity, prop)
       } yield otherEntities
     }.flatten
-    val l2ValuesObjects = l1Values.keys.flatMap(QueryFactory.findPropertiesAndObjects(_)._1)
+    val l2ValuesObjects = l1Values.keys.flatMap(QueryFactory.findPropertiesAndObjects(_)._1)//TODO: Include type
     if(MyConfiguration.filterOnRdfType) return (StrategyFactory.getDomainAndRangeWithCorrectType(l1Values.keys.toList, Nil, types)._1 ++ l2ValuesObjects ++ l2Subjects).map(e => e ->feature).toMap
     return l1Values ++ filterOnlyEntities(prefix, l2ValuesObjects) ++ filterOnlyEntities(prefix, l2Subjects)
   }
@@ -41,11 +41,10 @@ case class ExpandNodeStrategy (property : String, values : List[String], types: 
     }
   }
   private def findObjectsWhereEntityIsSubjectForProperty(entity: String, property : String)(implicit knowledgeGraph: KnowledgeGraph) = {
-    MyConfiguration.filterOnRdfType match {
-      case false=> QueryFactory.objectsWithPropertyAndSubject(property, entity)
-      case true => {
-        QueryFactory.objectsOfTypeWithPropertyAndSubject(property, entity, types)
-      }
+    if (MyConfiguration.filterOnRdfType) {
+      QueryFactory.objectsOfTypeWithPropertyAndSubject(property, entity, types)
+    } else {
+      QueryFactory.objectsWithPropertyAndSubject(property, entity)
     }
   }
 

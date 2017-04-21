@@ -38,6 +38,8 @@ object MyConfiguration {
     if(!strategies.forall(strategiesWithConfig.contains)) return ""
     var names = ListBuffer[String]()
     if(useRdfType) names += "UseRdfType"
+    if(useMustHaveProperty) names += "UseMustHaveProperty"
+    if(filterOnRdfType) names += "FilterOnRdfType"
     if(!strategies.forall(_== DirectLinkStrategy.name)) names += thresholdCountCheapStrategy.toString
     return names.mkString("-")
   }

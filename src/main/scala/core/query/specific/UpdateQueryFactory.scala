@@ -1,5 +1,6 @@
 package core.query.specific
 
+import core.feature.Feature
 import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.globals.{KnowledgeGraph, MyDatasets, ResultsSimilarArtistsGlobals, SimilarPropertyOntology}
 import jenaQuerier.QueryLocalServer
@@ -40,10 +41,15 @@ object UpdateQueryFactory {
       s"""<${ResultsSimilarArtistsGlobals.foundEntity}> <${foundEntity}> ; \n <${ResultsSimilarArtistsGlobals.simScore}> "${simScore}" ] } where {}"""
   }
   def addNewRun(runName: String, cleanFirst : Boolean = true): Unit ={
-    if(cleanFirst) cleanDatasetWhere(MyDatasets.resultsSimilarArtists, s"<$runName> ?p ?o")
+    if(cleanFirst) cleanRunName(runName)
     val insertQuery = s"""insert { <$runName> <${SimilarPropertyOntology.rdfType}> <${ResultsSimilarArtistsGlobals.runType}>} where {}"""
     QueryLocalServer.updateLocalData(insertQuery, MyDatasets.resultsSimilarArtists)
   }
+
+  def cleanRunName(runName: String) = {
+    cleanDatasetWhere(MyDatasets.resultsSimilarArtists, s"<$runName> ?p ?o")
+  }
+
   def addFindSimilarResult(runName: String, qEntity: String, recalled: List[String], notRecalled : List[String], execTime2: Int, foundEntitiesCount: Int, hadTimeout: Boolean): Unit ={
     QueryLocalServer.updateLocalData(addFindSimilarResultQuery(runName, qEntity, recalled, notRecalled, execTime2, foundEntitiesCount, hadTimeout), MyDatasets.resultsSimilarArtists)
   }
@@ -60,6 +66,41 @@ object UpdateQueryFactory {
               |  ${notRecalledInsert}
               | ] } where {}
               |""".stripMargin
+  }
+  def addFindSimilarResultWithFeatures(runName: String, qEntity: String, recalled: Map[String, List[Feature]], notRecalled : List[String], execTime2: Int, foundEntitiesCount: Int, hadTimeout: Boolean): Unit ={
+    val query = addFindSimilarResultWithFeatureQuery(runName, qEntity, recalled, notRecalled, execTime2, foundEntitiesCount, hadTimeout)
+    QueryLocalServer.updateLocalData(query, MyDatasets.resultsSimilarArtists)
+  }
+  def addFindSimilarResultWithFeatureQuery(runName: String, qEntity: String, recalled: Map[String, List[Feature]], notRecalled : List[String], execTime2: Int, foundEntitiesCount: Int, hadTimeout: Boolean) : String = {
+    val recalledInsert = recalled.map(s=>{
+      val featureLines = s._2.map(f =>
+        saveFeatureStatements(f))
+        .mkString(s" <${ResultsSimilarArtistsGlobals.featureFound}> ")
+      s"""
+         |<${ResultsSimilarArtistsGlobals.recalled}> [
+         |<${ResultsSimilarArtistsGlobals.entityRelation}> <${s._1}>;
+         |<${ResultsSimilarArtistsGlobals.featureFound}> ${featureLines}
+         |];
+       """.stripMargin}).mkString("\n")
+    val notRecalledInsert = notRecalled.map(s=> s"<${ResultsSimilarArtistsGlobals.notRecalled}> <$s>;").mkString("\n")
+    return s"""
+              |insert { <$runName> <${ResultsSimilarArtistsGlobals.qEntityResult}> [
+              | <${ResultsSimilarArtistsGlobals.qEntity}> <$qEntity>;
+              | <${ResultsSimilarArtistsGlobals.execTime}> "$execTime2"$datatypeInteger ;
+              | <${ResultsSimilarArtistsGlobals.foundEntitiesCount}> "${foundEntitiesCount}";
+              | <${ResultsSimilarArtistsGlobals.hadTimeout}> "${hadTimeout}"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
+              |${recalledInsert}
+              |${notRecalledInsert}
+              | ] } where {}
+              |""".stripMargin
+  }
+
+  private def saveFeatureStatements(f: Feature) = {
+    s"""
+       |[
+       |<${ResultsSimilarArtistsGlobals.featureName}> "${f.toString}" ;
+       |<${ResultsSimilarArtistsGlobals.featureWeight}> "${f.getScore()}"$datatypeDouble
+       |];""".stripMargin
   }
 
   def cleanDataset(dataset : String): Unit = {
