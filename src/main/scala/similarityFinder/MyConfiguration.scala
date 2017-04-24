@@ -32,6 +32,7 @@ object MyConfiguration {
   var alternativeLinkNegative = -0.1
   var maximumWeightPropertyMatch = log(SimilarPropertyOntology.maxCountForProperties / 100)
   var thresholdCountCheapStrategy = 1000
+  var thresholdCountStoreValueMatchCount = 10000
 
   def getConfigName(strategies : List[String]) : String = {
     val strategiesWithConfig = List(AggregatorStrategy.name, ValueMatchStrategy.name, DirectLinkStrategy.name, PropertyMatchStrategy.name, ExpandNodeStrategy.name)

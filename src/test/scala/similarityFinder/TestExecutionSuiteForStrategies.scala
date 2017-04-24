@@ -4,6 +4,7 @@ import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer, ActorMaterializerSettings}
 import core.globals.{KnowledgeGraph, SimilarPropertyOntology}
 import core.globals.KnowledgeGraph.KnowledgeGraph
+import core.query.Query
 import core.query.specific.UpdateQueryFactory
 import core.strategies._
 import iAndO.dataset.ArtistDatasetReader
@@ -90,17 +91,32 @@ class TestExecutionSuiteForStrategies extends FunSuite{
       executeRunOnDataset(runName, ds, datasetSize, kg)
     }
   }
+  def executeRunOnDatasetStoreFeatureMaps(runName: String, dataset: Map[String, List[String]], datasetSize : Int, knowledgeGraph: KnowledgeGraph): Unit = {
+    for(((qEntity, similars), i) <- dataset.zipWithIndex) {
+      Query.hadTimeout = false
+      val startTime = System.currentTimeMillis()
+      val res = new SimilarityFinder2(qEntity, systemParam = system, materializerParam = materializer)(knowledgeGraph).findInitialEntitiesAsMap()
+      val execTime = System.currentTimeMillis() - startTime
+      val recalled = similars.filter(res.contains)
+      .map(key => key -> res(key).toList) .toMap
+      val notRecalled = similars.filterNot(recalled.contains(_))
+      val foundEntitiesCount = res.keys.size
+      val hadTimeout = Query.hadTimeout
+      UpdateQueryFactory.addFindSimilarResultWithFeatures(runName, qEntity, recalled, notRecalled, execTime.toInt, foundEntitiesCount, hadTimeout)
+      println(s"Finished $i of $datasetSize for $runName")
+    }
+  }
 
   def executeRunOnDataset(runName: String, dataset: Map[String, List[String]], datasetSize : Int, knowledgeGraph: KnowledgeGraph): Unit = {
-    val hadTimeoutEntity = KnowledgeGraph.getDatasetEntityPrefix(knowledgeGraph) + SimilarPropertyOntology.timeoutElement
     for(((qEntity, similars), i) <- dataset.zipWithIndex) {
+      Query.hadTimeout = false
       val startTime = System.currentTimeMillis()
       val res = new SimilarityFinder2(qEntity, systemParam = system, materializerParam = materializer)(knowledgeGraph).findInitialEntitiesAsSet()
       val execTime = System.currentTimeMillis() - startTime
       val recalled = similars.filter(res.contains)
       val notRecalled = similars.filterNot(recalled.contains(_))
       val foundEntitiesCount = res.size
-      val hadTimeout = res.contains(hadTimeoutEntity)
+      val hadTimeout = Query.hadTimeout
       UpdateQueryFactory.addFindSimilarResult(runName, qEntity, recalled, notRecalled, execTime.toInt, foundEntitiesCount, hadTimeout)
       println(s"Finished $i of $datasetSize for $runName")
     }

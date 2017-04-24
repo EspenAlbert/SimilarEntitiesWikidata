@@ -1,6 +1,7 @@
 package strategy
 
 import core.globals.{KnowledgeGraph, SimilarPropertyOntology}
+import core.query.Query
 import core.strategies.{SearchDirectedL1Strategy, SearchDirectedL2Strategy, SearchUndirectedL1Strategy, SearchUndirectedL2Strategy}
 import data.WikidataFactory
 import org.scalatest.FunSuite
@@ -45,7 +46,7 @@ class TestBaselineStrategies extends FunSuite{
   test("Search undirected timeout should not kill", ActiveSlowTag) {
     val strategyUndirected = SearchUndirectedL2Strategy(rStarr.countryOfCitizenShipProperty, List(rStarr.countryOfCitizenShipValue))
     val similars = strategyUndirected.findSimilars()
-    assert(similars.keySet.contains(SimilarPropertyOntology.w.toString + SimilarPropertyOntology.timeoutElement))
+    assert(Query.hadTimeout)
   }
   test("BFS search for ringo starr should work") {
     val simFinder = new SimilarityFinder2(rStarr.id)

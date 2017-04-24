@@ -150,6 +150,13 @@ class TestQueryFactory extends FunSuite{
     assert(wd.theBeatles.members.forall(subjectsNoRestriction.contains(_)))
     println(subjects)
     println(subjectsNoRestriction)
+  }
+  test("findLowCountPropertiesWhereEntityIsObject", ActiveTag) {
+    val notExpected = List(wd.ringoStarr.countryOfCitizenShipProperty, wd.countryProp)
+    val actual = findLowCountPropertiesWhereEntityIsObject(wd.ringoStarr.countryOfCitizenShipValue)
+    notExpected.foreach(p => assert(!actual.contains(p)))
+    assert(actual.size > 10)
+
 
   }
 

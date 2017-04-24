@@ -2,9 +2,12 @@ package dataset
 
 import core.feature.Feature
 import core.globals.KnowledgeGraph
+import data.WikidataFactory
+import iAndO.dataset.ArtistDatasetReader
 import iAndO.dataset.ArtistDatasetReader._
 import iAndO.dump.DumpObject
 import org.scalatest.FunSuite
+import similarityFinder.displayer.QueryFactorySimilarityResult
 import tags.{ActiveSlowTag, ActiveTag, TestOnlyTag}
 
 /**
@@ -52,6 +55,20 @@ class TestArtistDataset extends FunSuite{
     val sampleSize = 100
     assert(sampleSize == ds.size)
     assert(sampleSize == dbp.size)
+  }
+  test("Uploading the dataset should work") {
+    ArtistDatasetReader.uploadDatasetWikidata()
+    val rStarr = WikidataFactory.ringoStarr.id
+    val actuals = QueryFactorySimilarityResult.findQueryEntities()
+    assert(getDatasetFromFile().keySet.size == actuals.size)
+    assert(actuals.contains(rStarr))
+
+  }
+  test("Finding expected similars should work") {
+    val rStarr = WikidataFactory.ringoStarr.id
+    val expectedSimilar = WikidataFactory.paulMcCartney
+    val actualExpectedSimilars = QueryFactorySimilarityResult.findExpectedSimilars(rStarr)
+    assert(actualExpectedSimilars.contains(expectedSimilar))
   }
 
 

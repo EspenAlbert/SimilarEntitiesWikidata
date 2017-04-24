@@ -31,6 +31,14 @@ class TestExpandNodeStrategy extends FunSuite{
     val foundEntities = simFinder.findInitialEntitiesAsSet()
     assert(foundEntities.size > 100)
   }
+  test("Similarity generation for rStarr with features", ActiveSlowTag) {
+    StrategyFactory.setupStrategyFactory(List(ExpandNodeStrategy.name))
+    val simFinder = new SimilarityFinder2(rStarr.id, useFilteringGraphRDF = true)
+    val foundEntities = simFinder.findInitialEntitiesAsMap()
+    assert(foundEntities.size > 100)
+    val featuresJohnLennon = foundEntities(wd.johnLennon)
+    println(featuresJohnLennon)
+  }
   test("Similarity generation with filtering for rStarr", ActiveSlowTag) {
     MyConfiguration.filterOnRdfType = false
     StrategyFactory.setupStrategyFactory(List(ExpandNodeStrategy.name))

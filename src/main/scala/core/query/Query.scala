@@ -29,8 +29,9 @@ class Query(f : () => String,  val dataset : String) extends FindSomething{
 
   override def getResults(variable: String): List[ResultVariable] = {
     if(timedOut) {
-      val prefix = if(dataset.toLowerCase().contains("wikidata")) KnowledgeGraph.getDatasetEntityPrefix(KnowledgeGraph.wikidata) else KnowledgeGraph.getDatasetEntityPrefix(KnowledgeGraph.dbPedia)
-      List(new ResultVariable(prefix + SimilarPropertyOntology.timeoutElement.toString))
+//      val prefix = if(dataset.toLowerCase().contains("wikidata")) KnowledgeGraph.getDatasetEntityPrefix(KnowledgeGraph.wikidata) else KnowledgeGraph.getDatasetEntityPrefix(KnowledgeGraph.dbPedia)
+//     List(new ResultVariable(prefix + SimilarPropertyOntology.timeoutElement.toString))
+      Nil
     }
     else super.getResults(variable)
   }
@@ -61,10 +62,16 @@ class Query(f : () => String,  val dataset : String) extends FindSomething{
           println(s"Timeout for: ${f()}")
         }
         timedOut = true
+        Query.hadTimeout = true
       }
     }
       executed = true
   }
+
+}
+
+object Query {
+  var hadTimeout : Boolean = false
 
 }
 

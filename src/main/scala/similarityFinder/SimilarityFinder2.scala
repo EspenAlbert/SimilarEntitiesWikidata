@@ -20,7 +20,9 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import GraphDSL.Implicits._
 import core.globals.SimilarPropertyOntology
 
+import scala.collection.immutable
 import scala.collection.mutable.ListBuffer
+import scala.collection.parallel.immutable.ParMap
 object SimilarityFinder2 {
   val thresholdStrategyWeight = 3.25
   val ENTITIES_AFTER_PRUNING = 1000
@@ -46,9 +48,14 @@ class SimilarityFinder2(qEntity : String,systemParam: ActorSystem = null, materi
   var expensiveStrategyList : Seq[Strategy] = null
 
   def findInitialEntitiesAsSet() : Set[String] = {
-    val (cheapStrategies, expensiveStrategies) = getStrategiesCheapAndExpensive()
+    val (cheapStrategies, _) = getStrategiesCheapAndExpensive()
     val execution = executeCheapStrategiesGraphNoFeatures(cheapStrategies).run()
     return Await.result(execution, 15 minutes)
+  }
+  def findInitialEntitiesAsMap() : ParHashMap[String, ListBuffer[Feature]] = {
+    val (cheapStrategies, _) = getStrategiesCheapAndExpensive()
+    val execution = executeCheapStrategiesGetFeatureMaps(cheapStrategies).run()
+    return Await.result(execution, 15 minutes).head
   }
 
   def findInitialEntities(): List[SimilarEntity] = {
@@ -119,7 +126,18 @@ class SimilarityFinder2(qEntity : String,systemParam: ActorSystem = null, materi
       ClosedShape
     })
   }
+  def executeCheapStrategiesGetFeatureMaps(cheapStrategies : Seq[Strategy], awaitPruning : Boolean= false): RunnableGraph[Future[immutable.Seq[ParHashMap[String, ListBuffer[Feature]]]]] = {
+    val source: Source[Strategy, NotUsed] = sourceStrategies(cheapStrategies)
+    val seqSink = Sink.seq[ParHashMap[String, ListBuffer[Feature]]]
+//    val sink : Sink[Map[String, ListBuffer[Feature]], Future[Map[String, ListBuffer[Feature]]]]= Sink.fold(Map[String, ListBuffer[Feature]])((acc, nextmap) => acc ++ nextmap)
+    return RunnableGraph.fromGraph(GraphDSL.create(seqSink){implicit b =>
+      sink =>
+        source ~> executeCheapStrategies ~> foldFeatureMaps ~>  sink.in
+      ClosedShape
+    })
+  }
   def foldSimilarEntitiesSet : Sink[Map[String, Feature], Future[Set[String]]] = Sink.fold[Set[String], Map[String, Feature]](Set())((acc, nextMap) => acc ++ nextMap.keySet)
+
 
   def executeCheapStrategiesGraphNoFeatures(cheapStrategies : Seq[Strategy]): RunnableGraph[Future[Set[String]]] = {
     val source: Source[Strategy, NotUsed] = sourceStrategies(cheapStrategies)

@@ -13,6 +13,48 @@ import scala.util.Try
   * Created by espen on 17.02.17.
   */
 object QueryFactory {
+  def findObjectsOfPropertyWhereCountGreaterThanThreshold(property: String)(implicit knowledgeGraph: KnowledgeGraph) : List[(String, Int)] = {
+    val queryString =
+      s"""
+         |select ?o (count(?s) as ?c)
+         |where {
+         |  ?s <$property> ?o .
+         |  }
+         |Group by ?o
+         |Having(?c > ${MyConfiguration.thresholdCountStoreValueMatchCount})
+       """.stripMargin
+    val query = executeQuery(queryString)
+    val objects : List[String] = query.getResults("o")
+    val counts : List[Int]= query.getResults("c")
+    return objects.zip(counts)
+  }
+
+  def findLowCountPropertiesWhereEntityIsObject(entity : String)(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
+    val queryStringHighCount =
+      s"""
+         |SELECT distinct ?p
+         |WHERE {
+         |  ?p <http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#ValueMatchProperty> ?b .
+         |  ?b <http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#valueMatchValue> <$entity> .
+         |  ?b <http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#valueMatchCount> ?c
+         |  filter(strlen(?c) > 4)
+         |}
+       """.stripMargin
+    val queryHighCount = executeQuery(queryStringHighCount)
+    val highCount : List[String]= queryHighCount.getResults("p")
+    val filterLine = if(highCount.isEmpty) "" else s"filter(?p not in (<${highCount.mkString(">, <")}>))"
+    val queryString =
+      s"""
+         |SELECT distinct ?p
+         |WHERE {
+         |  ?s ?p <$entity> .
+         |  $filterLine
+         |}
+        """.stripMargin
+    val query = executeQuery(queryString)
+    return query.getResults("p")
+  }
+
   def findOrderedCountForTypes(isDomainProperties: List[String], isRangeProperties: List[String])(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
     val typesIsDomainOfProperties = isDomainProperties.map(p => s"{?s <${SimilarPropertyOntology.isDomainType}> <$p> }").mkString("UNION")
     val typesIsRangeOfProperties = isRangeProperties.map(p => s"{?s <${SimilarPropertyOntology.isRangeType}> <$p> }").mkString("UNION")

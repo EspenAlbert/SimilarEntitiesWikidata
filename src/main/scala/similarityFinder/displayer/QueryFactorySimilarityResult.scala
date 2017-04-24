@@ -10,10 +10,21 @@ import core.query.variables.ResultVariable
   */
 object QueryFactorySimilarityResult {
 
+
   private def executeQuery(queryString: String): Query = {
     val query = new Query(() => queryString, MyDatasets.resultsSimilarArtists)
     query.execute()
     query
+  }
+  def findExpectedSimilars(qEntity: String) : List[String] = {
+    val query =
+      s"""
+         |select ?sE
+         |where {
+         |  <$qEntity> <${ResultsSimilarArtistsGlobals.expectedSimilar}> ?sE .
+         |  }
+       """.stripMargin
+    return executeQuery(query).getResults("sE")
   }
   private def findResultsForEntityForRun(runName: String, entity : String): (List[String], List[String], Int, Int, Boolean) = {
     val notRecalledQuery =
@@ -78,6 +89,11 @@ object QueryFactorySimilarityResult {
 
   //Want Map[qEntity,(Recalled, notRecalled, time, foundEntitiesCount)
   def findResultsForRun(runName : String): List[(String, (List[String], List[String], Int, Int, Boolean))] = {
+    val qEntities: List[String] = findQEntitiesForRun(runName)
+    return qEntities.map(qEntity => (qEntity -> findResultsForEntityForRun(runName, qEntity)))
+  }
+
+  private def findQEntitiesForRun(runName: String) = {
     val findAllQEntities =
       s"""
          |select ?qE
@@ -86,9 +102,10 @@ object QueryFactorySimilarityResult {
          |  ?o <${ResultsSimilarArtistsGlobals.qEntity}> ?qE .
          |}
        """.stripMargin
-    val qEntities : List[String] = executeQuery(findAllQEntities).getResults("qE")
-    return qEntities.map(qEntity => (qEntity -> findResultsForEntityForRun(runName, qEntity)))
+    val qEntities: List[String] = executeQuery(findAllQEntities).getResults("qE")
+    qEntities
   }
+
   def findAllRuns(): List[String] = {
     val findRuns =
       s"""
@@ -122,6 +139,16 @@ object QueryFactorySimilarityResult {
     val executed= executeQuery(query)
     return (executed.getResults("r")(0), executed.getResults("p")(0), executed.getResults("eT")(0), executed.getResults("afe")(0), executed.getResults("pT")(0))
     }
+  def findQueryEntities(): List[String] = {
+    val query =
+      s"""
+         |select ?qE
+         |where {
+         |  ?qE a <${ResultsSimilarArtistsGlobals.qEntity}>
+         |}
+       """.stripMargin
+    return executeQuery(query).getResults("qE")
+  }
 
 
   }

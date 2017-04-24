@@ -31,5 +31,12 @@ class TestScalaTestPlay extends FunSuite{
       println(a)
     }
   }
+  test("fold left starts from head?") {
+    val list = 1 to 9
+    println(list.foldLeft(0){case(acc, nextValue) => {
+      println(s"Next value $nextValue")
+      acc + nextValue
+    }})
+  }
 
 }

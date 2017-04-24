@@ -2,7 +2,7 @@ package iAndO.dataset
 
 import core.globals.{KnowledgeGraph, SimilarPropertyOntology}
 import core.interlinking.Interlink
-import core.query.specific.QueryFactory
+import core.query.specific.{QueryFactory, UpdateQueryFactory}
 import iAndO.dump.DumpObject
 
 import scala.collection.mutable
@@ -46,6 +46,11 @@ object ArtistDatasetReader {
   }
   def writeDatasetConvertedToFile() : Unit = {
     DumpObject.dumpJsonMapStringListString(readDataset().toMap, filename)
+  }
+  def uploadDatasetWikidata() : Unit = {
+    getDatasetFromFile().foreach{
+      case (qE, similars) => UpdateQueryFactory.addExpectedSimilarsForQEntity(qE, similars)
+    }
   }
   def getDatasetFromFile() : Map[String, List[String]] = {
     println("Reading the artist dataset...")

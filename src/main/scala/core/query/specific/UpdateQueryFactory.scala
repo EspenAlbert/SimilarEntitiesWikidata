@@ -25,6 +25,17 @@ object UpdateQueryFactory {
       """.stripMargin
     QueryLocalServer.updateLocalData(query, MyDatasets.resultsSimilarArtists)
   }
+  def addExpectedSimilarsForQEntity(qEntity: String, expectedSimilars : List[String]) = {
+    val expectedSimilarsStatements = expectedSimilars.map(s => s"<$qEntity> <${ResultsSimilarArtistsGlobals.expectedSimilar}> <$s>").mkString(".\n")
+    val queryString =
+      s"""
+         |insert {
+         |<$qEntity> a <${ResultsSimilarArtistsGlobals.qEntity}> .
+         |$expectedSimilarsStatements
+         |                        } where {}
+      """.stripMargin
+    QueryLocalServer.updateLocalData(queryString, MyDatasets.resultsSimilarArtists)
+  }
   def updateValueCount(propertyAsFullString: String, entity: String, count: Int)(implicit knowledgeGraph: KnowledgeGraph) = {
     val updateQuery = s"insert { <$propertyAsFullString> <${SimilarPropertyOntology.valueMatchProperty}> [ <${SimilarPropertyOntology.valueMatchValue}> <$entity>;\n" +
       s"""<${SimilarPropertyOntology.valueMatchCount}> "%d" ] } where {}""".format(count)
@@ -135,4 +146,5 @@ object UpdateQueryFactory {
     """.stripMargin
     QueryLocalServer.updateLocalData(query,dataset)
   }
+
 }

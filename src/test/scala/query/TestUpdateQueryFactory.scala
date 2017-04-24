@@ -35,11 +35,10 @@ class TestUpdateQueryFactory extends FunSuite{
   test("adding a result with a feature should work", ActiveTag) {
     val wd = WikidataFactory
     val runName = "http://www.espenalbert.com/rdf/resultsSimilarArtists#wikidata-ExpandNodeStrategy-SingleRun-RingoStarr"
-    cleanRunName(runName)
+    addNewRun(runName)
     val f1 = new Feature(wd.ringoStarr.memberOfProp, FeatureType.searchExpandNode, 1, 1)
     val f2 = new Feature(wd.ringoStarr.occupationProp, FeatureType.searchExpandNode, 1, 2)
-    val recalledMap = Map(wd.johnLennon-> List(f1,f2),
-    wd.paulMcCartney -> List(f1))
+    val recalledMap = Map(wd.johnLennon-> List(f1,f2),wd.paulMcCartney -> List(f1))
     val qEntity = wd.ringoStarr.id
     addFindSimilarResultWithFeatures(runName, qEntity,recalledMap, wd.theBeatles.members.tail.tail, 5000, 10, true)
     val recalledEntities = QueryFactorySimilarityResult.findRecalledEntities(runName, qEntity)
@@ -49,6 +48,31 @@ class TestUpdateQueryFactory extends FunSuite{
     assert(featuresForJohnLennon._1.contains(f2.toString))
     val featuresForPaulMcCartney = QueryFactorySimilarityResult.findFeatures(runName, qEntity, wd.paulMcCartney)
     assert(featuresForPaulMcCartney._1.contains(f1.toString))
+    //Adding extra result
+    val recalledMap2 = Map(wd.paulMcCartney-> List(f1,f2),
+    qEntity -> List(f1))
+    addFindSimilarResultWithFeatures(runName, wd.johnLennon,recalledMap2, wd.theBeatles.members.tail.tail, 1111, 6, true)
+
+  }
+  test("string matching") {
+//    val s = "aa|bb"
+//    val (d,e) = s.splitAt(s.indexOf("|"))
+//    println(s"d+$d e=$e")
+//    val split = s.split("|")
+//    println(split)
+//    val (a,b) = split match {
+//      case Array(c,d) => (c,d)
+//      case o => println(o); ("notFound", "")
+//    }
+//    println(a)
+//    println(b)
+    val id = "aa|bb"
+    val combinedId = id.split("\\|")
+    val runId = combinedId(0)
+    val qEntityId = combinedId(1)
+    println(s"r=$runId qE=$qEntityId")
+    val Array(a,b) = id.split("\\|")
+    println(s"a=$a b=$b")
   }
 
 }

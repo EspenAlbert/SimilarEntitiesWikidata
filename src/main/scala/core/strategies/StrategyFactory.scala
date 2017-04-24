@@ -266,7 +266,7 @@ object StrategyFactory {
         return Some(List(SearchUndirectedL2Strategy(property, range ++ domain)))
       }
       case a if a==SimilarPropertyOntology.expandNodeStrategy.toString => {
-        return Some(List(ExpandNodeStrategy(property, range ++ domain, rdfTypes)))
+        return Some(List(ExpandNodeStrategy(property, range ++ domain, rdfTypes, range.nonEmpty, entity)))
       }
       case a if a==SimilarPropertyOntology.aggregatorStrategy.toString => {
         val strategies = ArrayBuffer[Strategy]()
@@ -282,7 +282,7 @@ object StrategyFactory {
     }
   }
 
-  def valueIsAPotentialValueMatchFindCount(value: String, property: String, valueIsSubject: Boolean)(implicit knowledgeGraph: KnowledgeGraph): Option[Int] = {
+  def valueIsAPotentialValueMatchFindCount(value: String, property: String, valueIsSubject: Boolean, onlyGreaterThanCounts : Boolean = false)(implicit knowledgeGraph: KnowledgeGraph): Option[Int] = {
     if(!value.startsWith("http")) return None
     QueryFactory.getValueMatchFromExistingDb(value, property) match {
       case Some(s) => return Some(s)
@@ -291,7 +291,7 @@ object StrategyFactory {
           QueryFactory.findCountForPropertyWithSubject(property, value)
         countFromDs match {
           case Success(count) => {
-            UpdateQueryFactory.updateValueCount(property, value, count) //Stores the value so we don't have to do the full count again..
+            if(!onlyGreaterThanCounts || count > MyConfiguration.thresholdCountStoreValueMatchCount)UpdateQueryFactory.updateValueCount(property, value, count) //Stores the value so we don't have to do the full count again..
             return Some(count)
           }
           case Failure(m) => {
