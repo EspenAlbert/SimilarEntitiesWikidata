@@ -1,8 +1,9 @@
 package core.query.specific
 
-import core.feature.Feature
+import core.feature.{Feature, PathFeature}
 import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.globals.{KnowledgeGraph, MyDatasets, ResultsSimilarArtistsGlobals, SimilarPropertyOntology}
+import core.query.variables.ResultVariable
 import jenaQuerier.QueryLocalServer
 
 /**
@@ -10,9 +11,17 @@ import jenaQuerier.QueryLocalServer
   */
 object UpdateQueryFactory {
 
+
   val datatypeInteger = """^^<http://www.w3.org/2001/XMLSchema#integer>"""
   val datatypeDouble = """^^<http://www.w3.org/2001/XMLSchema#double>"""
   val datatypeBoolean = SimilarPropertyOntology.datatypeBoolean
+  def addLabelForEntity(enitity: String, label: String) : Unit = {
+    val insertQuery =
+      s"""
+         |insert { <$enitity> <${SimilarPropertyOntology.rdfsLabel}> "$label"@en } where {}
+       """.stripMargin
+    QueryLocalServer.updateLocalData(insertQuery, MyDatasets.resultsSimilarArtists)
+  }
   def addStatsForRun(stats: (String, Double, Double, Int, Int, Int)): Unit = {
     val query =
       s"""
@@ -36,7 +45,9 @@ object UpdateQueryFactory {
       """.stripMargin
     QueryLocalServer.updateLocalData(queryString, MyDatasets.resultsSimilarArtists)
   }
-  def updateValueCount(propertyAsFullString: String, entity: String, count: Int)(implicit knowledgeGraph: KnowledgeGraph) = {
+  def updateValueCount(propertyAsFullString: String, entity: String, count: Int)(implicit knowledgeGraph: KnowledgeGraph) : Unit= {
+    val prefix = KnowledgeGraph.getDatasetEntityPrefix(knowledgeGraph)
+    if(!entity.startsWith(prefix)) return
     val updateQuery = s"insert { <$propertyAsFullString> <${SimilarPropertyOntology.valueMatchProperty}> [ <${SimilarPropertyOntology.valueMatchValue}> <$entity>;\n" +
       s"""<${SimilarPropertyOntology.valueMatchCount}> "%d" ] } where {}""".format(count)
     val dataset = DatasetInferrer.getDataset(updateQuery)
@@ -106,11 +117,17 @@ object UpdateQueryFactory {
               |""".stripMargin
   }
 
-  private def saveFeatureStatements(f: Feature) = {
-    s"""
+  private def saveFeatureStatements(f: Feature) : String= {
+    val pathLine =
+      f match {
+        case a: PathFeature => s"""<${ResultsSimilarArtistsGlobals.featurePath}> "${a.path}""""
+        case _ => ""
+      }
+    return s"""
        |[
        |<${ResultsSimilarArtistsGlobals.featureName}> "${f.toString}" ;
-       |<${ResultsSimilarArtistsGlobals.featureWeight}> "${f.getScore()}"$datatypeDouble
+       |<${ResultsSimilarArtistsGlobals.featureWeight}> "${f.getScore()}"$datatypeDouble ;
+       |$pathLine
        |];""".stripMargin
   }
 

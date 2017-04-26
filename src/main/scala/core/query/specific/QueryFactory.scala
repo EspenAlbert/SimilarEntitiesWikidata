@@ -58,13 +58,15 @@ object QueryFactory {
   def findOrderedCountForTypes(isDomainProperties: List[String], isRangeProperties: List[String])(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
     val typesIsDomainOfProperties = isDomainProperties.map(p => s"{?s <${SimilarPropertyOntology.isDomainType}> <$p> }").mkString("UNION")
     val typesIsRangeOfProperties = isRangeProperties.map(p => s"{?s <${SimilarPropertyOntology.isRangeType}> <$p> }").mkString("UNION")
+    val unionWithRange = if(typesIsRangeOfProperties.isEmpty) "" else s"${if(typesIsDomainOfProperties.isEmpty) typesIsRangeOfProperties else s"UNION $typesIsRangeOfProperties"}"
     val queryString =
       s"""
          |select ?s (count(?s) as ?c)
          |where {
-         |  $typesIsDomainOfProperties UNION $typesIsRangeOfProperties
+         |  $typesIsDomainOfProperties $unionWithRange
          |}Group by ?s
          |Order by desc(?c)
+         |LIMIT ${MyConfiguration.numberOfComparableTypes}
         """.stripMargin
     val query = executeQuery(queryString, KnowledgeGraph.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
     return query.getResults("s")

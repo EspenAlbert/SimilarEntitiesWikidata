@@ -263,7 +263,7 @@ object StrategyFactory {
         return Some(List(SearchUndirectedL1Strategy(property, range ++ domain)))
       }
       case a if a==SimilarPropertyOntology.searchUndirectedL2Strategy.toString => {
-        return Some(List(SearchUndirectedL2Strategy(property, range ++ domain)))
+        return Some(List(SearchUndirectedL2Strategy(property, range ++ domain, entity, range.nonEmpty)))
       }
       case a if a==SimilarPropertyOntology.expandNodeStrategy.toString => {
         return Some(List(ExpandNodeStrategy(property, range ++ domain, rdfTypes, range.nonEmpty, entity)))

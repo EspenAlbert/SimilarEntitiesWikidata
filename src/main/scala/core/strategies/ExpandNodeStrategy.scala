@@ -1,6 +1,6 @@
 package core.strategies
 
-import core.feature.{ExpandNodeFeature, Feature}
+import core.feature.{PathFeature, Feature}
 import core.globals.{FeatureType, KnowledgeGraph}
 import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.query.specific.QueryFactory
@@ -18,7 +18,7 @@ case class ExpandNodeStrategy (property : String, values : List[String], types: 
   override def findSimilars()(implicit knowledgeGraph: KnowledgeGraph): Map[String, Feature] = {
     val prefix = KnowledgeGraph.getDatasetEntityPrefix(knowledgeGraph)
     val l1Values = filterOnlyEntities(prefix, values)
-    val length1Entities = l1Values.map(e => e -> createFeatureLength1(e)).toMap
+    val length1Entities = l1Values.map(e => e -> new PathFeature(property, PathFeature.createPathLength1(qEntity, property, isSubject, e), FeatureType.searchExpandNode)).toMap
     //Length 2, middle entity is object
     val l2PropertiesAndSubjects =
       for {
@@ -31,7 +31,7 @@ case class ExpandNodeStrategy (property : String, values : List[String], types: 
     val l2Subjects = l2PropertiesAndSubjects.map{
       case (middleNode,prop, otherEntities) => otherEntities.
         filter(_.startsWith(prefix)).
-        map(e => e -> createFeatureLength2(e, prop,middleNode, false))
+        map(e => e -> new PathFeature(property, PathFeature.createPathLength2(qEntity, isSubject, property, middleNode, false, prop, e), FeatureType.searchExpandNode))
     }.flatten.toMap
     //Length 2, middle entity is subject
     val l2ValuesObjects = l1Values
@@ -41,7 +41,7 @@ case class ExpandNodeStrategy (property : String, values : List[String], types: 
           .zipWithIndex.
           map {
             case (foundEntity, index) if foundEntity.startsWith(prefix) =>
-              Some(foundEntity -> createFeatureLength2(foundEntity, propertyList(index), middleEntity, true))
+              Some(foundEntity -> new PathFeature(property, PathFeature.createPathLength2(qEntity, isSubject, property, middleEntity, middleNodeIsSubj = true, property2 = propertyList(index), foundEntity = foundEntity), FeatureType.searchExpandNode))
             case _ => None
           }
       }.flatten.toMap
@@ -63,20 +63,17 @@ case class ExpandNodeStrategy (property : String, values : List[String], types: 
     return values.filter(_.startsWith(prefix))
   }
 
-  def createFeatureLength1(foundEntity : String): Feature = {
-    val path: String = pathLength1(foundEntity)
-    return new ExpandNodeFeature(property,path)
-  }
 
-  private def pathLength1(foundEntity: String) : String= {
-    if (isSubject) s"$qEntity --> $property --> $foundEntity" else s"$qEntity <-- $property <-- $foundEntity"
-  }
 
-  def createFeatureLength2(foundEntity : String, secondProperty : String, middleNode: String, middleNodeIsSubject : Boolean): Feature = {
-    val startPath = pathLength1(middleNode)
-    val secondPath = if(middleNodeIsSubject) s" --> $secondProperty --> $foundEntity" else s" <-- $secondProperty <-- $foundEntity"
-    return new ExpandNodeFeature(property, startPath+secondPath)
-  }
+//  private def pathLength1(foundEntity: String) : String= {
+//    if (isSubject) s"$qEntity --> $property --> $foundEntity" else s"$qEntity <-- $property <-- $foundEntity"
+//  }
+
+//  def createFeatureLength2(foundEntity : String, secondProperty : String, middleNode: String, middleNodeIsSubject : Boolean): Feature = {
+//    val startPath = pathLength1(middleNode)
+//    val secondPath = if(middleNodeIsSubject) s" --> $secondProperty --> $foundEntity" else s" <-- $secondProperty <-- $foundEntity"
+//    return new PathFeature(property, startPath+secondPath)
+//  }
 
   override val name: String = ExpandNodeStrategy.name
 }

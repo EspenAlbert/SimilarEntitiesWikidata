@@ -25,6 +25,12 @@ object MyDatasets{
 }
 
 object KnowledgeGraph extends Enumeration {
+  def findKnowledgeGraphFromId(id: String): KnowledgeGraph = id match {
+    case a if(a.startsWith(KnowledgeGraph.getDatasetEntityPrefix(KnowledgeGraph.wikidata))) => KnowledgeGraph.wikidata
+    case b if(b.startsWith(KnowledgeGraph.getDatasetEntityPrefix(KnowledgeGraph.wikidata))) => KnowledgeGraph.dbPedia
+    case c => throw new Exception(s"Failed to find knowledge graph from $id")
+  }
+
 
   def getSubclassProperty(knowledgeGraph: KnowledgeGraph) : String = {
     knowledgeGraph match {

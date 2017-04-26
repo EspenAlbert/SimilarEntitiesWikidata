@@ -7,6 +7,7 @@ import core.globals.KnowledgeGraph.KnowledgeGraph
 import core.query.Query
 import core.query.specific.UpdateQueryFactory
 import core.strategies._
+import data.WikidataFactory
 import iAndO.dataset.ArtistDatasetReader
 import org.scalatest.FunSuite
 import similarityFinder.displayer.ResultHandler
@@ -64,16 +65,26 @@ class TestExecutionSuiteForStrategies extends FunSuite{
   test("Expand Node Strategy") {
     val strategies = List(ExpandNodeStrategy.name)
 //    val thresholdCounts = List(500, 1000, 3000, 10000)
-    val thresholdCounts = List(10000)
+    val thresholdCounts = List(15000, 20000)
     for(s<-strategies;c<-thresholdCounts) {
       MyConfiguration.thresholdCountCheapStrategy = c
 //      MyConfiguration.filterOnRdfType = true
 //      executeStrategiesOnDatasets(List(s), List(KnowledgeGraph.wikidata), true)
 //      MyConfiguration.useMustHaveProperty = true
-      executeStrategiesOnDatasets(List(s), List(KnowledgeGraph.wikidata), true)
+      executeStrategiesOnDatasets(List(s), List(KnowledgeGraph.wikidata), reducedSize = true)
 //      MyConfiguration.filterOnRdfType = false
 //      executeStrategiesOnDatasets(List(s), List(KnowledgeGraph.wikidata), true)
     }
+  }
+  test("Strategy on single entity (ringo starr)") {
+    val strategy = SearchUndirectedL2Strategy.name
+    MyConfiguration.thresholdCountCheapStrategy = 10000
+    val ringoStarr = WikidataFactory.ringoStarr.id
+    val ds = ArtistDatasetReader.getDatasetFromFile().filter(_._1 == ringoStarr)
+    val runName = s"http://www.espenalbert.com/rdf/resultsSimilarArtists#wikidata-${strategy}-SingleRun-RingoStarr"
+    val kg = KnowledgeGraph.wikidata
+    setupRun(kg, runName, strategy)
+    executeRunOnDatasetStoreFeatureMaps(runName, ds, 1, kg)
   }
 
   private def executeStrategiesOnDatasets(strategies: List[String], knowledgeGraphs: List[KnowledgeGraph]= List(KnowledgeGraph.wikidata, KnowledgeGraph.dbPedia), reducedSize : Boolean = true) = {
@@ -88,7 +99,7 @@ class TestExecutionSuiteForStrategies extends FunSuite{
     } {
       setupRun(kg, runName, strategy)
       println(s"starting run: $runName")
-      executeRunOnDataset(runName, ds, datasetSize, kg)
+      executeRunOnDatasetStoreFeatureMaps(runName, ds, datasetSize, kg)
     }
   }
   def executeRunOnDatasetStoreFeatureMaps(runName: String, dataset: Map[String, List[String]], datasetSize : Int, knowledgeGraph: KnowledgeGraph): Unit = {
@@ -98,7 +109,7 @@ class TestExecutionSuiteForStrategies extends FunSuite{
       val res = new SimilarityFinder2(qEntity, systemParam = system, materializerParam = materializer)(knowledgeGraph).findInitialEntitiesAsMap()
       val execTime = System.currentTimeMillis() - startTime
       val recalled = similars.filter(res.contains)
-      .map(key => key -> res(key).toList) .toMap
+      .map(key => key -> res(key).toList).toMap
       val notRecalled = similars.filterNot(recalled.contains(_))
       val foundEntitiesCount = res.keys.size
       val hadTimeout = Query.hadTimeout

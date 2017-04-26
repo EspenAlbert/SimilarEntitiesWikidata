@@ -8,6 +8,8 @@ import tags.ActiveTag
 import core.query.specific.UpdateQueryFactory._
 import data.WikidataFactory
 import similarityFinder.displayer.QueryFactorySimilarityResult
+
+import scala.util.{Failure, Success}
 /**
   * Created by espen on 20.03.17.
   */
@@ -73,6 +75,12 @@ class TestUpdateQueryFactory extends FunSuite{
     println(s"r=$runId qE=$qEntityId")
     val Array(a,b) = id.split("\\|")
     println(s"a=$a b=$b")
+  }
+  test("should be able to find and store label for Ringo Starr") {
+    QueryFactorySimilarityResult.findLabelForEntity(WikidataFactory.ringoStarr.id) match{
+      case Success(label) => assert(label == "Ringo Starr")
+      case Failure(f) => assert(false, s"Failed to find label $f")
+    }
   }
 
 }

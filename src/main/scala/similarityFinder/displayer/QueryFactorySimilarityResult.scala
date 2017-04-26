@@ -1,9 +1,12 @@
 package similarityFinder.displayer
 
-import core.globals.{MyDatasets, ResultsSimilarArtistsGlobals, SimilarPropertyOntology}
-import core.query.Query
+import core.globals.{KnowledgeGraph, MyDatasets, ResultsSimilarArtistsGlobals, SimilarPropertyOntology}
+import core.query.specific.UpdateQueryFactory
+import core.query.{Query, QueryForOnlineWikidata}
 import core.query.specific.UpdateQueryFactory.{datatypeDouble, datatypeInteger}
 import core.query.variables.ResultVariable
+
+import scala.util.{Failure, Success, Try}
 
 /**
   * Created by espen on 30.03.17.
@@ -16,6 +19,21 @@ object QueryFactorySimilarityResult {
     query.execute()
     query
   }
+  def findFeaturePath(runName: String, qEntity: String, similarEntity: String) : Try[String] = {
+    val queryString =
+      recalledQuery(runName, qEntity).init +
+        s"""
+           |?bR <${ResultsSimilarArtistsGlobals.featureFound}> ?fF .
+           |?fF <${ResultsSimilarArtistsGlobals.featurePath}> ?fP""".stripMargin
+
+    val correctSelect = queryString.replace("select ?r", "select ?fP")
+    val correctSelectWithRecalled = correctSelect.replace("?r", s"<$similarEntity>")
+    return Try{
+      val path : String = executeQuery(correctSelectWithRecalled).getResults("fP")(0)
+      path
+    }
+  }
+
   def findExpectedSimilars(qEntity: String) : List[String] = {
     val query =
       s"""
@@ -148,6 +166,28 @@ object QueryFactorySimilarityResult {
          |}
        """.stripMargin
     return executeQuery(query).getResults("qE")
+  }
+  def findLabelForEntity(id : String) : Try[String] = {
+    val kg = KnowledgeGraph.findKnowledgeGraphFromId(id)
+    if(kg != KnowledgeGraph.wikidata) throw new NotImplementedError()
+    val query =
+      s"""
+         |select ?l
+         |where {
+         |  <$id> <${SimilarPropertyOntology.rdfsLabel}> ?l .
+         |}""".stripMargin
+    Try(executeQuery(query).getResults("l")(0)) match {
+      case Success(label) => {
+        UpdateQueryFactory.addLabelForEntity(id, label)
+        Try(label)
+      }
+      case Failure(_) => {
+        val commonPrefixes = "PREFIX wd: <http://www.wikidata.org/entity/>\nPREFIX wdt: <http://www.wikidata.org/prop/direct/>\nPREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>\n"
+        val labelQuery = new QueryForOnlineWikidata(() => commonPrefixes + s"select ?label \n where { <$id> rdfs:label ?label . \n filter(lang(?label) = 'en')\n }")
+        labelQuery.executeRaw()
+        Try(labelQuery.getResults("label")(0))
+      }
+    }
   }
 
 

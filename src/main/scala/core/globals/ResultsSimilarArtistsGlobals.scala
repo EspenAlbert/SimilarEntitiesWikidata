@@ -30,6 +30,7 @@ object ResultsSimilarArtistsGlobals extends Enumeration{
   val featureName = Value("http://www.espenalbert.com/rdf/resultsSimilarArtists#featureName")
   val featureWeight = Value("http://www.espenalbert.com/rdf/resultsSimilarArtists#featureWeight")
   val featureFound = Value("http://www.espenalbert.com/rdf/resultsSimilarArtists#featureFound")
+  val featurePath= Value("http://www.espenalbert.com/rdf/resultsSimilarArtists#featurePath")
   val expectedSimilar= Value("http://www.espenalbert.com/rdf/resultsSimilarArtists#expectedSimilar")
 
   implicit def getStringFromOptionsForResultQueryVariable(similarPropertyOntology: ResultsSimilarArtistGlobals) : String = {

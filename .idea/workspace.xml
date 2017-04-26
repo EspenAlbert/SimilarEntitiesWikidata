@@ -4,31 +4,22 @@
     <list default="true" id="d206a159-edb1-49d5-8841-178f417096da" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/anki/CountryCards.scala" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/anki/convertSvgToPng.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/core/feature/ExpandNodeFeature.scala" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/scala/preprocessing/ownOntologyPopularizer/ValueMatchCounter.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules/similarentitieswikidata.iml" afterPath="$PROJECT_DIR$/.idea/modules/similarentitieswikidata.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/test/scala/similarityFinder/TestTypeFiltering.scala" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/scala/core/feature/ExpandNodeFeature.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/feature/PathFeature.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/globals/MyDatasets.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/globals/MyDatasets.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/globals/ResultsSimilarArtistsGlobals.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/globals/ResultsSimilarArtistsGlobals.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/query/Query.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/query/Query.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/globals/SimilarPropertyOntology.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/globals/SimilarPropertyOntology.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/query/specific/QueryFactory.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/query/specific/QueryFactory.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/query/specific/UpdateQueryFactory.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/query/specific/UpdateQueryFactory.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/rdf/GraphRDFDescriptivePropertyChecker.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/rdf/GraphRDFDescriptivePropertyChecker.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/strategies/ExpandNodeStrategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/ExpandNodeStrategy.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/strategies/SearchUndirectedL2Strategy.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/SearchUndirectedL2Strategy.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyFactory.scala" afterPath="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyFactory.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/iAndO/dataset/ArtistDatasetReader.scala" afterPath="$PROJECT_DIR$/src/main/scala/iAndO/dataset/ArtistDatasetReader.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/similarityFinder/MyConfiguration.scala" afterPath="$PROJECT_DIR$/src/main/scala/similarityFinder/MyConfiguration.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala" afterPath="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/scala/similarityFinder/displayer/QueryFactorySimilarityResult.scala" afterPath="$PROJECT_DIR$/src/main/scala/similarityFinder/displayer/QueryFactorySimilarityResult.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/data/WikidataFactory.scala" afterPath="$PROJECT_DIR$/src/test/scala/data/WikidataFactory.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/dataset/TestArtistDataset.scala" afterPath="$PROJECT_DIR$/src/test/scala/dataset/TestArtistDataset.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/query/TestQueryFactory.scala" afterPath="$PROJECT_DIR$/src/test/scala/query/TestQueryFactory.scala" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/feature/TestFeature.scala" afterPath="$PROJECT_DIR$/src/test/scala/feature/TestFeature.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/query/TestUpdateQueryFactory.scala" afterPath="$PROJECT_DIR$/src/test/scala/query/TestUpdateQueryFactory.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/randomPlay/TestScalaFunctions.scala" afterPath="$PROJECT_DIR$/src/test/scala/randomPlay/TestScalaFunctions.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/scalaTestPlay/TestScalaTestPlay.scala" afterPath="$PROJECT_DIR$/src/test/scala/scalaTestPlay/TestScalaTestPlay.scala" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/similarityFinder/TestExecutionSuiteForStrategies.scala" afterPath="$PROJECT_DIR$/src/test/scala/similarityFinder/TestExecutionSuiteForStrategies.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/strategy/TestBaselineStrategies.scala" afterPath="$PROJECT_DIR$/src/test/scala/strategy/TestBaselineStrategies.scala" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/scala/strategy/TestExpandNodeStrategy.scala" afterPath="$PROJECT_DIR$/src/test/scala/strategy/TestExpandNodeStrategy.scala" />
     </list>
     <list id="d77b7471-7867-433b-9a10-b891ecadeee0" name="ARCHITECTURE REFACTORING. Summarized: 1. The SimpleRDF abstraction is removed. 2. Folder structure are changed to accomodate for both similarity finder and structure finder. A core package contains all the common logic. 3. Old unused files, or files using the (1) abstraction is removed." comment="" />
     <ignored path="SimilarEntitiesWikidata.iws" />
@@ -89,73 +80,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="UpdateQueryFactory.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/specific/UpdateQueryFactory.scala">
+      <file leaf-file-name="QueryFactorySimilarityResult.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/displayer/QueryFactorySimilarityResult.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="230">
-              <caret line="116" column="11" lean-forward="false" selection-start-line="116" selection-start-column="6" selection-end-line="116" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ValueMatchCounter.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/preprocessing/ownOntologyPopularizer/ValueMatchCounter.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+            <state relative-caret-position="300">
+              <caret line="31" column="85" lean-forward="false" selection-start-line="31" selection-start-column="85" selection-end-line="31" selection-end-column="85" />
               <folding>
-                <element signature="e#46#95#0" expanded="true" />
+                <element signature="e#36#139#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="StrategyFactory.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/StrategyFactory.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="249" column="25" lean-forward="true" selection-start-line="249" selection-start-column="25" selection-end-line="249" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MyConfiguration.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/MyConfiguration.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="34" column="48" lean-forward="false" selection-start-line="34" selection-start-column="48" selection-end-line="34" selection-end-column="48" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MyDatasets.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/core/globals/MyDatasets.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="9" column="44" lean-forward="false" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="44" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="QueryFactory.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/specific/QueryFactory.scala">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="69" column="32" lean-forward="true" selection-start-line="69" selection-start-column="32" selection-end-line="69" selection-end-column="32" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TestExecutionSuiteForStrategies.scala" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TestExecutionSuiteForStrategies.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestExecutionSuiteForStrategies.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="599">
-              <caret line="100" column="48" lean-forward="true" selection-start-line="100" selection-start-column="48" selection-end-line="100" selection-end-column="48" />
+            <state relative-caret-position="251">
+              <caret line="73" column="71" lean-forward="false" selection-start-line="73" selection-start-column="71" selection-end-line="73" selection-end-column="71" />
               <folding>
                 <element signature="e#26#55#0" expanded="true" />
               </folding>
@@ -163,21 +104,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestQueryFactory.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestQueryFactory.scala">
+      <file leaf-file-name="convertSvgToPng.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/anki/convertSvgToPng.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="154" column="70" lean-forward="false" selection-start-line="154" selection-start-column="70" selection-end-line="154" selection-end-column="70" />
+            <state relative-caret-position="180">
+              <caret line="16" column="31" lean-forward="false" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TypeDomainAndRangeCreator.scala" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/scala/preprocessing/ownOntologyPopularizer/TypeDomainAndRangeCreator.scala">
+      <file leaf-file-name="SearchDirectedL2Strategy.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/SearchDirectedL2Strategy.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="10" column="7" lean-forward="false" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+            <state relative-caret-position="336">
+              <caret line="32" column="7" lean-forward="false" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestResultsSimilarArtistsGlobals.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestResultsSimilarArtistsGlobals.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1032">
+              <caret line="93" column="5" lean-forward="true" selection-start-line="93" selection-start-column="5" selection-end-line="93" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -186,9 +137,55 @@
       <file leaf-file-name="IsDescriptivePropertyClassifier.scala" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/scala/preprocessing/ownOntologyPopularizer/IsDescriptivePropertyClassifier.scala">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="10" column="7" lean-forward="false" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+            <state relative-caret-position="180">
+              <caret line="18" column="23" lean-forward="false" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestIsDescriptiveClassifier.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/preprocessing/ownOntologyPopularizer/TestIsDescriptiveClassifier.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="28" column="53" lean-forward="false" selection-start-line="28" selection-start-column="53" selection-end-line="28" selection-end-column="53" />
+              <folding>
+                <element signature="e#46#80#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QueryFactory.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/specific/QueryFactory.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2136">
+              <caret line="185" column="6" lean-forward="false" selection-start-line="185" selection-start-column="6" selection-end-line="185" selection-end-column="6" />
+              <folding>
+                <element signature="e#29#78#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestScalaTestPlay.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/scalaTestPlay/TestScalaTestPlay.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="840">
+              <caret line="70" column="4" lean-forward="false" selection-start-line="70" selection-start-column="4" selection-end-line="70" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WikidataFactory.scala" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/test/scala/data/WikidataFactory.scala">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding>
+                <element signature="e#14#87#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -205,9 +202,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>println(lab</find>
-      <find>state</find>
-      <find>timeout</find>
       <find>Timeout</find>
       <find>type</find>
       <find>ArtistDatasetReader.</find>
@@ -234,7 +228,10 @@
       <find>P17&quot;</find>
       <find>P27</find>
       <find>clean</find>
+      <find>Q940557</find>
       <find>findDistinct</find>
+      <find>P454</find>
+      <find>FINDfEAT</find>
     </findStrings>
     <replaceStrings>
       <replace>artist</replace>
@@ -273,10 +270,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/test/scala/strategy/TestAggregatorStrategy.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/displayer/ResultHandler.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/query/TestAskQueryWikidata.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/preprocessing/ownOntologyPopularizer/IsDescriptivePropertyClassifier.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/iAndO/dump/DumpObject.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/preprocessing/ownOntologyPopularizer/TestIsDescriptiveClassifier.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/globals/FeatureType.scala" />
@@ -285,17 +278,14 @@
         <option value="$PROJECT_DIR$/src/test/scala/preprocessing/ownOntologyPopularizer/TestProptypeToStrategyGeneratorWikidata.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/rdf/GraphRDF.scala" />
         <option value="$PROJECT_DIR$/src/main/java/jenaQuerier/QueryLocalServer.java" />
-        <option value="$PROJECT_DIR$/src/main/scala/core/globals/SimilarPropertyOntology.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/preprocessing/ownOntologyPopularizer/TestTypeDomainAndRangeCreator.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/preprocessing/ownOntologyPopularizer/TestProptypeToStrategyGeneratorDBpedia.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/core/globals/MyDatasets.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/iAndO/factoryMethods/IOFactory.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/rdf/TestGraphRDFDescriptivePropertyChecker.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/query/specific/AskQuery.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/preprocessing/ownOntologyPopularizer/TypeDomainAndRangeCreator.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/akka/TestAkka.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/feature/Feature.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/query/TestUpdateQueryFactory.scala" />
         <option value="$PROJECT_DIR$/output/images/testFindingCorrectLink.txt" />
         <option value="$PROJECT_DIR$/src/main/scala/core/query/variables/ResultVariable.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/randomPlay/TestScalaFunctions.scala" />
@@ -304,26 +294,33 @@
         <option value="$USER_HOME$/Desktop/countryCards.txt" />
         <option value="$PROJECT_DIR$/src/main/scala/anki/CountryCards.scala" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/main/scala/core/globals/ResultsSimilarArtistsGlobals.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/core/query/specific/UpdateQueryFactory.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/iAndO/dataset/ArtistDatasetReader.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/displayer/QueryFactorySimilarityResult.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/dataset/TestArtistDataset.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/scalaTestPlay/TestScalaTestPlay.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/query/Query.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/strategy/TestBaselineStrategies.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/strategy/TestExpandNodeStrategy.scala" />
-        <option value="$PROJECT_DIR$/src/test/scala/similarityFinder/TestExecutionSuiteForStrategies.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/feature/ExpandNodeFeature.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/data/WikidataFactory.scala" />
         <option value="$PROJECT_DIR$/src/test/scala/query/TestQueryFactory.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/rdf/GraphRDFDescriptivePropertyChecker.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/core/strategies/ExpandNodeStrategy.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/MyConfiguration.scala" />
-        <option value="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyFactory.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/preprocessing/ownOntologyPopularizer/ValueMatchCounter.scala" />
         <option value="$PROJECT_DIR$/src/main/scala/core/query/specific/QueryFactory.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/similarityFinder/TestTypeFiltering.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/core/strategies/ExpandNodeStrategy.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/feature/TestFeature.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/core/strategies/StrategyFactory.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/core/strategies/SearchUndirectedL2Strategy.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/core/feature/PathFeature.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/core/globals/ResultsSimilarArtistsGlobals.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/core/globals/SimilarPropertyOntology.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/core/globals/MyDatasets.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/core/query/specific/UpdateQueryFactory.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/query/TestUpdateQueryFactory.scala" />
+        <option value="$PROJECT_DIR$/src/main/scala/similarityFinder/displayer/QueryFactorySimilarityResult.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/scalaTestPlay/TestScalaTestPlay.scala" />
+        <option value="$PROJECT_DIR$/src/test/scala/similarityFinder/TestExecutionSuiteForStrategies.scala" />
       </list>
     </option>
   </component>
@@ -334,10 +331,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="65" />
-    <option name="y" value="-4" />
-    <option name="width" value="1983" />
-    <option name="height" value="1156" />
+    <option name="x" value="64" />
+    <option name="y" value="-11" />
+    <option name="width" value="1985" />
+    <option name="height" value="1164" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -606,6 +603,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -784,7 +784,59 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="feature" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="dataset" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="akka" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -876,6 +928,36 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="ownOntologyPopularizer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="attributesGenerator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="iAndO" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -962,6 +1044,134 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="query" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="query" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="specific" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="globals" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="globals" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MyDatasets.scala" />
+              <option name="myItemType" value="org.jetbrains.plugins.scala.components.ScalaDefsProjectViewProvider$ScalaFileTreeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SimilarEntitiesWikidata" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scala" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="core" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="feature" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -1002,15 +1212,24 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="output" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="main" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="jenaQuerier" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1062,8 +1281,46 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.ValueMatchCounter">
-    <configuration default="false" name="TestScalaTestPlay.fold left starts from head?" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+  <component name="RunManager" selected="ScalaTest.TestResultsSimilarArtistsGlobals.Calculating recalls should work">
+    <configuration default="false" name="TestExecutionSuiteForStrategies.Strategy on single entity (ringo starr)" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="similarentitieswikidata" />
+      <setting name="path" value="similarityFinder.TestExecutionSuiteForStrategies" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="Strategy on single entity (ringo starr)" />
+      <setting name="testKind" value="Test name" />
+      <setting name="showProgressMessages" value="true" />
+      <setting name="useSbt" value="false" />
+      <setting name="useUiWithSbt" value="false" />
+      <classRegexps />
+      <testRegexps />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestUpdateQueryFactory.should be able to find and store label for Ringo Starr" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="similarentitieswikidata" />
+      <setting name="path" value="query.TestUpdateQueryFactory" />
+      <setting name="package" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <setting name="searchForTest" value="Across module dependencies" />
+      <setting name="testName" value="should be able to find and store label for Ringo Starr" />
+      <setting name="testKind" value="Test name" />
+      <setting name="showProgressMessages" value="true" />
+      <setting name="useSbt" value="false" />
+      <setting name="useUiWithSbt" value="false" />
+      <classRegexps />
+      <testRegexps />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="TestScalaTestPlay.Abbreviate a name" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="similarentitieswikidata" />
       <setting name="path" value="scalaTestPlay.TestScalaTestPlay" />
@@ -1072,7 +1329,7 @@
       <setting name="params" value="" />
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="fold left starts from head?" />
+      <setting name="testName" value="Abbreviate a name" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <setting name="useSbt" value="false" />
@@ -1082,16 +1339,16 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="TestBaselineStrategies.Search undirected timeout should not kill" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+    <configuration default="false" name="TestScalaTestPlay.value match count country of citizenship uk" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="similarentitieswikidata" />
-      <setting name="path" value="strategy.TestBaselineStrategies" />
+      <setting name="path" value="scalaTestPlay.TestScalaTestPlay" />
       <setting name="package" value="" />
       <setting name="vmparams" value="" />
       <setting name="params" value="" />
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="Search undirected timeout should not kill" />
+      <setting name="testName" value="value match count country of citizenship uk" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <setting name="useSbt" value="false" />
@@ -1101,61 +1358,22 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="TestExpandNodeStrategy.Similarity generation for rStarr with features" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
+    <configuration default="false" name="TestResultsSimilarArtistsGlobals.Calculating recalls should work" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="similarentitieswikidata" />
-      <setting name="path" value="strategy.TestExpandNodeStrategy" />
+      <setting name="path" value="similarityFinder.TestResultsSimilarArtistsGlobals" />
       <setting name="package" value="" />
       <setting name="vmparams" value="" />
       <setting name="params" value="" />
       <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
       <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="Similarity generation for rStarr with features" />
+      <setting name="testName" value="Calculating recalls should work" />
       <setting name="testKind" value="Test name" />
       <setting name="showProgressMessages" value="true" />
       <setting name="useSbt" value="false" />
       <setting name="useUiWithSbt" value="false" />
       <classRegexps />
       <testRegexps />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="TestQueryFactory.findLowCountPropertiesWhereEntityIsObject" type="ScalaTestRunConfiguration" factoryName="ScalaTest" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
-      <module name="similarentitieswikidata" />
-      <setting name="path" value="query.TestQueryFactory" />
-      <setting name="package" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workingDirectory" value="file://$PROJECT_DIR$" />
-      <setting name="searchForTest" value="Across module dependencies" />
-      <setting name="testName" value="findLowCountPropertiesWhereEntityIsObject" />
-      <setting name="testKind" value="Test name" />
-      <setting name="showProgressMessages" value="true" />
-      <setting name="useSbt" value="false" />
-      <setting name="useUiWithSbt" value="false" />
-      <classRegexps />
-      <testRegexps />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="false" name="ValueMatchCounter" type="Application" factoryName="Application" temporary="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="preprocessing.ownOntologyPopularizer.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="preprocessing.ownOntologyPopularizer.ValueMatchCounter" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="similarentitieswikidata" />
       <envs />
       <method />
     </configuration>
@@ -1791,19 +2009,19 @@
       <item index="6" class="java.lang.String" itemvalue="ScalaTest.TestExecutionSuiteForStrategies.Already existing strategies with config" />
       <item index="7" class="java.lang.String" itemvalue="ScalaTest.TestExecutionSuiteForStrategies.Expand Node Strategy" />
       <item index="8" class="java.lang.String" itemvalue="ScalaTest.TestExecutionSuiteForStrategies.Baseline search directed/undirected L=1,2 on dataset" />
-      <item index="9" class="java.lang.String" itemvalue="ScalaTest.TestScalaTestPlay.fold left starts from head?" />
-      <item index="10" class="java.lang.String" itemvalue="ScalaTest.TestBaselineStrategies.Search undirected timeout should not kill" />
-      <item index="11" class="java.lang.String" itemvalue="ScalaTest.TestExpandNodeStrategy.Similarity generation for rStarr with features" />
-      <item index="12" class="java.lang.String" itemvalue="ScalaTest.TestQueryFactory.findLowCountPropertiesWhereEntityIsObject" />
-      <item index="13" class="java.lang.String" itemvalue="Application.ValueMatchCounter" />
+      <item index="9" class="java.lang.String" itemvalue="ScalaTest.TestExecutionSuiteForStrategies.Strategy on single entity (ringo starr)" />
+      <item index="10" class="java.lang.String" itemvalue="ScalaTest.TestUpdateQueryFactory.should be able to find and store label for Ringo Starr" />
+      <item index="11" class="java.lang.String" itemvalue="ScalaTest.TestScalaTestPlay.Abbreviate a name" />
+      <item index="12" class="java.lang.String" itemvalue="ScalaTest.TestScalaTestPlay.value match count country of citizenship uk" />
+      <item index="13" class="java.lang.String" itemvalue="ScalaTest.TestResultsSimilarArtistsGlobals.Calculating recalls should work" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.ValueMatchCounter" />
-        <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestQueryFactory.findLowCountPropertiesWhereEntityIsObject" />
-        <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestExpandNodeStrategy.Similarity generation for rStarr with features" />
-        <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestBaselineStrategies.Search undirected timeout should not kill" />
-        <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestScalaTestPlay.fold left starts from head?" />
+        <item index="0" class="java.lang.String" itemvalue="ScalaTest.TestResultsSimilarArtistsGlobals.Calculating recalls should work" />
+        <item index="1" class="java.lang.String" itemvalue="ScalaTest.TestExecutionSuiteForStrategies.Strategy on single entity (ringo starr)" />
+        <item index="2" class="java.lang.String" itemvalue="ScalaTest.TestScalaTestPlay.value match count country of citizenship uk" />
+        <item index="3" class="java.lang.String" itemvalue="ScalaTest.TestScalaTestPlay.Abbreviate a name" />
+        <item index="4" class="java.lang.String" itemvalue="ScalaTest.TestUpdateQueryFactory.should be able to find and store label for Ringo Starr" />
       </list>
     </recent_temporary>
   </component>
@@ -1872,7 +2090,11 @@
       <workItem from="1492876599660" duration="991000" />
       <workItem from="1492934563943" duration="17752000" />
       <workItem from="1493009599255" duration="3038000" />
-      <workItem from="1493034716838" duration="12432000" />
+      <workItem from="1493034716838" duration="15406000" />
+      <workItem from="1493103040198" duration="2573000" />
+      <workItem from="1493129271713" duration="11674000" />
+      <workItem from="1493182548271" duration="5078000" />
+      <workItem from="1493211261298" duration="5290000" />
     </task>
     <task id="LOCAL-00001" summary="SimilarityFinder tested for ringo starr on DBpedia.&#10;It is working!&#10;&#10;Just started working on the combined similarity finder.">
       <created>1490775699677</created>
@@ -2014,44 +2236,51 @@
       <option name="project" value="LOCAL" />
       <updated>1492776567528</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Changes: Some more queries. Distinct property finder avoiding timeout. New timeout mechanism. New feature for expand node strategy. More stored results from runs.">
+      <created>1493056123264</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1493056123264</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="TestBaselineStrategies_Search_undirected_timeout_should_not_kill - 2017.04.24 at 16h 13m 04s.xml">
-      <configuration name="TestBaselineStrategies.Search undirected timeout should not kill" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestExecutionSuiteForStrategies_Expand_Node_Strategy - 2017.04.26 at 17h 32m 06s.xml">
+      <configuration name="TestExecutionSuiteForStrategies.Expand Node Strategy" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestBaselineStrategies_Search_undirected_timeout_should_not_kill - 2017.04.24 at 16h 13m 20s.xml">
-      <configuration name="TestBaselineStrategies.Search undirected timeout should not kill" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestExecutionSuiteForStrategies_Expand_Node_Strategy - 2017.04.26 at 17h 58m 40s.xml">
+      <configuration name="TestExecutionSuiteForStrategies.Expand Node Strategy" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestBaselineStrategies_Search_undirected_timeout_should_not_kill - 2017.04.24 at 16h 13m 55s.xml">
-      <configuration name="TestBaselineStrategies.Search undirected timeout should not kill" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestExecutionSuiteForStrategies_Expand_Node_Strategy - 2017.04.26 at 18h 07m 50s.xml">
+      <configuration name="TestExecutionSuiteForStrategies.Expand Node Strategy" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestExpandNodeStrategy_Similarity_generation_for_rStarr_with_features - 2017.04.24 at 16h 38m 38s.xml">
-      <configuration name="TestExpandNodeStrategy.Similarity generation for rStarr with features" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestExecutionSuiteForStrategies_Expand_Node_Strategy - 2017.04.26 at 18h 21m 44s.xml">
+      <configuration name="TestExecutionSuiteForStrategies.Expand Node Strategy" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestExpandNodeStrategy_Similarity_generation_for_rStarr_with_features - 2017.04.24 at 17h 34m 04s.xml">
-      <configuration name="TestExpandNodeStrategy.Similarity generation for rStarr with features" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestResultsSimilarArtistsGlobals_Calculating_recalls_should_work - 2017.04.26 at 17h 22m 59s.xml">
+      <configuration name="TestResultsSimilarArtistsGlobals.Calculating recalls should work" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestExpandNodeStrategy_Similarity_generation_for_rStarr_with_features - 2017.04.24 at 17h 35m 17s.xml">
-      <configuration name="TestExpandNodeStrategy.Similarity generation for rStarr with features" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestResultsSimilarArtistsGlobals_Calculating_recalls_should_work - 2017.04.26 at 17h 32m 37s.xml">
+      <configuration name="TestResultsSimilarArtistsGlobals.Calculating recalls should work" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestExpandNodeStrategy_Similarity_generation_for_rStarr_with_features - 2017.04.24 at 17h 37m 54s.xml">
-      <configuration name="TestExpandNodeStrategy.Similarity generation for rStarr with features" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestResultsSimilarArtistsGlobals_Calculating_recalls_should_work - 2017.04.26 at 18h 00m 02s.xml">
+      <configuration name="TestResultsSimilarArtistsGlobals.Calculating recalls should work" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestExpandNodeStrategy_Similarity_generation_for_rStarr_with_features - 2017.04.24 at 18h 21m 38s.xml">
-      <configuration name="TestExpandNodeStrategy.Similarity generation for rStarr with features" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestResultsSimilarArtistsGlobals_Calculating_recalls_should_work - 2017.04.26 at 18h 01m 03s.xml">
+      <configuration name="TestResultsSimilarArtistsGlobals.Calculating recalls should work" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestQueryFactory_findLowCountPropertiesWhereEntityIsObject - 2017.04.24 at 18h 18m 42s.xml">
-      <configuration name="TestQueryFactory.findLowCountPropertiesWhereEntityIsObject" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestResultsSimilarArtistsGlobals_Calculating_recalls_should_work - 2017.04.26 at 18h 09m 02s.xml">
+      <configuration name="TestResultsSimilarArtistsGlobals.Calculating recalls should work" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
-    <history-entry file="TestQueryFactory_findLowCountPropertiesWhereEntityIsObject - 2017.04.24 at 18h 33m 17s.xml">
-      <configuration name="TestQueryFactory.findLowCountPropertiesWhereEntityIsObject" configurationId="ScalaTestRunConfiguration" />
+    <history-entry file="TestResultsSimilarArtistsGlobals_Calculating_recalls_should_work - 2017.04.26 at 18h 39m 02s.xml">
+      <configuration name="TestResultsSimilarArtistsGlobals.Calculating recalls should work" configurationId="ScalaTestRunConfiguration" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
     <option name="enabled" value="true" />
-    <option name="totallyTimeSpent" value="223989000" />
+    <option name="totallyTimeSpent" value="251578000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -2063,25 +2292,24 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1983" height="1156" extended-state="6" />
+    <frame x="64" y="-11" width="1985" height="1164" extended-state="6" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14785992" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2081712" sideWeight="0.46434495" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20719844" sideWeight="0.46434495" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="SBT" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26091763" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27237353" sideWeight="0.5214249" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3025292" sideWeight="0.4785751" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18968871" sideWeight="0.49806523" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33171207" sideWeight="0.4785751" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30669144" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18843572" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19669592" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32684824" sideWeight="0.49253732" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Time Tracking" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328911" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25194553" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2527881" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -2090,6 +2318,7 @@
       <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37012988" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32684824" sideWeight="0.49253732" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19942474" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -2148,7 +2377,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
-    <MESSAGE value="Cheap Strategies -&gt; Pruned 1k top entities is done.&#10;Next up is to generate features from expensive strategies." />
     <MESSAGE value="Implementation of similarity finder done ** with some bugs. &#10;Taking a coursera course meanwhile I wait for dataset to be ready.." />
     <MESSAGE value="Implementation of similarity finder done and working. &#10;Split it into different sections. &#10;The only problem now is that the wikidata dataset is incomplete. &#10;There is a ton of statements missing. &#10;Will work on getting a runnable execution on the dataset, and start on DBpedia while I wait for Wikidata to be read yet again...&#10;Maybe try to use server in school?" />
     <MESSAGE value="It works on the dataset (TestSimilarityFinderOnArtistDSAndStoreToDB). But serious issues due to the missing values.&#10;Added FindSimilarityTo method for finding similarity to a list of IDs.&#10;Also removed an unused field &#10;Will start on DBpedia next." />
@@ -2173,7 +2401,8 @@
     <MESSAGE value="New strategy BFS. &#10;Implemented Type filtering dynamic. = Use 10 most common types. Works for Ringo Starr. &#10;About to implement a must have property filter" />
     <MESSAGE value="New strategy BFS. &#10;Implemented a must have property filter. About to test on the ds." />
     <MESSAGE value="Result visualization:&#10;Added storage functions for features per recalled entity." />
-    <option name="LAST_COMMIT_MESSAGE" value="Result visualization:&#10;Added storage functions for features per recalled entity." />
+    <MESSAGE value="Changes: Some more queries. Distinct property finder avoiding timeout. New timeout mechanism. New feature for expand node strategy. More stored results from runs." />
+    <option name="LAST_COMMIT_MESSAGE" value="Changes: Some more queries. Distinct property finder avoiding timeout. New timeout mechanism. New feature for expand node strategy. More stored results from runs." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2228,7 +2457,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="scala-line">
           <url>file://$PROJECT_DIR$/src/main/scala/similarityFinder/displayer/QueryFactorySimilarityResult.scala</url>
-          <line>66</line>
+          <line>84</line>
           <properties />
           <option name="timeStamp" value="115" />
         </line-breakpoint>
@@ -2262,12 +2491,19 @@
           <properties />
           <option name="timeStamp" value="129" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="scala-line">
+          <url>file://$PROJECT_DIR$/src/test/scala/scalaTestPlay/TestScalaTestPlay.scala</url>
+          <line>50</line>
+          <properties />
+          <option name="timeStamp" value="131" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="130" />
+      <option name="time" value="132" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="ScalaTestRunConfiguration">
-        <watch expression="&quot;&quot;&quot;.*(a href=[^(1000px)]*1000px).*&quot;&quot;&quot;.r.findFirstIn(s)" language="Scala" />
+        <watch expression="threeLettersFirstNameTwoLettersLastname.findAllIn(rStarr).matchData.map(_.subgroups).toList" language="Scala" />
+        <watch expression="threeLettersFirstNameTwoLettersLastname.findAllMatchIn(rStarr).toList" language="Scala" />
       </configuration>
       <configuration name="Application">
         <watch expression="s&quot;&quot;&quot;https://upload[^\&quot;]*$filename&quot;&quot;&quot;.r.findFirstIn(&quot;s&quot;)" language="Scala" />
@@ -2276,91 +2512,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/displayer/ResultHandler.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="261">
-          <caret line="25" column="58" lean-forward="true" selection-start-line="25" selection-start-column="58" selection-end-line="25" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jenaQuerier/QueryLocalServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="80" column="0" lean-forward="false" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestUpdateQueryFactory.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="36" column="110" lean-forward="false" selection-start-line="36" selection-start-column="110" selection-end-line="36" selection-end-column="110" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/iAndO/dump/DumpObject.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1536">
-          <caret line="134" column="12" lean-forward="false" selection-start-line="134" selection-start-column="12" selection-end-line="134" selection-end-column="12" />
-          <folding>
-            <element signature="e#20#39#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output/images/test1.png" />
-    <entry file="file://$PROJECT_DIR$/output/images/testFindingCorrectLink.txt" />
-    <entry file="file://$PROJECT_DIR$/src/main/scala/iAndO/readRdf/ReadWikidata.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="948">
-          <caret line="90" column="11" lean-forward="false" selection-start-line="90" selection-start-column="11" selection-end-line="90" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/iAndO/readRdf/bigDataset/ReadWikidataHelper.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="40" column="43" lean-forward="false" selection-start-line="40" selection-start-column="32" selection-end-line="40" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output/images/EU-Denmark.svg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output/images/HubbleTuningFork.jpg" />
-    <entry file="file://$PROJECT_DIR$/output/images/Europe_location_BEL.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/variables/ResultVariable.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="15" column="26" lean-forward="false" selection-start-line="15" selection-start-column="26" selection-end-line="15" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/output/images/EU-United_Kingdom.png" />
-    <entry file="file://$PROJECT_DIR$/output/images/EU-United_Kingdom.svg">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/randomPlay/TestScalaFunctions.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="852">
-          <caret line="79" column="64" lean-forward="false" selection-start-line="79" selection-start-column="64" selection-end-line="79" selection-end-column="64" />
-          <folding>
-            <element signature="e#20#49#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/output/convert/Albania_in_Europe.svg">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -2372,17 +2523,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3780">
           <caret line="315" column="20" lean-forward="false" selection-start-line="315" selection-start-column="20" selection-end-line="315" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/anki/convertSvgToPng.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="16" column="31" lean-forward="false" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#15#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2390,7 +2530,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="372">
           <caret line="31" column="278" lean-forward="false" selection-start-line="31" selection-start-column="278" selection-end-line="31" selection-end-column="278" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2402,6 +2541,90 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/iAndO/dataset/ArtistDatasetReader.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="52" column="5" lean-forward="false" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/dataset/TestArtistDataset.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="696">
+          <caret line="66" column="5" lean-forward="false" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/Query.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="594">
+          <caret line="73" column="31" lean-forward="true" selection-start-line="73" selection-start-column="31" selection-end-line="73" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.1-sources.jar!/org/scalatest/exceptions/TestFailedDueToTimeoutException.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="218">
+          <caret line="40" column="6" lean-forward="false" selection-start-line="40" selection-start-column="6" selection-end-line="40" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestQueryLocalServer.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="10" column="6" lean-forward="false" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="57" column="45" lean-forward="false" selection-start-line="57" selection-start-column="45" selection-end-line="57" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/feature/ValueMatchFeature.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="7" column="6" lean-forward="false" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/specific/DatasetInferrer.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="12" column="6" lean-forward="false" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestQueryFactory.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="154" column="70" lean-forward="false" selection-start-line="154" selection-start-column="70" selection-end-line="154" selection-end-column="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/preprocessing/ownOntologyPopularizer/TypeDomainAndRangeCreator.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="10" column="7" lean-forward="false" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/rdf/GraphRDF.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="48" column="11" lean-forward="false" selection-start-line="48" selection-start-column="11" selection-end-line="48" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/rdf/GraphRDFDescriptivePropertyChecker.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="372">
+          <caret line="38" column="39" lean-forward="false" selection-start-line="38" selection-start-column="39" selection-end-line="38" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="48">
@@ -2410,60 +2633,77 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/iAndO/dataset/ArtistDatasetReader.scala">
+    <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestTypeFiltering.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="528">
-          <caret line="52" column="5" lean-forward="false" selection-start-line="52" selection-start-column="5" selection-end-line="52" selection-end-column="5" />
+          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/output/pickles/wikidata-prop-domain-count.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="839">
+          <caret line="0" column="126017" lean-forward="false" selection-start-line="0" selection-start-column="126013" selection-end-line="0" selection-end-column="126017" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/preprocessing/ownOntologyPopularizer/MapPropertiesToPropTypes.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="15" column="7" lean-forward="false" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/dataset/TestArtistDataset.scala">
+    <entry file="file://$PROJECT_DIR$/src/test/scala/feature/TestFeature.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="696">
-          <caret line="66" column="5" lean-forward="false" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
-          <folding />
+        <state relative-caret-position="180">
+          <caret line="15" column="4" lean-forward="false" selection-start-line="15" selection-start-column="4" selection-end-line="15" selection-end-column="4" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/displayer/QueryFactorySimilarityResult.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/StrategyFactory.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="23" column="64" lean-forward="false" selection-start-line="23" selection-start-column="64" selection-end-line="23" selection-end-column="64" />
+        <state relative-caret-position="215">
+          <caret line="265" column="41" lean-forward="false" selection-start-line="265" selection-start-column="41" selection-end-line="265" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/SearchUndirectedL2Strategy.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="444">
+          <caret line="45" column="0" lean-forward="true" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/strategy/TestBaselineStrategies.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="45" column="5" lean-forward="false" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/ExpandNodeStrategy.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="42" column="62" lean-forward="true" selection-start-line="42" selection-start-column="62" selection-end-line="42" selection-end-column="62" />
           <folding>
-            <element signature="e#36#123#0" expanded="false" />
+            <element signature="e#25#67#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/core/globals/ResultsSimilarArtistsGlobals.scala">
+    <entry file="file://$PROJECT_DIR$/src/test/scala/strategy/TestExpandNodeStrategy.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="384">
-          <caret line="32" column="42" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="223">
+          <caret line="36" column="47" lean-forward="false" selection-start-line="36" selection-start-column="47" selection-end-line="36" selection-end-column="47" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/scalaTestPlay/TestScalaTestPlay.scala">
+    <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestSimilarityFinder2.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="456">
-          <caret line="41" column="1" lean-forward="true" selection-start-line="41" selection-start-column="1" selection-end-line="41" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/Query.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="73" column="31" lean-forward="true" selection-start-line="73" selection-start-column="31" selection-end-line="73" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.ivy2/cache/org.scalatest/scalatest_2.11/srcs/scalatest_2.11-3.0.1-sources.jar!/org/scalatest/exceptions/TestFailedDueToTimeoutException.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="40" column="6" lean-forward="false" selection-start-line="40" selection-start-column="6" selection-end-line="40" selection-end-column="6" />
+        <state relative-caret-position="-1152">
+          <caret line="23" column="6" lean-forward="false" selection-start-line="23" selection-start-column="6" selection-end-line="23" selection-end-column="6" />
           <folding />
         </state>
       </provider>
@@ -2476,7 +2716,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestQueryLocalServer.scala">
+    <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestUpdateSparql.scala">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
           <caret line="10" column="6" lean-forward="false" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
@@ -2484,183 +2724,274 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/strategy/TestBaselineStrategies.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/feature/PathFeature.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="45" column="5" lean-forward="false" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
-          <folding>
-            <element signature="e#18#79#0" expanded="false" />
-          </folding>
+        <state relative-caret-position="156">
+          <caret line="14" column="1" lean-forward="true" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/SimilarityFinder2.scala">
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/globals/ResultsSimilarArtistsGlobals.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="57" column="45" lean-forward="false" selection-start-line="57" selection-start-column="45" selection-end-line="57" selection-end-column="45" />
-          <folding>
-            <element signature="e#26#53#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/core/feature/Feature.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="17" lean-forward="false" selection-start-line="0" selection-start-column="17" selection-end-line="0" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/core/feature/ValueMatchFeature.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="7" column="6" lean-forward="false" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/core/feature/ExpandNodeFeature.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="96">
-          <caret line="8" column="23" lean-forward="false" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
-          <folding>
-            <element signature="e#22#53#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/core/globals/SimilarPropertyOntology.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="31" column="112" lean-forward="true" selection-start-line="31" selection-start-column="112" selection-end-line="31" selection-end-column="112" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/specific/DatasetInferrer.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="12" column="6" lean-forward="false" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/data/WikidataFactory.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="55" column="29" lean-forward="false" selection-start-line="55" selection-start-column="29" selection-end-line="55" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/core/rdf/GraphRDFDescriptivePropertyChecker.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="21" column="38" lean-forward="true" selection-start-line="21" selection-start-column="38" selection-end-line="21" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/strategy/TestExpandNodeStrategy.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="33" column="5" lean-forward="true" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/ExpandNodeStrategy.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="25" column="65" lean-forward="false" selection-start-line="25" selection-start-column="65" selection-end-line="25" selection-end-column="65" />
-          <folding>
-            <element signature="e#25#73#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestQueryFactory.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="154" column="70" lean-forward="false" selection-start-line="154" selection-start-column="70" selection-end-line="154" selection-end-column="70" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/preprocessing/ownOntologyPopularizer/TypeDomainAndRangeCreator.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="10" column="7" lean-forward="false" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/specific/UpdateQueryFactory.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="116" column="11" lean-forward="false" selection-start-line="116" selection-start-column="6" selection-end-line="116" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/preprocessing/ownOntologyPopularizer/IsDescriptivePropertyClassifier.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="10" column="7" lean-forward="false" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/core/globals/MyDatasets.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="9" column="44" lean-forward="false" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/MyConfiguration.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="34" column="48" lean-forward="false" selection-start-line="34" selection-start-column="48" selection-end-line="34" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/StrategyFactory.scala">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="249" column="25" lean-forward="true" selection-start-line="249" selection-start-column="25" selection-end-line="249" selection-end-column="25" />
+        <state relative-caret-position="384">
+          <caret line="32" column="38" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="33" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/preprocessing/ownOntologyPopularizer/ValueMatchCounter.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="28" column="0" lean-forward="true" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+        <state relative-caret-position="240">
+          <caret line="23" column="63" lean-forward="false" selection-start-line="23" selection-start-column="63" selection-end-line="23" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/feature/Feature.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/query/TestUpdateQueryFactory.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="840">
+          <caret line="79" column="42" lean-forward="false" selection-start-line="79" selection-start-column="42" selection-end-line="79" selection-end-column="42" />
           <folding>
-            <element signature="e#46#95#0" expanded="true" />
+            <element signature="e#15#42#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/globals/SimilarPropertyOntology.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="19" column="67" lean-forward="false" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/specific/UpdateQueryFactory.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="19" column="10" lean-forward="false" selection-start-line="19" selection-start-column="10" selection-end-line="19" selection-end-column="10" />
+          <folding>
+            <element signature="e#29#71#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/globals/MyDatasets.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="75" column="1" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="75" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/QueryForOnlineWikidata.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="21" column="34" lean-forward="false" selection-start-line="21" selection-start-column="34" selection-end-line="21" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///usr/lib/jvm/java-8-oracle/src.zip!/java/lang/String.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="16632">
+          <caret line="1447" column="19" lean-forward="false" selection-start-line="1447" selection-start-column="19" selection-end-line="1447" selection-end-column="19" />
+          <folding>
+            <element signature="e#0#124311#0" expanded="false" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#4677#4678#0" expanded="false" />
+            <element signature="e#4714#4715#0" expanded="false" />
+            <element signature="e#5687#5688#0" expanded="false" />
+            <element signature="e#5750#5751#0" expanded="false" />
+            <element signature="e#13098#13099#0" expanded="false" />
+            <element signature="e#13150#13151#0" expanded="false" />
+            <element signature="e#18781#18782#0" expanded="false" />
+            <element signature="e#18834#18835#0" expanded="false" />
+            <element signature="e#20727#20728#0" expanded="false" />
+            <element signature="e#20771#20772#0" expanded="false" />
+            <element signature="e#21961#21962#0" expanded="false" />
+            <element signature="e#22041#22042#0" expanded="false" />
+            <element signature="e#22786#22787#0" expanded="false" />
+            <element signature="e#22821#22822#0" expanded="false" />
+            <element signature="e#23072#23073#0" expanded="false" />
+            <element signature="e#23112#23113#0" expanded="false" />
+            <element signature="e#29462#29463#0" expanded="false" />
+            <element signature="e#29533#29534#0" expanded="false" />
+            <element signature="e#36393#36394#0" expanded="false" />
+            <element signature="e#36459#36460#0" expanded="false" />
+            <element signature="e#38369#38370#0" expanded="false" />
+            <element signature="e#38423#38424#0" expanded="false" />
+            <element signature="e#47538#47539#0" expanded="false" />
+            <element signature="e#47602#47603#0" expanded="false" />
+            <element signature="e#55800#55801#0" expanded="false" />
+            <element signature="e#55844#55845#0" expanded="false" />
+            <element signature="e#56437#56438#0" expanded="false" />
+            <element signature="e#56514#56515#0" expanded="false" />
+            <element signature="e#58481#58482#0" expanded="false" />
+            <element signature="e#58518#58519#0" expanded="false" />
+            <element signature="e#62860#62861#0" expanded="false" />
+            <element signature="e#62916#62917#0" expanded="false" />
+            <element signature="e#66457#66458#0" expanded="false" />
+            <element signature="e#66495#66496#0" expanded="false" />
+            <element signature="e#70749#70750#0" expanded="false" />
+            <element signature="e#70802#70803#0" expanded="false" />
+            <element signature="e#78240#78241#0" expanded="false" />
+            <element signature="e#78299#78300#0" expanded="false" />
+            <element signature="e#82616#82617#0" expanded="false" />
+            <element signature="e#82667#82668#0" expanded="false" />
+            <element signature="e#82971#82972#0" expanded="false" />
+            <element signature="e#83020#83021#0" expanded="false" />
+            <element signature="e#94598#94599#0" expanded="false" />
+            <element signature="e#94636#94637#0" expanded="false" />
+            <element signature="e#104675#104676#0" expanded="false" />
+            <element signature="e#104730#104731#0" expanded="false" />
+            <element signature="e#111196#111197#0" expanded="false" />
+            <element signature="e#111251#111252#0" expanded="false" />
+            <element signature="e#113343#113344#0" expanded="false" />
+            <element signature="e#113370#113371#0" expanded="false" />
+            <element signature="e#117893#117894#0" expanded="false" />
+            <element signature="e#117955#117956#0" expanded="false" />
+            <element signature="e#118405#118406#0" expanded="false" />
+            <element signature="e#118444#118445#0" expanded="false" />
+            <element signature="e#119456#119457#0" expanded="false" />
+            <element signature="e#119510#119511#0" expanded="false" />
+            <element signature="e#120159#120160#0" expanded="false" />
+            <element signature="e#120213#120214#0" expanded="false" />
+            <element signature="e#120482#120483#0" expanded="false" />
+            <element signature="e#120521#120522#0" expanded="false" />
+            <element signature="e#120889#120890#0" expanded="false" />
+            <element signature="e#120932#120933#0" expanded="false" />
+            <element signature="e#121727#121728#0" expanded="false" />
+            <element signature="e#121769#121770#0" expanded="false" />
+            <element signature="e#122184#122185#0" expanded="false" />
+            <element signature="e#122223#122224#0" expanded="false" />
+            <element signature="e#122645#122646#0" expanded="false" />
+            <element signature="e#122685#122686#0" expanded="false" />
+            <element signature="e#123115#123116#0" expanded="false" />
+            <element signature="e#123156#123157#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jenaQuerier/QueryLocalServer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="732">
+          <caret line="80" column="51" lean-forward="false" selection-start-line="80" selection-start-column="51" selection-end-line="80" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#821#822#0" expanded="false" />
+            <element signature="e#863#864#0" expanded="false" />
+            <element signature="e#2561#2562#0" expanded="false" />
+            <element signature="e#2615#2616#0" expanded="false" />
+            <element signature="e#3571#3572#0" expanded="false" />
+            <element signature="e#3616#3617#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/MyConfiguration.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="17" column="6" lean-forward="false" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+          <folding>
+            <element signature="e#26#52#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/scala/core/query/specific/QueryFactory.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="69" column="32" lean-forward="true" selection-start-line="69" selection-start-column="32" selection-end-line="69" selection-end-column="32" />
+        <state relative-caret-position="2136">
+          <caret line="185" column="6" lean-forward="false" selection-start-line="185" selection-start-column="6" selection-end-line="185" selection-end-column="6" />
+          <folding>
+            <element signature="e#29#78#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/preprocessing/ownOntologyPopularizer/TestIsDescriptiveClassifier.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="28" column="53" lean-forward="false" selection-start-line="28" selection-start-column="53" selection-end-line="28" selection-end-column="53" />
+          <folding>
+            <element signature="e#46#80#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/preprocessing/ownOntologyPopularizer/IsDescriptivePropertyClassifier.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="18" column="23" lean-forward="false" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/data/WikidataFactory.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#14#87#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/scalaTestPlay/TestScalaTestPlay.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="840">
+          <caret line="70" column="4" lean-forward="false" selection-start-line="70" selection-start-column="4" selection-end-line="70" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/similarityFinder/displayer/QueryFactorySimilarityResult.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="31" column="85" lean-forward="false" selection-start-line="31" selection-start-column="85" selection-end-line="31" selection-end-column="85" />
+          <folding>
+            <element signature="e#36#139#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestResultsSimilarArtistsGlobals.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1032">
+          <caret line="93" column="5" lean-forward="true" selection-start-line="93" selection-start-column="5" selection-end-line="93" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/core/strategies/SearchDirectedL2Strategy.scala">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="32" column="7" lean-forward="false" selection-start-line="32" selection-start-column="7" selection-end-line="32" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/scala/similarityFinder/TestExecutionSuiteForStrategies.scala">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="599">
-          <caret line="100" column="48" lean-forward="true" selection-start-line="100" selection-start-column="48" selection-end-line="100" selection-end-column="48" />
+        <state relative-caret-position="251">
+          <caret line="73" column="71" lean-forward="false" selection-start-line="73" selection-start-column="71" selection-end-line="73" selection-end-column="71" />
           <folding>
             <element signature="e#26#55#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/scala/anki/convertSvgToPng.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="16" column="31" lean-forward="false" selection-start-line="16" selection-start-column="31" selection-end-line="16" selection-end-column="31" />
+          <folding />
         </state>
       </provider>
     </entry>
