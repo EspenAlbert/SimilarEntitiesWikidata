@@ -37,7 +37,7 @@ case class ExpandNodeStrategy (property : String, values : List[String], types: 
     val l2ValuesObjects = l1Values
       .map(middleEntity => (middleEntity, QueryFactory.findPropertiesAndObjects(middleEntity)))
       .flatMap {
-        case (middleEntity, (propertyList, objectList)) => objectList
+        case (middleEntity, (objectList, propertyList)) => objectList
           .zipWithIndex.
           map {
             case (foundEntity, index) if foundEntity.startsWith(prefix) =>

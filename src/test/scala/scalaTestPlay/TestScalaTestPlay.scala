@@ -4,6 +4,7 @@ import core.globals.KnowledgeGraph
 import core.strategies.StrategyFactory
 import data.WikidataFactory
 import org.scalatest.FunSuite
+import similarityFinder.displayer.QueryFactorySimilarityResult
 import tags.ActiveTag
 
 import scala.collection.mutable.ListBuffer
@@ -73,4 +74,18 @@ class TestScalaTestPlay extends FunSuite{
     val ringoStarr = WikidataFactory.ringoStarr
     println(StrategyFactory.valueIsAPotentialValueMatchFindCount(ringoStarr.countryOfCitizenShipValue, ringoStarr.countryOfCitizenShipProperty, false))
   }
+  test("status for run") {
+    val runName = "http://www.espenalbert.com/rdf/resultsSimilarArtists#wikidata-SearchUndirectedL2Strategy-"
+    println(QueryFactorySimilarityResult.findQEntitiesForRun(runName).length)
+  }
+  test("Proper splitting of results" ){
+    val errorCreator = "5134512F|5134113F"
+    val shouldSplit = "normal | 5134113F"
+    val splitted = errorCreator.split("""\s\|\s""")
+    val splitted2 = shouldSplit.split("""\s\|\s""")
+    println(splitted.mkString("\n"))
+    println(splitted2.mkString("\n"))
+
+  }
+
 }

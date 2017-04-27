@@ -46,7 +46,7 @@ trait FindSomething{
         val rawValues = new ArrayBuffer[String]()
         for (line <- resList.split("\n").drop(3).dropRight(1)) {
           //First three lines are headers last line is not a result
-          rawValues.append(line.split("\\|").drop(1): _*)
+          rawValues.append(line.split("""(^|\s)\|(\s|$)""").drop(1): _*)
         }
         values = new ArrayBuffer[ResultVariable]()
         for(value <- rawValues) {

@@ -111,7 +111,7 @@ object QueryFactorySimilarityResult {
     return qEntities.map(qEntity => (qEntity -> findResultsForEntityForRun(runName, qEntity)))
   }
 
-  private def findQEntitiesForRun(runName: String) = {
+  def findQEntitiesForRun(runName: String) = {
     val findAllQEntities =
       s"""
          |select ?qE
