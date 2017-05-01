@@ -104,7 +104,7 @@ object WikidataFactory {
   val theBeatles = new {
     val members = List(ringoStarr.id, johnLennon, paulMcCartney, georgeHarrison, peteBest)
     val id = w + "Q1299"
-    val rdfTypes = List("https://www.wikidata.org/wiki/Q5741069")
+    val rdfTypes = List(w + "Q5741069")
   }
   val placeOfBirthProp = w + "P19"
 

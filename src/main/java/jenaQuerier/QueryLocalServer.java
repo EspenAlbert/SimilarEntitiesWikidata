@@ -1,9 +1,11 @@
 package jenaQuerier;
 
+import core.globals.MyDatasets;
 import org.apache.jena.query.*;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.RDFNode;
+import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.reasoner.rulesys.OWLFBRuleReasoner;
 import org.apache.jena.reasoner.rulesys.OWLFBRuleReasonerFactory;
 import org.apache.jena.sparql.core.Var;
@@ -22,8 +24,31 @@ import java.util.Iterator;
  */
 public class QueryLocalServer {
 
-    public static void main(String[] args) {
-        testReasonerCapabilities();
+    public static void main(String[] args){
+        queryTest();
+    }
+    public static void queryTest() {
+//        System.out.println("about to execute query");
+        String queryString = "PREFIX wd: <http://www.wikidata.org/entity/>\nselect distinct ?s where { ?s wd:P27 wd:Q30 }";
+        Query query = QueryFactory.create(queryString);
+        long start = System.currentTimeMillis();
+        QueryExecution qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/" + MyDatasets.dsWikidata() +"/query", queryString);
+        try {
+            int a = 0;
+            ResultSet results = qexec.execSelect();
+            while(results.hasNext()) {
+                a ++;
+                if(a % 1000 == 0) System.out.println(System.currentTimeMillis() - start);
+                QuerySolution next = results.next();
+                Resource s = next.getResource("s");
+                String uri = s.getURI();
+//                System.out.println(uri);
+            }
+//            ResultSetFormatter.out(outputStream, results, query);
+        } finally {
+            qexec.close();
+
+        }
     }
     public static String convertToMutlipleGraphQueryWithoutSelect(String query) {
         String whereClause = query.substring(query.indexOf("{"));
@@ -122,4 +147,5 @@ public class QueryLocalServer {
             qexec.close();
         }
     }
+
 }

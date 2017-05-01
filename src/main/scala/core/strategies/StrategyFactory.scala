@@ -89,19 +89,12 @@ object StrategyFactory {
     getStrategyFactory.mapPropertyToIsDescriptive.get(prop) match {
       case Some(isDescriptive) => isDescriptive
       case None => {
-        """P\d+q$""".r.findFirstIn(prop) match {
-          case Some(a) => {
-            val correctPropertyName = s"${KnowledgeGraph.getDatasetEntityPrefix(knowledgeGraph)}${a.init}"
-            getStrategyFactory.mapPropertyToIsDescriptive.get(correctPropertyName) match {
-              case Some(b) => b
-              case None => false
-            }
-          }
+        val correctPropertyName = KnowledgeGraph.getPropertyWithoutQualifierName(prop)
+        getStrategyFactory.mapPropertyToIsDescriptive.get(correctPropertyName) match {
+          case Some(b) => b
           case None => false
         }
-        false
       }
-
     }
   }
   def getStrategyFactory(implicit knowledgeGraph: KnowledgeGraph) : StrategyFactory = {

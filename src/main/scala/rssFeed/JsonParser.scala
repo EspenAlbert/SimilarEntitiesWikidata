@@ -29,38 +29,9 @@ object JsonParser {
   case class Confidence(value : Double)
 
 
-  def main(args: Array[String]): Unit = {
-    val filenames = List(
-//      "North_Korea_faces_tighter_sanctions_under_Trump_strategy.txt"
-//      "Trump_won't_scrap_Nafta_trade_deal_'at_this_time'.txt"
-      "Brides_wanted.txt"
-    )
-    val filename = "Brides_wanted.txt"
-    for(f<-filenames){
-      createAdjustedSummaries(f)
-    }
-
-//    for{
-//      r<-results
-//      t<-r.types.value
-//      converted = (t).as[DBpResultTypeJson]
-//      confidence = (converted.classificationConfidence).as[Confidence]
-//      confidenceLinking = (converted.linkingConfidence).as[Confidence]
-//    }{
-//      println(converted)
-//      println(s"Confidence : $confidence")
-//      println(s"ConfidenceLinking : $confidenceLinking")
-//    }
-
-  }
-
-  private def createAdjustedSummaries(filename: String) = {
-    val s = Source.fromFile("input/news/bbcJson/" + filename, "utf-8").getLines().toList.head
-    val unDroppedSummary = Source.fromFile("input/news/bbc/" + filename, "utf-8").getLines().toList
-    val originalSummarySingleLine = unDroppedSummary.last
-//    val originalSummarySingleLine = originalSummary.mkString("\n")
-    println(s"Original summary : ${originalSummarySingleLine}")
-    val parsed = Json.parse(s)
+  def findMainEntityAndOtherEntities(filename: String): Seq[(String, String)] = {
+    val rawJson = Source.fromFile("input/news/bbcJson/" + filename, "utf-8").getLines().toList.head
+    val parsed = Json.parse(rawJson)
     implicit val salienceReader = Json.reads[Salience]
     implicit val confidenceReader = Json.reads[Confidence]
     implicit val rTypeReader = Json.reads[DBpResultTypeJson]
@@ -69,18 +40,24 @@ object JsonParser {
     val mostConfident = results.map(r => {
       (r.underlyingString, r.types.filter(_.entityURI.startsWith("http://dbpedia")).maxBy(_.linkingConfidence.value))
     })
+    println("----- News entities mapped -------")
     mostConfident.foreach(println)
     val (textInOriginal, mainEntityDbpResultType) = decideMostSalient(mostConfident)
     val mainEntityURI = mainEntityDbpResultType.entityURI
     val wikidataURI = Interlink.fromDBpediaToWikidata(mainEntityURI)
-    println(s"Main entity: \n In dbpedia: $mainEntityURI \nIn wikidata: $wikidataURI")
-    implicit val knowledgeGraph = KnowledgeGraph.wikidata
-    val topTenSimilar = SimilarityRunner.findTopTenMostSimilarToUsingBFS2(wikidataURI)
-    println(s"Top ten most similars: ${topTenSimilar.mkString("\n")}")
-    val labels = topTenSimilar.map(QueryFactorySimilarityResult.findLabelForEntity).collect { case Success(label) => label }
-    println(s"Labels: $labels")
-    val newSummaries = labels.map(l => originalSummarySingleLine.replace(textInOriginal, l))
-    println(s"Adjusted summaries: \n ${newSummaries.mkString("\n")}")
+    val otherEntities = mostConfident.map{
+      case (underlyingString, dbpResultType) => (underlyingString, Interlink.fromDBpediaToWikidata(dbpResultType.entityURI))
+    }
+    return (textInOriginal, wikidataURI) :: otherEntities
+
+//    println(s"Main entity: \n In dbpedia: $mainEntityURI \nIn wikidata: $wikidataURI")
+//    implicit val knowledgeGraph = KnowledgeGraph.wikidata
+//    val topTenSimilar = SimilarityRunner.findTopTenMostSimilarToUsingBFS2(wikidataURI)
+//    println(s"Top ten most similars: ${topTenSimilar.mkString("\n")}")
+//    val labels = topTenSimilar.map(QueryFactorySimilarityResult.findLabelForEntity).collect { case Success(label) => label }
+//    println(s"Labels: $labels")
+//    val newSummaries = labels.map(l => originalSummarySingleLine.replace(textInOriginal, l))
+//    println(s"Adjusted summaries: \n ${newSummaries.mkString("\n")}")
   }
 
   val MostSalient = "most_salient"

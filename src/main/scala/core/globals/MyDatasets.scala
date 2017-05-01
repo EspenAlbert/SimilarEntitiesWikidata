@@ -70,6 +70,11 @@ object KnowledgeGraph extends Enumeration {
       case KnowledgeGraph.dbPedia => "DBpedia-propToTypeMapping"
     }
   }
+  val qualifierProperty = """P\d+q$""".r
+  def getPropertyWithoutQualifierName(property : String) : String = qualifierProperty.findFirstIn(property) match {
+    case Some(s) => s"${KnowledgeGraph.getDatasetEntityPrefix(KnowledgeGraph.wikidata)}${s.init}"
+    case None => property
+  }
   implicit def getString(knowledgeGraph: KnowledgeGraph) : String = {
     return knowledgeGraph.toString
   }

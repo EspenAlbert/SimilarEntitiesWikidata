@@ -55,7 +55,7 @@ class SimilarityFinder2(qEntity : String,systemParam: ActorSystem = null, materi
   def findInitialEntitiesAsMap() : ParHashMap[String, ListBuffer[Feature]] = {
     val (cheapStrategies, _) = getStrategiesCheapAndExpensive()
     val execution = executeCheapStrategiesGetFeatureMaps(cheapStrategies).run()
-    return Await.result(execution, 15 minutes).head
+    return Await.result(execution, 25 minutes).head
   }
 
   def findInitialEntities(): List[SimilarEntity] = {

@@ -2,6 +2,7 @@ package similarityFinder.displayer
 
 import core.query.specific.UpdateQueryFactory
 
+import scala.collection.immutable
 import scala.util.{Failure, Success, Try}
 
 /**
@@ -26,12 +27,21 @@ object ResultHandler {
     val runs = if(runName == Seq()) QueryFactorySimilarityResult.findAllRuns() else runName
     val (calculatedRuns, notCalculatedRuns) = runs.partition(statsExist)
     println(s"Already calculated: $calculatedRuns")
-    val v = for{
-      r <- notCalculatedRuns.filter(notInvalid)//.filter(_.endsWith("SampleRun"))
+    val statsForRuns: immutable.Iterable[(String, Double, Double, Int, Int, Int)] = calculateStatsForRun(notCalculatedRuns)
+    val statsColumns = List("RunName", "Recall", "Precision", "Avg. ExecTime", "Avg. #EntitiesFound", "% of queryTimeout")
+    println(statsColumns)
+    println(statsForRuns.mkString("\n"))
+    statsForRuns.foreach(stat => UpdateQueryFactory.addStatsForRun(stat))
+    calculatedRuns.foreach(runName => println(runName, QueryFactorySimilarityResult.findStatsForRun(runName)))
+  }
+
+  private def calculateStatsForRun(notCalculatedRuns: Seq[String]) = {
+    val v = for {
+      r <- notCalculatedRuns.filter(notInvalid) //.filter(_.endsWith("SampleRun"))
       (qEntity, (recalled, notRecalled, execTime, foundEntitiesCount, hadTimeout)) <- QueryFactorySimilarityResult.findResultsForRun(r)
       found = recalled.size
       total = recalled.size + notRecalled.size
-    } yield (r,found, total, execTime, foundEntitiesCount, hadTimeout)
+    } yield (r, found, total, execTime, foundEntitiesCount, hadTimeout)
     val runsGrouped = v.groupBy(_._1)
     val statsForRuns = for {
       (run, listOfValues) <- runsGrouped
@@ -45,13 +55,11 @@ object ResultHandler {
       precision = recalledEntities.toDouble / totalFoundEntities
       averageFoundEntities = totalFoundEntities / queriesCount
       timeouts = listOfValues.count(_._6)
-      percentTimedOut = BigDecimal((timeouts.toDouble / queriesCount)*100).setScale(2, BigDecimal.RoundingMode.HALF_UP).toInt
+      percentTimedOut = BigDecimal((timeouts.toDouble / queriesCount) * 100).setScale(2, BigDecimal.RoundingMode.HALF_UP).toInt
     } yield (run, recall, precision, averageExecutionTime, averageFoundEntities, percentTimedOut)
-    val statsColumns = List("RunName", "Recall", "Precision", "Avg. ExecTime", "Avg. #EntitiesFound", "% of queryTimeout")
-    println(statsColumns)
-    println(statsForRuns.mkString("\n"))
-    statsForRuns.foreach(stat => UpdateQueryFactory.addStatsForRun(stat))
-    calculatedRuns.foreach(runName => println(runName, QueryFactorySimilarityResult.findStatsForRun(runName)))
+    statsForRuns
   }
+  private def findNotFoundPairsForRun(runName: String) : Unit = {
 
+  }
 }

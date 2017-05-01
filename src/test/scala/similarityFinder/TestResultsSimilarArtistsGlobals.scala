@@ -5,6 +5,7 @@ import core.query.Query
 import core.query.specific.UpdateQueryFactory
 import core.strategies.PropertyMatchStrategy
 import data.WikidataFactory
+import iAndO.dump.DumpObject
 import org.scalatest.FunSuite
 import similarityFinder.displayer.{QueryFactorySimilarityResult, ResultHandler}
 import tags.{ActiveSlowTag, ActiveTag}
@@ -110,8 +111,18 @@ class TestResultsSimilarArtistsGlobals extends FunSuite{
         assert(percentTimeout > 90)
       }
     }
-
-
+  }
+  test("Finding not found pairs should work") {
+    val baselineRun = "http://www.espenalbert.com/rdf/resultsSimilarArtists#wikidata-SearchUndirectedL2Strategy-"
+    val notFoundPairs = for{
+      (qEntity, (_, notRecalled, _, _, _)) <- QueryFactorySimilarityResult.findResultsForRun(baselineRun)
+      notRecalledEntity <- notRecalled
+    } yield(qEntity, notRecalledEntity)
+//    notFoundPairs.foreach(pair =>
+//    println(s"Not found: ${pair._1} - ${pair._2} Statement count: ${QueryFactorySimilarityResult.findStatementCountEntity(pair._1)}-${QueryFactorySimilarityResult.findStatementCountEntity(pair._2)}"))
+    DumpObject.dumpJsonMapStringListString(notFoundPairs.groupBy(_._1).map{
+      case (qEntity, listOfPairs) => qEntity -> listOfPairs.map(_._2)
+    }, "wikidata-qEntityToNotRecalled")
   }
 
 }

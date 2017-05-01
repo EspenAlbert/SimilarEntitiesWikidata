@@ -6,7 +6,7 @@ for (dirpath, dirnames, filenames) in os.walk("/home/espen/prog/scala/SimilarEnt
         f.append(dirpath + "/" + name)
 
 
-
+print([x.split("/")[-1].replace("_", " ")[:-4] for x in f])
 import http.client
 
 conn = http.client.HTTPConnection("entityclassifier.eu")
@@ -28,8 +28,8 @@ def createClassification(summary, path):
     f.write(jsonResponse)
     f.close()
 
-for articleFilenamePath in f:
-    file = open(articleFilenamePath, 'r', encoding="utf-8")
-    summary = file.readlines()[3:]#First 3 lines: title, published date and link.
-    oneLineSummary = " ".join(summary)
-    createClassification(oneLineSummary, articleFilenamePath)
+# for articleFilenamePath in f:
+#     file = open(articleFilenamePath, 'r', encoding="utf-8")
+#     summary = file.readlines()[3:]#First 3 lines: title, published date and link.
+#     oneLineSummary = " ".join(summary)
+#     createClassification(oneLineSummary, articleFilenamePath)
