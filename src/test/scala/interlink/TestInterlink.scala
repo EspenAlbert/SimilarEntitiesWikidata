@@ -1,7 +1,7 @@
 package interlink
 
 import core.interlinking.Interlink
-import data.DBpediaFactory
+import core.testData.DBpediaFactory
 import org.scalatest.FunSuite
 import tags.ActiveTag
 

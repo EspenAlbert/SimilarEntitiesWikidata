@@ -1,6 +1,6 @@
 package query
 
-import core.globals.KnowledgeGraph
+import core.globals.KnowledgeGraphs
 import core.query.specific.QueryFactory
 import org.scalatest.FunSuite
 
@@ -8,7 +8,7 @@ import org.scalatest.FunSuite
   * Created by Espen on 02.11.2016.
   */
 class TestFindObjectStatementsQuery extends FunSuite{
-  implicit val knowledgeGraph = KnowledgeGraph.wikidata
+  implicit val knowledgeGraph = KnowledgeGraphs.wikidata
   test("Object statements for obama should be 135") {
     val obamaId = "Q76"
     val objects: List[String] = QueryFactory.findSubjectsAndProperties(obamaId)._2

@@ -1,8 +1,8 @@
 package rdf
 
-import core.globals.{KnowledgeGraph, MyDatasets, SimilarPropertyOntology}
+import core.globals.{KnowledgeGraphs, MyDatasets, SimilarPropertyOntology}
 import core.rdf.GraphRDF
-import data.WikidataFactory
+import core.testData.WikidataFactory
 import org.scalatest.{BeforeAndAfter, FunSuite}
 import tags.ActiveTag
 
@@ -10,7 +10,7 @@ import tags.ActiveTag
   * Created by Espen on 02.11.2016.
   */
 class TestGraphRDF extends FunSuite with BeforeAndAfter{
-  implicit val knowledgeGraph = KnowledgeGraph.wikidata
+  implicit val knowledgeGraph = KnowledgeGraphs.wikidata
 
   var graph: GraphRDF = _
   before {

@@ -3,7 +3,7 @@ package core.globals
 /**
   * Created by Espen on 04.11.2016.
   */
-import core.globals.KnowledgeGraph.KnowledgeGraph
+import core.globals.KnowledgeGraphs.KnowledgeGraph
 import core.globals.{DateTimePropertyType, ItemPropertyType, PropertyType, QuantityPropertyType, StringPropertyType, UrlPropertyType}
 import core.query.specific.{AskQuery, QueryFactory}
 object PrimitiveDatatype extends Enumeration{

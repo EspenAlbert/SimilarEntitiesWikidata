@@ -1,8 +1,8 @@
 package query
 
-import core.globals.KnowledgeGraph
+import core.globals.KnowledgeGraphs
 import core.query.specific.AskQuery._
-import data.{DBpediaFactory, WikidataFactory}
+import core.testData.DBpediaFactory
 import org.scalatest.FunSuite
 import tags.ActiveTag
 
@@ -10,7 +10,7 @@ import tags.ActiveTag
   * Created by Espen on 02.11.2016.
   */
 class TestAskQueryDBpedia extends FunSuite{
-  implicit val knowledgeGraph = KnowledgeGraph.dbPedia
+  implicit val knowledgeGraph = KnowledgeGraphs.dbPedia
   private val ringoStarr = DBpediaFactory.ringoStarr
   test("same type possible should work", ActiveTag) {
     assert(sameTypePossibleForProp(DBpediaFactory.dateProperty) == false)

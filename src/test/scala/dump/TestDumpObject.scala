@@ -1,6 +1,6 @@
 package dump
 
-import iAndO.dump.DumpObject
+import core.dump.DumpObject
 import org.scalatest.FunSuite
 
 /**

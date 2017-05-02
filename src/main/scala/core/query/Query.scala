@@ -3,11 +3,10 @@ package core.query
 import java.io.ByteArrayOutputStream
 import java.net.SocketTimeoutException
 
-import core.globals.{KnowledgeGraph, MyDatasets, SimilarPropertyOntology}
+import core.globals.{KnowledgeGraphs, MyDatasets, SimilarPropertyOntology}
 import core.query.specific.DatasetInferrer
 import core.query.variables.ResultVariable
 import jenaQuerier.QueryLocalServer
-import similarityFinder.MyConfiguration
 
 import scala.util.{Failure, Success, Try}
 
@@ -57,7 +56,7 @@ class Query(f : () => String,  val dataset : String) extends FindSomething{
     execution match {
       case Success(s) => Unit
       case Failure(e) => {
-        if(MyConfiguration.verbose) {
+        if(true) {//TODO:Fix
           println(s"Exception $e")
           println(s"Timeout for: ${f()}")
         }

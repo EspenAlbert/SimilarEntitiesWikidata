@@ -10,6 +10,7 @@ object SimilarPropertyOntology extends Enumeration{
   val maxPropertyNumber = 3333
 
 
+//  val a = org.apache.jena.vocabulary.RDFS.
   type SimilarPropertyOntology = Value
   val standardRdfTypeDBpedia = Value("http://www.w3.org/2004/02/skos/core#Concept")
   val wikiPageWikiLink = Value("http://dbpedia.org/ontology/wikiPageWikiLink")

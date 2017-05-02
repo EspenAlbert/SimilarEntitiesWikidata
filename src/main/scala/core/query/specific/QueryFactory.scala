@@ -1,10 +1,8 @@
 package core.query.specific
 
-import core.globals.KnowledgeGraph.KnowledgeGraph
-import core.globals.{KnowledgeGraph, MyDatasets, PrimitiveDatatype, SimilarPropertyOntology}
+import core.globals.KnowledgeGraphs.KnowledgeGraph
+import core.globals.{KnowledgeGraphs, MyDatasets, PrimitiveDatatype, SimilarPropertyOntology}
 import core.query.Query
-import core.strategies.ExpandNodeStrategy
-import similarityFinder.MyConfiguration
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.util.Try
@@ -13,7 +11,7 @@ import scala.util.Try
   * Created by espen on 17.02.17.
   */
 object QueryFactory {
-  def findObjectsOfPropertyWhereCountGreaterThanThreshold(property: String)(implicit knowledgeGraph: KnowledgeGraph) : List[(String, Int)] = {
+  def findObjectsOfPropertyWhereCountGreaterThanThreshold(property: String, thresholdStoreValueMatchCount : String)(implicit knowledgeGraph: KnowledgeGraph) : List[(String, Int)] = {
     val queryString =
       s"""
          |select ?o (count(?s) as ?c)
@@ -21,7 +19,7 @@ object QueryFactory {
          |  ?s <$property> ?o .
          |  }
          |Group by ?o
-         |Having(?c > ${MyConfiguration.thresholdCountStoreValueMatchCount})
+         |Having(?c > ${thresholdStoreValueMatchCount})
        """.stripMargin
     val query = executeQuery(queryString)
     val objects : List[String] = query.getResults("o")
@@ -55,7 +53,7 @@ object QueryFactory {
     return query.getResults("p")
   }
 
-  def findOrderedCountForTypes(isDomainProperties: List[String], isRangeProperties: List[String])(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
+  def findOrderedCountForTypes(isDomainProperties: List[String], isRangeProperties: List[String], numberOfComparableTypes : Int=10)(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
     val typesIsDomainOfProperties = isDomainProperties.map(p => s"{?s <${SimilarPropertyOntology.isDomainType}> <$p> }").mkString("UNION")
     val typesIsRangeOfProperties = isRangeProperties.map(p => s"{?s <${SimilarPropertyOntology.isRangeType}> <$p> }").mkString("UNION")
     val unionWithRange = if(typesIsRangeOfProperties.isEmpty) "" else s"${if(typesIsDomainOfProperties.isEmpty) typesIsRangeOfProperties else s"UNION $typesIsRangeOfProperties"}"
@@ -66,9 +64,9 @@ object QueryFactory {
          |  $typesIsDomainOfProperties $unionWithRange
          |}Group by ?s
          |Order by desc(?c)
-         |LIMIT ${MyConfiguration.numberOfComparableTypes}
+         |LIMIT $numberOfComparableTypes
         """.stripMargin
-    val query = executeQuery(queryString, KnowledgeGraph.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
+    val query = executeQuery(queryString, KnowledgeGraphs.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
     return query.getResults("s")
   }
 
@@ -80,7 +78,7 @@ object QueryFactory {
          |  ?s <${SimilarPropertyOntology.isRangeType}> <$property> .
          |}
         """.stripMargin
-    val query = executeQuery(queryString, KnowledgeGraph.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
+    val query = executeQuery(queryString, KnowledgeGraphs.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
     return query.getResults("s")
   }
 
@@ -92,7 +90,7 @@ object QueryFactory {
          |  ?s <${SimilarPropertyOntology.isDomainType}> <$property> .
          |}
         """.stripMargin
-    val query = executeQuery(queryString, KnowledgeGraph.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
+    val query = executeQuery(queryString, KnowledgeGraphs.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
     return query.getResults("s")
   }
 
@@ -103,7 +101,7 @@ object QueryFactory {
          |SELECT distinct ?t
          |WHERE {
          |  ?s <$property> ?o .
-         |  ?s <${KnowledgeGraph.getTypeProperty(knowledgeGraph)}> ?t
+         |  ?s <${KnowledgeGraphs.getTypeProperty(knowledgeGraph)}> ?t
          |}
         """.stripMargin
     val query = executeQuery(queryString)
@@ -115,7 +113,7 @@ object QueryFactory {
          |SELECT distinct ?t
          |WHERE {
          |  ?s <$property> ?o .
-         |  ?o <${KnowledgeGraph.getTypeProperty(knowledgeGraph)}> ?t
+         |  ?o <${KnowledgeGraphs.getTypeProperty(knowledgeGraph)}> ?t
          |}
         """.stripMargin
     val query = executeQuery(queryString)
@@ -129,7 +127,7 @@ object QueryFactory {
          |  ?property <${SimilarPropertyOntology.isDescriptive}> ?isDescriptive
          |}
         """.stripMargin
-    val query = executeQuery(queryString, KnowledgeGraph.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
+    val query = executeQuery(queryString, KnowledgeGraphs.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
     val properties = query.getResults("property")
     val strategies = query.getResults("isDescriptive")
 
@@ -191,7 +189,7 @@ object QueryFactory {
          |  ?property <${SimilarPropertyOntology.domainCount}> ?domainCount
          |}
         """.stripMargin
-    val query = executeQuery(queryString, KnowledgeGraph.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
+    val query = executeQuery(queryString, KnowledgeGraphs.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
     val properties = query.getResults("property")
     val strategies = query.getResults("domainCount")
 
@@ -205,7 +203,7 @@ object QueryFactory {
          |  ?property <${SimilarPropertyOntology.rangeCount}> ?domainCount
          |}
         """.stripMargin
-    val query = executeQuery(queryString, KnowledgeGraph.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
+    val query = executeQuery(queryString, KnowledgeGraphs.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
     val properties = query.getResults("property")
     val strategies = query.getResults("domainCount")
 
@@ -221,7 +219,7 @@ object QueryFactory {
          |  ?property rdf:type ?strategy
          |}
         """.stripMargin
-    val query = executeQuery(queryString, KnowledgeGraph.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
+    val query = executeQuery(queryString, KnowledgeGraphs.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
     val properties = query.getResults("property")
     val strategies = query.getResults("strategy")
 
@@ -229,7 +227,7 @@ object QueryFactory {
   }
 
 
-  def objectsOfTypeWithPropertyAndSubject(property: String, subject: String, rdfTypes: List[String], useMustHaveProperty : Boolean = MyConfiguration.useMustHaveProperty)(implicit knowledgeGraph : KnowledgeGraph): List[String] = {
+  def objectsOfTypeWithPropertyAndSubject(property: String, subject: String, rdfTypes: List[String], useMustHaveProperty : Boolean)(implicit knowledgeGraph : KnowledgeGraph, mustHaveProperty: String, mustHavePropertyIsSubject : Boolean): List[String] = {
     val extraFilter = findExtraFilter(useMustHaveProperty, "o")
     val queryString =
       s"""
@@ -246,17 +244,17 @@ object QueryFactory {
     return objects
   }
 
-  def findExtraFilter(useMustHaveProperty: Boolean, queryVariable : String) : String = {
+  def findExtraFilter(useMustHaveProperty: Boolean, queryVariable : String)(implicit mustHaveProperty: String, mustHavePropertyIsSubject : Boolean) : String = {
     if(!useMustHaveProperty) return ""
-    if(ExpandNodeStrategy.mustHaveProperty == "") return ""
-    if(ExpandNodeStrategy.mustHavePropertyIsSubject) s"?$queryVariable <${ExpandNodeStrategy.mustHaveProperty}> ?dontMatter ."
+    if(mustHaveProperty == "") return ""
+    if(mustHavePropertyIsSubject) s"?$queryVariable <${mustHaveProperty}> ?dontMatter ."
     else {
-      s"?dontMatter <${ExpandNodeStrategy.mustHaveProperty}> ?$queryVariable ."
+      s"?dontMatter <$mustHaveProperty> ?$queryVariable ."
     }
 
   }
 
-  def objectsWithPropertyAndSubject(property: String, subject: String, useMustHaveProperty : Boolean = MyConfiguration.useMustHaveProperty)(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
+  def objectsWithPropertyAndSubject(property: String, subject: String, useMustHaveProperty : Boolean )(implicit knowledgeGraph : KnowledgeGraph, mustHaveProperty: String, mustHavePropertyIsSubject : Boolean) : List[String] = {
     val extraFilter = findExtraFilter(useMustHaveProperty, "o")
     val queryString =
       s"""
@@ -272,7 +270,8 @@ object QueryFactory {
     return objects
 
   }
-  def subjectsOfTypeWithPropertyAndValue(property: String, objectValue: String, rdfTypes: List[String], useMustHaveProperty : Boolean = MyConfiguration.useMustHaveProperty)(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
+
+  def subjectsOfTypeWithPropertyAndValue(property: String, objectValue: String, rdfTypes: List[String], useMustHaveProperty : Boolean= false)(implicit knowledgeGraph : KnowledgeGraph, mustHaveProperty: String="", mustHavePropertyIsSubject : Boolean=true) : List[String] = {
     val extraFilter = findExtraFilter(useMustHaveProperty, "s")
     val queryString =
       s"""
@@ -289,7 +288,7 @@ object QueryFactory {
     return subjects
   }
 
-  def subjectsWithPropertyAndValue(property: String, value: String, useMustHaveProperty : Boolean = MyConfiguration.useMustHaveProperty)(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
+  def subjectsWithPropertyAndValue(property: String, value: String, useMustHaveProperty : Boolean )(implicit knowledgeGraph : KnowledgeGraph, mustHaveProperty: String, mustHavePropertyIsSubject : Boolean) : List[String] = {
 
     val extraFilter = findExtraFilter(useMustHaveProperty, "s")
     val queryString =
@@ -378,14 +377,14 @@ object QueryFactory {
 
   import scala.concurrent.ExecutionContext.Implicits.global
   def findPropertiesAndObjectsFuture(subject: String):Future[Tuple2[List[String], List[String]]] = {
-    implicit val knowledgeGraph = KnowledgeGraph.wikidata
+    implicit val knowledgeGraph = KnowledgeGraphs.wikidata
     return Future {
       println("Executing future...")
       findPropertiesAndObjects(subject)
     }
   }
   def findPropertiesAndObjectsFuture2(subject: String)(implicit ec: ExecutionContext):Future[Int] = {
-    implicit val knowledgeGraph = KnowledgeGraph.wikidata
+    implicit val knowledgeGraph = KnowledgeGraphs.wikidata
   import scala.concurrent.ExecutionContext.Implicits.global
 
   return Future {
@@ -522,8 +521,8 @@ object QueryFactory {
     return Try(query.getResults("o")(0))
   }
   def findObjectsHavingMoreThanXStatementsOfPropertyWithType(countThreshold: Int, property : String, subjectType: String)(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
-    val typeProperty = KnowledgeGraph.getTypeProperty(knowledgeGraph)
-    val subclassProperty = KnowledgeGraph.getSubclassProperty(knowledgeGraph)
+    val typeProperty = KnowledgeGraphs.getTypeProperty(knowledgeGraph)
+    val subclassProperty = KnowledgeGraphs.getSubclassProperty(knowledgeGraph)
     val queryString =
       s"""
         |select ?o (count(?s) as ?c)
@@ -560,8 +559,8 @@ object QueryFactory {
     return executeQuery(queryString).getResults("s")
   }
   def findMostCommonTypesOneStepUpInHierarchyForPropertyAndObject(property: String, objectEntity: String)(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
-    val typeProperty = KnowledgeGraph.getTypeProperty(knowledgeGraph)
-    val subclassProperty = KnowledgeGraph.getSubclassProperty(knowledgeGraph)
+    val typeProperty = KnowledgeGraphs.getTypeProperty(knowledgeGraph)
+    val subclassProperty = KnowledgeGraphs.getSubclassProperty(knowledgeGraph)
     val queryString =
       s"""
         |SELECT  ?t (COUNT(?s) AS ?c) WHERE   {
@@ -573,7 +572,7 @@ object QueryFactory {
     return executeQuery(queryString).getResults("t")
   }
   def findPropertyObjectPairsCountsForSubjectsHavingEntityAsObjectForProperty(property: String, objectEntity : String)(implicit knowledgeGraph : KnowledgeGraph) : List[(String, String, Int)] = {
-    val prefix = KnowledgeGraph.getDatasetEntityPrefix(knowledgeGraph)
+    val prefix = KnowledgeGraphs.getDatasetEntityPrefix(knowledgeGraph)
     val queryString =
       s"""
         |select ?p ?o (count(?o) as ?oc)
@@ -593,7 +592,7 @@ object QueryFactory {
     return (for(i <- 0 until objects.size)yield(properties(i), objects(i), counts(i))).toList
   }
   def findPropertyObjectPairsCountsForObjectsHavingEntityAsSubjectForProperty(property: String, subject : String)(implicit knowledgeGraph : KnowledgeGraph) : List[(String, String, Int)] = {
-    val prefix = KnowledgeGraph.getDatasetEntityPrefix(knowledgeGraph)
+    val prefix = KnowledgeGraphs.getDatasetEntityPrefix(knowledgeGraph)
     val queryString =
       s"""
          |select ?p ?o (count(?o) as ?oc)

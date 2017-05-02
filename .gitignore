@@ -2,5 +2,10 @@ target/
 .idea/
 input/
 output/
-/**/anki/*
+/anki/*
 /**/.idea/*
+structureFinder/
+readKG/
+similarityFinder/
+preprocessing/
+misc/*

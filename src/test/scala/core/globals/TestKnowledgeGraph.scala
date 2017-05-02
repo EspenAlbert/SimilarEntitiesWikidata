@@ -1,6 +1,6 @@
 package core.globals
 
-import data.WikidataFactory
+import core.testData.WikidataFactory
 import org.scalatest.FunSuite
 
 /**
@@ -11,7 +11,7 @@ class TestKnowledgeGraph extends FunSuite{
   test("getPropertyQualifier") {
     val raw = WikidataFactory.qualifierProperties.head
     val expected = "http://www.wikidata.org/entity/P1734"
-    val actual = KnowledgeGraph.getPropertyWithoutQualifierName(raw)
+    val actual = KnowledgeGraphs.getPropertyWithoutQualifierName(raw)
     assert(expected == actual)
 
   }

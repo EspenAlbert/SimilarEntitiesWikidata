@@ -1,11 +1,14 @@
 import sbt.Keys.{libraryDependencies, version}
 
 
-
+lazy val commonDependencies = Seq(
+  "org.scalatest" %% "scalatest" % "3.0.1" %  "test"
+)
 lazy val commonSettings = Seq(
   name := "SimilarEntitiesWikidata",
   version := "1.0",
-  scalaVersion := "2.11.8"
+  scalaVersion := "2.11.8",
+  libraryDependencies ++= commonDependencies
 )
 lazy val hello = taskKey[Unit]("An example task")
 
@@ -14,7 +17,6 @@ hello := {println("Yo Espen!")}
 lazy val root = (project in file("."))
   .settings(
     commonSettings,
-    libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.1" %  "test",
     libraryDependencies += "org.w3" %% "banana-jena" % "0.8.1",
     libraryDependencies += "org.apache.jena" % "apache-jena-libs" % "3.1.0",
     libraryDependencies +=  "com.lambdaworks" %% "jacks" % "2.3.3",
@@ -28,5 +30,26 @@ lazy val root = (project in file("."))
 lazy val structureFinder = project.settings(
   commonSettings,
   name := "StructureFinder",
+  version:= "0.3"
+).dependsOn(root)
+lazy val similarityFinder = project.settings(
+  commonSettings,
+  name := "SimilarityFinder",
+  version:= "0.8"
+).dependsOn(root)
+
+lazy val readKG = project.settings(
+  commonSettings,
+  name := "ReadKnowledgeGraph",
+  version:= "0.3"
+).dependsOn(root)
+lazy val preprocessing = project.settings(
+  commonSettings,
+  name := "Preprocessing",
+  version:= "0.3"
+).dependsOn(root)
+lazy val misc = project.settings(
+  commonSettings,
+  name := "Misc",
   version:= "0.3"
 ).dependsOn(root)

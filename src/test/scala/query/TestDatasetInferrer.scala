@@ -1,6 +1,6 @@
 package query
 
-import core.globals.{KnowledgeGraph, MyDatasets, SimilarPropertyOntology}
+import core.globals.{KnowledgeGraphs, MyDatasets, SimilarPropertyOntology}
 import core.query.specific.DatasetInferrer
 import org.scalatest.FunSuite
 
@@ -8,7 +8,7 @@ import org.scalatest.FunSuite
   * Created by Espen on 02.11.2016.
   */
 class TestDatasetInferrer extends FunSuite{
-  implicit val knowledgeGraph = KnowledgeGraph.wikidata
+  implicit val knowledgeGraph = KnowledgeGraphs.wikidata
   test("The wikidata dataset should be inferred properly") {
     val query =
       """

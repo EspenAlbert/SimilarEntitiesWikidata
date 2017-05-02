@@ -1,7 +1,7 @@
 package core.query.specific
 
-import core.globals.KnowledgeGraph
-import core.globals.KnowledgeGraph.KnowledgeGraph
+import core.globals.KnowledgeGraphs
+import core.globals.KnowledgeGraphs.KnowledgeGraph
 import jenaQuerier.QueryLocalServer
 
 import scala.util.{Failure, Success, Try}
@@ -32,14 +32,14 @@ object AskQuery {
          |PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
          |ask
          |WHERE {
-         |<$subject> <${KnowledgeGraph.getTypeProperty(knowledgeGraph)}> ?v
+         |<$subject> <${KnowledgeGraphs.getTypeProperty(knowledgeGraph)}> ?v
          |${QueryHelper.getSameTypeFilter("v", rdfTypes)}
          |}
         """.stripMargin
     return QueryLocalServer.ask(askQuery, DatasetInferrer.getDataset(askQuery))
   }
   def sharableRange(prop: String)(implicit knowledgeGraph: KnowledgeGraph) : Boolean = {
-    val typeProperty = KnowledgeGraph.getTypeProperty(knowledgeGraph)
+    val typeProperty = KnowledgeGraphs.getTypeProperty(knowledgeGraph)
     val askQuery =
       s"""
          |PREFIX wd: <http://www.wikidata.org/entity/>
@@ -71,7 +71,7 @@ object AskQuery {
   }
 
   def sameTypePossibleForProp(prop: String)(implicit knowledgeGraph: KnowledgeGraph) : Boolean = {
-    val typeProperty = KnowledgeGraph.getTypeProperty(knowledgeGraph)
+    val typeProperty = KnowledgeGraphs.getTypeProperty(knowledgeGraph)
     val askQuery =
       s"""
          |PREFIX wd: <http://www.wikidata.org/entity/>

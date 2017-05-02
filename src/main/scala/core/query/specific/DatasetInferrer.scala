@@ -1,7 +1,7 @@
 package core.query.specific
 
-import core.globals.KnowledgeGraph.KnowledgeGraph
-import core.globals.{KnowledgeGraph, MyDatasets, SimilarPropertyOntology}
+import core.globals.KnowledgeGraphs.KnowledgeGraph
+import core.globals.{KnowledgeGraphs, MyDatasets, SimilarPropertyOntology}
 
 /**
   * Created by Espen on 15.11.2016.
@@ -12,13 +12,13 @@ object DatasetInferrer {
 
   def getDataset(query: String)(implicit knowledgeGraph: KnowledgeGraph) : String = {
     knowledgeGraph match {
-      case KnowledgeGraph.wikidata => {
+      case KnowledgeGraphs.wikidata => {
         return patternForValueMatchDataset.findFirstIn(query) match {
           case Some(s) => MyDatasets.ValueMatchWikidata
           case None => MyDatasets.dsWikidata
       }
     }
-      case KnowledgeGraph.dbPedia => {
+      case KnowledgeGraphs.dbPedia => {
         return patternForValueMatchDataset.findFirstIn(query) match {
           case Some(s) => MyDatasets.valueMatchDBpedia
           case None => MyDatasets.DBpediaDS

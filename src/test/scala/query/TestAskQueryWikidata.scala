@@ -1,16 +1,16 @@
 package query
 
-import core.globals.{KnowledgeGraph, MyDatasets}
+import core.globals.{KnowledgeGraphs, MyDatasets}
 import org.scalatest.FunSuite
 import core.query.specific.AskQuery._
-import data.WikidataFactory
+import core.testData.WikidataFactory
 import tags.ActiveTag
 
 /**
   * Created by Espen on 02.11.2016.
   */
 class TestAskQueryWikidata extends FunSuite{
-  implicit val knowledgeGraph = KnowledgeGraph.wikidata
+  implicit val knowledgeGraph = KnowledgeGraphs.wikidata
   test("same type possible should work", ActiveTag) {
     assert(sameTypePossibleForProp("http://www.wikidata.org/entity/P1291") == false)
     assert(sameTypePossibleForProp("http://www.wikidata.org/entity/P1290") == true)

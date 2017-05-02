@@ -1,6 +1,6 @@
 package core.rdf
 
-import core.globals.KnowledgeGraph.KnowledgeGraph
+import core.globals.KnowledgeGraphs.KnowledgeGraph
 import core.globals.SimilarPropertyOntology
 import core.query.specific.QueryFactory
 

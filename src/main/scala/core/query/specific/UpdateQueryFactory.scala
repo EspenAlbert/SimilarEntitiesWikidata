@@ -1,8 +1,7 @@
 package core.query.specific
 
-import core.feature.{Feature, PathFeature}
-import core.globals.KnowledgeGraph.KnowledgeGraph
-import core.globals.{KnowledgeGraph, MyDatasets, ResultsSimilarArtistsGlobals, SimilarPropertyOntology}
+import core.globals.KnowledgeGraphs.KnowledgeGraph
+import core.globals.{KnowledgeGraphs, MyDatasets, ResultsSimilarArtistsGlobals, SimilarPropertyOntology}
 import core.query.variables.ResultVariable
 import jenaQuerier.QueryLocalServer
 
@@ -46,7 +45,7 @@ object UpdateQueryFactory {
     QueryLocalServer.updateLocalData(queryString, MyDatasets.resultsSimilarArtists)
   }
   def updateValueCount(propertyAsFullString: String, entity: String, count: Int)(implicit knowledgeGraph: KnowledgeGraph) : Unit= {
-    val prefix = KnowledgeGraph.getDatasetEntityPrefix(knowledgeGraph)
+    val prefix = KnowledgeGraphs.getDatasetEntityPrefix(knowledgeGraph)
     if(!entity.startsWith(prefix)) return
     val updateQuery = s"insert { <$propertyAsFullString> <${SimilarPropertyOntology.valueMatchProperty}> [ <${SimilarPropertyOntology.valueMatchValue}> <$entity>;\n" +
       s"""<${SimilarPropertyOntology.valueMatchCount}> "%d" ] } where {}""".format(count)
@@ -89,47 +88,7 @@ object UpdateQueryFactory {
               | ] } where {}
               |""".stripMargin
   }
-  def addFindSimilarResultWithFeatures(runName: String, qEntity: String, recalled: Map[String, List[Feature]], notRecalled : List[String], execTime2: Int, foundEntitiesCount: Int, hadTimeout: Boolean): Unit ={
-    val query = addFindSimilarResultWithFeatureQuery(runName, qEntity, recalled, notRecalled, execTime2, foundEntitiesCount, hadTimeout)
-    QueryLocalServer.updateLocalData(query, MyDatasets.resultsSimilarArtists)
-  }
-  def addFindSimilarResultWithFeatureQuery(runName: String, qEntity: String, recalled: Map[String, List[Feature]], notRecalled : List[String], execTime2: Int, foundEntitiesCount: Int, hadTimeout: Boolean) : String = {
-    val recalledInsert = recalled.map(s=>{
-      val featureLines = s._2.map(f =>
-        saveFeatureStatements(f))
-        .mkString(s" <${ResultsSimilarArtistsGlobals.featureFound}> ")
-      s"""
-         |<${ResultsSimilarArtistsGlobals.recalled}> [
-         |<${ResultsSimilarArtistsGlobals.entityRelation}> <${s._1}>;
-         |<${ResultsSimilarArtistsGlobals.featureFound}> ${featureLines}
-         |];
-       """.stripMargin}).mkString("\n")
-    val notRecalledInsert = notRecalled.map(s=> s"<${ResultsSimilarArtistsGlobals.notRecalled}> <$s>;").mkString("\n")
-    return s"""
-              |insert { <$runName> <${ResultsSimilarArtistsGlobals.qEntityResult}> [
-              | <${ResultsSimilarArtistsGlobals.qEntity}> <$qEntity>;
-              | <${ResultsSimilarArtistsGlobals.execTime}> "$execTime2"$datatypeInteger ;
-              | <${ResultsSimilarArtistsGlobals.foundEntitiesCount}> "${foundEntitiesCount}";
-              | <${ResultsSimilarArtistsGlobals.hadTimeout}> "${hadTimeout}"^^<http://www.w3.org/2001/XMLSchema#boolean> ;
-              |${recalledInsert}
-              |${notRecalledInsert}
-              | ] } where {}
-              |""".stripMargin
-  }
 
-  private def saveFeatureStatements(f: Feature) : String= {
-    val pathLine =
-      f match {
-        case a: PathFeature => s"""<${ResultsSimilarArtistsGlobals.featurePath}> "${a.path}""""
-        case _ => ""
-      }
-    return s"""
-       |[
-       |<${ResultsSimilarArtistsGlobals.featureName}> "${f.toString}" ;
-       |<${ResultsSimilarArtistsGlobals.featureWeight}> "${f.getScore()}"$datatypeDouble ;
-       |$pathLine
-       |];""".stripMargin
-  }
 
   def cleanDataset(dataset : String): Unit = {
     QueryLocalServer.deleteLocalData(dataset)
@@ -144,7 +103,7 @@ object UpdateQueryFactory {
     QueryLocalServer.updateLocalData("insert { \n %s } \n where {}".format(statements.mkString("\n")), dataset)
   }
   def addIsDescriptive(property : String, isDescriptive: Boolean)(implicit knowledgeGraph: KnowledgeGraph) = {
-    val dataset = KnowledgeGraph.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph)
+    val dataset = KnowledgeGraphs.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph)
     val query =
       s"""
        |insert { <$property> <${SimilarPropertyOntology.isDescriptive}> "$isDescriptive"^^<$datatypeBoolean>} where {}
@@ -153,7 +112,7 @@ object UpdateQueryFactory {
     QueryLocalServer.updateLocalData(query,dataset)
   }
   def addDomainAndRangeTypesForProperty(domains: List[String], ranges: List[String], property: String)(implicit knowledgeGraph: KnowledgeGraph): Unit = {
-    val dataset = KnowledgeGraph.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph)
+    val dataset = KnowledgeGraphs.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph)
     val domainStatements = domains.map(d => s"<$d> <${SimilarPropertyOntology.isDomainType}> <$property> .").mkString("\n")
     val rangeStatements = ranges.map(r => s"<$r> <${SimilarPropertyOntology.isRangeType}> <$property> .").mkString("\n")
     val query =

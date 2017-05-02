@@ -1,7 +1,7 @@
 package core.query.specific
 
-import core.globals.{KnowledgeGraph, SimilarPropertyOntology}
-import core.globals.KnowledgeGraph.KnowledgeGraph
+import core.globals.{KnowledgeGraphs, SimilarPropertyOntology}
+import core.globals.KnowledgeGraphs.KnowledgeGraph
 
 /**
   * Created by espen on 24.03.17.
@@ -9,7 +9,7 @@ import core.globals.KnowledgeGraph.KnowledgeGraph
 object QueryHelper {
   def getSameTypeFilterForQueryVariable(qVariable: String, rdfTypes: List[String])(implicit knowledgeGraph: KnowledgeGraph) : String = {
       s"""
-         |  ?$qVariable <${KnowledgeGraph.getTypeProperty(knowledgeGraph)}> ?v .
+         |  ?$qVariable <${KnowledgeGraphs.getTypeProperty(knowledgeGraph)}> ?v .
          |  ${getSameTypeFilter("v", rdfTypes)}
         """.stripMargin
   }

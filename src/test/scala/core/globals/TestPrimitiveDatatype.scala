@@ -43,7 +43,7 @@ TestPrimitiveDatatype  extends FunSuite {
     }
   }
   test("determineFromObjectValuePropertyType wikidata") {
-    implicit val knowledgeGraph = KnowledgeGraph.wikidata
+    implicit val knowledgeGraph = KnowledgeGraphs.wikidata
     val optionForPropTypeExpectItempPropType = determineFromObjectValuePropertyType("http://www.wikidata.org/entity/P6")
     assert(optionForPropTypeExpectItempPropType.getOrElse("faill").isInstanceOf[ItemPropertyType])
     val optionForPropTypeExpectIString = determineFromObjectValuePropertyType("http://www.wikidata.org/entity/P1036")
