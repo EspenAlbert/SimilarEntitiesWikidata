@@ -24,11 +24,11 @@ object RDFPath {
       .mkString(",")
   }
 
-  private def createPathLength2(qEntity: String, isSubject: Boolean, property: String, middleNode: String, middleNodeIsSubj: Boolean, property2: String, foundEntity: String): String = {
+  def createPathLength2(qEntity: String, isSubject: Boolean, property: String, middleNode: String, middleNodeIsSubj: Boolean, property2: String, foundEntity: String): String = {
     createPathLength1(qEntity, property, isSubject, middleNode) + s",$middleNodeIsSubj,$property2,$foundEntity"
   }
 
-  private def createPathLength1(qEntity : String, property : String, isSubject : Boolean, foundEntity : String): String = {
+  def createPathLength1(qEntity : String, property : String, isSubject : Boolean, foundEntity : String): String = {
     s"$qEntity,$isSubject,$property,$foundEntity"
   }
 }

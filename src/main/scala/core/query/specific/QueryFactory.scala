@@ -11,7 +11,7 @@ import scala.util.Try
   * Created by espen on 17.02.17.
   */
 object QueryFactory {
-  def findObjectsOfPropertyWhereCountGreaterThanThreshold(property: String, thresholdStoreValueMatchCount : String)(implicit knowledgeGraph: KnowledgeGraph) : List[(String, Int)] = {
+  def findObjectsOfPropertyWhereCountGreaterThanThreshold(property: String, thresholdStoreValueMatchCount : Int)(implicit knowledgeGraph: KnowledgeGraph) : List[(String, Int)] = {
     val queryString =
       s"""
          |select ?o (count(?s) as ?c)
@@ -226,8 +226,8 @@ object QueryFactory {
     return (properties,strategies)
   }
 
-
-  def objectsOfTypeWithPropertyAndSubject(property: String, subject: String, rdfTypes: List[String], useMustHaveProperty : Boolean)(implicit knowledgeGraph : KnowledgeGraph, mustHaveProperty: String, mustHavePropertyIsSubject : Boolean): List[String] = {
+//TODO: Refactor the whole thing...
+  def objectsOfTypeWithPropertyAndSubject(property: String, subject: String, rdfTypes: List[String], useMustHaveProperty : Boolean = false)(implicit knowledgeGraph : KnowledgeGraph, mustHaveProperty: String="" , mustHavePropertyIsSubject : Boolean=true): List[String] = {
     val extraFilter = findExtraFilter(useMustHaveProperty, "o")
     val queryString =
       s"""
@@ -254,7 +254,7 @@ object QueryFactory {
 
   }
 
-  def objectsWithPropertyAndSubject(property: String, subject: String, useMustHaveProperty : Boolean )(implicit knowledgeGraph : KnowledgeGraph, mustHaveProperty: String, mustHavePropertyIsSubject : Boolean) : List[String] = {
+  def objectsWithPropertyAndSubject(property: String, subject: String, useMustHaveProperty : Boolean =false)(implicit knowledgeGraph : KnowledgeGraph, mustHaveProperty: String="" , mustHavePropertyIsSubject : Boolean=true) : List[String] = {
     val extraFilter = findExtraFilter(useMustHaveProperty, "o")
     val queryString =
       s"""
@@ -288,7 +288,7 @@ object QueryFactory {
     return subjects
   }
 
-  def subjectsWithPropertyAndValue(property: String, value: String, useMustHaveProperty : Boolean )(implicit knowledgeGraph : KnowledgeGraph, mustHaveProperty: String, mustHavePropertyIsSubject : Boolean) : List[String] = {
+  def subjectsWithPropertyAndValue(property: String, value: String, useMustHaveProperty : Boolean =false)(implicit knowledgeGraph : KnowledgeGraph, mustHaveProperty: String="" , mustHavePropertyIsSubject : Boolean=true) : List[String] = {
 
     val extraFilter = findExtraFilter(useMustHaveProperty, "s")
     val queryString =

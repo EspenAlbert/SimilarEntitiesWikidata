@@ -22,8 +22,6 @@ lazy val root = (project in file("."))
     libraryDependencies +=  "com.lambdaworks" %% "jacks" % "2.3.3",
     libraryDependencies +=  "org.scalanlp" %% "breeze" % "0.12",
     libraryDependencies +=  "org.scalanlp" %% "breeze-natives" % "0.12",
-    libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "2.4.17",
-    libraryDependencies += "com.typesafe.akka" %% "akka-stream" % "2.4.17",
     libraryDependencies += "org.apache.commons" % "commons-compress" % "1.5",
     libraryDependencies += "com.typesafe.play" %% "play-json" % "2.4.11"  )
 
@@ -35,7 +33,9 @@ lazy val structureFinder = project.settings(
 lazy val similarityFinder = project.settings(
   commonSettings,
   name := "SimilarityFinder",
-  version:= "0.8"
+  version:= "0.8",
+  libraryDependencies += "com.typesafe.akka" %% "akka-actor" % "2.4.17",
+  libraryDependencies += "com.typesafe.akka" %% "akka-stream" % "2.4.17"
 ).dependsOn(root)
 
 lazy val readKG = project.settings(
