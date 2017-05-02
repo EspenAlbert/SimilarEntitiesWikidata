@@ -1,3 +1,9 @@
 
 # SimilarEntitiesWikidata
-This project will be refactored and a short wiki will be created by the end of 2016 :)
+
+This project consist of multiple repositories:
+https://github.com/EspenAlbert/preprocessingKnowledgeGraph
+https://github.com/EspenAlbert/structureFinderInKnowledgeGraph
+https://github.com/EspenAlbert/findingSimilarEntitiesInKnowledgeGraph
+https://github.com/EspenAlbert/readKnowledgeGraph
+
