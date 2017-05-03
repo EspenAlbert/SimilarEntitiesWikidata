@@ -7,7 +7,6 @@ import core.globals._
 import core.testData.WikidataFactory.w
 object DBpediaFactory {
 
-  val propToTypeFilename = "DBpedia-propToTypeMapping"
   val resource = "http://dbpedia.org/resource/"
   val ontology = "http://dbpedia.org/ontology/"
   val standardRdfType = "http://www.w3.org/2004/02/skos/core#Concept"

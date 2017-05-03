@@ -2,6 +2,7 @@ package core.dump
 
 import java.io.File
 
+import buildInfo.BuildInfo
 import com.lambdaworks.jacks.JacksMapper
 import core.globals.PropertyType
 import org.apache.commons.io.FileUtils
@@ -131,8 +132,9 @@ object DumpObject {
     return map.map{case (st, ptSt) => (st -> PropertyType.stringToPropType(ptSt))}
   }
 
-
-  final val picklePath = "output/pickles/"
+  def getCurrentDirectory = new java.io.File(".").getCanonicalPath
+//  final val picklePath = "SimilarEntitiesWikidata/output/pickles/"
+  final val picklePath = BuildInfo.similarEntitiesCorePath + "/output/pickles/"
 
   def dumpJsonMap(objectToDump: Map[String, Double], filename: String): Unit = {
     val fullFilename: String = picklePath + filename + ".txt"
