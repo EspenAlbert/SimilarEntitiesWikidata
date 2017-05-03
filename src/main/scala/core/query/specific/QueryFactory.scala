@@ -11,6 +11,7 @@ import scala.util.Try
   * Created by espen on 17.02.17.
   */
 object QueryFactory {
+
   def findObjectsOfPropertyWhereCountGreaterThanThreshold(property: String, thresholdStoreValueMatchCount : Int)(implicit knowledgeGraph: KnowledgeGraph) : List[(String, Int)] = {
     val queryString =
       s"""

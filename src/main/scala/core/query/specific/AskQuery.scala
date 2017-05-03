@@ -10,6 +10,10 @@ import scala.util.{Failure, Success, Try}
   * Created by Espen on 08.11.2016.
   */
 object AskQuery {
+  def isParentOfChild(potentialParent: String, child: String)(implicit knowledgeGraph: KnowledgeGraph) : Boolean = {
+    val askQuery = s"ask where { <$child> <${KnowledgeGraphs.getSubclassProperty(knowledgeGraph)}> <$potentialParent> }"
+    return QueryLocalServer.ask(askQuery, DatasetInferrer.getDataset(askQuery))
+  }
   def maxCountSameSubject(property: String)(implicit knowledgeGraph: KnowledgeGraph): Boolean = {
     val askQuery =
       s"""

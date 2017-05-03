@@ -5,12 +5,26 @@ package core.query
   */
 
 import core.globals.MyDatasets
+import core.query.specific.QueryFactoryJena
 import org.apache.jena.query.{Query, _}
 import org.apache.jena.rdf.model.Resource
 
 import scala.util.{Failure, Success, Try}
 
 object QueryServerScala {
+  def query(ds: String, queryString: String, queryVars: QueryFactoryJena.QueryVar*): Unit = {
+    val query = QueryFactory.create(queryString)
+    val qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/" + MyDatasets.dsWikidata + "/query", queryString)
+    try {
+      val results = qexec.execSelect
+      while(results.hasNext){
+        val next = results.next()
+        queryVars.foreach(_.addResult(next))
+      }
+    }
+    finally qexec.close()
+  }
+
   def main(args: Array[String]): Unit = {
 //    val returnedStream = queryTest(decodeResultsQuerySolution)
 //    println(returnedStream)
@@ -26,8 +40,6 @@ object QueryServerScala {
     }{
       println(variable)
     }
-
-
   }
   def decodeResultsQuerySolution(rs : QuerySolution) : (String, String) = {
     (rs.getResource("s").getURI,rs.getResource("s").getURI)
@@ -39,33 +51,7 @@ object QueryServerScala {
   def getLiteralIntFromResult(resultVar : String)(qs : QuerySolution) : Int = {
     Try(qs.getLiteral(resultVar).getInt) match {
       case Success(s) => s
-      case Failure(_) => -1
-    }
-  }
-
-  def generateResultDecoderFromMultipleFunctions(rs: QuerySolution => Any) : Unit = {
-
-  }
-
-
-
-
-  def getStreamFromResult[T](results: ResultSet, resultVars : Iterable[String]) :List[Iterable[Any]] = {
-    if(results.hasNext) {
-      val nextResult = results.next()
-        return resultVars.map(rv => rv match {
-          case a : String => nextResult.getResource(a).getURI
-          case _ => nextResult.getLiteral("s").getString
-        }) :: getStreamFromResult(results, resultVars)
-    } else {
-      Nil
-    }
-  }
-  def getResultsUsingFunction[T](results: ResultSet,resultVars : QuerySolution => T ) : List[T] = {
-    if(results.hasNext) {
-      resultVars(results.next()) :: getResultsUsingFunction(results, resultVars)
-    } else {
-      Nil
+      case Failure(_) => throw new Exception(s"Failed to decode var: ?$resultVar from query, $qs")
     }
   }
 
@@ -78,26 +64,15 @@ object QueryServerScala {
     }
   }
 
-  def queryTest(resultVars : ((QuerySolution) => Any)*): List[Iterable[Any]] = { //        System.out.println("about to execute query");
+  def queryTest(decodeFunctions : ((QuerySolution) => Any)*): List[Iterable[Any]] = { //        System.out.println("about to execute query");
     val queryString = "PREFIX wd: <http://www.wikidata.org/entity/>\nselect ?s ?b where { ?s wd:P27 wd:Q30 .bind(1 as ?b)} LIMIT 100"
     val query = QueryFactory.create(queryString)
     val start = System.currentTimeMillis
     val qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/" + MyDatasets.dsWikidata + "/query", queryString)
     try {
-      var a = 0
-      val results = qexec.execSelect
-      getResultsUsingFunctions(results, resultVars)
-//      while (results.hasNext)
-//      {
-//        a += 1
-//        if (a % 1000 == 0) System.out.println(System.currentTimeMillis - start)
-//        val next = results.next
-//        val s = next.getResource("s")
-//        val uri = s.getURI
-//        println(uri)
-//                        System.out.println(uri);
+        val results = qexec.execSelect
+        getResultsUsingFunctions(results, decodeFunctions)
       }
-      //            ResultSetFormatter.out(outputStream, results, query);
      finally qexec.close()
   }
 
