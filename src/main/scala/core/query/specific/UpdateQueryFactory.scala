@@ -14,15 +14,34 @@ object UpdateQueryFactory {
   val datatypeInteger = """^^<http://www.w3.org/2001/XMLSchema#integer>"""
   val datatypeDouble = """^^<http://www.w3.org/2001/XMLSchema#double>"""
   val datatypeBoolean = SimilarPropertyOntology.datatypeBoolean
+
+  def updateData(insertQuery : String)(implicit knowledgeGraph: KnowledgeGraph): Unit = {
+    QueryLocalServer.updateLocalData(insertQuery,DatasetInferrer.getDataset(insertQuery))
+  }
+  def updateData(insertQuery : String, datasetForced : String): Unit = {
+    QueryLocalServer.updateLocalData(insertQuery,datasetForced)
+
+  }
+
+  def updateHierachyLevel(entityType: String, hierarchyLevel: Int)(implicit knowledgeGraph: KnowledgeGraph) : Unit = {
+    val deleteQuery = s"""<$entityType> <${SimilarPropertyOntology.hierarchyLevel}> ?o"""
+    val insertQuery =
+      s"""
+insert { <$entityType> <${SimilarPropertyOntology.hierarchyLevel}> "$hierarchyLevel"$datatypeInteger } where {}
+       """.stripMargin
+    cleanDatasetWhere(DatasetInferrer.getDataset(deleteQuery), deleteQuery)
+    updateData(insertQuery)
+
+  }
   def addLabelForEntity(enitity: String, label: String) : Unit = {
     val insertQuery =
       s"""
          |insert { <$enitity> <${SimilarPropertyOntology.rdfsLabel}> "$label"@en } where {}
        """.stripMargin
-    QueryLocalServer.updateLocalData(insertQuery, MyDatasets.resultsSimilarArtists)
+   updateData(insertQuery, MyDatasets.resultsSimilarArtists)
   }
   def addStatsForRun(stats: (String, Double, Double, Int, Int, Int)): Unit = {
-    val query =
+    val insertQuery =
       s"""
        |insert { <${stats._1}> <${ResultsSimilarArtistsGlobals.recall}> "${stats._2}"$datatypeDouble;
        |                      <${ResultsSimilarArtistsGlobals.precision}> "${stats._3}"$datatypeDouble;
@@ -31,7 +50,7 @@ object UpdateQueryFactory {
        |                      <${ResultsSimilarArtistsGlobals.percentTimeout}> "${stats._6}"$datatypeInteger;
        |                        } where {}
       """.stripMargin
-    QueryLocalServer.updateLocalData(query, MyDatasets.resultsSimilarArtists)
+   updateData(insertQuery, MyDatasets.resultsSimilarArtists)
   }
   def addExpectedSimilarsForQEntity(qEntity: String, expectedSimilars : List[String]) = {
     val expectedSimilarsStatements = expectedSimilars.map(s => s"<$qEntity> <${ResultsSimilarArtistsGlobals.expectedSimilar}> <$s>").mkString(".\n")
@@ -47,14 +66,15 @@ object UpdateQueryFactory {
   def updateValueCount(propertyAsFullString: String, entity: String, count: Int)(implicit knowledgeGraph: KnowledgeGraph) : Unit= {
     val prefix = KnowledgeGraphs.getDatasetEntityPrefix(knowledgeGraph)
     if(!entity.startsWith(prefix)) return
-    val updateQuery = s"insert { <$propertyAsFullString> <${SimilarPropertyOntology.valueMatchProperty}> [ <${SimilarPropertyOntology.valueMatchValue}> <$entity>;\n" +
+    val insertQuery = s"insert { <$propertyAsFullString> <${SimilarPropertyOntology.valueMatchProperty}> [ <${SimilarPropertyOntology.valueMatchValue}> <$entity>;\n" +
       s"""<${SimilarPropertyOntology.valueMatchCount}> "%d" ] } where {}""".format(count)
-    val dataset = DatasetInferrer.getDataset(updateQuery)
-    println(s"Adding to $dataset updateQuery: $updateQuery")
-    QueryLocalServer.updateLocalData(updateQuery, dataset)
+    val dataset = DatasetInferrer.getDataset(insertQuery)
+    println(s"Adding to $dataset insertQuery: $insertQuery")
+   updateData(insertQuery)
   }
   def addResult(qEntity: String, foundEntity : String, ranking : Int, simScore: Double) = {
-    QueryLocalServer.updateLocalData(addResultQuery(qEntity, foundEntity, ranking, simScore), MyDatasets.resultsSimilarArtists)
+    val insertQuery = addResultQuery(qEntity, foundEntity, ranking, simScore)
+   updateData(insertQuery, MyDatasets.resultsSimilarArtists)
   }
 
   def addResultQuery(qEntity: String, foundEntity: String, ranking: Int, simScore: Double): String = {
@@ -64,7 +84,7 @@ object UpdateQueryFactory {
   def addNewRun(runName: String, cleanFirst : Boolean = true): Unit ={
     if(cleanFirst) cleanRunName(runName)
     val insertQuery = s"""insert { <$runName> <${SimilarPropertyOntology.rdfType}> <${ResultsSimilarArtistsGlobals.runType}>} where {}"""
-    QueryLocalServer.updateLocalData(insertQuery, MyDatasets.resultsSimilarArtists)
+   updateData(insertQuery, MyDatasets.resultsSimilarArtists)
   }
 
   def cleanRunName(runName: String) = {
@@ -72,7 +92,8 @@ object UpdateQueryFactory {
   }
 
   def addFindSimilarResult(runName: String, qEntity: String, recalled: List[String], notRecalled : List[String], execTime2: Int, foundEntitiesCount: Int, hadTimeout: Boolean): Unit ={
-    QueryLocalServer.updateLocalData(addFindSimilarResultQuery(runName, qEntity, recalled, notRecalled, execTime2, foundEntitiesCount, hadTimeout), MyDatasets.resultsSimilarArtists)
+    val insertQuery = addFindSimilarResultQuery(runName, qEntity, recalled, notRecalled, execTime2, foundEntitiesCount, hadTimeout)
+   updateData(insertQuery, MyDatasets.resultsSimilarArtists)
   }
   def addFindSimilarResultQuery(runName: String, qEntity: String, recalled: List[String], notRecalled : List[String], execTime2: Int, foundEntitiesCount: Int, hadTimeout: Boolean) : String = {
     val recalledInsert = recalled.map(s=> s"<${ResultsSimilarArtistsGlobals.recalled}> <$s>;").mkString("\n")
@@ -97,30 +118,30 @@ object UpdateQueryFactory {
     QueryLocalServer.deleteLocalData(dataset,query)
   }
   def addStatementCount(entity: String, count : Int) = {
-    QueryLocalServer.updateLocalData(s"""insert { <${entity}> <${ResultsSimilarArtistsGlobals.statementCount}> "${count}" } where {} """, MyDatasets.resultsSimilarArtists)
+    val insertQuery = s"""insert { <${entity}> <${ResultsSimilarArtistsGlobals.statementCount}> "${count}" } where {} """
+   updateData(insertQuery, MyDatasets.resultsSimilarArtists)
   }
   def addStatements(statements: Iterable[String], dataset: String = MyDatasets.DsBig) = {
-    QueryLocalServer.updateLocalData("insert { \n %s } \n where {}".format(statements.mkString("\n")), dataset)
+    val insertQuery = "insert { \n %s } \n where {}".format(statements.mkString("\n"))
+   updateData(insertQuery, dataset)
   }
   def addIsDescriptive(property : String, isDescriptive: Boolean)(implicit knowledgeGraph: KnowledgeGraph) = {
-    val dataset = KnowledgeGraphs.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph)
-    val query =
+    val insertQuery =
       s"""
        |insert { <$property> <${SimilarPropertyOntology.isDescriptive}> "$isDescriptive"^^<$datatypeBoolean>} where {}
 
     """.stripMargin
-    QueryLocalServer.updateLocalData(query,dataset)
+   updateData(insertQuery)
   }
   def addDomainAndRangeTypesForProperty(domains: List[String], ranges: List[String], property: String)(implicit knowledgeGraph: KnowledgeGraph): Unit = {
-    val dataset = KnowledgeGraphs.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph)
     val domainStatements = domains.map(d => s"<$d> <${SimilarPropertyOntology.isDomainType}> <$property> .").mkString("\n")
     val rangeStatements = ranges.map(r => s"<$r> <${SimilarPropertyOntology.isRangeType}> <$property> .").mkString("\n")
-    val query =
+    val insertQuery =
       s"""
          |insert { $domainStatements $rangeStatements} where {}
 
     """.stripMargin
-    QueryLocalServer.updateLocalData(query,dataset)
+   updateData(insertQuery)
   }
 
 }

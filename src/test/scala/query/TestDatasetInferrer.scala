@@ -1,6 +1,6 @@
 package query
 
-import core.globals.{KnowledgeGraphs, MyDatasets, SimilarPropertyOntology}
+import core.globals.{KnowledgeGraphs, MyDatasets, ResultsSimilarArtistsGlobals, SimilarPropertyOntology}
 import core.query.specific.DatasetInferrer
 import org.scalatest.FunSuite
 
@@ -22,8 +22,10 @@ class TestDatasetInferrer extends FunSuite{
   }
   test("The similar property dataset should be inferred properly") {
     val query: String = getQueryForProperty(SimilarPropertyOntology.domainCount)
-    assert(DatasetInferrer.getDataset(query) == MyDatasets.SimilarProperties)
+    assert(DatasetInferrer.getDataset(query) == MyDatasets.strategyMappingWikidata)
+    assert(DatasetInferrer.getDataset("SELECT  ?hL WHERE   { <http://www.wikidata.org/entity/Q35120>               <http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#hierarchyLevel>  ?hL   } ") == MyDatasets.strategyMappingWikidata)
   }
+
 
   private def getQueryForProperty(property : String) : String = {
     val query =
@@ -40,10 +42,11 @@ class TestDatasetInferrer extends FunSuite{
   }
 
   test("The value match dataset should be inferred properly") {
-    assert(DatasetInferrer.getDataset(getQueryForProperty(SimilarPropertyOntology.valueMatchClass)) == MyDatasets.ValueMatchWikidata)
-    assert(DatasetInferrer.getDataset(getQueryForProperty(SimilarPropertyOntology.valueMatchValue)) == MyDatasets.ValueMatchWikidata)
-    assert(DatasetInferrer.getDataset(getQueryForProperty(SimilarPropertyOntology.valueMatchCount)) == MyDatasets.ValueMatchWikidata)
+    assert(DatasetInferrer.getDataset(getQueryForProperty(SimilarPropertyOntology.valueMatchClass)) == MyDatasets.valueMatchWikidata)
+    assert(DatasetInferrer.getDataset(getQueryForProperty(SimilarPropertyOntology.valueMatchValue)) == MyDatasets.valueMatchWikidata)
+    assert(DatasetInferrer.getDataset(getQueryForProperty(SimilarPropertyOntology.valueMatchCount)) == MyDatasets.valueMatchWikidata)
   }
+
 
 
 }

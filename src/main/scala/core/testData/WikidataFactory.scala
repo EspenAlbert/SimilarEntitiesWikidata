@@ -9,13 +9,17 @@ import core.rdf.GraphRDF
 object WikidataFactory {
 
 
-  val countMaleGender = 2645899
+  val countMaleGender = 2646113
 
   val domainCountGender = 1405976
   val rangeCountOccupation = 4792
 
   implicit val knowledgeGraph = KnowledgeGraphs.wikidata
   val w = "http://www.wikidata.org/entity/"
+  val hierarchyDepthHuman = 2
+  val hierarchyDepthBand = 4
+  val hierarchyDepthRockBand = 5
+  val entityType = w + "Q35120"
   val typeProperty = w + "P31"
   val professionType = w + "Q28640"
   val directLinkProperty = w + "P1393"
@@ -52,6 +56,8 @@ object WikidataFactory {
   val obama = w + "Q76"
   val human = w + "Q5"
   val band = w + "Q215380"
+  val musicalDuo = w + "Q19184926"
+  val jazzBand = w + "Q2596245"
   val musicalEnsemble = w + "Q2088357"
   val countryProp = w + "P17"
   val domainTypesLifestyleProp = List(human, "http://www.wikidata.org/entity/Q515", "http://www.wikidata.org/entity/Q3464126", "http://www.wikidata.org/entity/Q515", "http://www.wikidata.org/entity/Q839954", "http://www.wikidata.org/entity/Q486972", "http://www.wikidata.org/entity/Q15649510", "http://www.wikidata.org/entity/Q137535", "http://www.wikidata.org/entity/Q13406463", "http://www.wikidata.org/entity/Q6498826", "http://www.wikidata.org/entity/Q15125752", "http://www.wikidata.org/entity/Q182603", "http://www.wikidata.org/entity/Q4167410", "http://www.wikidata.org/entity/Q44613", "http://www.wikidata.org/entity/Q35509", "http://www.wikidata.org/entity/Q571", "http://www.wikidata.org/entity/Q532", "http://www.wikidata.org/entity/Q216353", "http://www.wikidata.org/entity/Q11424", "http://www.wikidata.org/entity/Q159979", "http://www.wikidata.org/entity/Q2985549", "http://www.wikidata.org/entity/Q3375719", "http://www.wikidata.org/entity/Q188784", "http://www.wikidata.org/entity/Q15632617", "http://www.wikidata.org/entity/Q3658341", "http://www.wikidata.org/entity/Q15773317", "http://www.wikidata.org/entity/Q15773347", "http://www.wikidata.org/entity/Q7918273", "http://www.wikidata.org/entity/Q3320743", "http://www.wikidata.org/entity/Q1855011", "http://www.wikidata.org/entity/Q1715155", "http://www.wikidata.org/entity/Q4931504", "http://www.wikidata.org/entity/Q721207", "http://www.wikidata.org/entity/Q374666", "http://www.wikidata.org/entity/Q16998564", "http://www.wikidata.org/entity/Q8046437", "http://www.wikidata.org/entity/Q3445893", "http://www.wikidata.org/entity/Q2369882", "http://www.wikidata.org/entity/Q27301864", "http://www.wikidata.org/entity/Q2642184")

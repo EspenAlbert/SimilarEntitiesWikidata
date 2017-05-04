@@ -3,7 +3,7 @@ package core.testData
 import core.dump.DumpObject
 import core.globals.KnowledgeGraphs.KnowledgeGraph
 import core.globals.{ItemPropertyType, KnowledgeGraphs, PropertyType}
-import core.query.specific.QueryFactory
+import core.query.specific.{QueryFactory, UpdateQueryFactory}
 
 import scala.util.{Failure, Success, Try}
 

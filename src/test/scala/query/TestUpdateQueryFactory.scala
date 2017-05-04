@@ -1,7 +1,7 @@
 package query
 
 import core.globals.{KnowledgeGraphs, MyDatasets}
-import core.query.specific.{AskQuery, QueryFactory}
+import core.query.specific.{AskQuery, QueryFactory, QueryFactoryJena}
 import org.scalatest.FunSuite
 import tags.ActiveTag
 import core.query.specific.UpdateQueryFactory._
@@ -14,7 +14,7 @@ import scala.util.{Failure, Success}
 class TestUpdateQueryFactory extends FunSuite{
   test("Insert check and delete check", ActiveTag) {
     val statement = "<http://dbpedia.org/resource/iAmCustomMade> <http://dbpedia.org/resource/PropertyiAmCustomProperty> <http://dbpedia.org/resource/PropertyiAmCustomPropertyValue> ."
-    val dsDBpedia = MyDatasets.DBpediaDS
+    val dsDBpedia = MyDatasets.dsDBpedia
     addStatements(List(statement), dsDBpedia)
     implicit val knowledgeGraph = KnowledgeGraphs.dbPedia
     assert(AskQuery.ask(() => statement))
@@ -60,26 +60,16 @@ class TestUpdateQueryFactory extends FunSuite{
 //    qEntity -> List(f1))
 //    addFindSimilarResultWithFeatures(runName, wd.johnLennon,recalledMap2, wd.theBeatles.members.tail.tail, 1111, 6, true)
 //  }
-  test("string matching") {
-//    val s = "aa|bb"
-//    val (d,e) = s.splitAt(s.indexOf("|"))
-//    println(s"d+$d e=$e")
-//    val split = s.split("|")
-//    println(split)
-//    val (a,b) = split match {
-//      case Array(c,d) => (c,d)
-//      case o => println(o); ("notFound", "")
-//    }
-//    println(a)
-//    println(b)
-    val id = "aa|bb"
-    val combinedId = id.split("\\|")
-    val runId = combinedId(0)
-    val qEntityId = combinedId(1)
-    println(s"r=$runId qE=$qEntityId")
-    val Array(a,b) = id.split("\\|")
-    println(s"a=$a b=$b")
-  }
+  test("updating a previous value in the ds should work") {
+    implicit val knowledgeGraph = KnowledgeGraphs.wikidata
+    val firstLevel = 50
+    val secondLevel = 0
+    val entityType = WikidataFactory.entityType
+    updateHierachyLevel(entityType, firstLevel)
+    assert(QueryFactoryJena.hierachyLevel(entityType).get == firstLevel)
+    updateHierachyLevel(entityType, secondLevel)
+    assert(QueryFactoryJena.hierachyLevel(entityType).get == secondLevel)
 
+  }
 
 }

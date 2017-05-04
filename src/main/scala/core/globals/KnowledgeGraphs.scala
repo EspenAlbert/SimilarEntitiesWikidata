@@ -1,9 +1,16 @@
 package core.globals
 
+import core.testData.WikidataFactory
+
 /**
   * Created by espen on 02.05.17.
   */
 object KnowledgeGraphs extends Enumeration {
+  def getTopLevelType(knowledgeGraph: KnowledgeGraph) = knowledgeGraph match {
+    case KnowledgeGraphs.wikidata => WikidataFactory.entityType
+    case KnowledgeGraphs.dbPedia => ExternalURIs.owlThing
+  }
+
   def findKnowledgeGraphFromId(id: String): KnowledgeGraph = id match {
     case a if(a.startsWith(KnowledgeGraphs.getDatasetEntityPrefix(KnowledgeGraphs.wikidata))) => KnowledgeGraphs.wikidata
     case b if(b.startsWith(KnowledgeGraphs.getDatasetEntityPrefix(KnowledgeGraphs.wikidata))) => KnowledgeGraphs.dbPedia
@@ -19,8 +26,8 @@ object KnowledgeGraphs extends Enumeration {
   }
 
   val dbpResource = "http://dbpedia.org/resource/"
-  val typePropertyWikidata = SimilarPropertyOntology.w + "P31"
-  val subclassOfPropertyWikidata = SimilarPropertyOntology.w + "P279"
+  val typePropertyWikidata = WikidataFactory.w + "P31"
+  val subclassOfPropertyWikidata = WikidataFactory.w + "P279"
 
   type KnowledgeGraph = Value
   val wikidata: KnowledgeGraph = Value("wikidata")
@@ -39,7 +46,7 @@ object KnowledgeGraphs extends Enumeration {
   }
   def getDatasetEntityPrefix(knowledgeGraph: KnowledgeGraph): String = {
     knowledgeGraph match {
-      case KnowledgeGraphs.wikidata => SimilarPropertyOntology.w
+      case KnowledgeGraphs.wikidata => WikidataFactory.w
       case KnowledgeGraphs.dbPedia => dbpResource
     }
   }

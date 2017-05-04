@@ -5,14 +5,15 @@ case class RDFPath(startEntity: String, endEntity: String, properties : List[Str
   require(properties.length == isSubjectList.length, s"failed to create path, properties and isSubjectList must be of same length!: ${properties} ${isSubjectList} ${middleEntities}")
   require(isSubjectList.length == middleEntities.length+1, s"failed to create path, middleEntities should be shorter than properties: ${properties} ${isSubjectList} ${middleEntities}")
 
+  val path = toString
 
   override def toString: String = {
-    RDFPath.createpath(this)
+    RDFPath.createPath(this)
   }
 }
 
 object RDFPath {
-  def createpath(path: RDFPath): String = {
+  def createPath(path: RDFPath): String = {
     val RDFPath(startE, endE, props, isSubjs, middleEs) = path
     val pathLength = path.properties.size
     Range(0, pathLength).map(_ match {

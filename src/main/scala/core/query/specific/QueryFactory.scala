@@ -67,7 +67,7 @@ object QueryFactory {
          |Order by desc(?c)
          |LIMIT $numberOfComparableTypes
         """.stripMargin
-    val query = executeQuery(queryString, KnowledgeGraphs.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
+    val query = executeQuery(queryString)
     return query.getResults("s")
   }
 
@@ -79,7 +79,7 @@ object QueryFactory {
          |  ?s <${SimilarPropertyOntology.isRangeType}> <$property> .
          |}
         """.stripMargin
-    val query = executeQuery(queryString, KnowledgeGraphs.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
+    val query = executeQuery(queryString)
     return query.getResults("s")
   }
 
@@ -91,7 +91,7 @@ object QueryFactory {
          |  ?s <${SimilarPropertyOntology.isDomainType}> <$property> .
          |}
         """.stripMargin
-    val query = executeQuery(queryString, KnowledgeGraphs.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
+    val query = executeQuery(queryString)
     return query.getResults("s")
   }
 
@@ -128,7 +128,7 @@ object QueryFactory {
          |  ?property <${SimilarPropertyOntology.isDescriptive}> ?isDescriptive
          |}
         """.stripMargin
-    val query = executeQuery(queryString, KnowledgeGraphs.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
+    val query = executeQuery(queryString)
     val properties = query.getResults("property")
     val strategies = query.getResults("isDescriptive")
 
@@ -190,7 +190,7 @@ object QueryFactory {
          |  ?property <${SimilarPropertyOntology.domainCount}> ?domainCount
          |}
         """.stripMargin
-    val query = executeQuery(queryString, KnowledgeGraphs.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
+    val query = executeQuery(queryString)
     val properties = query.getResults("property")
     val strategies = query.getResults("domainCount")
 
@@ -204,7 +204,7 @@ object QueryFactory {
          |  ?property <${SimilarPropertyOntology.rangeCount}> ?domainCount
          |}
         """.stripMargin
-    val query = executeQuery(queryString, KnowledgeGraphs.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
+    val query = executeQuery(queryString)
     val properties = query.getResults("property")
     val strategies = query.getResults("domainCount")
 
@@ -220,7 +220,7 @@ object QueryFactory {
          |  ?property rdf:type ?strategy
          |}
         """.stripMargin
-    val query = executeQuery(queryString, KnowledgeGraphs.findDatasetForStoringStrategiesAndMetadata(knowledgeGraph))
+    val query = executeQuery(queryString)
     val properties = query.getResults("property")
     val strategies = query.getResults("strategy")
 

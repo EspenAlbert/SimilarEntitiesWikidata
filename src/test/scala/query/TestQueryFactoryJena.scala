@@ -10,6 +10,7 @@ import org.scalatest.FunSuite
   */
 class TestQueryFactoryJena extends FunSuite{
   val wd = WikidataFactory
+  implicit val knowledgeGraph = KnowledgeGraphs.wikidata
   test("Human type for ringo starr in wikidata") {
     val rStarr = wd.ringoStarr.id
     implicit val knowledgeGraph = KnowledgeGraphs.wikidata
@@ -18,7 +19,6 @@ class TestQueryFactoryJena extends FunSuite{
     assert(actual.head == expected)
   }
 
-  implicit val knowledgeGraph = KnowledgeGraphs.wikidata
   test("Timing difference between query factories") {
     val uk = wd.ringoStarr.countryOfCitizenShipValue
     val initialQuery = QueryFactoryJena.distinctPropertiesWhereEntityIsObject(uk)
@@ -45,6 +45,15 @@ class TestQueryFactoryJena extends FunSuite{
     expected.foreach(e => assert(actual.contains(e)))
     notExpected.foreach(e => assert(!actual.contains(e)))
   }
+  test("children of band") {
+    val band = wd.band
+    val expected = List(wd.rockBand)
+    val notExpected = List(wd.human, wd.musicalEnsemble)
+    val actual = QueryFactoryJena.childrenOf(band)
+    expected.foreach(e => assert(actual.contains(e)))
+    notExpected.foreach(e => assert(!actual.contains(e)))
+  }
+
 
 
 }

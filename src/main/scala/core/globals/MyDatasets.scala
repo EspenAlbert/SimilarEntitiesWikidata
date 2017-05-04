@@ -8,8 +8,9 @@ object MyDatasets{
   val interlinkDBpediaWikidata = "mappingDBpediaWikidata"
 
   val valueMatchDBpedia = "valueMatchDBpedia"
+  final val valueMatchWikidata = "valueMatchWikidata"
 
-  val DBpediaDS = "dsDBpedia"
+  val dsDBpedia = "dsDBpedia"
   val strategyMappingWikidata = "strategyMappingWikidata"
   val strategyMappingDBpedia = "strategyMappingDBpedia"
 
@@ -20,7 +21,6 @@ object MyDatasets{
   val similarProperties2 = "similarProperties2"
   final val Wikidata = "ds"
   final val SimilarProperties = "similarProperties"
-  final val ValueMatchWikidata = "valueMatchWikidata"
   final val resultsSimilarArtists = "resultsSimilarArtists"
 }
 
