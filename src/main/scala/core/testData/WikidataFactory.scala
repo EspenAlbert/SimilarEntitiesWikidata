@@ -16,9 +16,9 @@ object WikidataFactory {
 
   implicit val knowledgeGraph = KnowledgeGraphs.wikidata
   val w = "http://www.wikidata.org/entity/"
-  val hierarchyDepthHuman = 2
-  val hierarchyDepthBand = 4
-  val hierarchyDepthRockBand = 5
+  val hierarchyDepthHuman = 3
+  val hierarchyDepthBand = 3
+  val hierarchyDepthRockBand = 4
   val entityType = w + "Q35120"
   val typeProperty = w + "P31"
   val professionType = w + "Q28640"

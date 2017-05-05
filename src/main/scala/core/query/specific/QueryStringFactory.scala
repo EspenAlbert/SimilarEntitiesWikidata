@@ -56,6 +56,14 @@ object QueryStringFactory {
        |  ?c <${KnowledgeGraphs.getSubclassProperty(knowledgeGraph)}> <$parent>
        |}
      """.stripMargin
+  def childrenOfAndChildrenIsType(parent: String)(implicit knowledgeGraph: KnowledgeGraph) : String =
+    s"""
+       |select ?c
+       |where {
+       |  ?c <${KnowledgeGraphs.getSubclassProperty(knowledgeGraph)}> <$parent> .
+       |  filter exists { ?s <${KnowledgeGraphs.getTypeProperty(knowledgeGraph)}> ?c }
+       |}
+     """.stripMargin
 
   def subjectsAndProperties(objectEntity: String): String = {
     s"""
@@ -69,6 +77,7 @@ object QueryStringFactory {
        |select ?p
        |where {
        |  <$entity> <${KnowledgeGraphs.getSubclassProperty(knowledgeGraph)}>* ?p
+       |  filter(?p != <$entity>)
        |}
      """.stripMargin
   }

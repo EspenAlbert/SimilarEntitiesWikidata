@@ -31,7 +31,7 @@ class GraphRDF(val entity : String)(implicit val knowledgeGraph: KnowledgeGraph)
       assert(eIsObject._1.size > 0, s"There are no statements where $entity is object")
       assert(eIsSubject._1.size > 0, s"There are no statements where $entity is subject")
     } catch {
-      case a: AssertionError => println(s"Result might not be as expected for entity: $entity most likely have missing statements...")
+      case a: AssertionError => if(false) println(s"Result might not be as expected for entity: $entity most likely have missing statements...")
       case a : TimeoutException => println(s"Unable to find all statements within 100 s for $entity")
     }
     val statements = (for ((subject, property) <- eIsObject._1 zip eIsObject._2) yield (subject, property, entity))

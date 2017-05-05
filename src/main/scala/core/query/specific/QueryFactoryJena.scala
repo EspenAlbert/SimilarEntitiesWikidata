@@ -60,6 +60,13 @@ object QueryFactoryJena {
     QueryServerScala.query(dataset, queryString, children)
     children.results.toList
   }
+  def childrenOfAndChildrenIsType(parent: String)(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
+    val queryString = QueryStringFactory.childrenOfAndChildrenIsType(parent)
+    val children = URIVar("c")
+    val dataset = DatasetInferrer.getDataset(queryString)
+    QueryServerScala.query(dataset, queryString, children)
+    children.results.toList
+  }
 
   def findSubjectsAndProperties(objectValue: String)(implicit knowledgeGraph: KnowledgeGraph): (List[String], List[String]) = {
     val queryString = QueryStringFactory.subjectsAndProperties(objectValue)
