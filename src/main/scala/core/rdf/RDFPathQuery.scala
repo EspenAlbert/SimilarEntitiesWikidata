@@ -17,4 +17,8 @@ case class RDFPathQuery(queryString : String, isSubjList: Iterable[Boolean], pro
     Range(0,numberOfPaths).map(index => RDFPath(startEntity, endEntity, propertyResults.map(_(index)).toList, query.isSubjList.toList, middleEntityResults.map(_(index)).toList))
   }
 
+  def findPathsForcePropertyFlexibleEndEntity(): Unit = {
+
+  }
+
 }

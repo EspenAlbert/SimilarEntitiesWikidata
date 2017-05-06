@@ -23,6 +23,7 @@ object IOFactory {
   private def filenamePropToDomainCount(implicit knowledgeGraph : KnowledgeGraph) = s"$knowledgeGraph-prop-domain-count"
   private def filenamePropToRangeCount(implicit knowledgeGraph : KnowledgeGraph) = s"$knowledgeGraph-prop-range-count"
   private def filenamePropToIsDescriptive(implicit knowledgeGraph : KnowledgeGraph) = s"$knowledgeGraph-prop-is-descriptive"
+  def filenameIgnorableTypes(implicit knowledgeGraph: KnowledgeGraph)= s"$knowledgeGraph-ignorableTypes"
 
   def getIsDescriptive(implicit knowledgeGraph : KnowledgeGraph): Map[String, Boolean] = {
     Try(DumpObject.getMapStringBoolean(filenamePropToIsDescriptive)) match {
@@ -64,6 +65,10 @@ object IOFactory {
   }
   def getPropertyToPropType(implicit knowledgeGraph : KnowledgeGraph): Map[String, PropertyType] = {
     return DumpObject.readJsonMapStringPropertyType(filenamePropertyToPropType(knowledgeGraph))
+  }
+
+  def getIgnorableTypes(implicit dataset: KnowledgeGraph) : List[String] = {
+    DumpObject.getListString(filenameIgnorableTypes)
   }
 
 }

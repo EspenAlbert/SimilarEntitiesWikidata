@@ -26,8 +26,8 @@ object KnowledgeGraphs extends Enumeration {
   }
 
   val dbpResource = "http://dbpedia.org/resource/"
-  val typePropertyWikidata = WikidataFactory.w + "P31"
-  val subclassOfPropertyWikidata = WikidataFactory.w + "P279"
+  val typePropertyWikidata =  "http://www.wikidata.org/entity/P31"
+  val subclassOfPropertyWikidata = "http://www.wikidata.org/entity/P279"
 
   type KnowledgeGraph = Value
   val wikidata: KnowledgeGraph = Value("wikidata")

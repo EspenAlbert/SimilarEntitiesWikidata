@@ -1,10 +1,11 @@
 package query
 
-import core.globals.{KnowledgeGraphs, MyDatasets}
+import core.globals.{KnowledgeGraphs, MyDatasets, SimilarPropertyOntology}
 import core.query.specific.{AskQuery, QueryFactory, QueryFactoryJena}
 import org.scalatest.FunSuite
 import tags.ActiveTag
 import core.query.specific.UpdateQueryFactory._
+import core.rdf.TypePropertyDistributionFinder
 import core.testData.WikidataFactory
 
 import scala.util.{Failure, Success}
@@ -69,7 +70,15 @@ class TestUpdateQueryFactory extends FunSuite{
     assert(QueryFactoryJena.hierachyLevel(entityType).get == firstLevel)
     updateHierachyLevel(entityType, secondLevel)
     assert(QueryFactoryJena.hierachyLevel(entityType).get == secondLevel)
-
+  }
+  test("adding property distribution for rock band should work") {
+    implicit val knowledgeGraph = KnowledgeGraphs.wikidata
+    val wd = WikidataFactory
+    cleanDatasetWhere(MyDatasets.strategyMappingWikidata, s"<${wd.rockBand}> <${SimilarPropertyOntology.propertyDistributionNode}> ?pdn")
+    val propertyDistribution = TypePropertyDistributionFinder.propertyDistributionIgnoreRareness(wd.rockBand)
+    addPropertyDistribution(wd.rockBand, propertyDistribution)
+    val rockBandsWithPerformerProp = QueryFactoryJena.typePropertyCountLocal(wd.rockBand, wd.ringoStarr.performerProp, false)
+    assert(rockBandsWithPerformerProp > 500)
   }
 
 }

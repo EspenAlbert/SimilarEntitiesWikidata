@@ -8,6 +8,41 @@ import core.query.specific.QueryFactory.executeQuery
   * Created by espen on 02.05.17.
   */
 object QueryStringFactory {
+  def propertyDistributions(entityType: String) : String = {
+    s"""
+       |select ?p ?cD ?cR ?iR
+       |where {
+       |  <${entityType}> <${SimilarPropertyOntology.propertyDistributionNode}> ?pdn .
+       |  ?pdn <${SimilarPropertyOntology.distributionForProperty}> ?p .
+       |  optional {?pdn <${SimilarPropertyOntology.domainCount}> ?cD .}
+       |  optional {?pdn <${SimilarPropertyOntology.rangeCount}> ?cR .}
+       |  ?pdn <${SimilarPropertyOntology.typeImportanceRatio}> ?iR .
+       | }
+     """.stripMargin
+  }
+
+  def propertyDistribution(entityType: String, property: String) : String =
+    s"""
+       |select ?cD ?cR ?iR
+       |where {
+       |  <${entityType}> <${SimilarPropertyOntology.propertyDistributionNode}> ?pdn .
+       |  ?pdn <${SimilarPropertyOntology.distributionForProperty}> <$property> .
+       |  ?pdn <${SimilarPropertyOntology.domainCount}> ?cD .
+       |  ?pdn <${SimilarPropertyOntology.rangeCount}> ?cR .
+       |  ?pdn <${SimilarPropertyOntology.typeImportanceRatio}> ?iR .
+       | }
+     """.stripMargin
+
+  def typePropertyCountLocal(entityType : String, property: String, isDomain: Boolean) : String =
+    s"""
+       |select ?c
+       |where {
+       |  <${entityType}> <${SimilarPropertyOntology.propertyDistributionNode}> ?pdn .
+       |  ?pdn <${SimilarPropertyOntology.distributionForProperty}> <$property> .
+       |  ?pdn <${if(isDomain) SimilarPropertyOntology.domainCount else SimilarPropertyOntology.rangeCount}> ?c .
+       | }
+     """.stripMargin
+
   def propertiesWhereDomainHasType(typeEntity: String) : String =
     s"""
        |select ?p
@@ -81,6 +116,16 @@ object QueryStringFactory {
        |}
      """.stripMargin
   }
+  def parentsToParentIsType(entity: String)(implicit knowledgeGraph: KnowledgeGraph) : String = {
+    s"""
+       |select ?p
+       |where {
+       |  <$entity> <${KnowledgeGraphs.getSubclassProperty(knowledgeGraph)}>* ?p
+       |  filter(?p != <$entity>)
+       |  filter exists { ?s <${KnowledgeGraphs.getTypeProperty(knowledgeGraph)}> ?p }
+       |}
+     """.stripMargin
+  }
 
 
   def distinctPropertiesWhereObject(objectValue : String) : String =
@@ -99,5 +144,17 @@ object QueryStringFactory {
      |}
    """.stripMargin
 
-
+  def parentToEntityXStepsAway(entity: String, steps: Int)(implicit knowledgeGraph: KnowledgeGraph) : String = {
+    val connectingPath = Range(0, steps).map(i => {
+      if (i == steps - 1) "?o"
+      else
+        s"?l$i . ?l$i <${KnowledgeGraphs.getSubclassProperty(knowledgeGraph)}> "
+    }).mkString("")
+    s"""
+         |select ?o
+         |where {
+         |  <$entity> <${KnowledgeGraphs.getSubclassProperty(knowledgeGraph)}> $connectingPath
+         |    filter exists { ?s <${KnowledgeGraphs.getTypeProperty(knowledgeGraph)}> ?o }
+         |}""".stripMargin
+  }
 }

@@ -52,6 +52,9 @@ object SimilarPropertyOntology extends Enumeration{
   val isDomainType: SimilarPropertyOntology = Value(spo + "isDomainType")
   val isRangeType : SimilarPropertyOntology = Value(spo + "isRangeType")
   val hierarchyLevel : SimilarPropertyOntology = Value(spo + "hierarchyLevel")
+  val propertyDistributionNode : SimilarPropertyOntology = Value(spo + "propertyDistributionNode")
+  val typeImportanceRatio : SimilarPropertyOntology = Value(spo + "typeImportanceRatio")
+  val distributionForProperty: SimilarPropertyOntology = Value(spo + "distributionForProperty")
 
 
   implicit def getString(similarPropertyOntology: SimilarPropertyOntology) : String = {

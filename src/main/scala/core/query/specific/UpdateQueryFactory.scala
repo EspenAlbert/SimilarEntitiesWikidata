@@ -19,8 +19,23 @@ object UpdateQueryFactory {
     QueryLocalServer.updateLocalData(insertQuery,DatasetInferrer.getDataset(insertQuery))
   }
   def updateData(insertQuery : String, datasetForced : String): Unit = {
-    QueryLocalServer.updateLocalData(insertQuery,datasetForced)
-
+    QueryLocalServer.updateLocalData(insertQuery, datasetForced)
+  }
+  def addPropertyDistribution(entityType: String, propertyDistribution: Map[String, (Double, Int, Int)])(implicit knowledgeGraph: KnowledgeGraph) : Unit = {
+    val insertQuery = propertyDistribution.map{
+      case (property, (importanceRatio, domainCount, rangeCount)) =>
+        val domainCountLine = if(domainCount > 0) s"""<${SimilarPropertyOntology.domainCount}> "$domainCount"$datatypeInteger ;""" else ""
+        val rangeCountLine = if(rangeCount > 0) s"""<${SimilarPropertyOntology.rangeCount}> "$rangeCount"$datatypeInteger ;""" else ""
+        s"""
+           |<$entityType> <${SimilarPropertyOntology.propertyDistributionNode}> [
+           |  $domainCountLine
+           |  $rangeCountLine
+           |  <${SimilarPropertyOntology.typeImportanceRatio}> "$importanceRatio"$datatypeDouble ;
+           |  <${SimilarPropertyOntology.distributionForProperty}> <$property>
+           | ] .
+         """.stripMargin
+    }.mkString("\n")
+    updateData(s"insert { $insertQuery } where {}")
   }
 
   def updateHierachyLevel(entityType: String, hierarchyLevel: Int)(implicit knowledgeGraph: KnowledgeGraph) : Unit = {

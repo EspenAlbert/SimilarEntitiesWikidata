@@ -53,6 +53,16 @@ class TestQueryFactoryJena extends FunSuite{
     expected.foreach(e => assert(actual.contains(e)))
     notExpected.foreach(e => assert(!actual.contains(e)))
   }
+  test("finding property distributions locally should work"){
+    val distributions = QueryFactoryJena.allPropertyDistributionsLocally(wd.rockBand)
+    distributions.foreach(println)
+  }
+  test("parentToEntityXStepsAway should work for rock band"){
+    val firstLevel = QueryFactoryJena.parentToEntityXStepsAway(wd.rockBand,1)
+    assert(firstLevel.head == wd.band)
+    val actualSecondLevel = QueryFactoryJena.parentToEntityXStepsAway(wd.rockBand, 2)
+    assert(actualSecondLevel.toList.contains(wd.musicalEnsemble))
+  }
 
 
 

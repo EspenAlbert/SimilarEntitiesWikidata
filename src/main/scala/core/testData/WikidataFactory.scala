@@ -63,6 +63,7 @@ object WikidataFactory {
   val domainTypesLifestyleProp = List(human, "http://www.wikidata.org/entity/Q515", "http://www.wikidata.org/entity/Q3464126", "http://www.wikidata.org/entity/Q515", "http://www.wikidata.org/entity/Q839954", "http://www.wikidata.org/entity/Q486972", "http://www.wikidata.org/entity/Q15649510", "http://www.wikidata.org/entity/Q137535", "http://www.wikidata.org/entity/Q13406463", "http://www.wikidata.org/entity/Q6498826", "http://www.wikidata.org/entity/Q15125752", "http://www.wikidata.org/entity/Q182603", "http://www.wikidata.org/entity/Q4167410", "http://www.wikidata.org/entity/Q44613", "http://www.wikidata.org/entity/Q35509", "http://www.wikidata.org/entity/Q571", "http://www.wikidata.org/entity/Q532", "http://www.wikidata.org/entity/Q216353", "http://www.wikidata.org/entity/Q11424", "http://www.wikidata.org/entity/Q159979", "http://www.wikidata.org/entity/Q2985549", "http://www.wikidata.org/entity/Q3375719", "http://www.wikidata.org/entity/Q188784", "http://www.wikidata.org/entity/Q15632617", "http://www.wikidata.org/entity/Q3658341", "http://www.wikidata.org/entity/Q15773317", "http://www.wikidata.org/entity/Q15773347", "http://www.wikidata.org/entity/Q7918273", "http://www.wikidata.org/entity/Q3320743", "http://www.wikidata.org/entity/Q1855011", "http://www.wikidata.org/entity/Q1715155", "http://www.wikidata.org/entity/Q4931504", "http://www.wikidata.org/entity/Q721207", "http://www.wikidata.org/entity/Q374666", "http://www.wikidata.org/entity/Q16998564", "http://www.wikidata.org/entity/Q8046437", "http://www.wikidata.org/entity/Q3445893", "http://www.wikidata.org/entity/Q2369882", "http://www.wikidata.org/entity/Q27301864", "http://www.wikidata.org/entity/Q2642184")
   val rangeTypesLifestyleProp = List("http://www.wikidata.org/entity/Q189533", "http://www.wikidata.org/entity/Q4875688")
   val ringoStarr = new {
+    val performerProp = w + "P175"
     val id = w + "Q2632"
     val rdfTypes = List(human)
     val dateOfBProp = w + "P569"
@@ -71,7 +72,6 @@ object WikidataFactory {
     val spouseValues = List(w + "Q233993", w + "Q2124432")
     val memberOfProp = w + "P463"
     val memberOfValue = w + "Q1299"
-    val performerProp = w + "P175"
     val performerSubject1 = w + "Q21682709"
     val lifestyleProp = w + "P1576"
     val lifestyleValue = w + "Q18338317"
@@ -116,6 +116,14 @@ object WikidataFactory {
 
   val genre = w + "P136"
   val rockMusicGenre = w + "Q11399"
+
+  val topicMainCategoryProp = w + "P910"
+  val rockBandPropertyDistribution = new {
+    val performerDistibution = (ringoStarr.performerProp, 4, 978,0.47439613526570046)
+    val topicMainCategoryPropDistribution = (topicMainCategoryProp, 347, 0, 0.1676328502415459)
+    val memberOfDistribution = (ringoStarr.memberOfProp, 0, 361, 0.17439613526570047)
+  }
+
 
   def obamaSubjectStatements: List[(String, String, String)] = {
     val p1o = List(w + "Q380782", w + "Q1379733")
