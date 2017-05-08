@@ -40,6 +40,12 @@ object JenaQueryVars {
       results.append(Try(qs.getLiteral(varName).getInt))
     }
   }
+  case class LiteralDoubleOptionVar(varName:String) extends QueryVar(varName:String){//TODO: Check error during concurrency
+  var results= ListBuffer[Try[Double]]()
+    override def addResult(qs : QuerySolution): Unit ={
+      results.append(Try(qs.getLiteral(varName).getDouble))
+    }
+  }
   case class LiteralDoubleVar(varName:String) extends QueryVar(varName:String){
   var results= ListBuffer[Double]()
     override def addResult(qs : QuerySolution): Unit ={

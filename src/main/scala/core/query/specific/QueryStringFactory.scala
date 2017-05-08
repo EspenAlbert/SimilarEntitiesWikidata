@@ -8,6 +8,23 @@ import core.query.specific.QueryFactory.executeQuery
   * Created by espen on 02.05.17.
   */
 object QueryStringFactory {
+  def comparableTypesPropertyDistribution(domainProperties: Iterable[String], rangeProperties: Iterable[String]) : String = {
+    val baseDistributionPath =
+      s"""?t <${SimilarPropertyOntology.propertyDistributionNode}> ?node  .
+  ?node <${SimilarPropertyOntology.distributionForProperty}> ?p .\n"""
+    val domainPropertiesFilter = if(domainProperties.nonEmpty) s"{ $baseDistributionPath ?node <${SimilarPropertyOntology.domainCount}> ?dc . \n filter(?p in (<${domainProperties.mkString(">,<")}>)) }\n" else ""
+    val rangePropertiesFilter = if(rangeProperties.nonEmpty) s"UNION { $baseDistributionPath ?node <${SimilarPropertyOntology.rangeCount}> ?dc . \n filter(?p in (<${rangeProperties.mkString(">,<")}>)) }" else ""
+    s"""
+       |SELECT ?t (count(?p) as ?c)
+       |WHERE   {
+       |
+       |  $domainPropertiesFilter
+       |  $rangePropertiesFilter
+       |
+       |} Group by ?t order by desc(?c)
+     """.stripMargin
+  }
+
   def propertyDistributions(entityType: String) : String = {
     s"""
        |select ?p ?cD ?cR ?iR
@@ -16,7 +33,8 @@ object QueryStringFactory {
        |  ?pdn <${SimilarPropertyOntology.distributionForProperty}> ?p .
        |  optional {?pdn <${SimilarPropertyOntology.domainCount}> ?cD .}
        |  optional {?pdn <${SimilarPropertyOntology.rangeCount}> ?cR .}
-       |  ?pdn <${SimilarPropertyOntology.typeImportanceRatio}> ?iR .
+       |  optional {?pdn <${SimilarPropertyOntology.typePropertyRatioDomain}> ?tprD .}
+       |  optional {?pdn <${SimilarPropertyOntology.typePropertyRatioRange}> ?tprR .}
        | }
      """.stripMargin
   }
@@ -154,7 +172,7 @@ object QueryStringFactory {
          |select ?o
          |where {
          |  <$entity> <${KnowledgeGraphs.getSubclassProperty(knowledgeGraph)}> $connectingPath
-         |    filter exists { ?s <${KnowledgeGraphs.getTypeProperty(knowledgeGraph)}> ?o }
          |}""".stripMargin
+//         |    filter exists { ?s <${KnowledgeGraphs.getTypeProperty(knowledgeGraph)}> ?o }
   }
 }

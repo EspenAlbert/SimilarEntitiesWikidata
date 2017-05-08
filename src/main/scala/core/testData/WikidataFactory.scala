@@ -119,9 +119,9 @@ object WikidataFactory {
 
   val topicMainCategoryProp = w + "P910"
   val rockBandPropertyDistribution = new {
-    val performerDistibution = (ringoStarr.performerProp, 4, 978,0.47439613526570046)
-    val topicMainCategoryPropDistribution = (topicMainCategoryProp, 347, 0, 0.1676328502415459)
-    val memberOfDistribution = (ringoStarr.memberOfProp, 0, 361, 0.17439613526570047)
+    val performerDistibution = (ringoStarr.performerProp, 0.47439613526570046,4,0.47439613526570046, 978)
+    val topicMainCategoryPropDistribution = (topicMainCategoryProp,0.47439613526570046 ,347, 0.1212, 0)
+    val memberOfDistribution = (ringoStarr.memberOfProp,0d, 0,0.17439613526570047, 361 )
   }
 
 

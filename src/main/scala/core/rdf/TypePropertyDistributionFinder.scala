@@ -14,29 +14,28 @@ object TypePropertyDistributionFinder {
 
   val thresholdForStoringPropertyDistributionsLocally = 1000
 
-    def propertyDistributionChange(distributionA :Map[String, (Double, Int, Int)], distributionB: Map[String, (Double, Int, Int)]): Double = {
-      val totalChange = {
-        for {
-          (property, (importanceRatio, _, _)) <- distributionA
-          (otherImportanceRatio: Double, _, _) <- distributionB.get(property)
-          change = max(abs(importanceRatio - otherImportanceRatio), importanceRatio)
-        } yield change
-      }.sum
-      val maxChange = distributionA.foldLeft(0d)(_ + _._2._1)
-      return totalChange / maxChange
-
-    }
-  def propertyDistributionOverlap(distributionA :Map[String, (Double, Int, Int)], distributionB: Map[String, (Double, Int, Int)]): Double = {
+//    def propertyDistributionChange(distributionA :Map[String, (Double, Int, Double, Int)], distributionB: Map[String, (Double, Int, Double, Int)]): Double = {
+//      val totalChange = {
+//        for {
+//          (property, (importanceRatio, _, _)) <- distributionA
+//          (otherImportanceRatio: Double, _, _) <- distributionB.get(property)
+//          change = max(abs(importanceRatio - otherImportanceRatio), importanceRatio)
+//        } yield change
+//      }.sum
+//      val maxChange = distributionA.foldLeft(0d)(_ + _._2._1)
+//      return totalChange / maxChange
+//    }
+  def propertyDistributionOverlap(distributionA :Map[String, (Double, Int, Double, Int)], distributionB: Map[String, (Double, Int, Double,Int)]): Double = {
     val abOverlap: Double = calculateOverlap(distributionA, distributionB)
     val baOverlap: Double = calculateOverlap(distributionB, distributionA)
     return min(abOverlap, baOverlap)
 
   }
 
-  private def calculateOverlap(distributionA: Map[String, (Double, Int, Int)], distributionB: Map[String, (Double, Int, Int)]): Double = {
+  private def calculateOverlap(distributionA: Map[String, (Double, Int, Double,Int)], distributionB: Map[String, (Double, Int,Double, Int)]): Double = {
     val totalOverlaps = {
       for {
-        (property, (_, _, _)) <- distributionA
+        (property, _) <- distributionA
         (_) <- distributionB.get(property)
       } yield 1
     }.sum
@@ -44,19 +43,20 @@ object TypePropertyDistributionFinder {
     return totalOverlaps.toDouble / maxOverlap
   }
 
-  def propertyDistributionIgnoreRareness(typeEntity: String)(implicit knowledgeGraph: KnowledgeGraph) : Map[String, (Double, Int, Int)] = {
+  val requirementForStoringPropertyInDistribution = 0.01
+
+  def propertyDistributionIgnoreRareness(typeEntity: String)(implicit knowledgeGraph: KnowledgeGraph) : Map[String, (Double, Int, Double, Int)] = {
     val globalCount : Int= TypeCounter.findGlobalCountOfEntitiesOfType(typeEntity).getOrElse(throw new Exception(s"Failed to find global count for $typeEntity"))
     if(globalCount > thresholdForStoringPropertyDistributionsLocally) {
       QueryFactoryJena.allPropertyDistributionsLocally(typeEntity) match {
         case list if list.nonEmpty => return list.map{
-          case (property, Success(domainCount), Success(rangeCount), importanceRatio) => property -> ( importanceRatio, domainCount, rangeCount)
-          case (property, Success(domainCount), Failure(_), importanceRatio) => property-> ( importanceRatio, domainCount, 0)
-          case (property, Failure(_), Success(rangeCount), importanceRatio) => property-> (importanceRatio, 0, rangeCount)
+          case (property, Success(importanceRatioDomain), Success(domainCount), Success(importanceRatioRange),Success(rangeCount)) => property -> ( importanceRatioDomain, domainCount, importanceRatioRange, rangeCount)
+          case (property, Success(importanceRatioDomain), Success(domainCount), Failure(_),Failure(_)) => property -> ( importanceRatioDomain, domainCount, 0d, 0)
+          case (property, Failure(_), Failure(_), Success(importanceRatioRange),Success(rangeCount)) => property -> ( 0d, 0, importanceRatioRange, rangeCount)
           case _ => throw new Exception(s"both rangeCount and domain count was not found locally for $typeEntity")
         }.toMap
         case _ => Unit
       }
-
     }
     val domainProps = QueryFactoryJena.propertiesWhereDomainHasType(typeEntity).map((_, true))
     val rangeProps = QueryFactoryJena.propertiesWhereRangeHasType(typeEntity).map((_, false))
@@ -67,12 +67,36 @@ object TypePropertyDistributionFinder {
       }
       domainCount : Int = if(usedInDomain) QueryFactoryJena.countEntitiesOfTypeForProperty(typeEntity, true, property) else 0
       rangeCount : Int = if(usedInRange) QueryFactoryJena.countEntitiesOfTypeForProperty(typeEntity, false, property) else 0
-      if (domainCount + rangeCount)  > globalCount * 0.1
-      importanceRatio = (domainCount + rangeCount).toDouble / globalCount
-    }yield property -> (importanceRatio, domainCount, rangeCount)}.toMap
+      if (domainCount + rangeCount)  > globalCount * requirementForStoringPropertyInDistribution
+      importanceRatioDomain = if(usedInDomain) domainCount.toDouble / globalCount else 0d
+      importanceRatioRange = if(usedInRange) rangeCount.toDouble / globalCount else 0d
+    }yield property -> (importanceRatioDomain, domainCount, importanceRatioRange, rangeCount)}.toMap
     if(globalCount > thresholdForStoringPropertyDistributionsLocally) {
     UpdateQueryFactory.addPropertyDistribution(typeEntity, distribution)}
     return distribution
+  }
+
+  val overlapMinimum = 0.5d
+
+  def propertyDistributionOverlap(distributionEntityType: Map[String, (Double, Int, Double, Int)], comparableEntity: String)(implicit knowledgeGraph: KnowledgeGraph) : Double = {
+    val comparableEntityDistribution = propertyDistributionIgnoreRareness(comparableEntity)
+    return propertyDistributionOverlap(distributionEntityType, comparableEntityDistribution)
+  }
+
+  def findComparableTypes(entityType: String)(implicit knowledgeGraph: KnowledgeGraph) : Iterable[String] = {
+    val distributionEntityType = propertyDistributionIgnoreRareness(entityType)
+    val domainProperties = distributionEntityType.collect{
+      case (property, (_, domainCount, _, _)) if domainCount > 0=> property
+    }
+    val rangeProperties = distributionEntityType.collect{
+      case (property, (_, _,_, rangeCount)) if rangeCount > 0 => property
+    }
+    val comparableTypesRaw = QueryFactoryJena.comparableTypesPropertyDistribution(domainProperties, rangeProperties)
+    val maximumCount = domainProperties.size + rangeProperties.size
+    val minimumCount = Math.round(overlapMinimum * maximumCount)
+    return comparableTypesRaw.takeWhile(_._2 >= minimumCount)
+    .filter(comparableEntity => propertyDistributionOverlap(distributionEntityType, comparableEntity._1) > overlapMinimum)
+    .map(_._1)
   }
 
 }

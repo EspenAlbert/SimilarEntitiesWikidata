@@ -12,6 +12,14 @@ import scala.util.Try
   */
 object HeuristicDistance {
 
+  def findClosestIndependentParentAndDistance(entityType: String, threshold: Int)(implicit knowledgeGraphs: KnowledgeGraph) : Option[(String, Int)] = {
+    orderedHeuristicDistanceToParents(entityType)
+      .collectFirst {
+        case (parent, d) if TypeCounter.findGlobalCountOfEntitiesOfType(parent).get > threshold && d > 0 => (parent, d)
+      }
+  }
+
+
   def orderedHeuristicDistanceToParents(entityType: String)(implicit knowledgeGraph: KnowledgeGraph): Stream[(String, Int)] = {
     return createStream(entityType, Nil, 0)
   }
@@ -30,12 +38,6 @@ object HeuristicDistance {
       case head::tail => (head, currentLevel) #:: createStream(startEntity, tail, currentLevel)
     }
   }
-  def heuristicDistanceToParents(entityType: String)(implicit knowledgeGraph: KnowledgeGraph) : Option[Iterable[(String, Int)]] = {
-    Some(for{
-      parent <- QueryFactoryJena.parentsToParentIsType(entityType)
-      distanceToParent <- findHeuristicDistance(entityType, parent).toOption
-    }yield(parent, distanceToParent))
-  }//TODO: Improve by returning a stream, searching one level @ a time.
 
 
   def findHeuristicDistance(a : String, b : String)(implicit knowledgeGraph: KnowledgeGraph): Try[Int] = {
@@ -65,6 +67,9 @@ object HeuristicDistance {
 
   def findHeuristicDistanceImproved(a: String, b: String)(implicit knowledgeGraph: KnowledgeGraph) : Option[Int] = {
     if(a == b) return Some(0)
+    if(a == "http://www.wikidata.org/entity/Q159979" || b == "http://www.wikidata.org/entity/Q159979") {
+      println("dealing with twin type... ")
+    }
     var streamA = orderedHeuristicDistanceToParents(a)
     var streamB = orderedHeuristicDistanceToParents(b)
     val distanceToParentsA = mutable.HashMap[String, Int](a -> 0).withDefaultValue(-1)
@@ -79,7 +84,6 @@ object HeuristicDistance {
       val otherDistanceToParent = if(nextElementIsA) distanceToParentsB(parent) else distanceToParentsA(parent)
       if(otherDistanceToParent > -1) {
         val heuristicDistance = distance + otherDistanceToParent
-        println(s"Common parent between $a and $b was : $parent with distance $heuristicDistance")
         return Some(heuristicDistance)
       }
       determineNextStream(streamA, streamB) match {

@@ -14,24 +14,35 @@ import scala.util.Try
   * Created by espen on 03.05.17.
   */
 object QueryFactoryJena {
-  def allPropertyDistributionsLocally(entityType: String)(implicit knowledgeGraph: KnowledgeGraph) : immutable.Iterable[(String, Try[Int], Try[Int], Double)] = {
+  def comparableTypesPropertyDistribution(domainProperties: Iterable[String], rangeProperties: Iterable[String])(implicit knowledgeGraph: KnowledgeGraph) : Iterable[(String, Int)] = {
+    val queryString = QueryStringFactory.comparableTypesPropertyDistribution(domainProperties, rangeProperties)
+    val types = URIVar("t")
+    val counts = LiteralIntVar("c")
+    QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, types, counts)
+    return types.results.zip(counts.results)
+  }
+
+  def allPropertyDistributionsLocally(entityType: String)(implicit knowledgeGraph: KnowledgeGraph) : immutable.Iterable[(String, Try[Double], Try[Int], Try[Double], Try[Int])] = {
     val queryString = QueryStringFactory.propertyDistributions(entityType)
     val countDomains = LiteralIntOptionVar("cD")
     val countRanges = LiteralIntOptionVar("cR")
-    val importanceRatios = LiteralDoubleVar("iR")
+    val typePropertyRatioDomain = LiteralDoubleOptionVar("tprD")
+    val typePropertyRatioRange = LiteralDoubleOptionVar("tprR")
     val properties = URIVar("p")
     val dataset = DatasetInferrer.getDataset(queryString)
-    QueryServerScala.query(dataset, queryString, countDomains, countRanges, importanceRatios, properties)
+    QueryServerScala.query(dataset, queryString, countDomains, countRanges, typePropertyRatioDomain,typePropertyRatioRange, properties)
     val rCountDomains = countDomains.results.toVector
     val rCountRanges = countRanges.results.toVector
-    val rImportanceRatios = importanceRatios.results.toVector
+    val rTypePropertyRatioDomain = typePropertyRatioDomain.results.toVector
+    val rTypePropertyRatioRange = typePropertyRatioRange.results.toVector
     val rProperties = properties.results.toVector
     val expectedDistributions = rCountDomains.size
     assert(expectedDistributions == rCountRanges.size)
-    assert(expectedDistributions == rImportanceRatios.size)
+    assert(expectedDistributions == rTypePropertyRatioDomain.size)
+    assert(expectedDistributions == rTypePropertyRatioRange.size)
     assert(expectedDistributions == rProperties.size)
     return Range(0, expectedDistributions).map(index =>
-      (rProperties(index), rCountDomains(index), rCountRanges(index), rImportanceRatios(index)))
+      (rProperties(index), rTypePropertyRatioDomain(index), rCountDomains(index),rTypePropertyRatioRange(index), rCountRanges(index)))
   }
 
   def propertyDistributionLocally(entityType: String, property: String)(implicit knowledgeGraph: KnowledgeGraph) : Try[(Option[Int], Option[Int], Double)] = {

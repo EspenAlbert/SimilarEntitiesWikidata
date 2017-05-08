@@ -10,7 +10,6 @@ import jenaQuerier.QueryLocalServer
   */
 object UpdateQueryFactory {
 
-
   val datatypeInteger = """^^<http://www.w3.org/2001/XMLSchema#integer>"""
   val datatypeDouble = """^^<http://www.w3.org/2001/XMLSchema#double>"""
   val datatypeBoolean = SimilarPropertyOntology.datatypeBoolean
@@ -21,16 +20,19 @@ object UpdateQueryFactory {
   def updateData(insertQuery : String, datasetForced : String): Unit = {
     QueryLocalServer.updateLocalData(insertQuery, datasetForced)
   }
-  def addPropertyDistribution(entityType: String, propertyDistribution: Map[String, (Double, Int, Int)])(implicit knowledgeGraph: KnowledgeGraph) : Unit = {
+  def addPropertyDistribution(entityType: String, propertyDistribution: Map[String, (Double, Int, Double, Int)])(implicit knowledgeGraph: KnowledgeGraph) : Unit = {
     val insertQuery = propertyDistribution.map{
-      case (property, (importanceRatio, domainCount, rangeCount)) =>
+      case (property, (importanceRatioDomain, domainCount,importanceRatioRange, rangeCount)) =>
         val domainCountLine = if(domainCount > 0) s"""<${SimilarPropertyOntology.domainCount}> "$domainCount"$datatypeInteger ;""" else ""
         val rangeCountLine = if(rangeCount > 0) s"""<${SimilarPropertyOntology.rangeCount}> "$rangeCount"$datatypeInteger ;""" else ""
+        val importanceRatioDomainLine = if(domainCount > 0) s"""<${SimilarPropertyOntology.typePropertyRatioDomain}> "$importanceRatioDomain"$datatypeDouble ;""" else ""
+        val importanceRatioRangeLine = if(rangeCount > 0) s"""<${SimilarPropertyOntology.typePropertyRatioRange}> "$importanceRatioRange"$datatypeDouble ;""" else ""
         s"""
            |<$entityType> <${SimilarPropertyOntology.propertyDistributionNode}> [
            |  $domainCountLine
+           |  $importanceRatioDomainLine
            |  $rangeCountLine
-           |  <${SimilarPropertyOntology.typeImportanceRatio}> "$importanceRatio"$datatypeDouble ;
+           |  $importanceRatioRangeLine
            |  <${SimilarPropertyOntology.distributionForProperty}> <$property>
            | ] .
          """.stripMargin
