@@ -22,6 +22,18 @@ class TestRDFPath extends FunSuite{
     val expectedL2 = s"$rs,true,${memberProp},${beatles},false,${memberProp},${jl}"
     val actualL2 = RDFPath(rs,jl, memberProp::memberProp::Nil, true::false::Nil,beatles::Nil)
     assert(expectedL2 == actualL2.toString)
+  }
+  test("Extending a path should work"){
+    val wd = WikidataFactory
+    val memberProp = wd.ringoStarr.memberOfProp
+    val rs = wd.ringoStarr.id
+    val jl = wd.johnLennon
+    val beatles = wd.ringoStarr.memberOfValue
+
+    val l1 = RDFPath(rs,beatles,memberProp::Nil,true::Nil,Nil)
+    val l2 = RDFPath.extend(l1, beatles, memberProp, jl)
+    val expectdL2 = RDFPath(rs,jl, memberProp::memberProp::Nil, true::false::Nil,beatles::Nil)
+    assert(l2 == expectdL2)
 
   }
 

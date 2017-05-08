@@ -8,6 +8,14 @@ import core.query.specific.QueryFactory.executeQuery
   * Created by espen on 02.05.17.
   */
 object QueryStringFactory {
+  def propertiesForWhereEntityIsSubject(entity: String) : String = {
+    s"""
+       |select distinct ?p
+       |where {
+       |  <$entity> ?p ?o .
+       |}
+     """.stripMargin
+  }
   def comparableTypesPropertyDistribution(domainProperties: Iterable[String], rangeProperties: Iterable[String]) : String = {
     val baseDistributionPath =
       s"""?t <${SimilarPropertyOntology.propertyDistributionNode}> ?node  .

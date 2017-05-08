@@ -14,6 +14,13 @@ import scala.util.Try
   * Created by espen on 03.05.17.
   */
 object QueryFactoryJena {
+  def propertiesForWhereEntityIsSubject(id: String)(implicit knowledgeGraph: KnowledgeGraph): Iterable[String] = {
+    val queryString = QueryStringFactory.propertiesForWhereEntityIsSubject(id)
+    val properties = URIVar("p")
+    QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, properties)
+    return properties.results
+  }
+
   def comparableTypesPropertyDistribution(domainProperties: Iterable[String], rangeProperties: Iterable[String])(implicit knowledgeGraph: KnowledgeGraph) : Iterable[(String, Int)] = {
     val queryString = QueryStringFactory.comparableTypesPropertyDistribution(domainProperties, rangeProperties)
     val types = URIVar("t")
