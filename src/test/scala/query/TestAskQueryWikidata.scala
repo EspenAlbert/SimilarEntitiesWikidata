@@ -4,8 +4,9 @@ import core.globals.{KnowledgeGraphs, MyDatasets}
 import org.scalatest.FunSuite
 import core.query.specific.AskQuery._
 import core.testData.WikidataFactory
+import org.scalameter
 import tags.ActiveTag
-
+import org.scalameter._
 /**
   * Created by Espen on 02.11.2016.
   */
@@ -32,6 +33,14 @@ class TestAskQueryWikidata extends FunSuite{
   test("maxCountSameSubject", ActiveTag) {
     assert(!maxCountSameSubject(WikidataFactory.ringoStarr.spouseProp))
     assert(maxCountSameSubject(WikidataFactory.ringoStarr.countryOfCitizenShipProperty))
+  }
+  test("oneOfTypesUsedInDomainOrRange") {
+
+    val askTime = withWarmer(new scalameter.Warmer.Default) measure {
+      assert(oneOfTypesUsedInDomainOrRange(WikidataFactory.human::WikidataFactory.jazzBand::Nil, WikidataFactory.ringoStarr.spouseProp, true, true) == (true, true))
+    }
+    println(askTime)
+    assert(askTime.value < 100)
   }
 
 

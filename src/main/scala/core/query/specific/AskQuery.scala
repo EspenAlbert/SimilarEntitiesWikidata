@@ -14,6 +14,13 @@ object AskQuery {
     val askQuery = s"ask where { <$child> <${KnowledgeGraphs.getSubclassProperty(knowledgeGraph)}> <$potentialParent> }"
     return QueryLocalServer.ask(askQuery, DatasetInferrer.getDataset(askQuery))
   }
+  def oneOfTypesUsedInDomainOrRange(comparableTypes: List[String], property: String, isSubject: Boolean, isObject: Boolean)(implicit knowledgeGraph: KnowledgeGraph): (Boolean, Boolean) = {
+    val queryStringUsedInDomain = if(isSubject && comparableTypes.nonEmpty) AskQueryStringFactory.oneOfTypesUsedInDomain(comparableTypes, property) else ""
+    val queryStringUsedInRange = if(isObject && comparableTypes.nonEmpty) AskQueryStringFactory.oneOfTypesUsedInRange(comparableTypes, property) else ""
+    if(queryStringUsedInDomain + queryStringUsedInRange == "") return (false, false)
+    val dataset = DatasetInferrer.getDataset(queryStringUsedInDomain + queryStringUsedInRange)
+    return (queryStringUsedInDomain.nonEmpty && QueryLocalServer.ask(queryStringUsedInDomain, dataset),queryStringUsedInRange.nonEmpty && QueryLocalServer.ask(queryStringUsedInRange, dataset))
+  }
   def maxCountSameSubject(property: String)(implicit knowledgeGraph: KnowledgeGraph): Boolean = {
     val askQuery =
       s"""

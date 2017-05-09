@@ -47,17 +47,17 @@ object TypePropertyDistributionFinder {
 
   def propertyDistributionIgnoreRareness(typeEntity: String)(implicit knowledgeGraph: KnowledgeGraph) : Map[String, (Double, Int, Double, Int)] = {
     val globalCount : Int= TypeCounter.findGlobalCountOfEntitiesOfType(typeEntity).getOrElse(throw new Exception(s"Failed to find global count for $typeEntity"))
-    if(globalCount > thresholdForStoringPropertyDistributionsLocally) {
-      QueryFactoryJena.allPropertyDistributionsLocally(typeEntity) match {
-        case list if list.nonEmpty => return list.map{
-          case (property, Success(importanceRatioDomain), Success(domainCount), Success(importanceRatioRange),Success(rangeCount)) => property -> ( importanceRatioDomain, domainCount, importanceRatioRange, rangeCount)
-          case (property, Success(importanceRatioDomain), Success(domainCount), Failure(_),Failure(_)) => property -> ( importanceRatioDomain, domainCount, 0d, 0)
-          case (property, Failure(_), Failure(_), Success(importanceRatioRange),Success(rangeCount)) => property -> ( 0d, 0, importanceRatioRange, rangeCount)
-          case _ => throw new Exception(s"both rangeCount and domain count was not found locally for $typeEntity")
-        }.toMap
-        case _ => Unit
-      }
-    }
+//    if(globalCount > thresholdForStoringPropertyDistributionsLocally) {
+//      QueryFactoryJena.allPropertyDistributionsLocally(typeEntity) match {
+//        case list if list.nonEmpty => return list.map{
+//          case (property, Success(importanceRatioDomain), Success(domainCount), Success(importanceRatioRange),Success(rangeCount)) => property -> ( importanceRatioDomain, domainCount, importanceRatioRange, rangeCount)
+//          case (property, Success(importanceRatioDomain), Success(domainCount), Failure(_),Failure(_)) => property -> ( importanceRatioDomain, domainCount, 0d, 0)
+//          case (property, Failure(_), Failure(_), Success(importanceRatioRange),Success(rangeCount)) => property -> ( 0d, 0, importanceRatioRange, rangeCount)
+//          case _ => throw new Exception(s"both rangeCount and domain count was not found locally for $typeEntity")
+//        }.toMap
+//        case _ => Unit
+//      }
+//    }
     val domainProps = QueryFactoryJena.propertiesWhereDomainHasType(typeEntity).map((_, true))
     val rangeProps = QueryFactoryJena.propertiesWhereRangeHasType(typeEntity).map((_, false))
     val propertiesAndIsSubject: List[(String,Boolean)] = domainProps ++ rangeProps

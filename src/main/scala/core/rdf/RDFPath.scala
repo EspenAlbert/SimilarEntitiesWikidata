@@ -16,7 +16,7 @@ case class RDFPath(startEntity: String, endEntity: String, properties : List[Str
 
 object RDFPath {
   def length(path: RDFPath) : Int = {
-    if(path == null) return 1
+    if(path == null) return 0
     else {
       path.properties.length
     }

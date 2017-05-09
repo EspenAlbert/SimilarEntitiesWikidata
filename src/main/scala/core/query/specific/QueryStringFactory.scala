@@ -8,6 +8,7 @@ import core.query.specific.QueryFactory.executeQuery
   * Created by espen on 02.05.17.
   */
 object QueryStringFactory {
+
   def propertiesForWhereEntityIsSubject(entity: String) : String = {
     s"""
        |select distinct ?p

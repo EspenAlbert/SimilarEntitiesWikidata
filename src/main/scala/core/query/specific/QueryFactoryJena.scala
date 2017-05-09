@@ -14,6 +14,7 @@ import scala.util.Try
   * Created by espen on 03.05.17.
   */
 object QueryFactoryJena {
+
   def propertiesForWhereEntityIsSubject(id: String)(implicit knowledgeGraph: KnowledgeGraph): Iterable[String] = {
     val queryString = QueryStringFactory.propertiesForWhereEntityIsSubject(id)
     val properties = URIVar("p")
