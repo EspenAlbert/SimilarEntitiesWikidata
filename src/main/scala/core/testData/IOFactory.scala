@@ -20,6 +20,10 @@ object IOFactory {
     assert(itemProperties.size > 100)
     itemProperties
   }
+  def getAllProperties(implicit knowledgeGraph : KnowledgeGraph) : List[String] = {
+    val propertiesToPropTypeMap = DumpObject.readJsonMapStringPropertyType(KnowledgeGraphs.getMapPropToPropTypeFilename(knowledgeGraph))
+    propertiesToPropTypeMap.keys.toList
+  }
   private def filenamePropToDomainCount(implicit knowledgeGraph : KnowledgeGraph) = s"$knowledgeGraph-prop-domain-count"
   private def filenamePropToRangeCount(implicit knowledgeGraph : KnowledgeGraph) = s"$knowledgeGraph-prop-range-count"
   private def filenamePropToIsDescriptive(implicit knowledgeGraph : KnowledgeGraph) = s"$knowledgeGraph-prop-is-descriptive"

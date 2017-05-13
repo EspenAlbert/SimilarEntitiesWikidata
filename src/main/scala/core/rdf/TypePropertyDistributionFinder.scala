@@ -3,7 +3,8 @@ package core.rdf
 import breeze.linalg.{max, min}
 import breeze.numerics.abs
 import core.globals.KnowledgeGraphs.KnowledgeGraph
-import core.query.specific.{QueryFactoryJena, UpdateQueryFactory}
+import core.globals.SimilarPropertyOntology
+import core.query.specific.{DatasetInferrer, QueryFactoryJena, UpdateQueryFactory}
 
 import scala.util.{Failure, Success}
 
@@ -43,21 +44,28 @@ object TypePropertyDistributionFinder {
     return totalOverlaps.toDouble / maxOverlap
   }
 
-  val requirementForStoringPropertyInDistribution = 0.01
+  val requirementForStoringPropertyInDistribution = 0.0001
+  var deletePropertyDistribution = false
 
   def propertyDistributionIgnoreRareness(typeEntity: String)(implicit knowledgeGraph: KnowledgeGraph) : Map[String, (Double, Int, Double, Int)] = {
+    if(deletePropertyDistribution) {
+      UpdateQueryFactory.cleanDatasetWhere(DatasetInferrer.getDataset(s"?s <${SimilarPropertyOntology.spo}> ?o"), s"<$typeEntity> <${SimilarPropertyOntology.propertyDistributionNode}> ?n")
+    }
     val globalCount : Int= TypeCounter.findGlobalCountOfEntitiesOfType(typeEntity).getOrElse(throw new Exception(s"Failed to find global count for $typeEntity"))
-//    if(globalCount > thresholdForStoringPropertyDistributionsLocally) {
-//      QueryFactoryJena.allPropertyDistributionsLocally(typeEntity) match {
-//        case list if list.nonEmpty => return list.map{
-//          case (property, Success(importanceRatioDomain), Success(domainCount), Success(importanceRatioRange),Success(rangeCount)) => property -> ( importanceRatioDomain, domainCount, importanceRatioRange, rangeCount)
-//          case (property, Success(importanceRatioDomain), Success(domainCount), Failure(_),Failure(_)) => property -> ( importanceRatioDomain, domainCount, 0d, 0)
-//          case (property, Failure(_), Failure(_), Success(importanceRatioRange),Success(rangeCount)) => property -> ( 0d, 0, importanceRatioRange, rangeCount)
-//          case _ => throw new Exception(s"both rangeCount and domain count was not found locally for $typeEntity")
-//        }.toMap
-//        case _ => Unit
-//      }
-//    }
+    if(globalCount > thresholdForStoringPropertyDistributionsLocally) {
+      QueryFactoryJena.allPropertyDistributionsLocally(typeEntity) match {
+        case list if list.nonEmpty => return list.map{
+          case (property, Success(importanceRatioDomain), Success(domainCount), Success(importanceRatioRange),Success(rangeCount)) => property -> ( importanceRatioDomain, domainCount, importanceRatioRange, rangeCount)
+          case (property, Success(importanceRatioDomain), Success(domainCount), Failure(_),Failure(_)) => property -> ( importanceRatioDomain, domainCount, 0d, 0)
+          case (property, Failure(_), Failure(_), Success(importanceRatioRange),Success(rangeCount)) => property -> ( 0d, 0, importanceRatioRange, rangeCount)
+//          case (property, Failure(_), Failure(_),Failure(_) ,Success(rangeCount)) => property -> ( 0d, 0, rangeCount.toDouble / globalCount, rangeCount)
+//          case (property, Failure(_), Success(domainCount),Failure(_) ,Failure(_)) => property -> ( domainCount.toDouble / globalCount, domainCount,0d, 0)
+//          case (property, Failure(_), Success(domainCount),Failure(_) ,Success(rangeCount)) => property -> ( domainCount.toDouble / globalCount, domainCount, rangeCount.toDouble / globalCount, rangeCount)
+          case _ => throw new Exception(s"both rangeCount and domain count was not found locally for $typeEntity")
+        }.toMap
+        case _ => Unit
+      }
+    }
     val domainProps = QueryFactoryJena.propertiesWhereDomainHasType(typeEntity).map((_, true))
     val rangeProps = QueryFactoryJena.propertiesWhereRangeHasType(typeEntity).map((_, false))
     val propertiesAndIsSubject: List[(String,Boolean)] = domainProps ++ rangeProps
@@ -65,11 +73,14 @@ object TypePropertyDistributionFinder {
       (property : String, (usedInDomain, usedInRange)) <- propertiesAndIsSubject.groupBy(_._1).map{
         case (property, (list)) => ((property), (list.exists(_._2), list.exists(!_._2)))
       }
-      domainCount : Int = if(usedInDomain) QueryFactoryJena.countEntitiesOfTypeForProperty(typeEntity, true, property) else 0
-      rangeCount : Int = if(usedInRange) QueryFactoryJena.countEntitiesOfTypeForProperty(typeEntity, false, property) else 0
-      if (domainCount + rangeCount)  > globalCount * requirementForStoringPropertyInDistribution
-      importanceRatioDomain = if(usedInDomain) domainCount.toDouble / globalCount else 0d
-      importanceRatioRange = if(usedInRange) rangeCount.toDouble / globalCount else 0d
+      foundDomainCount = QueryFactoryJena.countEntitiesOfTypeForProperty(typeEntity, true, property)
+      foundRangeCount = QueryFactoryJena.countEntitiesOfTypeForProperty(typeEntity, false, property)
+      thresholdForStoring : Double= min(globalCount * requirementForStoringPropertyInDistribution, 100d)
+      domainCount : Int = if(usedInDomain && foundDomainCount > thresholdForStoring) foundDomainCount else 0
+      rangeCount : Int = if(usedInRange && foundRangeCount > thresholdForStoring) foundRangeCount else 0
+      if (domainCount + rangeCount)  > thresholdForStoring
+      importanceRatioDomain = if(usedInDomain && domainCount > thresholdForStoring) domainCount.toDouble / globalCount else 0d
+      importanceRatioRange = if(usedInRange && rangeCount > thresholdForStoring) rangeCount.toDouble / globalCount else 0d
     }yield property -> (importanceRatioDomain, domainCount, importanceRatioRange, rangeCount)}.toMap
     if(globalCount > thresholdForStoringPropertyDistributionsLocally) {
     UpdateQueryFactory.addPropertyDistribution(typeEntity, distribution)}

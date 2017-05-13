@@ -8,6 +8,17 @@ import core.query.specific.QueryFactory.executeQuery
   * Created by espen on 02.05.17.
   */
 object QueryStringFactory {
+  def domainAndRangeTypeWithCountsForProperty(property: String) : String =
+    s"""
+       |select ?eT ?cD ?cR
+       |where {
+       |  ?eT <${SimilarPropertyOntology.propertyDistributionNode}> ?pdn .
+       |  ?pdn <${SimilarPropertyOntology.distributionForProperty}> <$property> .
+       |  optional {?pdn <${SimilarPropertyOntology.domainCount}> ?cD .}
+       |  optional {?pdn <${SimilarPropertyOntology.rangeCount}> ?cR .}
+       | }
+     """.stripMargin
+
 
   def propertiesForWhereEntityIsSubject(entity: String) : String = {
     s"""
@@ -36,7 +47,7 @@ object QueryStringFactory {
 
   def propertyDistributions(entityType: String) : String = {
     s"""
-       |select ?p ?cD ?cR ?iR
+       |select ?p ?cD ?cR ?tprD ?tprR
        |where {
        |  <${entityType}> <${SimilarPropertyOntology.propertyDistributionNode}> ?pdn .
        |  ?pdn <${SimilarPropertyOntology.distributionForProperty}> ?p .

@@ -1,7 +1,9 @@
 package query
 
 import core.globals.KnowledgeGraphs
+import core.query.ValueMatchCountFinder
 import core.query.specific.{QueryFactory, QueryFactoryJena}
+import core.rdf.TypeCounter
 import core.testData.WikidataFactory
 import org.scalatest.FunSuite
 
@@ -62,6 +64,12 @@ class TestQueryFactoryJena extends FunSuite{
     assert(firstLevel.head == wd.band)
     val actualSecondLevel = QueryFactoryJena.parentToEntityXStepsAway(wd.rockBand, 2)
     assert(actualSecondLevel.toList.contains(wd.musicalEnsemble))
+  }
+  test("countEntitiesOfTypeForProperty") {
+    val humansWithPerformerProp = QueryFactoryJena.countEntitiesOfTypeForProperty(wd.human, false, wd.ringoStarr.performerProp)
+    println(humansWithPerformerProp)
+    assert(humansWithPerformerProp > 100)
+    println(TypeCounter.findGlobalCountOfEntitiesOfType(wd.human))
   }
 
 

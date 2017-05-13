@@ -14,6 +14,23 @@ import scala.util.Try
   * Created by espen on 03.05.17.
   */
 object QueryFactoryJena {
+  def domainAndRangeTypeWithCountsForProperty(property: String) (implicit knowledgeGraph: KnowledgeGraph): Iterable[(String, Option[Int], Option[Int])] = {
+    val queryString = QueryStringFactory.domainAndRangeTypeWithCountsForProperty(property)
+    val types = URIVar("eT")
+    val countDomains = LiteralIntOptionVar("cD")
+    val countRanges = LiteralIntOptionVar("cR")
+
+    QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, types, countDomains, countRanges)
+    val rTypes = types.results.toVector
+    val rCountDomains = countDomains.results.toVector
+    val rCountRanges = countRanges.results.toVector
+    val expectedDistributions = rTypes.size
+    assert(expectedDistributions == rCountDomains.size)
+    assert(expectedDistributions == rCountRanges.size)
+    return Range(0, expectedDistributions).map(index =>
+      (rTypes(index), rCountDomains(index).toOption,rCountRanges(index).toOption))
+  }
+
 
   def propertiesForWhereEntityIsSubject(id: String)(implicit knowledgeGraph: KnowledgeGraph): Iterable[String] = {
     val queryString = QueryStringFactory.propertiesForWhereEntityIsSubject(id)
