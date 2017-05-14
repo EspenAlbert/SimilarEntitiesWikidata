@@ -5,5 +5,7 @@ package core.globals
   */
 object ExternalURIs {
   val owlThing = org.apache.jena.vocabulary.OWL.Thing.getURI
-
+  val datatypeInteger = """^^<http://www.w3.org/2001/XMLSchema#integer>"""
+  val datatypeDouble = """^^<http://www.w3.org/2001/XMLSchema#double>"""
+  val datatypeBoolean = SimilarPropertyOntology.datatypeBoolean
 }

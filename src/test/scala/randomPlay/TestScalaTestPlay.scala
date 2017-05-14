@@ -101,62 +101,62 @@ class TestScalaTestPlay extends FunSuite{
 //      v.asInstanceOf[TestMeHasEntity].b
 //    }
   }
-  implicit object VMHasEntityMaker2 extends HasEntity[VMTriple] {
-    def hasEntity(v: VMTriple): Boolean = {
-      true
-    }
-  }
+//  implicit object VMHasEntityMaker2 extends HasEntity[VMTriple] {
+//    def hasEntity(v: VMTriple): Boolean = {
+//      true
+//    }
+//  }
 
-  test("pattern matching on triples...") {
-    val ringoStarr = wd.ringoStarr
-    val rid = ringoStarr.id
-    val ordinary = OrdinaryTriple(rid, ringoStarr.memberOfProp, ringoStarr.memberOfValue)
-    val vmTriple = VMTriple(wd.johnLennon, ringoStarr.memberOfProp, ringoStarr.memberOfValue, (wd.johnLennon, rid), (ringoStarr.memberOfValue, 5))
-    val metallica = "Metallica"
-    val larsulrich = "LarsUlrich"
-    val tmTriple = TMTriple(larsulrich, ringoStarr.memberOfProp, metallica, (metallica, wd.rockBand, ringoStarr.memberOfValue)::Nil)
-    val triples = List(ordinary, vmTriple, tmTriple)
-    triples.collect{
-      case OrdinaryTriple(s,p,o) => println(s + "Probably doesn't work... cannot extend case class... ")
-      case VMTriple(s, p, o, (r,`rid`),_) => println("wow")
-      case TMTriple(s, p, o, r1::r2::_) if r1._3 == ringoStarr.memberOfValue=> println("wowx2")
-    }
-
-    println(hasEntity(vmTriple))
-    println(DumpObject.dumpListNewWay(triples))
-    val tripleFilename = "test-triple-dump"
-    DumpObject.dumpList[Triple](triples, tripleFilename)
-    val newTriples = DumpObject.getList[Triple](tripleFilename)
-    println(newTriples)
-//    newTriples.collect{
+//  test("pattern matching on triples...") {
+//    val ringoStarr = wd.ringoStarr
+//    val rid = ringoStarr.id
+//    val ordinary = OrdinaryTriple(rid, ringoStarr.memberOfProp, ringoStarr.memberOfValue)
+//    val vmTriple = VMTriple(wd.johnLennon, ringoStarr.memberOfProp, ringoStarr.memberOfValue, (wd.johnLennon, rid), (ringoStarr.memberOfValue, 5))
+//    val metallica = "Metallica"
+//    val larsulrich = "LarsUlrich"
+//    val tmTriple = TMTriple(larsulrich, ringoStarr.memberOfProp, metallica, (metallica, wd.rockBand, ringoStarr.memberOfValue)::Nil)
+//    val triples = List(ordinary, vmTriple, tmTriple)
+//    triples.collect{
 //      case OrdinaryTriple(s,p,o) => println(s + "Probably doesn't work... cannot extend case class... ")
 //      case VMTriple(s, p, o, (r,`rid`),_) => println("wow")
-//      case TMTriple(s, p, o, repl) if repl.exists(_._3 == ringoStarr.memberOfValue)=> println("wowx2")
+//      case TMTriple(s, p, o, r1::r2::_) if r1._3 == ringoStarr.memberOfValue=> println("wowx2")
 //    }
-    def **[T : Numeric](xs: Iterable[T], ys: Iterable[T]) =
-      xs zip ys map { t => implicitly[Numeric[T]].times(t._1, t._2) }
-
-    println(**(List(8), List(2)))
-
-  }
-  test("dump object a type parameterized list:"){
-    val l = List[String]("a", "b")
-    val filename = "testManifest"
-    DumpObject.dumpList(l, filename)
-    val l2 : List[String]= DumpObject.getList[String](filename)
-    println(s"Yes got $l2")
-    val lT = List[OrdinaryTriple](OrdinaryTriple("a", "b","c"))
-    DumpObject.dumpList[OrdinaryTriple](lT, filename)
-    val l2T = DumpObject.getList[OrdinaryTriple](filename)
-    println(s"Yes got $l2T")
-    val typeMap = l.zip(lT).toMap
-    DumpObject.dumpMap[String, OrdinaryTriple](typeMap, filename)
-    val rMap = DumpObject.readMap[String, OrdinaryTriple](filename)
-    val rMap2 = rMap.map(p => (p._1, List(p._2))).toMap
-    DumpObject.dumpMap[String, List[OrdinaryTriple]](rMap2, filename)
-    val rMap3 = DumpObject.readMap[String, List[OrdinaryTriple]](filename)
-    println(rMap3)
-
-  }
+//
+//    println(hasEntity(vmTriple))
+//    println(DumpObject.dumpListNewWay(triples))
+//    val tripleFilename = "test-triple-dump"
+//    DumpObject.dumpList[Triple](triples, tripleFilename)
+//    val newTriples = DumpObject.getList[Triple](tripleFilename)
+//    println(newTriples)
+////    newTriples.collect{
+////      case OrdinaryTriple(s,p,o) => println(s + "Probably doesn't work... cannot extend case class... ")
+////      case VMTriple(s, p, o, (r,`rid`),_) => println("wow")
+////      case TMTriple(s, p, o, repl) if repl.exists(_._3 == ringoStarr.memberOfValue)=> println("wowx2")
+////    }
+//    def **[T : Numeric](xs: Iterable[T], ys: Iterable[T]) =
+//      xs zip ys map { t => implicitly[Numeric[T]].times(t._1, t._2) }
+//
+//    println(**(List(8), List(2)))
+//
+//  }
+//  test("dump object a type parameterized list:"){
+//    val l = List[String]("a", "b")
+//    val filename = "testManifest"
+//    DumpObject.dumpList(l, filename)
+//    val l2 : List[String]= DumpObject.getList[String](filename)
+//    println(s"Yes got $l2")
+//    val lT = List[OrdinaryTriple](OrdinaryTriple("a", "b","c"))
+//    DumpObject.dumpList[OrdinaryTriple](lT, filename)
+//    val l2T = DumpObject.getList[OrdinaryTriple](filename)
+//    println(s"Yes got $l2T")
+//    val typeMap = l.zip(lT).toMap
+//    DumpObject.dumpMap[String, OrdinaryTriple](typeMap, filename)
+//    val rMap = DumpObject.readMap[String, OrdinaryTriple](filename)
+//    val rMap2 = rMap.map(p => (p._1, List(p._2))).toMap
+//    DumpObject.dumpMap[String, List[OrdinaryTriple]](rMap2, filename)
+//    val rMap3 = DumpObject.readMap[String, List[OrdinaryTriple]](filename)
+//    println(rMap3)
+//
+//  }
 
 }

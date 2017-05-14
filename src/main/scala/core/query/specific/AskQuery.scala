@@ -10,6 +10,17 @@ import scala.util.{Failure, Success, Try}
   * Created by Espen on 08.11.2016.
   */
 object AskQuery {
+//  def domainHasType(property: String, typeEntity: String)(implicit knowledgeGraph: KnowledgeGraph) : Boolean = {
+//    val qString =
+//      s"""
+//         |ask
+//         |where {
+//         |  ?s <$property> ?o
+//         |  ?s <${KnowledgeGraphs.getTypeProperty(knowledgeGraph)}> <${typeEntity}>
+//       """.stripMargin
+//    val ds = DatasetInferrer.getDataset()
+//  }
+
   def isParentOfChild(potentialParent: String, child: String)(implicit knowledgeGraph: KnowledgeGraph) : Boolean = {
     val askQuery = s"ask where { <$child> <${KnowledgeGraphs.getSubclassProperty(knowledgeGraph)}> <$potentialParent> }"
     return QueryLocalServer.ask(askQuery, DatasetInferrer.getDataset(askQuery))
@@ -51,6 +62,7 @@ object AskQuery {
   }
   def sharableRange(prop: String)(implicit knowledgeGraph: KnowledgeGraph) : Boolean = {
     val typeProperty = KnowledgeGraphs.getTypeProperty(knowledgeGraph)
+    if(typeProperty == prop)return true
     val askQuery =
       s"""
          |PREFIX wd: <http://www.wikidata.org/entity/>
@@ -113,6 +125,9 @@ object AskQuery {
   def ask(f : () => String, ds : String = "")(implicit knowledgeGraph: KnowledgeGraph) : Boolean = {
     val dataset = if(ds!= "") ds else DatasetInferrer.getDataset(f())
     return QueryLocalServer.ask(s"ask WHERE {${f()} }", dataset)
+  }
+  def datasetIsEmpty(ds: String) : Boolean = {
+    return !QueryLocalServer.ask("ask where {?s ?p ?o}", ds)
   }
 
 

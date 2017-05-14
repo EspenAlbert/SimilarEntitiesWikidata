@@ -1,8 +1,8 @@
 package query
 
-import core.globals.KnowledgeGraphs
+import core.globals.{KnowledgeGraphs, MyDatasets}
 import core.query.ValueMatchCountFinder
-import core.query.specific.{QueryFactory, QueryFactoryJena}
+import core.query.specific.{AskQuery, QueryFactory, QueryFactoryJena, UpdateQueryFactory}
 import core.rdf.TypeCounter
 import core.testData.WikidataFactory
 import org.scalatest.FunSuite
@@ -71,7 +71,36 @@ class TestQueryFactoryJena extends FunSuite{
     assert(humansWithPerformerProp > 100)
     println(TypeCounter.findGlobalCountOfEntitiesOfType(wd.human))
   }
+  test("typesWithMoreThanThresholdEntities") {
+    val typesWithCounts = QueryFactoryJena.typesWithMoreThanThresholdEntities(100000)
+    assert(typesWithCounts.exists(_._1 == wd.human))
+  }
+  test("selectTriples") {
+    val isEmpty = AskQuery.datasetIsEmpty(MyDatasets.dsWikidata)
+    assert(!isEmpty)
+  }
+  test("datasetSize") {
+    val dsValueMatch = QueryFactoryJena.datasetSize(MyDatasets.valueMatchWikidata)
+    println(s"value match wd statement size: $dsValueMatch")
+    assert(dsValueMatch > 10)
+  }
 
+  test("subjectsWithPropertyAndValue"){//TODO: Test
+    val ringoStarrSongs = QueryFactoryJena.subjectsWithPropertyAndValue(wd.ringoStarr.performerProp, wd.ringoStarr.id)
+    assert(ringoStarrSongs.size > 50)
+    assert(ringoStarrSongs.contains(wd.ringoStarr.performerSubject1))
+  }
+  test("objectsWithPropertyAndSubject"){//TODO: Test
+    val performersOfRingoStarrSong = QueryFactoryJena.objectsWithPropertyAndSubject(wd.ringoStarr.performerProp, wd.ringoStarr.performerSubject1)
+    assert(performersOfRingoStarrSong.head == wd.ringoStarr.id)
+  }
+  test("propertiesAndCountsForType") {//TODO: Test
+    val domainTypesForRockBand = QueryFactoryJena.propertiesAndCountsForType(wd.rockBand, true, 0)
+    assert(domainTypesForRockBand.size > 100)
+    val rangeTypesForRockBand= QueryFactoryJena.propertiesAndCountsForType(wd.rockBand, false, 0)
+    assert(rangeTypesForRockBand.size > 5)
+
+  }
 
 
 }

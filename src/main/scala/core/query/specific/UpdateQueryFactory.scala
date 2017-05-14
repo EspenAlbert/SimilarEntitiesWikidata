@@ -4,15 +4,13 @@ import core.globals.KnowledgeGraphs.KnowledgeGraph
 import core.globals.{KnowledgeGraphs, MyDatasets, ResultsSimilarArtistsGlobals, SimilarPropertyOntology}
 import core.query.variables.ResultVariable
 import jenaQuerier.QueryLocalServer
-
+import core.globals.ExternalURIs._
 /**
   * Created by Espen on 01.12.2016.
   */
 object UpdateQueryFactory {
 
-  val datatypeInteger = """^^<http://www.w3.org/2001/XMLSchema#integer>"""
-  val datatypeDouble = """^^<http://www.w3.org/2001/XMLSchema#double>"""
-  val datatypeBoolean = SimilarPropertyOntology.datatypeBoolean
+
 
   def updateData(insertQuery : String)(implicit knowledgeGraph: KnowledgeGraph): Unit = {
     QueryLocalServer.updateLocalData(insertQuery,DatasetInferrer.getDataset(insertQuery))

@@ -17,6 +17,12 @@ object KnowledgeGraphs extends Enumeration {
     case c => throw new Exception(s"Failed to find knowledge graph from $id")
   }
 
+  def getValueMatchDataset(knowledgeGraph: KnowledgeGraph) : String = {
+    knowledgeGraph match {
+      case KnowledgeGraphs.wikidata => return MyDatasets.valueMatchWikidata
+      case KnowledgeGraphs.dbPedia => return MyDatasets.valueMatchDBpedia
+    }
+  }
 
   def getSubclassProperty(knowledgeGraph: KnowledgeGraph) : String = {
     knowledgeGraph match {

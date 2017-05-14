@@ -14,12 +14,50 @@ import scala.util.Try
   * Created by espen on 03.05.17.
   */
 object QueryFactoryJena {
+  def propertiesAndCountsForType(entityType: String, isSubject: Boolean, thresholdCount: Int)(implicit knowledgeGraph: KnowledgeGraph): List[(String, Int)] = {
+    val queryString = QueryStringFactory.propertiesAndCountsForType(entityType, thresholdCount, isSubject)
+    val properties = URIVar("p")
+    val counts = LiteralIntVar("c")
+    QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, properties, counts)
+    return properties.results.zip(counts.results).toList
+
+  }
+
+  def objectsWithPropertyAndSubject(property: String, subject: String)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= (s: String) => s): List[String] = {
+    val queryString = adjustQuery(QueryStringFactory.objectsWithPropertyAndSubject(property, subject))
+    val objects = UnknownStringVar("o")//TODO: Test with different datatypes: Dates, ints, doubles, uris, etc.
+    QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, objects)
+    return objects.results.toList
+  }
+
+  def subjectsWithPropertyAndValue(property: String, objectValue: String)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= (s: String) => s): List[String] = {
+    val queryString = adjustQuery(QueryStringFactory.subjectsWithPropertyAndValue(property, objectValue))
+    val subjects = URIVar("s")
+    QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, subjects)
+    return subjects.results.toList
+  }
+
+  def datasetSize(dataset: String) : Int = {
+    val queryString = QueryStringFactory.countTriples()
+    val count = LiteralIntVar("c")
+    QueryServerScala.query(dataset, queryString, count)
+    return count.results.head
+  }
+
+
+  def typesWithMoreThanThresholdEntities(thresholdForStoringPropertyDistributionsLocally: Int)(implicit knowledgeGraph: KnowledgeGraph): List[(String, Int)] = {
+    val queryString = QueryStringFactory.typesWithGreaterThanCount(thresholdForStoringPropertyDistributionsLocally)
+    val types = URIVar("t")
+    val counts = LiteralIntVar("c")
+    QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, types, counts)
+    return types.results.zip(counts.results).toList
+  }
+
   def domainAndRangeTypeWithCountsForProperty(property: String) (implicit knowledgeGraph: KnowledgeGraph): Iterable[(String, Option[Int], Option[Int])] = {
     val queryString = QueryStringFactory.domainAndRangeTypeWithCountsForProperty(property)
     val types = URIVar("eT")
     val countDomains = LiteralIntOptionVar("cD")
     val countRanges = LiteralIntOptionVar("cR")
-
     QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, types, countDomains, countRanges)
     val rTypes = types.results.toVector
     val rCountDomains = countDomains.results.toVector
@@ -32,8 +70,8 @@ object QueryFactoryJena {
   }
 
 
-  def propertiesForWhereEntityIsSubject(id: String)(implicit knowledgeGraph: KnowledgeGraph): Iterable[String] = {
-    val queryString = QueryStringFactory.propertiesForWhereEntityIsSubject(id)
+  def propertiesForWhereEntityIsSubject(id: String)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= (s: String) => s): Iterable[String] = {
+    val queryString = adjustQuery(QueryStringFactory.propertiesForWhereEntityIsSubject(id))
     val properties = URIVar("p")
     QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, properties)
     return properties.results
@@ -159,8 +197,8 @@ object QueryFactoryJena {
     QueryServerScala.query(MyDatasets.dsWikidata, queryString, types)
     return types.results.toList
   }
-  def distinctPropertiesWhereEntityIsObject(entity: String)(implicit knowledgeGraph: KnowledgeGraph): List[String] = {
-    val qString = QueryStringFactory.distinctPropertiesWhereObject(entity)
+  def distinctPropertiesWhereEntityIsObject(entity: String)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= (s: String) => s): List[String] = {
+    val qString = adjustQuery(QueryStringFactory.distinctPropertiesWhereObject(entity))
     val properties = URIVar("p")
     QueryServerScala.query(MyDatasets.dsWikidata, qString, properties)
     return properties.results.toList

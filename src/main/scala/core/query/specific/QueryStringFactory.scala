@@ -8,6 +8,59 @@ import core.query.specific.QueryFactory.executeQuery
   * Created by espen on 02.05.17.
   */
 object QueryStringFactory {
+  def propertiesAndCountsForType(typeEntity: String, thresholdCount: Int, isSubject: Boolean)(implicit knowledgeGraph: KnowledgeGraph) : String =
+    s"""
+       |select ?p (count(?e) as ?c)
+       |where {
+       |  ?e <${KnowledgeGraphs.getTypeProperty(knowledgeGraph)}> <$typeEntity> .
+       |  ${if(isSubject) "?e ?p ?v ." else "?v ?p ?e"}
+       |} group by ?p
+       |having(?c > $thresholdCount)
+     """.stripMargin
+
+  def objectsWithPropertyAndSubject(property: String, subject: String): String =
+    s"""
+       |select ?o
+       |where {
+       |  <$subject> <$property> ?o
+       |}
+     """.stripMargin
+
+  def subjectsWithPropertyAndValue(property: String, objectValue: String):String =
+    s"""
+       |select ?s
+       |where {
+       |  ?s <$property> <$objectValue>
+       |}
+     """.stripMargin
+
+  def countTriples() : String =
+    s"""
+       |select (count(?s) as ?c)
+       |where {
+       |?s ?p ?o
+       |}
+     """.stripMargin
+
+  def selectTriples() : String =
+    s"""
+       |select ?s ?p ?o
+       |where {
+       |?s ?p ?o
+       |} LIMIT 25
+     """.stripMargin
+
+
+  def typesWithGreaterThanCount(thresholdForStoringPropertyDistributionsLocally: Int)(implicit knowledgeGraph: KnowledgeGraph) : String =
+    s"""
+      select ?t (count(?s) as ?c)
+       |where {
+       |  ?s <${KnowledgeGraphs.getTypeProperty(knowledgeGraph)}> ?t .
+       |  }
+       |Group by ?t
+       |Having(?c > ${thresholdForStoringPropertyDistributionsLocally})
+       |     """.stripMargin
+
   def domainAndRangeTypeWithCountsForProperty(property: String) : String =
     s"""
        |select ?eT ?cD ?cR

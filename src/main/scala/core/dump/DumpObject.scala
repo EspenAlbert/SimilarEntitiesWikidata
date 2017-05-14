@@ -5,6 +5,7 @@ import java.io.File
 import buildInfo.BuildInfo
 import com.lambdaworks.jacks.JacksMapper
 import core.globals.PropertyType
+import core.rdf.Triples.{OrdinaryTriple, ResultTriple}
 import org.apache.commons.io.FileUtils
 import play.api.libs.json._
 
@@ -29,10 +30,6 @@ def main(args: Array[String]): Unit = {
   testJson()
 }
 
-  abstract class Triple
-  case class OrdinaryTriple(  subject : String,   property: String,  objectValue: String) extends Triple
-  case class VMTriple( subject : String,  property: String,  objectValue: String, replacement : (String, String), vmCount: (String, Int)) extends Triple
-  case class TMTriple( subject : String,  property: String,  objectValue: String, entityTypeOrgEntityReplacements : List[(String, String, String)]) extends Triple
 
   def testJson(): Unit= {
     implicit val ordinaryTripleWrites = new Writes[OrdinaryTriple] {
@@ -42,26 +39,26 @@ def main(args: Array[String]): Unit = {
         "objectValue" -> ordinaryTriple.objectValue
       )
     }
-    implicit val writeVMs = Json.writes[VMTriple]
-    val a = Json.toJson[List[Triple]](List(OrdinaryTriple("s","p","o"), VMTriple("s","p","o", ("a","b"), ("a", 1))))
-    println(a)
-    implicit val readO = Json.reads[OrdinaryTriple]
-    implicit val readV = Json.reads[VMTriple]
-    val parsed = Json.parse(a.toString())
-    val b = parsed.as[List[Any]]
-    println(b)
+//    implicit val writeVMs = Json.writes[VMTriple]
+//    val a = Json.toJson[List[Triple]](List(OrdinaryTriple("s","p","o"), VMTriple("s","p","o", ("a","b"), ("a", 1))))
+//    println(a)
+//    implicit val readO = Json.reads[OrdinaryTriple]
+//    implicit val readV = Json.reads[VMTriple]
+//    val parsed = Json.parse(a.toString())
+//    val b = parsed.as[List[Any]]
+//    println(b)
 
 
   }
 
 
 
-  def dumpListNewWay(l: List[Triple]) : Unit= {
+  def dumpListNewWay(l: List[ResultTriple]) : Unit= {
     val filename = picklePath + "test-triple-dump2.txt"
     val json = JacksMapper.writeValueAsString(l)
     FileUtils.write(new File(filename), json)
     val readFromFile = FileUtils.readFileToString(new File(filename))
-    val v= JacksMapper.readValue[List[Triple]](readFromFile)
+    val v= JacksMapper.readValue[List[ResultTriple]](readFromFile)
     println(v)
   }
 

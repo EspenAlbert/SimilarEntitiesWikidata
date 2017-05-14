@@ -1,11 +1,12 @@
 package core.rdf
 
 import breeze.linalg.{max, min}
-import breeze.numerics.abs
+import breeze.numerics.{abs, ceil}
 import core.globals.KnowledgeGraphs.KnowledgeGraph
 import core.globals.SimilarPropertyOntology
-import core.query.specific.{DatasetInferrer, QueryFactoryJena, UpdateQueryFactory}
+import core.query.specific.{AskQuery, DatasetInferrer, QueryFactoryJena, UpdateQueryFactory}
 
+import scala.collection.mutable
 import scala.util.{Failure, Success}
 
 /**
@@ -13,19 +14,11 @@ import scala.util.{Failure, Success}
   */
 object TypePropertyDistributionFinder {
 
-  val thresholdForStoringPropertyDistributionsLocally = 1000
+  val thresholdForStoringPropertyDistributionsLocally = 100
+  val requirementForStoringPropertyInDistribution = 0.0001
+  val alwaysStoreCountWhenAbove = 100d
+  val neverStoreCountWhenBelow = 10
 
-//    def propertyDistributionChange(distributionA :Map[String, (Double, Int, Double, Int)], distributionB: Map[String, (Double, Int, Double, Int)]): Double = {
-//      val totalChange = {
-//        for {
-//          (property, (importanceRatio, _, _)) <- distributionA
-//          (otherImportanceRatio: Double, _, _) <- distributionB.get(property)
-//          change = max(abs(importanceRatio - otherImportanceRatio), importanceRatio)
-//        } yield change
-//      }.sum
-//      val maxChange = distributionA.foldLeft(0d)(_ + _._2._1)
-//      return totalChange / maxChange
-//    }
   def propertyDistributionOverlap(distributionA :Map[String, (Double, Int, Double, Int)], distributionB: Map[String, (Double, Int, Double,Int)]): Double = {
     val abOverlap: Double = calculateOverlap(distributionA, distributionB)
     val baOverlap: Double = calculateOverlap(distributionB, distributionA)
@@ -44,13 +37,7 @@ object TypePropertyDistributionFinder {
     return totalOverlaps.toDouble / maxOverlap
   }
 
-  val requirementForStoringPropertyInDistribution = 0.0001
-  var deletePropertyDistribution = false
-
   def propertyDistributionIgnoreRareness(typeEntity: String)(implicit knowledgeGraph: KnowledgeGraph) : Map[String, (Double, Int, Double, Int)] = {
-    if(deletePropertyDistribution) {
-      UpdateQueryFactory.cleanDatasetWhere(DatasetInferrer.getDataset(s"?s <${SimilarPropertyOntology.spo}> ?o"), s"<$typeEntity> <${SimilarPropertyOntology.propertyDistributionNode}> ?n")
-    }
     val globalCount : Int= TypeCounter.findGlobalCountOfEntitiesOfType(typeEntity).getOrElse(throw new Exception(s"Failed to find global count for $typeEntity"))
     if(globalCount > thresholdForStoringPropertyDistributionsLocally) {
       QueryFactoryJena.allPropertyDistributionsLocally(typeEntity) match {
@@ -66,26 +53,72 @@ object TypePropertyDistributionFinder {
         case _ => Unit
       }
     }
+    return createPropertyDistributionForType(typeEntity, globalCount)
+  }
+
+
+  def createPropertyDistributionForType(typeEntity: String, globalCount: Int)(implicit knowledgeGraph: KnowledgeGraph): Map[String, (Double, Int, Double, Int)] = {
     val domainProps = QueryFactoryJena.propertiesWhereDomainHasType(typeEntity).map((_, true))
     val rangeProps = QueryFactoryJena.propertiesWhereRangeHasType(typeEntity).map((_, false))
-    val propertiesAndIsSubject: List[(String,Boolean)] = domainProps ++ rangeProps
-    val distribution = {for{
-      (property : String, (usedInDomain, usedInRange)) <- propertiesAndIsSubject.groupBy(_._1).map{
-        case (property, (list)) => ((property), (list.exists(_._2), list.exists(!_._2)))
-      }
-      foundDomainCount = QueryFactoryJena.countEntitiesOfTypeForProperty(typeEntity, true, property)
-      foundRangeCount = QueryFactoryJena.countEntitiesOfTypeForProperty(typeEntity, false, property)
-      thresholdForStoring : Double= min(globalCount * requirementForStoringPropertyInDistribution, 100d)
-      domainCount : Int = if(usedInDomain && foundDomainCount > thresholdForStoring) foundDomainCount else 0
-      rangeCount : Int = if(usedInRange && foundRangeCount > thresholdForStoring) foundRangeCount else 0
-      if (domainCount + rangeCount)  > thresholdForStoring
-      importanceRatioDomain = if(usedInDomain && domainCount > thresholdForStoring) domainCount.toDouble / globalCount else 0d
-      importanceRatioRange = if(usedInRange && rangeCount > thresholdForStoring) rangeCount.toDouble / globalCount else 0d
-    }yield property -> (importanceRatioDomain, domainCount, importanceRatioRange, rangeCount)}.toMap
-    if(globalCount > thresholdForStoringPropertyDistributionsLocally) {
-    UpdateQueryFactory.addPropertyDistribution(typeEntity, distribution)}
+    val propertiesAndIsSubject: List[(String, Boolean)] = domainProps ++ rangeProps
+    val distribution = {
+      for {
+        (property: String, (usedInDomain, usedInRange)) <- propertiesAndIsSubject.groupBy(_._1).map {
+          case (property, (list)) => ((property), (list.exists(_._2), list.exists(!_._2)))
+        }
+        foundDomainCount = QueryFactoryJena.countEntitiesOfTypeForProperty(typeEntity, true, property)
+        foundRangeCount = QueryFactoryJena.countEntitiesOfTypeForProperty(typeEntity, false, property)
+        thresholdForStoring: Double = min(globalCount * requirementForStoringPropertyInDistribution, alwaysStoreCountWhenAbove)
+        domainCount: Int = if (usedInDomain && foundDomainCount > thresholdForStoring) foundDomainCount else 0
+        rangeCount: Int = if (usedInRange && foundRangeCount > thresholdForStoring) foundRangeCount else 0
+        if (domainCount + rangeCount) > thresholdForStoring
+        importanceRatioDomain = if (usedInDomain && domainCount > thresholdForStoring) domainCount.toDouble / globalCount else 0d
+        importanceRatioRange = if (usedInRange && rangeCount > thresholdForStoring) rangeCount.toDouble / globalCount else 0d
+      } yield property -> (importanceRatioDomain, domainCount, importanceRatioRange, rangeCount)
+    }.toMap
     return distribution
   }
+  def createPropertyDistributionForTypeUsingProperties(typeEntity: String, globalCount: Int, propertiesWithDomainCounts : List[(String, Int)])(implicit knowledgeGraph: KnowledgeGraph): Map[String, (Double, Int, Double, Int)] = {
+    val thresholdForStoring: Double = min(globalCount * requirementForStoringPropertyInDistribution, alwaysStoreCountWhenAbove)
+    val distribution = {
+      for {
+        (property, domainCountTotalForProperty) <-propertiesWithDomainCounts
+        if domainCountTotalForProperty > thresholdForStoring
+        foundDomainCount = QueryFactoryJena.countEntitiesOfTypeForProperty(typeEntity, true, property)
+        foundRangeCount = QueryFactoryJena.countEntitiesOfTypeForProperty(typeEntity, false, property)
+        domainCount: Int = if (foundDomainCount > thresholdForStoring) foundDomainCount else 0
+        rangeCount: Int = if (foundRangeCount > thresholdForStoring) foundRangeCount else 0
+        if (domainCount + rangeCount) > thresholdForStoring
+        importanceRatioDomain = if (domainCount > thresholdForStoring) domainCount.toDouble / globalCount else 0d
+        importanceRatioRange = if (rangeCount > thresholdForStoring) rangeCount.toDouble / globalCount else 0d
+      } yield property -> (importanceRatioDomain, domainCount, importanceRatioRange, rangeCount)
+    }.toMap
+    return distribution
+  }
+  def createPropertyDistributionForTypeFindAllPropertiesAtOnce(typeEntity: String, globalCount: Int)(implicit knowledgeGraph: KnowledgeGraph): Map[String, (Double, Int, Double, Int)] = {
+    val thresholdForStoring = max(ceil(min(globalCount * requirementForStoringPropertyInDistribution, alwaysStoreCountWhenAbove)).toInt, neverStoreCountWhenBelow)
+    val domainPropertiesAndCounts = QueryFactoryJena.propertiesAndCountsForType(typeEntity, true, thresholdForStoring).map(pair => (pair, true))
+    val rangePropertiesAndCounts = QueryFactoryJena.propertiesAndCountsForType(typeEntity, false, thresholdForStoring).map(pair => (pair, false))
+    val propertiesAndCounts = (domainPropertiesAndCounts ++ rangePropertiesAndCounts).foldLeft(mutable.HashMap[String, (Int, Int)]().withDefaultValue((0, 0))) {
+      case (acc, ((property, count), isSubject)) => {
+        if (isSubject) {
+          val rangeCount = acc(property)._2
+          acc.update(property, (count, rangeCount))
+        }
+        else {
+          val domainCount = acc(property)._1
+          acc.update(property, (domainCount, count))
+        }
+        acc
+      }
+    }
+    (for {
+      (property, (domainCount, rangeCount)) <- propertiesAndCounts
+      importanceRatioDomain = if (domainCount > thresholdForStoring) domainCount.toDouble / globalCount else 0d
+      importanceRatioRange = if (rangeCount > thresholdForStoring) rangeCount.toDouble / globalCount else 0d
+    } yield property -> (importanceRatioDomain, domainCount, importanceRatioRange, rangeCount)).toMap
+  }
+
 
   val overlapMinimum = 0.5d
 
