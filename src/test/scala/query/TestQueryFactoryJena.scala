@@ -101,6 +101,11 @@ class TestQueryFactoryJena extends FunSuite{
     assert(rangeTypesForRockBand.size > 5)
 
   }
+  test("highValueMatchesForEntity should work for uk") {
+    ValueMatchCountFinder.valueIsAPotentialValueMatchFindCount(wd.ringoStarr.countryOfCitizenShipValue, wd.ringoStarr.countryOfCitizenShipProperty,false)
+    val actual = QueryFactoryJena.highValueMatchesForEntity(wd.ringoStarr.countryOfCitizenShipValue)
+    assert(actual.contains(wd.ringoStarr.countryOfCitizenShipProperty))
+  }
 
 
 }

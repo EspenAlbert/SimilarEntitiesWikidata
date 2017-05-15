@@ -8,6 +8,17 @@ import core.query.specific.QueryFactory.executeQuery
   * Created by espen on 02.05.17.
   */
 object QueryStringFactory {
+  def highValueMatchesForEntity(entity: String) : String =
+    s"""
+       |SELECT distinct ?p
+       |WHERE {
+       |  ?p <http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#ValueMatchProperty> ?b .
+       |  ?b <http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#valueMatchValue> <$entity> .
+       |  ?b <http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#valueMatchCount> ?c
+       |  filter(strlen(?c) > 4)
+       |}
+       """.stripMargin
+
   def propertiesAndCountsForType(typeEntity: String, thresholdCount: Int, isSubject: Boolean)(implicit knowledgeGraph: KnowledgeGraph) : String =
     s"""
        |select ?p (count(?e) as ?c)
@@ -22,7 +33,7 @@ object QueryStringFactory {
     s"""
        |select ?o
        |where {
-       |  <$subject> <$property> ?o
+       |  <$subject> <$property> ?o .
        |}
      """.stripMargin
 

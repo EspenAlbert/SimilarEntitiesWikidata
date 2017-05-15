@@ -14,6 +14,34 @@ import scala.util.Try
   * Created by espen on 03.05.17.
   */
 object QueryFactoryJena {
+  def highValueMatchesForEntity(entity: String)(implicit knowledgeGraph: KnowledgeGraph): List[String] = {
+    val queryString = QueryStringFactory.highValueMatchesForEntity(entity)
+    val properties = URIVar("p")
+    QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, properties)
+    properties.results.toList
+  }
+
+  //Returs function (query: String)
+  def modifyQueryToUseFiltersFunction(partiallyAppliedFilters : List[(String) =>String]): String=>String ={
+    (queryString: String) => {
+      val queryVar: String = QueryFactoryJena.getQueryVar(queryString)
+      val appliedFilters = partiallyAppliedFilters.map(f => f(queryVar))
+      val queryWithoutFinalBracket = queryString.substring(0, queryString.lastIndexOf("}"))
+      queryWithoutFinalBracket + appliedFilters.mkString("\n","\n","\n}")
+    }
+  }
+
+  val queryVarPattern = s"""\\?\\w+""".r.unanchored
+  def getQueryVar(queryString: String) = {
+    val queryVar = queryVarPattern.findFirstIn(queryString).getOrElse(throw new Exception(s"Failed to find query var in query: $queryString"))
+    queryVar
+  }
+  def findEntitiesFromQuery(queryString : String)(implicit knowledgeGraph: KnowledgeGraph): List[String] = {
+    val entities = URIVar(getQueryVar(queryString))
+    QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, entities)
+    entities.results.toList
+  }
+
   def propertiesAndCountsForType(entityType: String, isSubject: Boolean, thresholdCount: Int)(implicit knowledgeGraph: KnowledgeGraph): List[(String, Int)] = {
     val queryString = QueryStringFactory.propertiesAndCountsForType(entityType, thresholdCount, isSubject)
     val properties = URIVar("p")

@@ -71,7 +71,6 @@ object AskQuery {
          |WHERE {
          |  ?s1 <$prop> ?o .
          |  ?s2 <$prop> ?o .
-         |  ?o <$typeProperty> ?t .
          |  filter(?s1 != ?s2)
          |}
         """.stripMargin
