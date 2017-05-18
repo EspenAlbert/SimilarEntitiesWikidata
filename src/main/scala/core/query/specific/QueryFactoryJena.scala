@@ -21,34 +21,12 @@ object QueryFactoryJena {
     properties.results.toList
   }
 
-  //Returs function (query: String)
-  def modifyQueryToUseFiltersFunction(partiallyAppliedFilters : List[(String) =>String]): String=>String ={
-    (queryString: String) => {
-      val queryVar: String = QueryFactoryJena.getQueryVar(queryString)
-      val appliedFilters = partiallyAppliedFilters.map(f => f(queryVar))
-      val queryWithoutFinalBracket = queryString.substring(0, queryString.lastIndexOf("}"))
-      queryWithoutFinalBracket + appliedFilters.mkString("\n","\n","\n}")
-    }
-  }
-
-  val queryVarPattern = s"""\\?\\w+""".r.unanchored
-  def getQueryVar(queryString: String) = {
-    val queryVar = queryVarPattern.findFirstIn(queryString).getOrElse(throw new Exception(s"Failed to find query var in query: $queryString"))
-    queryVar
-  }
-  def findEntitiesFromQuery(queryString : String)(implicit knowledgeGraph: KnowledgeGraph): List[String] = {
-    val entities = URIVar(getQueryVar(queryString))
-    QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, entities)
-    entities.results.toList
-  }
-
   def propertiesAndCountsForType(entityType: String, isSubject: Boolean, thresholdCount: Int)(implicit knowledgeGraph: KnowledgeGraph): List[(String, Int)] = {
     val queryString = QueryStringFactory.propertiesAndCountsForType(entityType, thresholdCount, isSubject)
     val properties = URIVar("p")
     val counts = LiteralIntVar("c")
     QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, properties, counts)
     return properties.results.zip(counts.results).toList
-
   }
 
   def objectsWithPropertyAndSubject(property: String, subject: String)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= (s: String) => s): List[String] = {

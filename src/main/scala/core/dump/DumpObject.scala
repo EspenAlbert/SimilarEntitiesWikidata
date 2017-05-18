@@ -5,7 +5,7 @@ import java.io.File
 import buildInfo.BuildInfo
 import com.lambdaworks.jacks.JacksMapper
 import core.globals.PropertyType
-import core.rdf.Triples.{OrdinaryTriple, ResultTriple}
+import core.rdf.Triples.{OrdinaryStatement, ResultStatement}
 import org.apache.commons.io.FileUtils
 import play.api.libs.json._
 
@@ -32,8 +32,8 @@ def main(args: Array[String]): Unit = {
 
 
   def testJson(): Unit= {
-    implicit val ordinaryTripleWrites = new Writes[OrdinaryTriple] {
-      def writes(ordinaryTriple: OrdinaryTriple) = Json.obj(
+    implicit val ordinaryTripleWrites = new Writes[OrdinaryStatement] {
+      def writes(ordinaryTriple: OrdinaryStatement) = Json.obj(
         "subject" -> ordinaryTriple.subject,
         "property" -> ordinaryTriple.property,
         "objectValue" -> ordinaryTriple.objectValue
@@ -53,12 +53,12 @@ def main(args: Array[String]): Unit = {
 
 
 
-  def dumpListNewWay(l: List[ResultTriple]) : Unit= {
+  def dumpListNewWay(l: List[ResultStatement]) : Unit= {
     val filename = picklePath + "test-triple-dump2.txt"
     val json = JacksMapper.writeValueAsString(l)
     FileUtils.write(new File(filename), json)
     val readFromFile = FileUtils.readFileToString(new File(filename))
-    val v= JacksMapper.readValue[List[ResultTriple]](readFromFile)
+    val v= JacksMapper.readValue[List[ResultStatement]](readFromFile)
     println(v)
   }
 
