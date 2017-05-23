@@ -8,6 +8,15 @@ import core.query.specific.QueryFactory.executeQuery
   * Created by espen on 02.05.17.
   */
 object QueryStringFactory {
+  def entitiesOfProperty(property: String, isSubject: Boolean): String = {
+    s"""
+       |select distinct ?e
+       |where {
+       |  ${if(isSubject) s"?e <$property> ?o" else s"?s <$property> ?e"}.
+       |}
+     """.stripMargin
+  }
+
   def objectsOfPropertyWithEntityType(property: String, entityType: String, commonType : Boolean)(implicit knowledgeGraph: KnowledgeGraph) : String = {
     val typeProperty = KnowledgeGraphs.getTypeProperty(knowledgeGraph)
     val forceEntityType = s"?o <$typeProperty> <$entityType> ."

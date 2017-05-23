@@ -85,16 +85,16 @@ class TestQueryFactoryJena extends FunSuite{
     assert(dsValueMatch > 10)
   }
 
-  test("subjectsWithPropertyAndValue"){//TODO: Test
+  test("subjectsWithPropertyAndValue"){
     val ringoStarrSongs = QueryFactoryJena.subjectsWithPropertyAndValue(wd.ringoStarr.performerProp, wd.ringoStarr.id)
     assert(ringoStarrSongs.size > 50)
     assert(ringoStarrSongs.contains(wd.ringoStarr.performerSubject1))
   }
-  test("objectsWithPropertyAndSubject"){//TODO: Test
+  test("objectsWithPropertyAndSubject"){
     val performersOfRingoStarrSong = QueryFactoryJena.objectsWithPropertyAndSubject(wd.ringoStarr.performerProp, wd.ringoStarr.performerSubject1)
     assert(performersOfRingoStarrSong.head == wd.ringoStarr.id)
   }
-  test("propertiesAndCountsForType") {//TODO: Test
+  test("propertiesAndCountsForType") {
     val domainTypesForRockBand = QueryFactoryJena.propertiesAndCountsForType(wd.rockBand, true, 0)
     assert(domainTypesForRockBand.size > 100)
     val rangeTypesForRockBand= QueryFactoryJena.propertiesAndCountsForType(wd.rockBand, false, 0)
@@ -123,6 +123,12 @@ class TestQueryFactoryJena extends FunSuite{
     val actualObjects = QueryFactoryJena.objectsOfEntityTypeForProperty(wd.ringoStarr.memberOfProp, wd.rockBand)
     assert(actualObjects.contains(wd.theBeatles.id))
     assert(!actualObjects.contains(wd.paulMcCartney))
+  }
+  test("Entities of property should work for lifestyle and record label prop") {
+    val actualSubjects = QueryFactoryJena.entitiesOfProperty(wd.ringoStarr.lifestyleProp, true)
+    assert(actualSubjects.contains(wd.ringoStarr.id))
+    val actualObjects = QueryFactoryJena.entitiesOfProperty(wd.ringoStarr.recordLabelProp, false)
+    wd.ringoStarr.recordLabelValues.foreach(recordLabel => assert(actualObjects.contains(recordLabel)))
   }
 
 
