@@ -106,6 +106,24 @@ class TestQueryFactoryJena extends FunSuite{
     val actual = QueryFactoryJena.highValueMatchesForEntity(wd.ringoStarr.countryOfCitizenShipValue)
     assert(actual.contains(wd.ringoStarr.countryOfCitizenShipProperty))
   }
+  test("entity types for ring starr member of should be rock band, entity type for a song of ringo star should be human") {
+    val actualRockBand = QueryFactoryJena.entityTypesFor(wd.ringoStarr.id, wd.ringoStarr.memberOfProp, true)
+    assert(actualRockBand.head == wd.rockBand)
+    val actualHuman = QueryFactoryJena.entityTypesFor(wd.ringoStarr.performerSubject1, wd.ringoStarr.performerProp, true)
+    assert(actualHuman.contains(wd.human))
+    val actualHumanAgain = QueryFactoryJena.entityTypesFor(wd.theBeatles.id, wd.ringoStarr.memberOfProp, false)
+    assert(actualHumanAgain.head == wd.human)
+  }
+  test("Subjects of entity type for property lifestyle for humans what are the values") {
+    val actualSubjects = QueryFactoryJena.subjectsOfEntityTypeForProperty(wd.ringoStarr.lifestyleProp, wd.human, commonType = true)
+    assert(actualSubjects.contains(wd.ringoStarr.id))
+    assert(actualSubjects.contains(wd.paulMcCartney))
+  }
+  test("Objects of entity type rock band for member of property") {
+    val actualObjects = QueryFactoryJena.objectsOfEntityTypeForProperty(wd.ringoStarr.memberOfProp, wd.rockBand)
+    assert(actualObjects.contains(wd.theBeatles.id))
+    assert(!actualObjects.contains(wd.paulMcCartney))
+  }
 
 
 }

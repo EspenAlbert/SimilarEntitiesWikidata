@@ -8,6 +8,41 @@ import core.query.specific.QueryFactory.executeQuery
   * Created by espen on 02.05.17.
   */
 object QueryStringFactory {
+  def objectsOfPropertyWithEntityType(property: String, entityType: String, commonType : Boolean)(implicit knowledgeGraph: KnowledgeGraph) : String = {
+    val typeProperty = KnowledgeGraphs.getTypeProperty(knowledgeGraph)
+    val forceEntityType = s"?o <$typeProperty> <$entityType> ."
+    s"""
+       |select distinct ?o
+       |where {
+       |?v <$property> ?o .
+       |${if(commonType) s"filter exists {$forceEntityType}" else forceEntityType}
+       |}
+     """.stripMargin
+  }
+  def subjectsOfPropertyWithEntityType(property: String, entityType: String, commonType : Boolean)(implicit knowledgeGraph: KnowledgeGraph) : String = {
+    val typeProperty = KnowledgeGraphs.getTypeProperty(knowledgeGraph)
+    val forceEntityType = s"?s <$typeProperty> <$entityType> ."
+    s"""
+       |select distinct ?s
+       |where {
+       |?s <$property> ?v .
+       |${if(commonType) s"filter exists {$forceEntityType}" else forceEntityType}
+       |}
+     """.stripMargin
+  }
+
+  def entityTypesForValuesOf(entity: String, property: String, isSubject: Boolean)(implicit knowledgeGraph: KnowledgeGraph) : String=
+    {
+      val typeProperty = KnowledgeGraphs.getTypeProperty(knowledgeGraph)
+      s"""
+         |select distinct ?t
+         |where {
+         |  ${if(isSubject) s"<$entity> <$property> ?value" else s"?value <$property> <$entity>"} .
+         |  ?value <$typeProperty> ?t .
+         |}
+     """.stripMargin
+    }
+
   def highValueMatchesForEntity(entity: String) : String =
     s"""
        |SELECT distinct ?p

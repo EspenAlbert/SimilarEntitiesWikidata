@@ -14,6 +14,26 @@ import scala.util.Try
   * Created by espen on 03.05.17.
   */
 object QueryFactoryJena {
+  def subjectsOfEntityTypeForProperty(property: String, entityType: String, commonType: Boolean = false)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= (s: String) => s): List[String] = {
+    val queryString = QueryStringFactory.subjectsOfPropertyWithEntityType(property, entityType, commonType)
+    val subjects = URIVar("s")
+    QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, subjects)
+    subjects.results.toList
+  }
+  def objectsOfEntityTypeForProperty(property: String, entityType: String, commonType: Boolean = false)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= (s: String) => s): List[String] = {
+    val queryString = QueryStringFactory.objectsOfPropertyWithEntityType(property, entityType, commonType)
+    val objects = URIVar("o")
+    QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, objects)
+    objects.results.toList
+  }
+
+  def entityTypesFor(entity: String, property: String, isSubject: Boolean)(implicit knowledgeGraph: KnowledgeGraph): List[String] = {
+    val queryString = QueryStringFactory.entityTypesForValuesOf(entity, property, isSubject)
+    val entityTypes = URIVar("t")
+    QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, entityTypes)
+    entityTypes.results.toList
+  }
+
   def highValueMatchesForEntity(entity: String)(implicit knowledgeGraph: KnowledgeGraph): List[String] = {
     val queryString = QueryStringFactory.highValueMatchesForEntity(entity)
     val properties = URIVar("p")
