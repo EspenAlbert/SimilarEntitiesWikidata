@@ -31,7 +31,7 @@ object QueryStringFactory {
 
   def objectsWithPropertyAndSubject(property: String, subject: String): String =
     s"""
-       |select ?o
+       |select distinct ?o
        |where {
        |  <$subject> <$property> ?o .
        |}
