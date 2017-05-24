@@ -15,6 +15,7 @@ import scala.util.{Failure, Success, Try}
   * Created by Espen on 08.11.2016.
   */
 object ArtistDatasetReader {
+
   final val filename = "tenMostSimilarArtists"
   val sampleNameWikidata = "tenMostSimilarArtists-sample-" + KnowledgeGraphs.wikidata
   val sampleNameDBpedia = "tenMostSimilarArtists-sample-" + KnowledgeGraphs.dbPedia
@@ -48,24 +49,10 @@ object ArtistDatasetReader {
   def writeDatasetConvertedToFile() : Unit = {
     DumpObject.dumpJsonMapStringListString(readDataset().toMap, filename)
   }
-  def uploadDatasetWikidata() : Unit = {
+  def uploadDatasetWikidata()(implicit knowledgeGraph: KnowledgeGraph = KnowledgeGraphs.wikidata) : Unit = {
     getDatasetFromFile().foreach{
       case (qE, similars) => UpdateQueryFactory.addExpectedSimilarsForQEntity(qE, similars)
     }
-  }
-  def getDatasetFromFile() : Map[String, List[String]] = {
-    println("Reading the artist dataset...")
-    val map = DumpObject.getStringMap(filename)
-    val mutableMap = mutable.Map[String, List[String]]()
-    val myMap = map.filterKeys(isUri).map{case (key : String, values : List[String]) => (key, values.filter(isUri))}
-    println(map.keys.size, " was reduced to: ", myMap.keys.size, " for the keys")
-    val totalValues = myMap.values.foldRight(0) { (a, b) => a.length + b }
-    println(map.values.foldRight(0)(((a, b) => a.length + b)), " number of values was reduced to: ", totalValues)
-    println("Making on average :", totalValues.toFloat / myMap.keys.size , " similars per entity")
-    val uniqueArtists = Set[String]() ++ myMap.keys.toSet ++ myMap.values.flatten.toSet
-    println(s"Unique artists: ${uniqueArtists.size}")
-
-    return myMap
   }
   def getDatasetSampleWikidata(): Map[String, List[String]] = {
     return DumpObject.getStringMap(sampleNameWikidata)
@@ -92,6 +79,28 @@ object ArtistDatasetReader {
         case NotFoundDBpedia => return KnowledgeGraphs.getDatasetEntityPrefix(KnowledgeGraphs.dbPedia) + "Tara_MacLean"
       }
     }
+  }
+
+  def getDatasetFromFile()(implicit knowledgeGraph: KnowledgeGraph = KnowledgeGraphs.wikidata) : Map[String, List[String]] = {
+    println(s"Reading the artist dataset...for $knowledgeGraph")
+    knowledgeGraph match {
+      case KnowledgeGraphs.wikidata => wikidataDSFull
+      case KnowledgeGraphs.dbPedia => getDatasetDBpediaFromFile()
+    }
+  }
+
+  private def wikidataDSFull: Map[String, List[String]] = {
+    val map = DumpObject.getStringMap(filename)
+    val mutableMap = mutable.Map[String, List[String]]()
+    val myMap = map.filterKeys(isUri).map { case (key: String, values: List[String]) => (key, values.filter(isUri)) }
+    println(map.keys.size, " was reduced to: ", myMap.keys.size, " for the keys")
+    val totalValues = myMap.values.foldRight(0) { (a, b) => a.length + b }
+    println(map.values.foldRight(0)(((a, b) => a.length + b)), " number of values was reduced to: ", totalValues)
+    println("Making on average :", totalValues.toFloat / myMap.keys.size, " similars per entity")
+    val uniqueArtists = Set[String]() ++ myMap.keys.toSet ++ myMap.values.flatten.toSet
+    println(s"Unique artists: ${uniqueArtists.size}")
+
+    return myMap
   }
 
   val dbPediaFilename = "DBpedia-tenMostSimilarArtists"
@@ -130,5 +139,11 @@ object ArtistDatasetReader {
         distinctTypes
       }
     }
+  }
+  def filenameChallengingTypes(knowledgeGraph: KnowledgeGraph) : String = {
+    s"artists-challenge-type-$knowledgeGraph"
+  }
+  def getChallengingTypesDatasetFromFile()(implicit knowledgeGraph: KnowledgeGraph) : Map[String, List[String]] = {
+    DumpObject.getStringMap(filenameChallengingTypes(knowledgeGraph))
   }
 }

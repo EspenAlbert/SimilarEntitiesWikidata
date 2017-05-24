@@ -40,21 +40,6 @@ object HeuristicDistance {
   }
 
 
-  def findHeuristicDistance(a : String, b : String)(implicit knowledgeGraph: KnowledgeGraph): Try[Int] = {
-    val parentsA = QueryFactoryJena.parentsToParentIsType(a).toList
-    val parentsB = QueryFactoryJena.parentsToParentIsType(b).toList
-    Try {
-      val hiearchyLevelA = QueryFactoryJena.hierachyLevel(a).get
-      val hiearchyLevelB = QueryFactoryJena.hierachyLevel(b).get
-      val returnValue = (AskQuery.isParentOfChild(a, b), AskQuery.isParentOfChild(b, a)) match {
-        case (true, true) => 0
-        case (true, false) => 1
-        case (false, true) => 1
-        case (false, false) => findCommonParentsWithHeuristicDistances(hiearchyLevelA, hiearchyLevelB, parentsA, parentsB).minBy(_._2)._2
-      }
-      return Try(returnValue)
-    }
-  }
 
   def determineNextStream(streamA: Stream[(String, Int)], streamB: Stream[(String, Int)]): Option[Boolean] = {
     (streamA, streamB) match {
@@ -67,9 +52,6 @@ object HeuristicDistance {
 
   def findHeuristicDistanceImproved(a: String, b: String)(implicit knowledgeGraph: KnowledgeGraph) : Option[Int] = {
     if(a == b) return Some(0)
-    if(a == "http://www.wikidata.org/entity/Q159979" || b == "http://www.wikidata.org/entity/Q159979") {
-      println("dealing with twin type... ")
-    }
     var streamA = orderedHeuristicDistanceToParents(a)
     var streamB = orderedHeuristicDistanceToParents(b)
     val distanceToParentsA = mutable.HashMap[String, Int](a -> 0).withDefaultValue(-1)
@@ -94,6 +76,21 @@ object HeuristicDistance {
     return None
   }
 
+  def findHeuristicDistance(a : String, b : String)(implicit knowledgeGraph: KnowledgeGraph): Try[Int] = {
+    val parentsA = QueryFactoryJena.parentsToParentIsType(a).toList
+    val parentsB = QueryFactoryJena.parentsToParentIsType(b).toList
+    Try {
+      val hiearchyLevelA = QueryFactoryJena.hierachyLevel(a).get
+      val hiearchyLevelB = QueryFactoryJena.hierachyLevel(b).get
+      val returnValue = (AskQuery.isParentOfChild(a, b), AskQuery.isParentOfChild(b, a)) match {
+        case (true, true) => 0
+        case (true, false) => 1
+        case (false, true) => 1
+        case (false, false) => findCommonParentsWithHeuristicDistances(hiearchyLevelA, hiearchyLevelB, parentsA, parentsB).minBy(_._2)._2
+      }
+      return Try(returnValue)
+    }
+  }
   def findCommonParentsWithHeuristicDistances(hLevelA : Int, hLevelB : Int, parentsA : List[String], parentsB : List[String])(implicit knowledgeGraph: KnowledgeGraph): List[(String, Int)] = {
     val commonParents = parentsA.filter(parentsB.contains(_))
     val parentsLevelFromChildren =

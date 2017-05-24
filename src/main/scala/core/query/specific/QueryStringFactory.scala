@@ -8,6 +8,57 @@ import core.query.specific.QueryFactory.executeQuery
   * Created by espen on 02.05.17.
   */
 object QueryStringFactory {
+  def findOrderedSumOfRatioForTypes(isDomainProperties: Iterable[String], isRangeProperties: Iterable[String], numberOfComparableTypes : Int) : String = {
+    val queryStringTypeUsedInDomain =isDomainProperties.map(property =>
+      s"""
+         |?s <${SimilarPropertyOntology.propertyDistributionNode}> [ <${SimilarPropertyOntology.typePropertyRatioDomain}> ?dc ;
+         | <${SimilarPropertyOntology.distributionForProperty}> <$property>]
+       """.stripMargin)
+    val queryStringTypeUsedInRange = isRangeProperties.map(property =>
+      s"""
+         |?s <${SimilarPropertyOntology.propertyDistributionNode}> [ <${SimilarPropertyOntology.typePropertyRatioRange}> ?dc ;
+         | <${SimilarPropertyOntology.distributionForProperty}> <$property>]
+       """.stripMargin)
+
+    val typesIsDomainOfProperties = queryStringTypeUsedInDomain.mkString("{", "} UNION {", "}")
+    val typesIsRangeOfProperties = if(queryStringTypeUsedInRange.nonEmpty) queryStringTypeUsedInRange.mkString("UNION {", "} UNION {", "}") else ""
+    val queryString =
+      s"""
+         |select ?s (sum(?dc) as ?c)
+         |where {
+         |  $typesIsDomainOfProperties
+         |  $typesIsRangeOfProperties
+         |}Group by ?s
+         |Order by desc(?c)
+         |LIMIT $numberOfComparableTypes""".stripMargin
+    return queryString
+  }
+  def findOrderedCountsForTypes(isDomainProperties: Iterable[String], isRangeProperties: Iterable[String], numberOfComparableTypes : Int) : String = {
+    val queryStringTypeUsedInDomain =isDomainProperties.map(property =>
+      s"""
+         |?s <${SimilarPropertyOntology.propertyDistributionNode}> [ <${SimilarPropertyOntology.domainCount}> ?dc ;
+         | <${SimilarPropertyOntology.distributionForProperty}> <$property>]
+       """.stripMargin)
+    val queryStringTypeUsedInRange = isRangeProperties.map(property =>
+      s"""
+         |?s <${SimilarPropertyOntology.propertyDistributionNode}> [ <${SimilarPropertyOntology.rangeCount}> ?dc ;
+         | <${SimilarPropertyOntology.distributionForProperty}> <$property>]
+       """.stripMargin)
+
+    val typesIsDomainOfProperties = queryStringTypeUsedInDomain.mkString("{", "} UNION {", "}")
+    val typesIsRangeOfProperties = if(queryStringTypeUsedInRange.nonEmpty) queryStringTypeUsedInRange.mkString("UNION {", "} UNION {", "}") else ""
+    val queryString =
+      s"""
+         |select ?s (count(?s) as ?c)
+         |where {
+         |  $typesIsDomainOfProperties
+         |  $typesIsRangeOfProperties
+         |}Group by ?s
+         |Order by desc(?c)
+         |LIMIT $numberOfComparableTypes""".stripMargin
+    return queryString
+  }
+
   def entitiesOfProperty(property: String, isSubject: Boolean): String = {
     s"""
        |select distinct ?e
@@ -128,9 +179,9 @@ object QueryStringFactory {
      """.stripMargin
 
 
-  def propertiesForWhereEntityIsSubject(entity: String) : String = {
+  def propertiesForWhereEntityIsSubject(entity: String, distinct: Boolean = true) : String = {
     s"""
-       |select distinct ?p
+       |select ${if(distinct) "distinct" else ""} ?p
        |where {
        |  <$entity> ?p ?o .
        |}
@@ -274,9 +325,9 @@ object QueryStringFactory {
   }
 
 
-  def distinctPropertiesWhereObject(objectValue : String) : String =
+  def distinctPropertiesWhereObject(objectValue : String, distinct: Boolean = true) : String =
     s"""
-       |SELECT distinct ?p
+       |SELECT ${if(distinct) "distinct" else ""} ?p
        |WHERE {
        |  ?s ?p <$objectValue>
        |}

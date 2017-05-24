@@ -130,6 +130,30 @@ class TestQueryFactoryJena extends FunSuite{
     val actualObjects = QueryFactoryJena.entitiesOfProperty(wd.ringoStarr.recordLabelProp, false)
     wd.ringoStarr.recordLabelValues.foreach(recordLabel => assert(actualObjects.contains(recordLabel)))
   }
+  test("findOrderedCountForTypes") {
+    val isDomainProps = List(wd.ringoStarr.recordLabelProp, wd.genre)
+    val isRangePrps = List(wd.ringoStarr.performerProp)
+    val actualTypes = QueryFactoryJena.findOrderedCountForTypes(isDomainProps, isRangePrps, 20)
+    println(actualTypes)
+    assert(actualTypes.contains(wd.human))
+    val domainForRingoStarr = QueryFactoryJena.propertiesForWhereEntityIsSubject(wd.ringoStarr.id)
+    val rangeForRingoStarr = QueryFactoryJena.distinctPropertiesWhereEntityIsObject(wd.ringoStarr.id)
+    val actualTypesRingoStarr = QueryFactoryJena.findOrderedCountForTypes(domainForRingoStarr, rangeForRingoStarr, 20)
+    println(actualTypesRingoStarr)
+    assert(actualTypes.contains(wd.human))
+  }
+  test("findOrderedSumOfRatioForTypes") {
+    val isDomainProps = List(wd.ringoStarr.recordLabelProp, wd.genre)
+    val isRangePrps = List(wd.ringoStarr.performerProp)
+    val actualTypes = QueryFactoryJena.findOrderedSumOfRatioForTypes(isDomainProps, isRangePrps, 20)
+    println(actualTypes)
+//    assert(actualTypes.contains(wd.human))
+    val domainForRingoStarr = QueryFactoryJena.propertiesForWhereEntityIsSubject(wd.ringoStarr.id, distinct = false)
+    val rangeForRingoStarr = QueryFactoryJena.distinctPropertiesWhereEntityIsObject(wd.ringoStarr.id, distinct = false)
+    val actualTypesRingoStarr = QueryFactoryJena.findOrderedSumOfRatioForTypes(domainForRingoStarr, rangeForRingoStarr, 50)
+    println(actualTypesRingoStarr)
+    assert(actualTypes.contains(wd.human))
+  }
 
 
 }

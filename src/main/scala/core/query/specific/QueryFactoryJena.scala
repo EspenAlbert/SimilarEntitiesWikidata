@@ -1,7 +1,7 @@
 package core.query.specific
 
 import core.globals.KnowledgeGraphs.KnowledgeGraph
-import core.globals.MyDatasets
+import core.globals.{MyDatasets, SimilarPropertyOntology}
 import core.query.QueryServerScala
 import core.query.variables.JenaQueryVars._
 import org.apache.jena.query.QuerySolution
@@ -14,6 +14,20 @@ import scala.util.Try
   * Created by espen on 03.05.17.
   */
 object QueryFactoryJena {
+
+  def findOrderedCountForTypes(isDomainProperties: Iterable[String], isRangeProperties: Iterable[String], numberOfComparableTypes : Int=10)(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
+    val queryString = QueryStringFactory.findOrderedCountsForTypes(isDomainProperties, isRangeProperties, numberOfComparableTypes)
+    val topTypes = URIVar("s")
+    QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, topTypes)
+    topTypes.results.toList
+  }
+  def findOrderedSumOfRatioForTypes(isDomainProperties: Iterable[String], isRangeProperties: Iterable[String], numberOfComparableTypes : Int=10)(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
+    val queryString = QueryStringFactory.findOrderedSumOfRatioForTypes(isDomainProperties, isRangeProperties, numberOfComparableTypes)
+    val topTypes = URIVar("s")
+    QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, topTypes)
+    topTypes.results.toList
+  }
+
   def entitiesOfProperty(property: String, isSubject: Boolean)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= noChangeToQueryMethod) : List[String]= {
     val queryString = adjustQuery(QueryStringFactory.entitiesOfProperty(property, isSubject))
     val entities = URIVar("e")
@@ -106,8 +120,8 @@ object QueryFactoryJena {
   }
 
 
-  def propertiesForWhereEntityIsSubject(id: String)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= noChangeToQueryMethod): Iterable[String] = {
-    val queryString = adjustQuery(QueryStringFactory.propertiesForWhereEntityIsSubject(id))
+  def propertiesForWhereEntityIsSubject(id: String, distinct : Boolean = true)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= noChangeToQueryMethod): Iterable[String] = {
+    val queryString = adjustQuery(QueryStringFactory.propertiesForWhereEntityIsSubject(id, distinct))
     val properties = URIVar("p")
     QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, properties)
     return properties.results
@@ -230,11 +244,11 @@ object QueryFactoryJena {
   def entityTypes(entity : String)(implicit knowledgeGraph: KnowledgeGraph): List[String] = {
     val queryString = QueryStringFactory.allTypesForEntity(entity)
     val types = URIVar("t")
-    QueryServerScala.query(MyDatasets.dsWikidata, queryString, types)
+    QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, types)
     return types.results.toList
   }
-  def distinctPropertiesWhereEntityIsObject(entity: String)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= noChangeToQueryMethod): List[String] = {
-    val qString = adjustQuery(QueryStringFactory.distinctPropertiesWhereObject(entity))
+  def distinctPropertiesWhereEntityIsObject(entity: String, distinct: Boolean = true)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= noChangeToQueryMethod): List[String] = {
+    val qString = adjustQuery(QueryStringFactory.distinctPropertiesWhereObject(entity, distinct))
     val properties = URIVar("p")
     QueryServerScala.query(MyDatasets.dsWikidata, qString, properties)
     return properties.results.toList
