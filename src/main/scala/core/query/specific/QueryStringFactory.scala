@@ -288,7 +288,7 @@ object QueryStringFactory {
        |  ?c <${KnowledgeGraphs.getSubclassProperty(knowledgeGraph)}> <$parent>
        |}
      """.stripMargin
-  def childrenOfAndChildrenIsType(parent: String)(implicit knowledgeGraph: KnowledgeGraph) : String =
+  def childrenOfAndChildrenOrParentIsType(parent: String)(implicit knowledgeGraph: KnowledgeGraph) : String =
     s"""
        |select ?c
        |where {
@@ -351,6 +351,19 @@ object QueryStringFactory {
          |select ?o
          |where {
          |  <$entity> <${KnowledgeGraphs.getSubclassProperty(knowledgeGraph)}> $connectingPath
+         |}""".stripMargin
+//         |    filter exists { ?s <${KnowledgeGraphs.getTypeProperty(knowledgeGraph)}> ?o }
+  }
+  def childrenOfEntityXStepsAway(entity: String, steps: Int)(implicit knowledgeGraph: KnowledgeGraph) : String = {
+    val connectingPath = Range(0, steps).map(i => {
+      if (i == 0) "?o"
+      else
+        s" <${KnowledgeGraphs.getSubclassProperty(knowledgeGraph)}> ?l$i . ?l$i  "
+    }).mkString("")
+    s"""
+         |select ?o
+         |where {
+         | $connectingPath <${KnowledgeGraphs.getSubclassProperty(knowledgeGraph)}>  <$entity>
          |}""".stripMargin
 //         |    filter exists { ?s <${KnowledgeGraphs.getTypeProperty(knowledgeGraph)}> ?o }
   }

@@ -56,6 +56,7 @@ object WikidataFactory {
   val obama = w + "Q76"
   val human = w + "Q5"
   val band = w + "Q215380"
+  val randomBands = List(w+"Q658182")
   val musicalDuo = w + "Q19184926"
   val jazzBand = w + "Q2596245"
   val musicalEnsemble = w + "Q2088357"

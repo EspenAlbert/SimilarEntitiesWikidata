@@ -9,10 +9,10 @@ import scala.util.{Failure, Success}
   * Created by espen on 04.05.17.
   */
 object ValueMatchCountFinder {
-  var thresholdCountStoreValueMatchCount = 10000
+  var thresholdCountStoreValueMatchCount = 1000
 
 
-  def valueIsAPotentialValueMatchFindCount(value: String, property: String, valueIsSubject: Boolean, onlyGreaterThanCounts : Boolean = false)(implicit knowledgeGraph: KnowledgeGraph): Option[Int] = {
+  def valueIsAPotentialValueMatchFindCount(value: String, property: String, valueIsSubject: Boolean, onlyGreaterThanCounts : Boolean = true)(implicit knowledgeGraph: KnowledgeGraph): Option[Int] = {
     if(!value.startsWith("http")) return None
     QueryFactory.getValueMatchFromExistingDb(value, property) match {
       case Some(s) => return Some(s)

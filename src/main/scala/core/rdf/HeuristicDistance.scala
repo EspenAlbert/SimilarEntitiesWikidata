@@ -20,22 +20,38 @@ object HeuristicDistance {
   }
 
 
+  def orderedHeuristicDistanceToChildren(entityType : String)(implicit knowledgeGraph: KnowledgeGraph): Stream[(String, Int)] = {
+    createStreamDownwards(entityType, Nil,0)
+
+  }
+
+  def createStreamDownwards(startEntity : String, remainingEntities : Iterable[String], currentLevel: Int)(implicit knowledgeGraph: KnowledgeGraph): Stream[(String, Int)] = {
+    remainingEntities match {
+      case Nil => {
+        val nextEntities = QueryFactoryJena.childrenOfEntityXStepsAway(startEntity,currentLevel+1)
+        if(nextEntities.isEmpty || currentLevel==getMaximumDepth) Stream.empty
+        else (nextEntities.head, currentLevel+1) #:: createStreamDownwards(startEntity, nextEntities.tail, currentLevel+1)
+      }
+      case head::tail => (head, currentLevel) #:: createStreamDownwards(startEntity, tail, currentLevel)
+    }
+  }
+
   def orderedHeuristicDistanceToParents(entityType: String)(implicit knowledgeGraph: KnowledgeGraph): Stream[(String, Int)] = {
-    return createStream(entityType, Nil, 0)
+    return createStreamUpwards(entityType, Nil, 0)
   }
   def getMaximumDepth(implicit knowledgeGraph: KnowledgeGraph) : Int = knowledgeGraph match {
     case KnowledgeGraphs.wikidata => 15
-    case KnowledgeGraphs.dbPedia => throw new NotImplementedError("Not found yet")
+    case KnowledgeGraphs.dbPedia => 7
   }
 
-  def createStream(startEntity: String, remainingEntities : Iterable[String], currentLevel: Int)(implicit knowledgeGraph: KnowledgeGraph): Stream[(String, Int)] = {
+  def createStreamUpwards(startEntity: String, remainingEntities : Iterable[String], currentLevel: Int)(implicit knowledgeGraph: KnowledgeGraph): Stream[(String, Int)] = {
     remainingEntities match {
       case Nil => {
         val nextEntities = QueryFactoryJena.parentToEntityXStepsAway(startEntity,currentLevel+1)
         if(nextEntities.isEmpty || currentLevel==getMaximumDepth) Stream.empty
-        else (nextEntities.head, currentLevel+1) #:: createStream(startEntity, nextEntities.tail, currentLevel+1)
+        else (nextEntities.head, currentLevel+1) #:: createStreamUpwards(startEntity, nextEntities.tail, currentLevel+1)
       }
-      case head::tail => (head, currentLevel) #:: createStream(startEntity, tail, currentLevel)
+      case head::tail => (head, currentLevel) #:: createStreamUpwards(startEntity, tail, currentLevel)
     }
   }
 

@@ -15,6 +15,7 @@ import scala.util.Try
   */
 object QueryFactoryJena {
 
+
   def findOrderedCountForTypes(isDomainProperties: Iterable[String], isRangeProperties: Iterable[String], numberOfComparableTypes : Int=10)(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
     val queryString = QueryStringFactory.findOrderedCountsForTypes(isDomainProperties, isRangeProperties, numberOfComparableTypes)
     val topTypes = URIVar("s")
@@ -224,7 +225,7 @@ object QueryFactoryJena {
     children.results.toList
   }
   def childrenOfAndChildrenIsType(parent: String)(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
-    val queryString = QueryStringFactory.childrenOfAndChildrenIsType(parent)
+    val queryString = QueryStringFactory.childrenOfAndChildrenOrParentIsType(parent)
     val children = URIVar("c")
     val dataset = DatasetInferrer.getDataset(queryString)
     QueryServerScala.query(dataset, queryString, children)
@@ -275,6 +276,14 @@ object QueryFactoryJena {
     val dataset = DatasetInferrer.getDataset(queryString)
     QueryServerScala.query(dataset, queryString, parents)
     return parents.results.toList
+
+  }
+  def childrenOfEntityXStepsAway(entity: String, steps: Int)(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
+    val queryString = QueryStringFactory.childrenOfEntityXStepsAway(entity, steps)
+    val children = URIVar("o")
+    val dataset = DatasetInferrer.getDataset(queryString)
+    QueryServerScala.query(dataset, queryString, children)
+    return children.results.toList
 
   }
 

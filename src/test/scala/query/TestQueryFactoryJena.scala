@@ -154,6 +154,14 @@ class TestQueryFactoryJena extends FunSuite{
     println(actualTypesRingoStarr)
     assert(actualTypes.contains(wd.human))
   }
+  test("childrenOfEntityXStepsAway should work for (jazzband, rock band), band, musical ensemble") {
+    val expected1StepMuscialEnsemble = wd.band
+    val expected2stepsMusicalEnsemble = List(wd.jazzBand, wd.rockBand)
+    val actual1Step = QueryFactoryJena.childrenOfEntityXStepsAway(wd.musicalEnsemble,1)
+    assert(actual1Step.contains(expected1StepMuscialEnsemble))
+    val actual2Steps = QueryFactoryJena.childrenOfEntityXStepsAway(wd.musicalEnsemble, 2)
+    expected2stepsMusicalEnsemble.foreach(entityType => assert(actual2Steps.contains(entityType)))
+  }
 
 
 }

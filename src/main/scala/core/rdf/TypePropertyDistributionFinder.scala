@@ -19,7 +19,7 @@ object TypePropertyDistributionFinder {
   val alwaysStoreCountWhenAbove = 100d
   val neverStoreCountWhenBelow = 10
 
-  def propertyDistributionOverlap(distributionA :Map[String, (Double, Int, Double, Int)], distributionB: Map[String, (Double, Int, Double,Int)]): Double = {
+  def propertyDistributionOverlapUseMinimum(distributionA :Map[String, (Double, Int, Double, Int)], distributionB: Map[String, (Double, Int, Double,Int)]): Double = {
     val abOverlap: Double = calculateOverlap(distributionA, distributionB)
     val baOverlap: Double = calculateOverlap(distributionB, distributionA)
     return min(abOverlap, baOverlap)
@@ -53,7 +53,7 @@ object TypePropertyDistributionFinder {
         case _ => Unit
       }
     }
-    return createPropertyDistributionForType(typeEntity, globalCount)
+    return createPropertyDistributionForTypeFindAllPropertiesAtOnce(typeEntity, globalCount)
   }
 
 
@@ -122,9 +122,15 @@ object TypePropertyDistributionFinder {
 
   val overlapMinimum = 0.5d
 
-  def propertyDistributionOverlap(distributionEntityType: Map[String, (Double, Int, Double, Int)], comparableEntity: String)(implicit knowledgeGraph: KnowledgeGraph) : Double = {
+  def propertyDistributionOverlap(distributionEntityType: Map[String, (Double, Int, Double, Int)], comparableEntity: String, combineFunction: (Double, Double) => Double = min(_:Double,_:Double))(implicit knowledgeGraph: KnowledgeGraph) : Double = {
     val comparableEntityDistribution = propertyDistributionIgnoreRareness(comparableEntity)
-    return propertyDistributionOverlap(distributionEntityType, comparableEntityDistribution)
+    return propertyDistributionOverlapChooseCombineFunction(distributionEntityType, comparableEntityDistribution, combineFunction)
+  }
+  def propertyDistributionOverlapChooseCombineFunction(distributionA :Map[String, (Double, Int, Double, Int)], distributionB: Map[String, (Double, Int, Double,Int)],combineFunction: (Double, Double) => Double): Double = {
+    val abOverlap: Double = calculateOverlap(distributionA, distributionB)
+    val baOverlap: Double = calculateOverlap(distributionB, distributionA)
+    return combineFunction(abOverlap, baOverlap)
+
   }
 
   def findComparableTypes(entityType: String)(implicit knowledgeGraph: KnowledgeGraph) : Iterable[String] = {
