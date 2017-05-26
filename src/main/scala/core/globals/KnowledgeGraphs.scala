@@ -1,14 +1,15 @@
 package core.globals
 
+import core.query.specific.QueryFactoryJena
 import core.testData.WikidataFactory
 
 /**
   * Created by espen on 02.05.17.
   */
 object KnowledgeGraphs extends Enumeration {
-  def numberOfTypesWithMoreThan100Entities(knowledgeGraph: KnowledgeGraph): Int = knowledgeGraph match {
-    case KnowledgeGraphs.wikidata => 2491
-    case KnowledgeGraphs.dbPedia => 755
+  def numberOfTypesWithMoreThan100Entities(knowledgeGraph: KnowledgeGraph): Int = knowledgeGraph match {//QueryFactoryJena.numberOfTypesWithPropertyDistributionLocally
+    case KnowledgeGraphs.wikidata => 2473
+    case KnowledgeGraphs.dbPedia => 366
   }
 
   def getTopLevelType(knowledgeGraph: KnowledgeGraph) = knowledgeGraph match {
@@ -18,7 +19,7 @@ object KnowledgeGraphs extends Enumeration {
 
   def findKnowledgeGraphFromId(id: String): KnowledgeGraph = id match {
     case a if(a.startsWith(KnowledgeGraphs.getDatasetEntityPrefix(KnowledgeGraphs.wikidata))) => KnowledgeGraphs.wikidata
-    case b if(b.startsWith(KnowledgeGraphs.getDatasetEntityPrefix(KnowledgeGraphs.wikidata))) => KnowledgeGraphs.dbPedia
+    case b if(b.startsWith(KnowledgeGraphs.getDatasetEntityPrefix(KnowledgeGraphs.dbPedia))) => KnowledgeGraphs.dbPedia
     case c => throw new Exception(s"Failed to find knowledge graph from $id")
   }
 

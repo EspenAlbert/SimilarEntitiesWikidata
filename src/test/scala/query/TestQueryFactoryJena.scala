@@ -162,6 +162,14 @@ class TestQueryFactoryJena extends FunSuite{
     val actual2Steps = QueryFactoryJena.childrenOfEntityXStepsAway(wd.musicalEnsemble, 2)
     expected2stepsMusicalEnsemble.foreach(entityType => assert(actual2Steps.contains(entityType)))
   }
+  test("numberOfTypesWithPropertyDistributionLocally") {
+    val expectedWikidata = 2473
+    val actualWikidata = QueryFactoryJena.numberOfTypesWithPropertyDistributionLocally(KnowledgeGraphs.wikidata)
+    assert(expectedWikidata == actualWikidata)
+    val expectedDBpedia = 366
+    val actualDBpedia = QueryFactoryJena.numberOfTypesWithPropertyDistributionLocally(KnowledgeGraphs.dbPedia)
+    assert(expectedDBpedia == actualDBpedia)
+  }
 
 
 }

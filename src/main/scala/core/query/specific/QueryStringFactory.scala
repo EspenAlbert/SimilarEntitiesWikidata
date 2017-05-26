@@ -8,6 +8,13 @@ import core.query.specific.QueryFactory.executeQuery
   * Created by espen on 02.05.17.
   */
 object QueryStringFactory {
+  def numberOfTypesWithPropertyDistributionLocally() :String = {
+    s"""
+       |SELECT  (count(distinct ?s) as ?c)
+       |WHERE   { ?s            <http://www.espenalbert.com/rdf/wikidata/similarPropertyOntology#propertyDistributionNode>  ?pdn .     }
+     """.stripMargin
+  }
+
   def findOrderedSumOfRatioForTypes(isDomainProperties: Iterable[String], isRangeProperties: Iterable[String], numberOfComparableTypes : Int) : String = {
     val queryStringTypeUsedInDomain =isDomainProperties.map(property =>
       s"""
@@ -55,6 +62,7 @@ object QueryStringFactory {
          |  ${if(typesIsRangeOfProperties == ""|| typesIsDomainOfProperties ==  "" ) "" else "UNION"}
          |  $typesIsRangeOfProperties
          |}Group by ?s
+         |Having (?c > 0)
          |Order by desc(?c)
          |LIMIT $numberOfComparableTypes""".stripMargin
     return queryString
@@ -225,9 +233,10 @@ object QueryStringFactory {
        |where {
        |  <${entityType}> <${SimilarPropertyOntology.propertyDistributionNode}> ?pdn .
        |  ?pdn <${SimilarPropertyOntology.distributionForProperty}> <$property> .
-       |  ?pdn <${SimilarPropertyOntology.domainCount}> ?cD .
-       |  ?pdn <${SimilarPropertyOntology.rangeCount}> ?cR .
-       |  ?pdn <${SimilarPropertyOntology.typeImportanceRatio}> ?iR .
+       |  optional {?pdn <${SimilarPropertyOntology.domainCount}> ?cD .}
+       |  optional {?pdn <${SimilarPropertyOntology.rangeCount}> ?cR .}
+       |  optional {?pdn <${SimilarPropertyOntology.typePropertyRatioDomain}> ?tprD .}
+       |  optional {?pdn <${SimilarPropertyOntology.typePropertyRatioRange}> ?tprR .}
        | }
      """.stripMargin
 

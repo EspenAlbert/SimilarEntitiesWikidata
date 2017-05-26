@@ -14,6 +14,11 @@ import scala.util.Try
   * Created by espen on 03.05.17.
   */
 object QueryFactoryJena {
+  def performCountQuery(queryString: String)(implicit knowledgeGraph: KnowledgeGraph): Int = {
+    val count = LiteralIntVar("c")
+    QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, count)
+    return count.results.head
+  }
 
 
   def findOrderedCountForTypes(isDomainProperties: Iterable[String], isRangeProperties: Iterable[String], numberOfComparableTypes : Int=10)(implicit knowledgeGraph: KnowledgeGraph) : List[String] = {
@@ -159,14 +164,16 @@ object QueryFactoryJena {
       (rProperties(index), rTypePropertyRatioDomain(index), rCountDomains(index),rTypePropertyRatioRange(index), rCountRanges(index)))
   }
 
-  def propertyDistributionLocally(entityType: String, property: String)(implicit knowledgeGraph: KnowledgeGraph) : Try[(Option[Int], Option[Int], Double)] = {
+
+  def propertyDistributionLocally(entityType: String, property: String)(implicit knowledgeGraph: KnowledgeGraph) : (Try[Int], Try[Int], Try[Double], Try[Double]) = {
     val queryString = QueryStringFactory.propertyDistribution(entityType, property)
-    val countDomain = LiteralIntVar("cD")
-    val countRange = LiteralIntVar("cR")
-    val importanceRatio = LiteralDoubleVar("iR")
+    val countDomain = LiteralIntOptionVar("cD")
+    val countRange = LiteralIntOptionVar("cR")
+    val typePropertyRatioDomain = LiteralDoubleOptionVar("tprD")
+    val typePropertyRatioRange = LiteralDoubleOptionVar("tprR")
     val dataset = DatasetInferrer.getDataset(queryString)
-    QueryServerScala.query(dataset, queryString, countDomain, countRange, importanceRatio)
-    return Try((countDomain.results.headOption, countRange.results.headOption, importanceRatio.results.head))
+    QueryServerScala.query(dataset, queryString, countDomain, countRange, typePropertyRatioDomain, typePropertyRatioRange)
+    return (countDomain.results.head, countRange.results.head, typePropertyRatioDomain.results.head, typePropertyRatioRange.results.head)
   }
   def typePropertyCountLocal(entityType: String, property: String, isDomain: Boolean)(implicit knowledgeGraph: KnowledgeGraph) : Int = {
     val queryString = QueryStringFactory.typePropertyCountLocal(entityType, property, isDomain)
@@ -284,6 +291,14 @@ object QueryFactoryJena {
     val dataset = DatasetInferrer.getDataset(queryString)
     QueryServerScala.query(dataset, queryString, children)
     return children.results.toList
+
+  }
+  def numberOfTypesWithPropertyDistributionLocally(implicit knowledgeGraph: KnowledgeGraph) : Int = {
+    val queryString = QueryStringFactory.numberOfTypesWithPropertyDistributionLocally()
+    val count = LiteralIntVar("c")
+    val dataset = DatasetInferrer.getDataset(queryString)
+    QueryServerScala.query(dataset, queryString, count)
+    return count.results.head
 
   }
 
