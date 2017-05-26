@@ -6,6 +6,11 @@ import core.testData.WikidataFactory
   * Created by espen on 02.05.17.
   */
 object KnowledgeGraphs extends Enumeration {
+  def numberOfTypesWithMoreThan100Entities(knowledgeGraph: KnowledgeGraph): Int = knowledgeGraph match {
+    case KnowledgeGraphs.wikidata => 2491
+    case KnowledgeGraphs.dbPedia => 755
+  }
+
   def getTopLevelType(knowledgeGraph: KnowledgeGraph) = knowledgeGraph match {
     case KnowledgeGraphs.wikidata => WikidataFactory.entityType
     case KnowledgeGraphs.dbPedia => ExternalURIs.owlThing

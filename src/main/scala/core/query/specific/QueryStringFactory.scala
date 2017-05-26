@@ -45,13 +45,14 @@ object QueryStringFactory {
          | <${SimilarPropertyOntology.distributionForProperty}> <$property>]
        """.stripMargin)
 
-    val typesIsDomainOfProperties = queryStringTypeUsedInDomain.mkString("{", "} UNION {", "}")
-    val typesIsRangeOfProperties = if(queryStringTypeUsedInRange.nonEmpty) queryStringTypeUsedInRange.mkString("UNION {", "} UNION {", "}") else ""
+    val typesIsDomainOfProperties = if(queryStringTypeUsedInDomain.nonEmpty) queryStringTypeUsedInDomain.mkString("{", "} UNION {", "}") else ""
+    val typesIsRangeOfProperties = if(queryStringTypeUsedInRange.nonEmpty) queryStringTypeUsedInRange.mkString("{", "} UNION {", "}") else ""
     val queryString =
       s"""
          |select ?s (count(?s) as ?c)
          |where {
          |  $typesIsDomainOfProperties
+         |  ${if(typesIsRangeOfProperties == ""|| typesIsDomainOfProperties ==  "" ) "" else "UNION"}
          |  $typesIsRangeOfProperties
          |}Group by ?s
          |Order by desc(?c)
