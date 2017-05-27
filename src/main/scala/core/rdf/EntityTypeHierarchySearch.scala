@@ -11,7 +11,7 @@ import scala.collection.mutable.ListBuffer
 /**
   * Created by espen on 25.05.17.
   */
-case class HeuristicSearch(entityType : String, upDistanceMax: Int, downDistanceMax: Int, noNesting: Boolean, addConditions: (String=>Boolean)*)(implicit knowledgeGraph: KnowledgeGraph) {
+case class EntityTypeHierarchySearch(entityType : String, upDistanceMax: Int, downDistanceMax: Int, noNesting: Boolean, addConditions: (String=>Boolean)*)(implicit knowledgeGraph: KnowledgeGraph) {
   val upstream = HeuristicDistance.orderedHeuristicDistanceToParents(entityType)
   val downstream = HeuristicDistance.orderedHeuristicDistanceToChildren(entityType)
   val notCompatibleEntityTypes = mutable.HashSet[String]()
@@ -70,7 +70,7 @@ case class HeuristicSearch(entityType : String, upDistanceMax: Int, downDistance
 
 }
 
-object HeuristicSearch {
+object EntityTypeHierarchySearch {
   def addEntityTypeIfCountEntityTypeLowerThan(threshold : Int)(entity : String)(implicit knowledgeGraph: KnowledgeGraph) : Boolean = {
     TypeCounter.findGlobalCountOfEntitiesOfType(entity) match {
       case Some(entityCount) if entityCount < threshold && entityCount> 0=> true
