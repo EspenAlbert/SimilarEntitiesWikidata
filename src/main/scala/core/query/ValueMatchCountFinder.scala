@@ -17,6 +17,7 @@ object ValueMatchCountFinder {
     QueryFactory.getValueMatchFromExistingDb(value, property) match {
       case Some(s) => return Some(s)
       case None => {
+
         val countFromDs = if (!valueIsSubject) QueryFactory.findCountForPropertyWithValue(property, value) else
           QueryFactory.findCountForPropertyWithSubject(property, value)
         countFromDs match {

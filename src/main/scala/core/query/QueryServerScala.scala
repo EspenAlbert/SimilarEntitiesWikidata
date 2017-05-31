@@ -11,6 +11,7 @@ import scala.util.{Failure, Success, Try}
 
 object QueryServerScala {
   def query(ds: String, queryString: String, queryVars: QueryVar*): Unit = {
+
     val qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/" + ds + "/query", queryString)
     try {
       val results = qexec.execSelect

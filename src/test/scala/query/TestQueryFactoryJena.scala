@@ -178,6 +178,11 @@ class TestQueryFactoryJena extends FunSuite{
     assert(actual.contains((expectedSubject, expectedSubjectObjectValue)))
     assert(actual.size > expectedSubjectCount)
   }
+  test("objectsWithSubjectOfEntityTypeForProperty should work for human member of "){
+    val actual = QueryFactoryJena.objectsWithSubjectOfEntityTypeForProperty(wd.ringoStarr.memberOfProp, wd.human, true)
+    assert(actual.contains((wd.ringoStarr.id,wd.ringoStarr.memberOfValue)))
+    assert(actual.size > 1000)
+  }
 
 
 }

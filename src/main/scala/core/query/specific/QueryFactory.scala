@@ -366,6 +366,7 @@ object QueryFactory {
     Try(query.getResults("c")(0))
   }
   def findCountForPropertyWithValue(property: String, objectValue: String)(implicit knowledgeGraph : KnowledgeGraph) : Try[Int] = {
+
     val queryString =
       s"""
          |SELECT (count(?subject) as ?c)
@@ -373,6 +374,9 @@ object QueryFactory {
          |  ?subject <$property> <$objectValue>
          |}
         """.stripMargin
+    if(queryString.contains("<http://www.wikidata.org/entity/P31>  <http://www.wikidata.org/entity/Q1800833>")) {
+      val a = 5
+    }
     val query: Query = executeQuery(queryString)
     Try(query.getResults("c")(0))
   }

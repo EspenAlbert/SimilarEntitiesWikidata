@@ -8,14 +8,28 @@ import core.query.specific.QueryFactory.executeQuery
   * Created by espen on 02.05.17.
   */
 object QueryStringFactory {
+  def objectsWithSubjectOfEntityTypeForProperty(property: String, domainType: String, isCommonType: Boolean)(implicit knowledgeGraph: KnowledgeGraph) : String = {
+    val typeProperty = KnowledgeGraphs.getTypeProperty(knowledgeGraph)
+    val forceEntityType = s"?s <$typeProperty> <$domainType> ."
+    s"""
+       |select ?s ?o
+       |where {
+       |${if(!isCommonType) "" else s"?s <$property> ?o ."}
+       |${if(isCommonType) s"filter exists {$forceEntityType}" else forceEntityType}
+       |${if (!isCommonType) s"?s <$property> ?o ." else  ""}
+       |}
+     """.stripMargin
+  }
+
   def subjectsWithObjectsOfEntityTypeForProperty(property: String, rangeType: String, isCommonType: Boolean)(implicit knowledgeGraph: KnowledgeGraph) : String = {
     val typeProperty = KnowledgeGraphs.getTypeProperty(knowledgeGraph)
     val forceEntityType = s"?o <$typeProperty> <$rangeType> ."
     s"""
        |select ?s ?o
        |where {
-       |?s <$property> ?o .
+       |${if(!isCommonType) "" else s"?s <$property> ?o ."}
        |${if(isCommonType) s"filter exists {$forceEntityType}" else forceEntityType}
+       |${if(!isCommonType) s"?s <$property> ?o ." else ""}
        |}
      """.stripMargin
   }
@@ -95,8 +109,9 @@ object QueryStringFactory {
     s"""
        |select distinct ?o
        |where {
-       |?v <$property> ?o .
+       |${if(!commonType) "" else s"?v <$property> ?o ."}
        |${if(commonType) s"filter exists {$forceEntityType}" else forceEntityType}
+       |${if(!commonType) s"?v <$property> ?o ." else ""}
        |}
      """.stripMargin
   }
@@ -106,8 +121,9 @@ object QueryStringFactory {
     s"""
        |select distinct ?s
        |where {
-       |?s <$property> ?v .
+       |${if(!commonType) "" else s"?v <$property> ?o ."}
        |${if(commonType) s"filter exists {$forceEntityType}" else forceEntityType}
+       |${if(!commonType) s"?v <$property> ?o ." else ""}
        |}
      """.stripMargin
   }

@@ -14,6 +14,14 @@ import scala.util.Try
   * Created by espen on 03.05.17.
   */
 object QueryFactoryJena {
+  def objectsWithSubjectOfEntityTypeForProperty(property: String, domainType: String, isCommonType: Boolean)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= noChangeToQueryMethod): List[(String, String)] = {
+    val queryString = adjustQuery(QueryStringFactory.objectsWithSubjectOfEntityTypeForProperty(property, domainType, isCommonType))
+    val subjects = URIVar("s")
+    val objects = URIVar("o")
+    QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, subjects, objects)
+    return (subjects.results zip objects.results).toList
+  }
+
   def subjectsWithObjectsOfEntityTypeForProperty(property: String, rangeType: String, isCommonType: Boolean)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= noChangeToQueryMethod): List[(String, String)] = {
     val queryString = adjustQuery(QueryStringFactory.subjectsWithObjectsOfEntityTypeForProperty(property, rangeType, isCommonType))
     val subjects = URIVar("s")

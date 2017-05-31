@@ -75,6 +75,7 @@ object WikidataFactory {
     val memberOfProp = w + "P463"
     val memberOfValue = w + "Q1299"
     val performerSubject1 = w + "Q21682709"
+    val otherSongPerformer = w + "Q504954"
     val lifestyleProp = w + "P1576"
     val lifestyleValue = w + "Q18338317"
     val musicBrainzIdProp = w + "P434"
