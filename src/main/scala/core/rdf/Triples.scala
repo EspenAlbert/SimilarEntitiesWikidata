@@ -12,4 +12,5 @@ object Triples {
   case class TMStatement(override val subject : String, override val property: String, override val objectValue: String, domainTypes : List[String], rangeTypes: List[String]) extends ResultStatement(subject, property, objectValue)
   case class TMStatementReplaceBothTypes(override val subject : String, override val property: String, override val objectValue: String) extends ResultStatement(subject, property, objectValue)
   case class TMStatementResult(override val subject : String, override val property: String, override val objectValue: String, entityEntityTypeOldSubject : (String, String, String), entityEntityTypeOldObject :(String, String, String)) extends ResultStatement(subject, property, objectValue)
+
 }

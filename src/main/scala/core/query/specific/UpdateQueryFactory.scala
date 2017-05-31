@@ -1,7 +1,7 @@
 package core.query.specific
 
 import core.globals.KnowledgeGraphs.KnowledgeGraph
-import core.globals.{KnowledgeGraphs, MyDatasets, ResultsSimilarArtistsGlobals, SimilarPropertyOntology}
+import core.globals._
 import core.query.variables.ResultVariable
 import jenaQuerier.QueryLocalServer
 import core.globals.ExternalURIs._
@@ -82,7 +82,7 @@ insert { <$entityType> <${SimilarPropertyOntology.hierarchyLevel}> "$hierarchyLe
     val prefix = KnowledgeGraphs.getDatasetEntityPrefix(knowledgeGraph)
     if(!entity.startsWith(prefix)) return
     val insertQuery = s"insert { <$propertyAsFullString> <${SimilarPropertyOntology.valueMatchProperty}> [ <${SimilarPropertyOntology.valueMatchValue}> <$entity>;\n" +
-      s"""<${SimilarPropertyOntology.valueMatchCount}> "%d" ] } where {}""".format(count)
+      s"""<${SimilarPropertyOntology.valueMatchCount}> "$count"${ExternalURIs.datatypeInteger} ] } where {}"""
     val dataset = DatasetInferrer.getDataset(insertQuery)
     println(s"Adding to $dataset insertQuery: $insertQuery")
    updateData(insertQuery)

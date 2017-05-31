@@ -24,6 +24,7 @@ case class EntityTypeHierarchySearch(entityType : String, upDistanceMax: Int, do
   val similarEntityTypes = mutable.HashSet[String]()
 
   private def exploreStream(stream: Stream[(String, Int)], maxSteps : Int, goingUp : Boolean, isNested : Boolean): List[String] = {
+    if(maxSteps == 0) return Nil
     val streamIterator = stream.iterator
     var currentDistance = 1
     val illegalPrecessors = ListBuffer[String]()

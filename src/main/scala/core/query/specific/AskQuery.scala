@@ -1,6 +1,6 @@
 package core.query.specific
 
-import core.globals.KnowledgeGraphs
+import core.globals.{KnowledgeGraphs, SimilarPropertyOntology}
 import core.globals.KnowledgeGraphs.KnowledgeGraph
 import jenaQuerier.QueryLocalServer
 
@@ -20,6 +20,19 @@ object AskQuery {
 //       """.stripMargin
 //    val ds = DatasetInferrer.getDataset()
 //  }
+
+  def existsValueMatchForProperty(property: String)(implicit knowledgeGraph: KnowledgeGraph): Boolean = {
+    val askQuery =
+      s"""
+         |ask
+         |WHERE {
+         |  <$property> <${SimilarPropertyOntology.valueMatchProperty}> ?o .
+         |  ?o <${SimilarPropertyOntology.valueMatchCount}> ?c .
+         |  filter(?c > 1000)
+         |}
+        """.stripMargin
+    return QueryLocalServer.ask(askQuery, DatasetInferrer.getDataset(askQuery))
+  }
 
   def isParentOfChild(potentialParent: String, child: String)(implicit knowledgeGraph: KnowledgeGraph) : Boolean = {
     val askQuery = s"ask where { <$child> <${KnowledgeGraphs.getSubclassProperty(knowledgeGraph)}> <$potentialParent> }"

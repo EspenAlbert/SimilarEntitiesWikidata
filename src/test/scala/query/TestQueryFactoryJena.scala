@@ -107,11 +107,11 @@ class TestQueryFactoryJena extends FunSuite{
     assert(actual.contains(wd.ringoStarr.countryOfCitizenShipProperty))
   }
   test("entity types for ring starr member of should be rock band, entity type for a song of ringo star should be human") {
-    val actualRockBand = QueryFactoryJena.entityTypesFor(wd.ringoStarr.id, wd.ringoStarr.memberOfProp, true)
+    val actualRockBand = QueryFactoryJena.entityTypesForValues(wd.ringoStarr.id, wd.ringoStarr.memberOfProp, true)
     assert(actualRockBand.head == wd.rockBand)
-    val actualHuman = QueryFactoryJena.entityTypesFor(wd.ringoStarr.performerSubject1, wd.ringoStarr.performerProp, true)
+    val actualHuman = QueryFactoryJena.entityTypesForValues(wd.ringoStarr.performerSubject1, wd.ringoStarr.performerProp, true)
     assert(actualHuman.contains(wd.human))
-    val actualHumanAgain = QueryFactoryJena.entityTypesFor(wd.theBeatles.id, wd.ringoStarr.memberOfProp, false)
+    val actualHumanAgain = QueryFactoryJena.entityTypesForValues(wd.theBeatles.id, wd.ringoStarr.memberOfProp, false)
     assert(actualHumanAgain.head == wd.human)
   }
   test("Subjects of entity type for property lifestyle for humans what are the values") {
@@ -169,6 +169,14 @@ class TestQueryFactoryJena extends FunSuite{
     val expectedDBpedia = 366
     val actualDBpedia = QueryFactoryJena.numberOfTypesWithPropertyDistributionLocally(KnowledgeGraphs.dbPedia)
     assert(expectedDBpedia == actualDBpedia)
+  }
+  test("subjectsWithObjectsOfEntityTypeForProperty should work for member of rockband"){
+    val expectedSubject = wd.ringoStarr.id
+    val expectedSubjectObjectValue = wd.ringoStarr.memberOfValue
+    val expectedSubjectCount = 200
+    val actual = QueryFactoryJena.subjectsWithObjectsOfEntityTypeForProperty(wd.ringoStarr.memberOfProp, wd.rockBand, isCommonType = false)
+    assert(actual.contains((expectedSubject, expectedSubjectObjectValue)))
+    assert(actual.size > expectedSubjectCount)
   }
 
 

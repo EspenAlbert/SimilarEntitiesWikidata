@@ -14,6 +14,14 @@ import scala.util.Try
   * Created by espen on 03.05.17.
   */
 object QueryFactoryJena {
+  def subjectsWithObjectsOfEntityTypeForProperty(property: String, rangeType: String, isCommonType: Boolean)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= noChangeToQueryMethod): List[(String, String)] = {
+    val queryString = adjustQuery(QueryStringFactory.subjectsWithObjectsOfEntityTypeForProperty(property, rangeType, isCommonType))
+    val subjects = URIVar("s")
+    val objects = URIVar("o")
+    QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, subjects, objects)
+    return (subjects.results zip objects.results).toList
+  }
+
   def performCountQuery(queryString: String)(implicit knowledgeGraph: KnowledgeGraph): Int = {
     val count = LiteralIntVar("c")
     QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, count)
@@ -57,7 +65,7 @@ object QueryFactoryJena {
     objects.results.toList
   }
 
-  def entityTypesFor(entity: String, property: String, isSubject: Boolean)(implicit knowledgeGraph: KnowledgeGraph): List[String] = {
+  def entityTypesForValues(entity: String, property: String, isSubject: Boolean)(implicit knowledgeGraph: KnowledgeGraph): List[String] = {
     val queryString = QueryStringFactory.entityTypesForValuesOf(entity, property, isSubject)
     val entityTypes = URIVar("t")
     QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, entityTypes)

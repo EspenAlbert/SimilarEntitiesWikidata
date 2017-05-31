@@ -24,8 +24,8 @@ object IOFactory {
     val propertiesToPropTypeMap = DumpObject.readJsonMapStringPropertyType(KnowledgeGraphs.getMapPropToPropTypeFilename(knowledgeGraph))
     propertiesToPropTypeMap.keys.toList
   }
-  private def filenamePropToDomainCount(implicit knowledgeGraph : KnowledgeGraph) = s"$knowledgeGraph-prop-domain-count"
-  private def filenamePropToRangeCount(implicit knowledgeGraph : KnowledgeGraph) = s"$knowledgeGraph-prop-range-count"
+  def filenamePropToDomainCount(implicit knowledgeGraph : KnowledgeGraph) = s"$knowledgeGraph-prop-domain-count"
+  def filenamePropToRangeCount(implicit knowledgeGraph : KnowledgeGraph) = s"$knowledgeGraph-prop-range-count"
   private def filenamePropToIsDescriptive(implicit knowledgeGraph : KnowledgeGraph) = s"$knowledgeGraph-prop-is-descriptive"
   def filenameIgnorableTypes(implicit knowledgeGraph: KnowledgeGraph)= s"$knowledgeGraph-ignorableTypes"
 

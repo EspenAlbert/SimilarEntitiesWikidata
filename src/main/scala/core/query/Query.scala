@@ -56,7 +56,7 @@ class Query(f : () => String,  val dataset : String) extends FindSomething{
     execution match {
       case Success(s) => Unit
       case Failure(e) => {
-        if(true) {//TODO:Fix
+        if(true) {
           println(s"Exception $e")
           println(s"Timeout for: ${f()}")
         }

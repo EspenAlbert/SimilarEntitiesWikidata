@@ -188,6 +188,7 @@ object QueryFactory {
          |SELECT *
          |WHERE {
          |  ?property <${SimilarPropertyOntology.domainCount}> ?domainCount
+         |  filter(isUri(?property))
          |}
         """.stripMargin
     val query = executeQuery(queryString)
@@ -202,6 +203,7 @@ object QueryFactory {
          |SELECT *
          |WHERE {
          |  ?property <${SimilarPropertyOntology.rangeCount}> ?domainCount
+         |  filter(isUri(?property))
          |}
         """.stripMargin
     val query = executeQuery(queryString)
@@ -227,7 +229,6 @@ object QueryFactory {
     return (properties,strategies)
   }
 
-//TODO: Refactor the whole thing...
   def objectsOfTypeWithPropertyAndSubject(property: String, subject: String, rdfTypes: List[String], useMustHaveProperty : Boolean = false)(implicit knowledgeGraph : KnowledgeGraph, mustHaveProperty: String="" , mustHavePropertyIsSubject : Boolean=true): List[String] = {
     val extraFilter = findExtraFilter(useMustHaveProperty, "o")
     val queryString =

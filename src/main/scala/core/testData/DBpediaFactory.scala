@@ -10,6 +10,7 @@ object DBpediaFactory {
   val resource = "http://dbpedia.org/resource/"
   val ontology = "http://dbpedia.org/ontology/"
   val standardRdfType = "http://www.w3.org/2004/02/skos/core#Concept"
+  val countDomainWikipageWikiLink = 12299137
 
   val obama: String = resource + "Barack_Obama"
 

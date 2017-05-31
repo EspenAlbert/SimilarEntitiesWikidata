@@ -8,6 +8,18 @@ import core.query.specific.QueryFactory.executeQuery
   * Created by espen on 02.05.17.
   */
 object QueryStringFactory {
+  def subjectsWithObjectsOfEntityTypeForProperty(property: String, rangeType: String, isCommonType: Boolean)(implicit knowledgeGraph: KnowledgeGraph) : String = {
+    val typeProperty = KnowledgeGraphs.getTypeProperty(knowledgeGraph)
+    val forceEntityType = s"?o <$typeProperty> <$rangeType> ."
+    s"""
+       |select ?s ?o
+       |where {
+       |?s <$property> ?o .
+       |${if(isCommonType) s"filter exists {$forceEntityType}" else forceEntityType}
+       |}
+     """.stripMargin
+  }
+
   def numberOfTypesWithPropertyDistributionLocally() :String = {
     s"""
        |SELECT  (count(distinct ?s) as ?c)

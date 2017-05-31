@@ -14,7 +14,7 @@ class GraphRDFDescriptivePropertyChecker(entity: String)(implicit knowledgeGraph
     val pairs = {for {
         prop <- propertiesWhereObject
 //        if (!StrategyFactory.isDescriptive(prop) || StrategyFactory.valueIsAPotentialValueMatchFindCount(entity, prop, false).get < MyConfiguration.thresholdCountCheapStrategy)
-        otherEntities = QueryFactory.subjectsWithPropertyAndValue(prop, entity, true)(knowledgeGraph,mustHaveProperty = "", mustHavePropertyIsSubject = false)//TODO: Fix
+        otherEntities = QueryFactory.subjectsWithPropertyAndValue(prop, entity, true)(knowledgeGraph,mustHaveProperty = "", mustHavePropertyIsSubject = false)
       } yield otherEntities.map(e => (e, prop))}.flatten
     (pairs.map(_._1), pairs.map(_._2))
   }
@@ -26,13 +26,13 @@ class GraphRDFDescriptivePropertyChecker(entity: String)(implicit knowledgeGraph
       val highestPropertyCountWhereObject = GraphRDFDescriptivePropertyChecker.findMaxCount(propertiesWhereObject)
       val isSubject = highestPropertyCountWhereSubject._2 > highestPropertyCountWhereObject._2
       implicit val mustHaveProperty = if(isSubject) highestPropertyCountWhereSubject._1 else highestPropertyCountWhereObject._1
-      implicit val mustHavePropertyIsSubject = isSubject //TODO: Need a better scope...
+      implicit val mustHavePropertyIsSubject = isSubject
 
     }
     if (filterOnRdfType) {
       val propertiesWhereSubject = Await.result(entityIsSubjectStatments, 10 seconds)._2
       val propertiesWhereObject = Await.result(entityIsObjectStatements, 10 seconds)._2
-      QueryFactory.findOrderedCountForTypes(propertiesWhereSubject, propertiesWhereObject, numberOfComparableTypes)//TODO: FIx
+      QueryFactory.findOrderedCountForTypes(propertiesWhereSubject, propertiesWhereObject, numberOfComparableTypes)
         .take(numberOfComparableTypes)
     }else {
       statementsList.filter((s) => isType(s)).map(_._3)

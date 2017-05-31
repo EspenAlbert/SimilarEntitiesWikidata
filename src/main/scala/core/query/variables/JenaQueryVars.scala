@@ -28,19 +28,19 @@ object JenaQueryVars {
     var results = ListBuffer[String]()
     override def addResult(qs : QuerySolution): Unit =results.append(qs.getLiteral(varName).getString)
   }
-  case class LiteralIntVar(varName:String) extends QueryVar(varName:String){//TODO: Check error during concurrency
+  case class LiteralIntVar(varName:String) extends QueryVar(varName:String){
   var results= ListBuffer[Int]()
     override def addResult(qs : QuerySolution): Unit ={
       results.append(qs.getLiteral(varName).getInt)
     }
   }
-  case class LiteralIntOptionVar(varName:String) extends QueryVar(varName:String){//TODO: Check error during concurrency
+  case class LiteralIntOptionVar(varName:String) extends QueryVar(varName:String){
   var results= ListBuffer[Try[Int]]()
     override def addResult(qs : QuerySolution): Unit ={
       results.append(Try(qs.getLiteral(varName).getInt))
     }
   }
-  case class LiteralDoubleOptionVar(varName:String) extends QueryVar(varName:String){//TODO: Check error during concurrency
+  case class LiteralDoubleOptionVar(varName:String) extends QueryVar(varName:String){
   var results= ListBuffer[Try[Double]]()
     override def addResult(qs : QuerySolution): Unit ={
       results.append(Try(qs.getLiteral(varName).getDouble))

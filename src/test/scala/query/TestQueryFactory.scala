@@ -127,7 +127,6 @@ class TestQueryFactory extends FunSuite{
     val actuals = findOrderedCountForTypes(domainProps, rangeProps).take(10)
     expected.foreach(e => assert(actuals.contains(e)))
   }
-  //TODO: Move these tests
 //  test("objectsWithPropertyAndSubject", ActiveTag) {
 //    MyConfiguration.useMustHaveProperty = true
 //    ExpandNodeStrategy.mustHaveProperty = ringoStarr.performerProp

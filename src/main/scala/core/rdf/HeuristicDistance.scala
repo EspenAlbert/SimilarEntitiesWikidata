@@ -92,32 +92,4 @@ object HeuristicDistance {
     return None
   }
 
-  def findHeuristicDistance(a : String, b : String)(implicit knowledgeGraph: KnowledgeGraph): Try[Int] = {
-    val parentsA = QueryFactoryJena.parentsToParentIsType(a).toList
-    val parentsB = QueryFactoryJena.parentsToParentIsType(b).toList
-    Try {
-      val hiearchyLevelA = QueryFactoryJena.hierachyLevel(a).get
-      val hiearchyLevelB = QueryFactoryJena.hierachyLevel(b).get
-      val returnValue = (AskQuery.isParentOfChild(a, b), AskQuery.isParentOfChild(b, a)) match {
-        case (true, true) => 0
-        case (true, false) => 1
-        case (false, true) => 1
-        case (false, false) => findCommonParentsWithHeuristicDistances(hiearchyLevelA, hiearchyLevelB, parentsA, parentsB).minBy(_._2)._2
-      }
-      return Try(returnValue)
-    }
-  }
-  def findCommonParentsWithHeuristicDistances(hLevelA : Int, hLevelB : Int, parentsA : List[String], parentsB : List[String])(implicit knowledgeGraph: KnowledgeGraph): List[(String, Int)] = {
-    val commonParents = parentsA.filter(parentsB.contains(_))
-    val parentsLevelFromChildren =
-      for {
-        commonParent <- commonParents
-        hierarchyLevelParent <- QueryFactoryJena.hierachyLevel(commonParent)
-        lengthFromA = Math.abs(hierarchyLevelParent - hLevelA)//TODO: Have to refactor this to find a path between children and path, since types are not strictly following the hierarchy line, but this is expensive as fuck... Probably better to move up one level @ a time.
-        lengthFromB = Math.abs(hierarchyLevelParent - hLevelB)
-      }yield(commonParent, lengthFromA + lengthFromB)
-    return parentsLevelFromChildren
-
-  }
-
 }

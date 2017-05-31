@@ -45,5 +45,4 @@ class TestGraphRDFDescriptivePropertyChecker extends FunSuite{
 //    assert(ExpandNodeStrategy.mustHaveProperty == expected)
 //    assert(!ExpandNodeStrategy.mustHavePropertyIsSubject)
 //  }
-//TODO: FIx
 }
