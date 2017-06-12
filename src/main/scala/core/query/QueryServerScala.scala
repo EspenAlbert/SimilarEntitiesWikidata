@@ -13,14 +13,12 @@ object QueryServerScala {
   def query(ds: String, queryString: String, queryVars: QueryVar*): Unit = {
 
     val qexec = QueryExecutionFactory.sparqlService("http://localhost:3030/" + ds + "/query", queryString)
-    try {
-      val results = qexec.execSelect
-      while(results.hasNext){
-        val next = results.next()
-        queryVars.foreach(_.addResult(next))
-      }
+    val results = qexec.execSelect
+    while(results.hasNext){
+      val next = results.next()
+      queryVars.foreach(_.addResult(next))
     }
-    finally qexec.close()
+    qexec.close()
   }
   def decodeResultsQuerySolution(rs : QuerySolution) : (String, String) = {
     (rs.getResource("s").getURI,rs.getResource("s").getURI)

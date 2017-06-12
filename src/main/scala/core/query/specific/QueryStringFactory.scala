@@ -12,7 +12,7 @@ object QueryStringFactory {
     val typeProperty = KnowledgeGraphs.getTypeProperty(knowledgeGraph)
     val forceEntityType = s"?s <$typeProperty> <$domainType> ."
     s"""
-       |select ?s ?o
+       |select ?o ?s
        |where {
        |${if(!isCommonType) "" else s"?s <$property> ?o ."}
        |${if(isCommonType) s"filter exists {$forceEntityType}" else forceEntityType}

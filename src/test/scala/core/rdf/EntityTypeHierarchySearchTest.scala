@@ -1,7 +1,7 @@
 package core.rdf
 
 import core.globals.KnowledgeGraphs
-import core.testData.WikidataFactory
+import core.testData.{DBpediaFactory, WikidataFactory}
 import org.scalatest.FunSuite
 
 import scala.collection.mutable.ListBuffer
@@ -68,6 +68,14 @@ class EntityTypeHierarchySearchTest extends FunSuite {
     val similarTypesOverlapRequirement = searchWithPropertyOverlapRequirement.findAllEntityTypes()
     println(s"Size with overlap > 0.2 restriction restriction: ${similarTypesOverlapRequirement.size}")
 
+  }
+  test("result musical artist dbp"){
+    implicit val knowledgeGraph = KnowledgeGraphs.dbPedia
+    val dbp = DBpediaFactory
+    val searchFromMusicalArtist = new EntityTypeHierarchySearch(dbp.musicalArtist,1,1, false)
+    val foundEntities = searchFromMusicalArtist.findAllEntityTypes()
+    println(foundEntities)
+    println(foundEntities.size)
   }
 
 }

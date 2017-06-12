@@ -1,7 +1,7 @@
 package core.query.specific
 
 import core.globals.KnowledgeGraphs.KnowledgeGraph
-import core.globals.{MyDatasets, SimilarPropertyOntology}
+import core.globals.{KnowledgeGraphs, MyDatasets, SimilarPropertyOntology}
 import core.query.QueryServerScala
 import core.query.variables.JenaQueryVars._
 import org.apache.jena.query.QuerySolution
@@ -269,6 +269,7 @@ object QueryFactoryJena {
     val queryString = QueryStringFactory.allTypesForEntity(entity)
     val types = URIVar("t")
     QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, types)
+    if(knowledgeGraph == KnowledgeGraphs.dbPedia) return types.results.filter(_ != "http://www.w3.org/2004/02/skos/core#Concept").toList
     return types.results.toList
   }
   def distinctPropertiesWhereEntityIsObject(entity: String, distinct: Boolean = true)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= noChangeToQueryMethod): List[String] = {

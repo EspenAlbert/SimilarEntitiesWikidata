@@ -15,7 +15,7 @@ object ValueMatchCountFinder {
   def valueIsAPotentialValueMatchFindCount(value: String, property: String, valueIsSubject: Boolean, onlyGreaterThanCounts : Boolean = true)(implicit knowledgeGraph: KnowledgeGraph): Option[Int] = {
     if(!value.startsWith("http")) return None
     QueryFactory.getValueMatchFromExistingDb(value, property) match {
-      case Some(s) => return Some(s)
+      case Some(s) =>return Some(s)
       case None => {
 
         val countFromDs = if (!valueIsSubject) QueryFactory.findCountForPropertyWithValue(property, value) else

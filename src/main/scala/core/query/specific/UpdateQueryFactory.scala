@@ -80,7 +80,7 @@ insert { <$entityType> <${SimilarPropertyOntology.hierarchyLevel}> "$hierarchyLe
   }
   def updateValueCount(propertyAsFullString: String, entity: String, count: Int)(implicit knowledgeGraph: KnowledgeGraph) : Unit= {
     val prefix = KnowledgeGraphs.getDatasetEntityPrefix(knowledgeGraph)
-    if(!entity.startsWith(prefix)) return
+    if(!entity.startsWith(prefix) && count < 1000) return
     val insertQuery = s"insert { <$propertyAsFullString> <${SimilarPropertyOntology.valueMatchProperty}> [ <${SimilarPropertyOntology.valueMatchValue}> <$entity>;\n" +
       s"""<${SimilarPropertyOntology.valueMatchCount}> "$count"${ExternalURIs.datatypeInteger} ] } where {}"""
     val dataset = DatasetInferrer.getDataset(insertQuery)

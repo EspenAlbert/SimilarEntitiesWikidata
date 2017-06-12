@@ -14,6 +14,8 @@ object WikidataFactory {
   val domainCountGender = 1405976
   val rangeCountOccupation = 4792
   val domainCountTypes = 19709395
+  val entityCount = domainCountTypes
+
 
   implicit val knowledgeGraph = KnowledgeGraphs.wikidata
   val w = "http://www.wikidata.org/entity/"
@@ -39,6 +41,7 @@ object WikidataFactory {
   val qualifierProperties = List(w + "P39P1734q", w + "P18P580q")
   val qualifierGeoProperties = List(w + "P20P625qla", w + "P20P625qlo", w + "P885P625qla", w + "P885P625qlo")
   val geoProperties = List(w + "P625lo", w + "P625la", w + "P1333la", w + "P1333lo")
+
 
   val allProperties : List[String] = flattenList(List(
     ordinaryProperties,

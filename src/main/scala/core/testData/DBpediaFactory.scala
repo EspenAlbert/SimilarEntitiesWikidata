@@ -7,17 +7,25 @@ import core.globals._
 import core.testData.WikidataFactory.w
 object DBpediaFactory {
 
+
   val resource = "http://dbpedia.org/resource/"
   val ontology = "http://dbpedia.org/ontology/"
   val standardRdfType = "http://www.w3.org/2004/02/skos/core#Concept"
   val countDomainWikipageWikiLink = 12299137
-
+  val personCount= 502661
+  val totalEntityCountDBp = 6508074
   val obama: String = resource + "Barack_Obama"
+  val marcel = "http://dbpedia.org/resource/The_Marcels"
+  val bobbyVee = "http://dbpedia.org/resource/Bobby_Vee"
 
   val wales = new {
     val wikidataId = w + "Q25"
     val dbpediaId = resource + "Wales"
   }
+  val johnLennon = resource + "John_Lennon"
+  val musicalArtist: String = "http://dbpedia.org/ontology/MusicalArtist"
+  val painter = "http://dbpedia.org/ontology/Painter"
+  val person = ontology + "Person"
   val ringoStarr = new {
     val id = resource + "Ringo_Starr"
     val formerBandMemberProp = "http://dbpedia.org/ontology/formerBandMember"

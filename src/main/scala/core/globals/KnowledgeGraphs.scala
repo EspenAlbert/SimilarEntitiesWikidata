@@ -7,6 +7,7 @@ import core.testData.WikidataFactory
   * Created by espen on 02.05.17.
   */
 object KnowledgeGraphs extends Enumeration {
+
   def numberOfTypesWithMoreThan100Entities(knowledgeGraph: KnowledgeGraph): Int = knowledgeGraph match {//QueryFactoryJena.numberOfTypesWithPropertyDistributionLocally
     case KnowledgeGraphs.wikidata => 2473
     case KnowledgeGraphs.dbPedia => 366
@@ -37,7 +38,7 @@ object KnowledgeGraphs extends Enumeration {
     }
   }
 
-  val dbpResource = "http://dbpedia.org/resource/"
+  val dbpResource = "http://dbpedia.org/"
   val typePropertyWikidata =  "http://www.wikidata.org/entity/P31"
   val subclassOfPropertyWikidata = "http://www.wikidata.org/entity/P279"
 
@@ -76,4 +77,8 @@ object KnowledgeGraphs extends Enumeration {
   implicit def getString(knowledgeGraph: KnowledgeGraph) : String = {
     return knowledgeGraph.toString
   }
+  def getMainDataset(knowledgeGraph: KnowledgeGraph): String = {knowledgeGraph match {
+    case KnowledgeGraphs.wikidata => MyDatasets.dsWikidata
+    case KnowledgeGraphs.dbPedia=> MyDatasets.dsDBpedia
+  }}
 }
