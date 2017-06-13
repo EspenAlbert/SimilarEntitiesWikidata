@@ -7,6 +7,14 @@ import core.testData.WikidataFactory
   * Created by espen on 02.05.17.
   */
 object KnowledgeGraphs extends Enumeration {
+  type KnowledgeGraph = Value
+  val wikidata: KnowledgeGraph = Value("wikidata")
+  val dbPedia: KnowledgeGraph = Value("DBpedia")
+
+  val dbpResource = "http://dbpedia.org/"
+  val typePropertyWikidata =  "http://www.wikidata.org/entity/P31"
+  val subclassOfPropertyWikidata = "http://www.wikidata.org/entity/P279"
+
 
   def numberOfTypesWithMoreThan100Entities(knowledgeGraph: KnowledgeGraph): Int = knowledgeGraph match {//QueryFactoryJena.numberOfTypesWithPropertyDistributionLocally
     case KnowledgeGraphs.wikidata => 2473
@@ -38,13 +46,7 @@ object KnowledgeGraphs extends Enumeration {
     }
   }
 
-  val dbpResource = "http://dbpedia.org/"
-  val typePropertyWikidata =  "http://www.wikidata.org/entity/P31"
-  val subclassOfPropertyWikidata = "http://www.wikidata.org/entity/P279"
 
-  type KnowledgeGraph = Value
-  val wikidata: KnowledgeGraph = Value("wikidata")
-  val dbPedia: KnowledgeGraph = Value("DBpedia")
   def findDatasetForStoringStrategiesAndMetadata(knowledgeGraph: KnowledgeGraph) : String = {
     knowledgeGraph match {
       case KnowledgeGraphs.wikidata => return MyDatasets.strategyMappingWikidata

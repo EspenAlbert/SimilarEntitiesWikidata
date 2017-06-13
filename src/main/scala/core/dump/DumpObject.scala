@@ -16,51 +16,8 @@ import scala.collection.mutable
 
 object DumpObject {
 
-//  def dumpTriples(triples: List[Triple], filename: String): Unit = {
-//    val json = JacksMapper.writeValueAsString[List[Triple]](triples)
-//    val fullFilename: String = picklePath + filename + ".txt"
-//    FileUtils.write(new File(fullFilename), json)
-//  }
-//    def getTriples(filename: String): List[Triple] = {
-//    val json = FileUtils.readFileToString(new File(picklePath + filename + ".txt"))
-////      JacksMapper.
-//    return JacksMapper.readValue[List[Triple]](json)
-//  }
-def main(args: Array[String]): Unit = {
-  testJson()
-}
 
 
-  def testJson(): Unit= {
-    implicit val ordinaryTripleWrites = new Writes[OrdinaryStatement] {
-      def writes(ordinaryTriple: OrdinaryStatement) = Json.obj(
-        "subject" -> ordinaryTriple.subject,
-        "property" -> ordinaryTriple.property,
-        "objectValue" -> ordinaryTriple.objectValue
-      )
-    }
-//    implicit val writeVMs = Json.writes[VMTriple]
-//    val a = Json.toJson[List[Triple]](List(OrdinaryTriple("s","p","o"), VMTriple("s","p","o", ("a","b"), ("a", 1))))
-//    println(a)
-//    implicit val readO = Json.reads[OrdinaryTriple]
-//    implicit val readV = Json.reads[VMTriple]
-//    val parsed = Json.parse(a.toString())
-//    val b = parsed.as[List[Any]]
-//    println(b)
-
-
-  }
-
-
-
-  def dumpListNewWay(l: List[ResultStatement]) : Unit= {
-    val filename = picklePath + "test-triple-dump2.txt"
-    val json = JacksMapper.writeValueAsString(l)
-    FileUtils.write(new File(filename), json)
-    val readFromFile = FileUtils.readFileToString(new File(filename))
-    val v= JacksMapper.readValue[List[ResultStatement]](readFromFile)
-    println(v)
-  }
 
   def dumpMap[T:Manifest, U:Manifest](m : Map[T, U], filename: String) = {
     val json = JacksMapper.writeValueAsString[Map[T, U]](m)
@@ -83,11 +40,6 @@ def main(args: Array[String]): Unit = {
     return JacksMapper.readValue[List[T]](json)
  }
 
-  def dumpMapStringBoolean(dumpObject: Map[String, Boolean], filename: String) = {
-    val json = JacksMapper.writeValueAsString[Map[String, Boolean]](dumpObject)
-    val fullFilename: String = picklePath + filename + ".txt"
-    FileUtils.write(new File(fullFilename), json)
-  }
   def getMapStringBoolean(filename: String): Map[String, Boolean] = {
     val json = FileUtils.readFileToString(new File(picklePath + filename + ".txt"))
     return JacksMapper.readValue[Map[String, Boolean]](json)

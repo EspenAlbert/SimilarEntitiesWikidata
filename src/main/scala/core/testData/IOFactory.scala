@@ -35,7 +35,7 @@ object IOFactory {
       case Failure(_) => {
         val (properties, isDescriptive) = QueryFactory.findIsDescriptive()
         val mapped = properties.zip(isDescriptive).toMap
-        DumpObject.dumpMapStringBoolean(mapped, filenamePropToIsDescriptive)
+        DumpObject.dumpMap[String, Boolean](mapped, filenamePropToIsDescriptive)
         return mapped
       }
     }

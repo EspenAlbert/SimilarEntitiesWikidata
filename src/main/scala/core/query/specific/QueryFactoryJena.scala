@@ -4,10 +4,7 @@ import core.globals.KnowledgeGraphs.KnowledgeGraph
 import core.globals.{KnowledgeGraphs, MyDatasets, SimilarPropertyOntology}
 import core.query.QueryServerScala
 import core.query.variables.JenaQueryVars._
-import org.apache.jena.query.QuerySolution
-
 import scala.collection.immutable
-import scala.collection.mutable.ListBuffer
 import scala.util.Try
 
 /**
