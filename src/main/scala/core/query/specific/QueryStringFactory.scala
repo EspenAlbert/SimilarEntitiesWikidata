@@ -11,11 +11,12 @@ object QueryStringFactory {
   def objectsWithSubjectOfEntityTypeForProperty(property: String, domainType: String, isCommonType: Boolean)(implicit knowledgeGraph: KnowledgeGraph) : String = {
     val typeProperty = KnowledgeGraphs.getTypeProperty(knowledgeGraph)
     val forceEntityType = s"?s <$typeProperty> <$domainType> ."
+//       |${if(isCommonType) s"filter exists {$forceEntityType}" else forceEntityType}
     s"""
        |select ?o ?s
        |where {
        |${if(!isCommonType) "" else s"?s <$property> ?o ."}
-       |${if(isCommonType) s"filter exists {$forceEntityType}" else forceEntityType}
+       |$forceEntityType
        |${if (!isCommonType) s"?s <$property> ?o ." else  ""}
        |}
      """.stripMargin
@@ -24,11 +25,12 @@ object QueryStringFactory {
   def subjectsWithObjectsOfEntityTypeForProperty(property: String, rangeType: String, isCommonType: Boolean)(implicit knowledgeGraph: KnowledgeGraph) : String = {
     val typeProperty = KnowledgeGraphs.getTypeProperty(knowledgeGraph)
     val forceEntityType = s"?o <$typeProperty> <$rangeType> ."
+//       |${if(isCommonType) s"filter exists {$forceEntityType}" else forceEntityType}
     s"""
        |select ?s ?o
        |where {
        |${if(!isCommonType) "" else s"?s <$property> ?o ."}
-       |${if(isCommonType) s"filter exists {$forceEntityType}" else forceEntityType}
+       |$forceEntityType
        |${if(!isCommonType) s"?s <$property> ?o ." else ""}
        |}
      """.stripMargin
