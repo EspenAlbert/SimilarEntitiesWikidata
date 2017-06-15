@@ -4,7 +4,7 @@ import core.globals.{KnowledgeGraphs, MyDatasets}
 import core.query.ValueMatchCountFinder
 import core.query.specific.{AskQuery, QueryFactory, QueryFactoryJena, UpdateQueryFactory}
 import core.rdf.TypeCounter
-import core.testData.WikidataFactory
+import core.testData.{DBpediaFactory, WikidataFactory}
 import org.scalatest.FunSuite
 
 /**
@@ -182,6 +182,12 @@ class TestQueryFactoryJena extends FunSuite{
     val actual = QueryFactoryJena.objectsWithSubjectOfEntityTypeForProperty(wd.ringoStarr.memberOfProp, wd.human, true)
     assert(actual.contains((wd.ringoStarr.id,wd.ringoStarr.memberOfValue)))
     assert(actual.size > 1000)
+  }
+  test("distinct properties where entity is object") {
+    implicit val knowledgeGraph = KnowledgeGraphs.dbPedia
+    val dbp = DBpediaFactory
+    val properties = QueryFactoryJena.distinctPropertiesWhereEntityIsObject(dbp.johnLennon)
+    println(properties)
   }
 
 

@@ -17,6 +17,8 @@ object DBpediaFactory {
   val obama: String = resource + "Barack_Obama"
   val marcel = "http://dbpedia.org/resource/The_Marcels"
   val bobbyVee = "http://dbpedia.org/resource/Bobby_Vee"
+  val beatles  = resource + "The_Beatles"
+  val wikipageWikiLink = "http://dbpedia.org/ontology/wikiPageWikiLink"
 
   val wales = new {
     val wikidataId = w + "Q25"

@@ -1,7 +1,7 @@
 package core.query.specific
 
 import core.globals.KnowledgeGraphs.KnowledgeGraph
-import core.globals.{KnowledgeGraphs, MyDatasets, SimilarPropertyOntology}
+import core.globals.{KnowledgeGraphs}
 import core.query.QueryServerScala
 import core.query.variables.JenaQueryVars._
 import scala.collection.immutable
@@ -272,7 +272,7 @@ object QueryFactoryJena {
   def distinctPropertiesWhereEntityIsObject(entity: String, distinct: Boolean = true)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= noChangeToQueryMethod): List[String] = {
     val qString = adjustQuery(QueryStringFactory.distinctPropertiesWhereObject(entity, distinct))
     val properties = URIVar("p")
-    QueryServerScala.query(MyDatasets.dsWikidata, qString, properties)
+    QueryServerScala.query(DatasetInferrer.getDataset(qString), qString, properties)
     return properties.results.toList
   }
   def parentsTo(entity : String)(implicit knowledgeGraph: KnowledgeGraph) : Iterable[String] = {
