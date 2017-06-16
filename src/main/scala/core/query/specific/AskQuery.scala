@@ -21,14 +21,14 @@ object AskQuery {
 //    val ds = DatasetInferrer.getDataset()
 //  }
 
-  def existsValueMatchForProperty(property: String)(implicit knowledgeGraph: KnowledgeGraph): Boolean = {
+  def existsValueMatchForPropertyWithCountGreaterThan(property: String, threshold: Int = 1000)(implicit knowledgeGraph: KnowledgeGraph): Boolean = {
     val askQuery =
       s"""
          |ask
          |WHERE {
          |  <$property> <${SimilarPropertyOntology.valueMatchProperty}> ?o .
          |  ?o <${SimilarPropertyOntology.valueMatchCount}> ?c .
-         |  filter(?c > 1000)
+         |  filter(?c > $threshold)
          |}
         """.stripMargin
     return QueryLocalServer.ask(askQuery, DatasetInferrer.getDataset(askQuery))

@@ -8,30 +8,30 @@ import core.query.specific.QueryFactory.executeQuery
   * Created by espen on 02.05.17.
   */
 object QueryStringFactory {
-  def objectsWithSubjectOfEntityTypeForProperty(property: String, domainType: String, isCommonType: Boolean)(implicit knowledgeGraph: KnowledgeGraph) : String = {
+  def objectsWithSubjectOfEntityTypeForProperty(property: String, domainType: String, propertyHasLowCount: Boolean)(implicit knowledgeGraph: KnowledgeGraph) : String = {
     val typeProperty = KnowledgeGraphs.getTypeProperty(knowledgeGraph)
     val forceEntityType = s"?s <$typeProperty> <$domainType> ."
-//       |${if(isCommonType) s"filter exists {$forceEntityType}" else forceEntityType}
+    val subjectAndObjectsOfProperty = s"?s <$property> ?o ."
     s"""
        |select ?o ?s
        |where {
-       |${if(!isCommonType) "" else s"?s <$property> ?o ."}
-       |$forceEntityType
-       |${if (!isCommonType) s"?s <$property> ?o ." else  ""}
+       |${if(propertyHasLowCount) {
+      s"$subjectAndObjectsOfProperty \n $forceEntityType"}
+        else s"$forceEntityType \n$subjectAndObjectsOfProperty"}
        |}
      """.stripMargin
   }
 
-  def subjectsWithObjectsOfEntityTypeForProperty(property: String, rangeType: String, isCommonType: Boolean)(implicit knowledgeGraph: KnowledgeGraph) : String = {
+  def subjectsWithObjectsOfEntityTypeForProperty(property: String, rangeType: String, propertyHasLowCount: Boolean)(implicit knowledgeGraph: KnowledgeGraph) : String = {
     val typeProperty = KnowledgeGraphs.getTypeProperty(knowledgeGraph)
     val forceEntityType = s"?o <$typeProperty> <$rangeType> ."
-//       |${if(isCommonType) s"filter exists {$forceEntityType}" else forceEntityType}
+    val subjectAndObjectsOfProperty = s"?s <$property> ?o ."
     s"""
        |select ?s ?o
        |where {
-       |${if(!isCommonType) "" else s"?s <$property> ?o ."}
-       |$forceEntityType
-       |${if(!isCommonType) s"?s <$property> ?o ." else ""}
+       |${if(propertyHasLowCount) {
+      s"$subjectAndObjectsOfProperty\n $forceEntityType"
+    } else s"$forceEntityType \n $subjectAndObjectsOfProperty"}
        |}
      """.stripMargin
   }

@@ -174,7 +174,7 @@ class TestQueryFactoryJena extends FunSuite{
     val expectedSubject = wd.ringoStarr.id
     val expectedSubjectObjectValue = wd.ringoStarr.memberOfValue
     val expectedSubjectCount = 200
-    val actual = QueryFactoryJena.subjectsWithObjectsOfEntityTypeForProperty(wd.ringoStarr.memberOfProp, wd.rockBand, isCommonType = false)
+    val actual = QueryFactoryJena.subjectsWithObjectsOfEntityTypeForProperty(wd.ringoStarr.memberOfProp, wd.rockBand, propertyHasLowCount = false)
     assert(actual.contains((expectedSubject, expectedSubjectObjectValue)))
     assert(actual.size > expectedSubjectCount)
   }
