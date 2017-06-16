@@ -189,6 +189,10 @@ class TestQueryFactoryJena extends FunSuite{
     val properties = QueryFactoryJena.distinctPropertiesWhereEntityIsObject(dbp.johnLennon)
     println(properties)
   }
+  test("distinct properties where entity is object wikidata ") {
+    val properties = QueryFactoryJena.distinctPropertiesWhereEntityIsObject(wd.ringoStarr.id)
+    println(properties)
+  }
 
 
 }
