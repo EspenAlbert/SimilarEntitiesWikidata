@@ -32,9 +32,16 @@ object ResultsSimilarArtistsGlobals extends Enumeration{
   val featureFound = Value("http://www.espenalbert.com/rdf/resultsSimilarArtists#featureFound")
   val featurePath= Value("http://www.espenalbert.com/rdf/resultsSimilarArtists#featurePath")
   val expectedSimilar= Value("http://www.espenalbert.com/rdf/resultsSimilarArtists#expectedSimilar")
+  val relevantRelationshipsCount= Value("http://www.espenalbert.com/rdf/resultsSimilarArtists#relevantRelationshipsCount")
+  val totalRelationshipsCount= Value("http://www.espenalbert.com/rdf/resultsSimilarArtists#totalRelationshipsCount")
+  val runNamePrefix = Value("http://www.espenalbert.com/rdf/resultsSimilarArtists#runNamePrefix/")
 
   implicit def getStringFromOptionsForResultQueryVariable(similarPropertyOntology: ResultsSimilarArtistGlobals) : String = {
     return similarPropertyOntology.toString
+  }
+  def getRunURIFromName(runName: String) : String= {
+    val runURI = s"""${ResultsSimilarArtistsGlobals.runNamePrefix}$runName"""
+    runURI
   }
 
 

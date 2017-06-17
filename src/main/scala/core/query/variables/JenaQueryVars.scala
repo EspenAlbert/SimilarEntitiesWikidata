@@ -24,6 +24,10 @@ object JenaQueryVars {
     var results = ListBuffer[String]()
     override def addResult(qs : QuerySolution): Unit =results.append(qs.getResource(varName).getURI)
   }
+  case class URIVarOptional(varName:String) extends QueryVar(varName:String) {
+    var results = ListBuffer[Try[String]]()
+    override def addResult(qs : QuerySolution): Unit =results.append(Try(qs.getResource(varName).getURI))
+  }
   case class LiteralStringVar(varName:String) extends QueryVar(varName:String) {
     var results = ListBuffer[String]()
     override def addResult(qs : QuerySolution): Unit =results.append(qs.getLiteral(varName).getString)

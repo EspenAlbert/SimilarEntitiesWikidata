@@ -23,7 +23,7 @@ class TestUpdateQueryFactory extends FunSuite{
     assert(AskQuery.ask(() => statement) == false)
   }
   test("clean dataset") {
-    cleanDataset(MyDatasets.dsWikidata)
+    cleanDataset(MyDatasets.resultsSimilarArtists)
   }
   test("addIsDescriptive") {
     implicit val knowledgeGraph = KnowledgeGraphs.wikidata
