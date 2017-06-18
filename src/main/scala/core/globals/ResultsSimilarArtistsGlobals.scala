@@ -40,8 +40,10 @@ object ResultsSimilarArtistsGlobals extends Enumeration{
     return similarPropertyOntology.toString
   }
   def getRunURIFromName(runName: String) : String= {
-    val runURI = s"""${ResultsSimilarArtistsGlobals.runNamePrefix}$runName"""
-    runURI
+    if(runName.startsWith("http")) runName else {
+      val runURI = s"""${ResultsSimilarArtistsGlobals.runNamePrefix}$runName"""
+      runURI
+    }
   }
 
 
