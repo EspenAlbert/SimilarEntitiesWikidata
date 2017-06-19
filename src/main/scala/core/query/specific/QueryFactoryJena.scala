@@ -11,6 +11,31 @@ import scala.util.Try
   * Created by espen on 03.05.17.
   */
 object QueryFactoryJena {
+
+  def objectsConnectedToSubjectCount(subject: String)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= noChangeToQueryMethod): Int = {
+    val queryString = adjustQuery(QueryStringFactory.objectsConnectedToSubject(subject))
+    val queryStringCount = queryString.replace("select distinct ?o", "select (count(distinct ?o) as ?c)")
+    performCountQuery(queryStringCount)
+  }
+  def objectsConnectedToSubject(subject: String)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= noChangeToQueryMethod): List[String] = {
+    val queryString = adjustQuery(QueryStringFactory.objectsConnectedToSubject(subject))
+    val objects = URIVar("o")
+    QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, objects)
+    return objects.results.toList
+
+  }
+  def subjectsConnectedToObjectCount(objectValue: String)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= noChangeToQueryMethod): Int = {
+    val queryString = adjustQuery(QueryStringFactory.subjectsConnectedToObject(objectValue))
+    val queryStringCount = queryString.replace("select distinct ?s", "select (count(distinct ?s) as ?c)")
+    performCountQuery(queryStringCount)
+  }
+  def subjectsConnectedToObject(objectValue: String)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= noChangeToQueryMethod): List[String] = {
+    val queryString = adjustQuery(QueryStringFactory.subjectsConnectedToObject(objectValue))
+    val subjects = URIVar("s")
+    QueryServerScala.query(DatasetInferrer.getDataset(queryString), queryString, subjects)
+    return subjects.results.toList
+  }
+
   def objectsWithSubjectOfEntityTypeForProperty(property: String, domainType: String, propertyHasLowCount: Boolean)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= noChangeToQueryMethod): List[(String, String)] = {
     val queryString = adjustQuery(QueryStringFactory.objectsWithSubjectOfEntityTypeForProperty(property, domainType, propertyHasLowCount))
     val subjects = URIVar("s")

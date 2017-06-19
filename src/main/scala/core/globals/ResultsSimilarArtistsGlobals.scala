@@ -45,6 +45,7 @@ object ResultsSimilarArtistsGlobals extends Enumeration{
       runURI
     }
   }
+  val noProperty = "NoProperty"
 
 
 }

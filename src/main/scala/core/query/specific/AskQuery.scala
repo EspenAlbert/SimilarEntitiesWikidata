@@ -33,6 +33,19 @@ object AskQuery {
         """.stripMargin
     return QueryLocalServer.ask(askQuery, DatasetInferrer.getDataset(askQuery))
   }
+  def existsValueMatchForEntityWithCountGreaterThan(entity: String, threshold: Int = 10000)(implicit knowledgeGraph: KnowledgeGraph): Boolean = {
+    val askQuery =
+      s"""
+         |ask
+         |WHERE {
+         |  ?p <${SimilarPropertyOntology.valueMatchProperty}> ?o .
+         |  ?o <${SimilarPropertyOntology.valueMatchValue}> <$entity> .
+         |  ?o <${SimilarPropertyOntology.valueMatchCount}> ?c .
+         |  filter(?c > $threshold)
+         |}
+        """.stripMargin
+    return QueryLocalServer.ask(askQuery, DatasetInferrer.getDataset(askQuery))
+  }
 
   def isParentOfChild(potentialParent: String, child: String)(implicit knowledgeGraph: KnowledgeGraph) : Boolean = {
     val askQuery = s"ask where { <$child> <${KnowledgeGraphs.getSubclassProperty(knowledgeGraph)}> <$potentialParent> }"

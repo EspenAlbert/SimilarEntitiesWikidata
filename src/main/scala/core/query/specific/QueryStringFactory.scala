@@ -8,6 +8,25 @@ import core.query.specific.QueryFactory.executeQuery
   * Created by espen on 02.05.17.
   */
 object QueryStringFactory {
+  def subjectsConnectedToObject(objectValue: String): String = {
+    s"""
+       |select distinct ?s
+       |where {
+       |  ?s ?p <$objectValue> .
+       |}
+     """.stripMargin
+  }
+
+  def objectsConnectedToSubject(subject: String): String = {
+    s"""
+       |select distinct ?o
+       |where {
+       |  <$subject> ?p ?o .
+       |  filter (isUri(?o))
+       |}
+     """.stripMargin
+  }
+
   def objectsWithSubjectOfEntityTypeForProperty(property: String, domainType: String, propertyHasLowCount: Boolean)(implicit knowledgeGraph: KnowledgeGraph) : String = {
     val typeProperty = KnowledgeGraphs.getTypeProperty(knowledgeGraph)
     val forceEntityType = s"?s <$typeProperty> <$domainType> ."

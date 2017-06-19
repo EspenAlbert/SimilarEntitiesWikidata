@@ -47,6 +47,11 @@ class TestAskQueryWikidata extends FunSuite{
     assert(existsValueMatchForPropertyWithCountGreaterThan(wd.ringoStarr.countryOfCitizenShipProperty))
     assert(!existsValueMatchForPropertyWithCountGreaterThan(wd.ringoStarr.performerProp))
   }
+  test("existValueMatchForEntity") {
+    val wd = WikidataFactory
+    assert(existsValueMatchForEntityWithCountGreaterThan(wd.ringoStarr.countryOfCitizenShipValue))
+    assert(!existsValueMatchForEntityWithCountGreaterThan(wd.ringoStarr.id))
+  }
 
 
 }

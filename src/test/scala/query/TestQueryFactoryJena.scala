@@ -193,6 +193,15 @@ class TestQueryFactoryJena extends FunSuite{
     val properties = QueryFactoryJena.distinctPropertiesWhereEntityIsObject(wd.ringoStarr.id)
     println(properties)
   }
+  test("Ringo starr should be connected to the shine silently and vice versa... with counts!") {
+    val objectsForShineSilently = QueryFactoryJena.objectsConnectedToSubject(wd.ringoStarr.performerSubject1)
+    assert(objectsForShineSilently.contains(wd.ringoStarr.id))
+    val subjectsOfRingoStarr = QueryFactoryJena.subjectsConnectedToObject(wd.ringoStarr.id)
+    assert(subjectsOfRingoStarr.contains(wd.ringoStarr.performerSubject1))
+    val objectsCount = QueryFactoryJena.objectsConnectedToSubjectCount(wd.ringoStarr.performerSubject1)
+    val subjectsOfRingoStarrCount = QueryFactoryJena.subjectsConnectedToObjectCount(wd.ringoStarr.id)
+    assert(subjectsOfRingoStarrCount > objectsCount)
+  }
 
 
 }
