@@ -23,6 +23,7 @@ class IOFactoryTest extends FunSuite {
     val gRdftRStarr = new GraphRDF(wd.ringoStarr.id)
     val props = gRdftRStarr.statementsList.map(_._2)
     assert(props.forall(domainCounts.contains))
+    println(domainCounts.size)
   }
 
 }

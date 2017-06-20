@@ -202,6 +202,16 @@ class TestQueryFactoryJena extends FunSuite{
     val subjectsOfRingoStarrCount = QueryFactoryJena.subjectsConnectedToObjectCount(wd.ringoStarr.id)
     assert(subjectsOfRingoStarrCount > objectsCount)
   }
+  test("Count of Subjects which are members of a rock band")  {
+    val actual = QueryFactoryJena.subjectsWithObjectsOfEntityTypeForPropertyCount(wd.ringoStarr.memberOfProp, wd.rockBand)
+    assert(actual > 800)
+    println(actual)
+  }
+  test("Count of rock bands who has performed a song")  {
+    val actual = QueryFactoryJena.objectsWithSubjectOfEntityTypeForPropertyCount(wd.ringoStarr.performerProp, wd.album)
+    assert(actual > 100)
+    println(actual)
+  }
 
 
 }
