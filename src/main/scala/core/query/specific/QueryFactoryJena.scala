@@ -1,9 +1,10 @@
 package core.query.specific
 
 import core.globals.KnowledgeGraphs.KnowledgeGraph
-import core.globals.{KnowledgeGraphs}
+import core.globals.{KnowledgeGraphs, MyDatasets}
 import core.query.QueryServerScala
 import core.query.variables.JenaQueryVars._
+
 import scala.collection.immutable
 import scala.util.Try
 
@@ -11,6 +12,12 @@ import scala.util.Try
   * Created by espen on 03.05.17.
   */
 object QueryFactoryJena {
+  def dummyQuery(): List[String] = {
+    val s = URIVar("s")
+    QueryServerScala.query(MyDatasets.dsWikidata, "select ?s ?p ?o where {?s ?p ?o} LIMIT 1",s)
+    return s.results.toList
+  }
+
 
   def objectsConnectedToSubjectCount(subject: String)(implicit knowledgeGraph: KnowledgeGraph, adjustQuery: String => String= noChangeToQueryMethod): Int = {
     val queryString = adjustQuery(QueryStringFactory.objectsConnectedToSubject(subject))
@@ -36,8 +43,8 @@ object QueryFactoryJena {
     return subjects.results.toList
   }
 
-  def objectsWithSubjectOfEntityTypeForPropertyCount(property: String, domainType: String)(implicit knowledgeGraph: KnowledgeGraph):Int = {
-    val queryString = QueryStringFactory.objectsWithSubjectOfEntityTypeForProperty(property, domainType, propertyHasLowCount=false)
+  def objectsWithSubjectOfEntityTypeForPropertyCount(property: String, domainType: String, propertyHasLowCount: Boolean = false)(implicit knowledgeGraph: KnowledgeGraph):Int = {
+    val queryString = QueryStringFactory.objectsWithSubjectOfEntityTypeForProperty(property, domainType, propertyHasLowCount=propertyHasLowCount)
     val adjustedQuery = queryString.replace("select ?o ?s", "select (count (distinct ?o) as ?c)")
     performCountQuery(adjustedQuery)
   }
@@ -49,8 +56,8 @@ object QueryFactoryJena {
     return (subjects.results zip objects.results).toList
   }
 
-  def subjectsWithObjectsOfEntityTypeForPropertyCount(property: String, rangeType: String)(implicit knowledgeGraph: KnowledgeGraph): Int = {
-    val queryString = QueryStringFactory.subjectsWithObjectsOfEntityTypeForProperty(property, rangeType, propertyHasLowCount = false)
+  def subjectsWithObjectsOfEntityTypeForPropertyCount(property: String, rangeType: String, propertyHasLowCount: Boolean = false)(implicit knowledgeGraph: KnowledgeGraph): Int = {
+    val queryString = QueryStringFactory.subjectsWithObjectsOfEntityTypeForProperty(property, rangeType, propertyHasLowCount = propertyHasLowCount)
     val adjustedQuery = queryString.replace("select ?s ?o", "select (count (distinct ?s) as ?c)")
     performCountQuery(adjustedQuery)
   }
